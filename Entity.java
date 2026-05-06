@@ -50,10 +50,37 @@ public class Entity {
         }
     }
 
+    public void setObject(int objectType) {
+        if (objectType == 3) {
+            this.isFood = true;
+            this.isObstacle = false;
+            this.isCharacter = false;
+        } 
+        else if (objectType == 2) {
+            this.isFood = false;
+            this.isObstacle = true;
+            this.isCharacter = false;
+        } 
+        else if (objectType == 1) {
+            this.isFood = false;
+            this.isObstacle = false;
+            this.isCharacter = true;
+        } 
+        else {
+            this.isFood = false;
+            this.isObstacle = false;
+            this.isCharacter = false;
+        }
+    }
+
     /* 
      * Returns the name of the entity.
      */
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
