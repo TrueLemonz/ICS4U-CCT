@@ -80,6 +80,9 @@ public class Entity {
         return name;
     }
 
+    /*
+     * Changes name of entity.
+     */
     public void setName(String name) {
         this.name = name;
     }
