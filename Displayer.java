@@ -21,7 +21,7 @@ public class Displayer {
         return String.format("%" + leftSpaces + "s%s%" + rightSpaces + "s", "", text, "");
     }
 
-    // Preserved the original method, now utilizing centerString for efficiency
+    // print 
     public static void centerPrint(String text, int width) {
         System.out.println(centerString(text, width));
     }
@@ -34,7 +34,7 @@ public class Displayer {
         for (int i = 0; i < grid.length; i++) {
             Block[] row = grid[i];
 
-            // Pass 1: Render top padding for the entire row
+            // 1: Render top padding for the entire row
             for (int k = 0; k < CELL_PADDING_Y; k++) {
                 for (int j = 0; j < row.length; j++) {
                     System.out.print("|" + centerString("", CELL_WIDTH));
@@ -42,7 +42,7 @@ public class Displayer {
                 System.out.print("|\n");
             }
 
-            // Pass 2: Render content for the entire row
+            // 2: Render content for the entire row
             for (int j = 0; j < row.length; j++) {
                 Block b = row[j];
 
@@ -63,7 +63,7 @@ public class Displayer {
             }
             System.out.print("|\n");
 
-            // Pass 3: Render bottom padding for the entire row
+            // 3: Render bottom padding for the entire row
             for (int k = 0; k < CELL_PADDING_Y; k++) {
                 for (int j = 0; j < row.length; j++) {
                     System.out.print("|" + centerString("", CELL_WIDTH));
