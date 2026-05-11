@@ -78,14 +78,7 @@ public abstract class Character extends Entity {
         return Math.max(x, y) <= range;
     }
     public boolean CheckRange()
-    public abstract boolean Special(Character target, Block[][] grid);
-    public abstract boolean Special(Character target);
-    public abstract void Special();
-    public abstract boolean Ability1(Character target, Block[][] grid);
-    public abstract boolean Ability1(Character target);
-    public abstract void Ability1();
-    public abstract boolean Ability2(Character target, Block[][] grid);
-    public abstract boolean Ability2(Character target);
-    public abstract boolean Ability2();
-
+    public abstract boolean performSpecial(ActionContext context);
+    public abstract boolean performAbility1(ActionContext context);
+    public abstract boolean performAbility2(ActionContext context);
 }
