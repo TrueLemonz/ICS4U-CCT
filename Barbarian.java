@@ -1,3 +1,4 @@
+public class Barbarian extends Warrior {
     public Barbarian() {
         super();
         this.spdMod = 2;
@@ -115,12 +116,6 @@
         ApplyStats();
         return false;
     }
-
-<<<<<<< HEAD
-    public Barbarian() {}
-
-    
-=======
     public boolean Ability1 (Character target, Block[][] grid) {
         if ( CheckRange(1, target) ) {
             target.SetHealth(target.GetHealth() - this.attack * 4);
@@ -128,5 +123,4 @@
         }
         return false;
     }
->>>>>>> a0f641904579e5451fde3522ab6b100e1f3eb06a
 }
