@@ -6,12 +6,12 @@ public abstract class Character extends Entity {
     public double spd, intl, atk, spr, hlt, spp;
     // These are the modifiers that each character has, specific to itself.
     public int spdMod, intlMod, atkMod, sprMod, hltMod, sppMod;
-    int[] position = new int[2];
     public double currHealth;
     
     public Character() {}
 
     public Character(int spd, int intl, int atk, int spr, int hlt, int spp) {
+        super();
         this.spd = spd;
         this.intl = intl;
         this.atk = atk;
@@ -44,11 +44,6 @@ public abstract class Character extends Entity {
         }
         return false;
     }
-    // Getter method for position of character on the 2D array
-    // First block is the x-coordinate, second is y
-    public int[] GetPosition() {
-        return this.position;
-    }
     public boolean SetPosition(int[] coordinates, Block[][] grid) {
         int x = coordinates[0];
         int y = coordinates[1];
@@ -77,8 +72,7 @@ public abstract class Character extends Entity {
 
         return Math.max(x, y) <= range;
     }
-    public boolean CheckRange()
-    public abstract boolean performSpecial(ActionContext context);
-    public abstract boolean performAbility1(ActionContext context);
-    public abstract boolean performAbility2(ActionContext context);
+    public abstract boolean Special(ActionContext context);
+    public abstract boolean Ability1(ActionContext context);
+    public abstract boolean Ability2(ActionContext context);
 }

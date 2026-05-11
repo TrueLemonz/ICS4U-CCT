@@ -3,6 +3,7 @@ public class Entity {
     private boolean isFood;
     private boolean isObstacle;
     private boolean isCharacter;
+    int[] position = new int[2];
 
     public Entity(String name, boolean isFood, boolean isObstacle, boolean isCharacter) {
         this.name = name;
@@ -73,6 +74,10 @@ public class Entity {
         }
     }
 
+    public int[] GetPosition() {
+        return this.position;
+    }
+
     /* 
      * Returns the name of the entity.
      */
@@ -87,8 +92,8 @@ public class Entity {
         this.name = name;
     }
     public boolean CheckRange(int range, Character target) {
-        int[] targetPos = target.getPosition();
-        int[] myPos = this.getPosition();
+        int[] targetPos = target.GetPosition();
+        int[] myPos = this.GetPosition();
 
         int x = Math.abs(targetPos[0] - myPos[0]);
         int y = Math.abs(targetPos[1] - myPos[1]);

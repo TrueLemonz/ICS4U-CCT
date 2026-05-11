@@ -14,23 +14,24 @@ public class Guardian extends Character {
         this.spp += this.sppMod;
     }
 
-    public boolean Special(Block[][] grid, Obstacle obstacle, int x, int y) {
-        if ( grid[x][y].getEntity().getObject() == 0) {
-            grid[x][y] = new Block(obstacle);
+    public boolean Special(ActionContext context) {
+        if ( context.getGrid()[context.getPosX()][context.getPosY()].getEntity().getObject() == 0) {
+            context.getGrid()[context.getPosX()][context.getPosY()] = new Block(new Obstacle());
             return true;
         }
         else {
             return false;
         }
     }
-
-    public void Ability1() {
+    // had to change from void to boolean because I simplified the methods earlier
+    public boolean Ability1(ActionContext context) {
         this.hlt++;
         this.spd--;
         ApplyStats();
+        return true;
     }
 
-    public boolean Ability2() {
+    public boolean Ability2(ActionContext context) {
         if (1.1 * this.currHealth <= health ) {
             this.currHealth *= 1.1;
             return true;

@@ -1,10 +1,27 @@
 public class ActionContext {
     private Character target;
     private Block[][] grid;
+    private int posx, posy;
 
     public ActionContext(Character target, Block[][] grid) {
         this.target = target;
         this.grid = grid;
+        this.posx = 0;
+        this.posy = 0;
+    }
+
+    public ActionContext(int x, int y, Character target, Block[][] grid) {
+        this.target = target;
+        this.grid = grid;
+        this.posx = x;
+        this.posy = y;
+    }
+
+    public ActionContext(Character target) {
+        this.target = target;
+        this.grid = null;
+        this.posx = 0;
+        this.posy = 0;
     }
 
     public Character getTarget() {
