@@ -1,14 +1,6 @@
 public class Barbarian extends Character {
+    private double missingHPBonus = 1.1 * Math.log (this.currHealth) (this.health );
     public Barbarian() {
-        super();
-        this.spdMod = 2;
-        this.intlMod = -1;
-        this.atkMod = 8;
-        this.sprMod = 1;
-        this.hltMod = -2;
-        this.sppMod = 0;
-    }
-    public Barbarian(int spd, int intl, int atk, int spr, int hlt, int spp) {
         super();
         this.spdMod = 2;
         this.intlMod = -1;
@@ -18,17 +10,18 @@ public class Barbarian extends Character {
         this.sppMod = 0;
         this.spd += this.spdMod ;
         this.intl += this.intlMod;
-        this.atk += this.atkMod;
+        this.atk += this.atkMod 
         this.spr += this.sprMod;
         this.hlt += this.hltMod;
         this.spp += this.sppMod;
+
     }
     // Picks up character, throws them behind
     public boolean Special(Character target, Block[][] grid) {
         if (CheckRange(1, target)) {
             int[] targetPos = target.GetPosition();
             int[] myPos = this.GetPosition();
-        
+
             // Performs special vertically
             // Checks that the barbarian is not at the top or bottom of the grid, or he'll throw the target out of the grid
             if (this.GetPosition()[1] == 0 || this.GetPosition()[1] == grid.length - 1) {
@@ -122,5 +115,8 @@ public class Barbarian extends Character {
             return true;
         }
         return false;
+    }
+    private void ApplyPassive() {
+        // apply using same formula in stat calculation
     }
 }

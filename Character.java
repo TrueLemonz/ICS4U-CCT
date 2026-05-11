@@ -68,7 +68,7 @@ public abstract class Character extends Entity {
     public void SetHealth(double health) {
         this.currHealth = health;
     }
-    public boolean CheckRange(int range, Character target) {
+    public boolean CheckRange(int range, Entity target) {
         int[] targetPos = target.GetPosition();
         int[] myPos = this.GetPosition();
 
@@ -77,6 +77,7 @@ public abstract class Character extends Entity {
 
         return Math.max(x, y) <= range;
     }
+    public boolean CheckRange()
     public abstract boolean Special(Character target, Block[][] grid);
     public abstract boolean Special(Character target);
     public abstract void Special();
