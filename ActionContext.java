@@ -31,4 +31,12 @@ public class ActionContext {
     public Block[][] getGrid() {
         return this.grid;
     }
+
+    public int getPosX() {
+        return posx;
+    }
+
+    public int getPosY() {
+        return posy;
+    }
 }
