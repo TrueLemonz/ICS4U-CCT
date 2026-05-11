@@ -86,4 +86,13 @@ public class Entity {
     public void setName(String name) {
         this.name = name;
     }
+    public boolean CheckRange(int range, Character target) {
+        int[] targetPos = target.getPosition();
+        int[] myPos = this.getPosition();
+
+        int x = Math.abs(targetPos[0] - myPos[0]);
+        int y = Math.abs(targetPos[1] - myPos[1]);
+
+        return Math.max(x, y) <= range;
+    }
 }
