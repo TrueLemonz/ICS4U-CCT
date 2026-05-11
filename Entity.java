@@ -22,7 +22,7 @@ public class Entity {
     /* 
      * Renders an entity non-existant by setting all its variables to false or null.
      */
-    public void destroy() {
+    public void Destroy() {
         this.isFood = false;
         this.isObstacle = false;
         this.isCharacter = false;
@@ -36,7 +36,7 @@ public class Entity {
      * 2 = obstacle
      * 3 = food
      */
-    public int getObject() {
+    public int GetObject() {
         if (isFood) {
             return 3;
         } 
@@ -51,7 +51,7 @@ public class Entity {
         }
     }
 
-    public void setObject(int objectType) {
+    public void SetObject(int objectType) {
         if (objectType == 3) {
             this.isFood = true;
             this.isObstacle = false;
@@ -81,14 +81,14 @@ public class Entity {
     /* 
      * Returns the name of the entity.
      */
-    public String getName() {
+    public String GetName() {
         return name;
     }
 
     /*
      * Changes name of entity.
      */
-    public void setName(String name) {
+    public void SetName(String name) {
         this.name = name;
     }
 <<<<<<< Updated upstream

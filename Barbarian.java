@@ -1,7 +1,8 @@
 public class Barbarian extends Character {
     // Had to change this, Math.log only takes one variable. Must be log 10.
-    private double missingHPBonus = 1.1 * Math.log (this.currHealth / this.health );
-    public Barbarian() {
+    private double missingHPBonus = 1.1 * Math.log (this.GetHealth() / this.health );
+
+    public Barbarian(Character character) {
         super();
         this.spdMod = 2;
         this.intlMod = -1;
@@ -9,12 +10,12 @@ public class Barbarian extends Character {
         this.sprMod = 1;
         this.hltMod = -2;
         this.sppMod = 0;
-        this.spd += this.spdMod ;
-        this.intl += this.intlMod;
-        this.atk += this.atkMod;
-        this.spr += this.sprMod;
-        this.hlt += this.hltMod;
-        this.spp += this.sppMod;
+        this.spd = character.spd + this.spdMod;
+        this.intl = character.intl + this.intlMod;
+        this.atk = character.atk + this.atkMod;
+        this.spr = character.spr + this.sprMod;
+        this.hlt = character.hlt + this.hltMod;
+        this.spp = character.spp + this.sppMod;
 
     }
     // Picks up character, throws them behind
@@ -30,7 +31,7 @@ public class Barbarian extends Character {
 >>>>>>> Stashed changes
             int[] myPos = this.GetPosition();
 
-            // Performs special vertically
+            // Performs Special vertically
             // Checks that the barbarian is not at the top or bottom of the grid, or he'll throw the target out of the grid
             if (this.GetPosition()[1] == 0 || this.GetPosition()[1] == context.getGrid().length - 1) {
             return false;
@@ -53,7 +54,7 @@ public class Barbarian extends Character {
                 return true;
                 }
             }
-            // Performs special horizontally  
+            // Performs Special horizontally  
             // Checks that the barbarian is not at the extreme left or right of the grid or he'll throw the target out of the grid
             if ( this.GetPosition()[0] == 0 || this.GetPosition()[0] == context.getGrid()[0].length - 1) {
                 return false;
@@ -76,7 +77,7 @@ public class Barbarian extends Character {
                     return true;
                 }
             }
-            // Performs special diagonally
+            // Performs Special diagonally
             // Checks both vertical and horizontal conditions
             if ( this.GetPosition()[0] == 0 || this.GetPosition()[0] == context.getGrid()[0].length - 1 
                  || this.GetPosition()[1] == 0 || this.GetPosition()[1] == context.getGrid().length - 1 ) {
@@ -166,8 +167,12 @@ public class Barbarian extends Character {
         }
         return false;
     }
+<<<<<<< HEAD
 <<<<<<< Updated upstream
     private void ApplyPassive() {
+=======
+    private void applyPassive() {
+>>>>>>> e53ddab (Don't even ask bro)
         // apply using same formula in stat calculation
 =======
     // Dummy method for overloading

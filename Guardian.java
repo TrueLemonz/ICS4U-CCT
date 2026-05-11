@@ -15,7 +15,7 @@ public class Guardian extends Character {
     }
 
     public boolean Special(ActionContext context) {
-        if ( context.getGrid()[context.getPosX()][context.getPosY()].getEntity().getObject() == 0) {
+        if ( context.getGrid()[context.getPosX()][context.getPosY()].getEntity().GetObject() == 0) {
             context.getGrid()[context.getPosX()][context.getPosY()] = new Block(new Obstacle());
             return true;
         }
@@ -32,8 +32,8 @@ public class Guardian extends Character {
     }
 
     public boolean Ability2(ActionContext context) {
-        if (1.1 * this.currHealth <= health ) {
-            this.currHealth *= 1.1;
+        if (1.1 * this.GetHealth() <= this.health ) {
+            this.SetHealth(this.GetHealth() * 1.1); // Sorry if this broke it, tried to make everything encapsulated
             return true;
         }
         else {

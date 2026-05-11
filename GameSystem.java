@@ -20,17 +20,17 @@ public class GameSystem {
 
     public void populateGameBoard(int obstacleCount, int foodCount) {
         for (int i = 0; i < obstacleCount; i++) {
-            RandBlock(new Obstacle());
+            randBlock(new Obstacle());
         }
         for (int i = 0; i < foodCount; i++) {
-            RandBlock(new Food());
+            randBlock(new Food());
         }
     }
-    public void RandBlock(Entity entity) {
+    public void randBlock(Entity entity) {
         int emptyCount = 0;
         for (int i = 0; i < this.gameBoard.length; i++) {
             for (int j = 0; j < this.gameBoard[i].length; j++) {
-                if (this.gameBoard[i][j].getEntity().getObject() == 0) {
+                if (this.gameBoard[i][j].getEntity().GetObject() == 0) {
                     emptyCount++; //count number of empty blocks in the grid
                 }
             }
@@ -43,7 +43,7 @@ public class GameSystem {
         
         for (int i = 0; i < this.gameBoard.length; i++) {
             for (int j = 0; j < this.gameBoard[i].length; j++) {
-                if (this.gameBoard[i][j].getEntity().getObject() == 0) {
+                if (this.gameBoard[i][j].getEntity().GetObject() == 0) {
                     emptyPositions[index][0] = i; //stores empty row coordinate
                     emptyPositions[index][1] = j; //stores empty column coordinate
                     index++;

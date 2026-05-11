@@ -4,14 +4,14 @@ public class Displayer {
 
     public Displayer() {}
 
-    private void PrintLine(int length) {
+    private void printLine(int length) {
         for (int i = 0; i < length*GameSystem.GAMEWIDTH + GameSystem.GAMEWIDTH + 1; i++) {
             System.out.print("-");
         }
         System.out.print("\n");
     }
 
-    public static String centerString(String text, int width) {
+    private static String centerString(String text, int width) {
         if (text.length() >= width) {
             return text;
         }
@@ -29,12 +29,12 @@ public class Displayer {
     public void PrintGrid(Block[][] grid) {
         centerPrint("MAP:", CELL_WIDTH * GameSystem.GAMEWIDTH + GameSystem.GAMEWIDTH + 1); 
         System.out.print("\n");
-        PrintLine(CELL_WIDTH);
+        printLine(CELL_WIDTH);
         
         for (int i = 0; i < grid.length; i++) {
             Block[] row = grid[i];
 
-            // 1: Render top padding for the entire row
+            // top padding for the entire row
             for (int k = 0; k < CELL_PADDING_Y; k++) {
                 for (int j = 0; j < row.length; j++) {
                     System.out.print("|" + centerString("", CELL_WIDTH));
@@ -42,20 +42,20 @@ public class Displayer {
                 System.out.print("|\n");
             }
 
-            // 2: Render content for the entire row
+            // print row content
             for (int j = 0; j < row.length; j++) {
                 Block b = row[j];
 
-                String val = String.valueOf(b.getEntity().getName());
+                String val = String.valueOf(b.getEntity().GetName());
                 String formattedVal = "";
                 
-                if (b.getEntity().getObject() == 1) {
+                if (b.getEntity().GetObject() == 1) {
                     formattedVal = "{" + val + "}";
-                } else if (b.getEntity().getObject() == 2) {
+                } else if (b.getEntity().GetObject() == 2) {
                     formattedVal = "[" + val + "]";
-                } else if (b.getEntity().getObject() == 3) {
+                } else if (b.getEntity().GetObject() == 3) {
                     formattedVal = "(" + val + ")";
-                } else if (b.getEntity().getObject() == 0) {
+                } else if (b.getEntity().GetObject() == 0) {
                     formattedVal = val;
                 }
 
@@ -63,7 +63,7 @@ public class Displayer {
             }
             System.out.print("|\n");
 
-            // 3: Render bottom padding for the entire row
+            // bottom padding for the entire row
             for (int k = 0; k < CELL_PADDING_Y; k++) {
                 for (int j = 0; j < row.length; j++) {
                     System.out.print("|" + centerString("", CELL_WIDTH));
@@ -71,7 +71,7 @@ public class Displayer {
                 System.out.print("|\n");
             }
 
-            PrintLine(CELL_WIDTH);
+            printLine(CELL_WIDTH);
         }
     }
 }
