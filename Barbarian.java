@@ -1,4 +1,4 @@
-public class Barbarian extends Warrior {
+public class Barbarian extends Character {
     public Barbarian() {
         super();
         this.spdMod = 2;
