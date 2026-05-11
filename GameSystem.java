@@ -140,4 +140,17 @@ public class GameSystem {
            }
        }
    }
+
+   public void GenRandObstacles() {
+    int block = (int) (Math.random() * gameBoard.length * gameBoard[0].length);
+     if (this.gameBoard[block / gameBoard[0].length][block % gameBoard[0].length].getEntity().GetObject() == 0) {
+        int rand = (int) (Math.random() * 10); 
+            if (rand < 2) { 
+                this.gameBoard[block / gameBoard[0].length][block % gameBoard[0].length] = new Block(new Obstacle());
+            }
+        }
+    }
 }
+
+                 
+         
