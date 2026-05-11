@@ -6,14 +6,13 @@ public abstract class Character extends Entity {
     public int spd, intl, atk, spr, hlt, spp;
     // These are the modifiers that each character has, specific to itself.
     public int spdMod, intlMod, atkMod, sprMod, hltMod, sppMod;
-    private double currHealth;
-    private double currMagic; // for tracking magic amount in-game
-    private boolean isMinion = false; // for checking if the character is a minion or not, used in necromancer's abilities
-    private int turns = 1; 
+    public double currHealth;
+    public int team;
+    private boolean isStunned;
     
     public Character() {}
 
-    public Character(int spd, int intl, int atk, int spr, int hlt, int spp) {
+    public Character(int spd, int intl, int atk, int spr, int hlt, int spp, boolean isStunned) {
         super();
         this.spd = spd;
         this.intl = intl;
@@ -21,34 +20,8 @@ public abstract class Character extends Entity {
         this.spr = spr;
         this.hlt = hlt;
         this.spp = spp;
+        this.isStunned = isStunned;
     }
-
-    public Character GenerateCharacter() {
-        int points = 20;
-        for (int i = 0; i < points; i++) {
-            int stat = (int) (Math.random() * 6);
-            if (stat == 0){
-                this.spd++;
-            }
-            if (stat == 1){
-                this.intl++;
-            }
-            if (stat == 2){
-                this.atk++;
-            }
-            if (stat == 3){
-                this.spr++;
-            }
-            if (stat == 4){
-                this.hlt++;
-            }
-            if (stat == 5){
-                this.spp++;
-            }
-        }
-        return this;
-    }
-
     public void ApplyStats() {
         this.spd += this.spdMod ;
         this.intl += this.intlMod;
@@ -59,13 +32,12 @@ public abstract class Character extends Entity {
     }
     public void ScaleStats() {
         // Scales the integer values (spd, intl, etc) to actual values (speed, intelligence, etc), formulae to be determined   
-        // Done
-        this.speed = this.spd;
-        this.intelligence = this.intl * 2.5;
-        this.attack = this.atk * 9.5;
-        this.spirit = this.spr * 0.5;
-        this.health = this.hlt * 10;
-        this.spellpower = this.spp; //calculated in attack  
+        this.speed = this.spd + 1;
+        this.intelligence = this.intl + 1;
+        this.attack = this.atk + 1;
+        this.spirit = this.spr + 1;
+        this.health = this.hlt + 1;
+        this.spellpower = this.spp + 1;  
     }
      
     public boolean EatFood(Food food) {
@@ -75,7 +47,6 @@ public abstract class Character extends Entity {
         }
         return false;
     }
-
     public boolean SetPosition(int[] coordinates, Block[][] grid) {
         int x = coordinates[0];
         int y = coordinates[1];
@@ -89,31 +60,79 @@ public abstract class Character extends Entity {
             return false;
         }
     }
-    public double GetHealth() {
+    public double GetCurrHealth() {
         return this.currHealth;
     }
-    public void SetHealth(double health) {
-        this.currHealth = health;
+    public double GetMaxHealth() {
+        return this.health;
     }
-    public double GetMagic() {
-        return this.currMagic;
+    public double GetAttack() {
+        return this.attack;
     }
-    public void SetMagic(double magic) {
-        this.currMagic = magic;
+    public double GetSpeed() {
+        return this.speed;
     }
-    public boolean IsMinion() {
-        return this.isMinion;
+    public double GetIntelligence() {
+        return this.intelligence;
     }
-    public void SetMinion(boolean isMinion) { //RIDICULOUS function
-        this.isMinion = isMinion;
+    public double GetSpirit() {
+        return this.spirit;
     }
-    private int GetTurns() {
-        return this.turns;
+    public double GetSpellpower() {
+        return this.spellpower;
     }
-    public void AddTurn() { //ANOTHER RIDICULOUS FUNCTION
-        this.turns++;
+    public int GetAtk() {
+        return this.atk;
+    }
+    public int GetSpd() {
+        return this.spd;
+    }
+    public int GetIntl() {
+        return this.intl;
+    }
+    public int GetSpr() {
+        return this.spr;
+    }
+    public int GetHlt() {
+        return this.hlt;
+    }
+    public int GetSpp() {
+        return this.spp;
+    }
+    public int GetTeam() {
+        return this.team;
+    }
+    public void SetHlt(int hlt) {
+        this.hlt = hlt;
+    }
+    public void SetCurrHealth(double currHealth) {
+        this.currHealth = currHealth;
+    }
+    public void SetAtk(int atk) {
+        this.atk = atk;
+    }
+    public void SetSpd(int spd) {
+        this.spd = spd;
+    }
+    public void SetIntl(int intl) {
+        this.intl = intl;
+    }
+    public void SetSpr(int spr) {
+        this.spr = spr;
+    }
+    public void SetSPP(int spp) {
+        this.spp = spp;
+    }
+    public void SetIsStunned(boolean isStunned) {
+        this.isStunned = isStunned;
+    }
+    public boolean GetIsStunned() {
+        return this.isStunned;
     }
     public boolean CheckRange(int range, Entity target) {
+        if (this.isStunned) {
+            return false;
+        }
         int[] targetPos = target.GetPosition();
         int[] myPos = this.GetPosition();
 

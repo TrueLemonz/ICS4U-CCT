@@ -74,4 +74,32 @@ public class Displayer {
             printLine(CELL_WIDTH);
         }
     }
+
+    public void PrintInitialStats (Character[] characters) {
+        System.out.println("            INITIAL STATS            ");
+        for ( int i = 0; i < characters.length; i++) {
+            Character c = characters[i];
+            System.out.println("------------------------------------");
+            System.out.println("Character   : " + c.GetName());
+            System.out.println("Team        : " + c.GetTeam());
+            System.out.println("Speed       : " + c.GetSpeed());
+            System.out.println("Intelligence: " + c.GetIntelligence());
+            System.out.println("Attack      : " + c.GetAttack());
+            System.out.println("Spirit      : " + c.GetSpirit());
+            System.out.println("Health      : " + c.GetMaxHealth());
+            System.out.println("Spell Power : " + c.GetSpellpower());
+            System.out.println("------------------------------------");
+        }
+    }
+    public void PrintStats (Character[] characters) {
+        System.out.println("            CURRENT STATS            ");
+        for ( int i = 0; i < characters.length; i++) {
+            Character c = characters[i];
+            System.out.println("------------------------------------");
+            System.out.println("Character   : " + c.GetName());
+            System.out.println("Team        : " + c.GetTeam());
+            System.out.println("Health      : " + c.GetCurrHealth() + " / " + c.GetMaxHealth());
+            System.out.println("------------------------------------");
+        }
+    }
 }
