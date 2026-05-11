@@ -1,20 +1,36 @@
 public class GameSystem {
-    public Block[][] gameBoard;
+    public Block[][] gameBoard = new Block[GAMEHEIGHT][GAMEWIDTH];
     public static int GAMEHEIGHT = 8;
     public static int GAMEWIDTH = 8;
+
+    public GameSystem(){};
 
     public void refreshGameBoard(){
         for (int i = 0; i < GAMEHEIGHT; i++) {
             for (int j = 0; j < GAMEWIDTH; j++) {
-                this.gameBoard[i][j] = null;
+                this.gameBoard[i][j] = new Block(new Entity(
+                    "",
+                    false,
+                    false,
+                    false
+                ));
             }
+        }
+    }
+
+    public void populateGameBoard(int obstacleCount, int foodCount) {
+        for (int i = 0; i < obstacleCount; i++) {
+            RandBlock(new Obstacle());
+        }
+        for (int i = 0; i < foodCount; i++) {
+            RandBlock(new Food());
         }
     }
     public void RandBlock(Entity entity) {
         int emptyCount = 0;
         for (int i = 0; i < this.gameBoard.length; i++) {
             for (int j = 0; j < this.gameBoard[i].length; j++) {
-                if (this.gameBoard[i][j] == null) {
+                if (this.gameBoard[i][j].getEntity().getObject() == 0) {
                     emptyCount++; //count number of empty blocks in the grid
                 }
             }
@@ -27,7 +43,7 @@ public class GameSystem {
         
         for (int i = 0; i < this.gameBoard.length; i++) {
             for (int j = 0; j < this.gameBoard[i].length; j++) {
-                if (this.gameBoard[i][j] == null) {
+                if (this.gameBoard[i][j].getEntity().getObject() == 0) {
                     emptyPositions[index][0] = i; //stores empty row coordinate
                     emptyPositions[index][1] = j; //stores empty column coordinate
                     index++;
