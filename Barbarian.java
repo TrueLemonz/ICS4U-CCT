@@ -18,9 +18,16 @@ public class Barbarian extends Character {
 
     }
     // Picks up character, throws them behind
+<<<<<<< Updated upstream
     public boolean Special(ActionContext context) {
         if (CheckRange(1, context.getTarget())) {
             int[] targetPos = context.getTarget().GetPosition();
+=======
+    public boolean Special(Character target, Block[][] grid) {
+        if (CheckRange(1, target)) {
+            ScaleStats();
+            int[] targetPos = target.GetPosition();
+>>>>>>> Stashed changes
             int[] myPos = this.GetPosition();
 
             // Performs special vertically
@@ -107,24 +114,68 @@ public class Barbarian extends Character {
                  }
         }
         this.intl -= 4;
-        ApplyStats();
+        ScaleStats();
         return false;
     }
+<<<<<<< Updated upstream
     public boolean Ability1 (ActionContext context) {
         if ( CheckRange(1, context.getTarget()) ) {
             context.getTarget().SetHealth(context.getTarget().GetHealth() - this.attack * 4);
+=======
+    // Dummy method for overloading
+    public boolean Special(Character target) {
+        return false;
+    }
+    // Dummy method for overloading
+    public void Special() {
+    }
+    // Strong attack, meant to hit multiple times so that block/parry is calculated for each hit
+    // and its unlikely for the whole thing to be blocked
+    public boolean Ability1 (Character target, Block[][] grid) {
+        if ( CheckRange(1, target) ) {
+            ScaleStats();
+            target.SetHealth(target.GetHealth() - this.attack * 4);
+            this.intl -= 2;
+            ScaleStats();
+>>>>>>> Stashed changes
             return true;
         }
         return false;
     }
+<<<<<<< Updated upstream
     //TODO actually set this
     public boolean Ability2 (ActionContext context) {
         if (true) {
+=======
+    // Dummy method for overloading
+    public boolean Ability1 (Character target) {
+        return false;
+    }
+    // Dummy method for overloading
+    public void Ability1() {
+    }
+
+    public boolean Ability2 () {
+        if ( this.currHealth > 0.2 * this.health ) {
+            SetHealth(this.currHealth - 0.2 * this.health);
+            this.attack *= 1.15;
+            this.intl -= 2;
+            ScaleStats();
+>>>>>>> Stashed changes
             return true;
         }
         return false;
     }
+<<<<<<< Updated upstream
     private void ApplyPassive() {
         // apply using same formula in stat calculation
+=======
+    // Dummy method for overloading
+    public boolean Ability2 (Character target, Block[][] grid) {
+        return false;
+    }
+    public boolean Ability2 (Character target) {
+        return false;
+>>>>>>> Stashed changes
     }
 }

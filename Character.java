@@ -3,7 +3,7 @@ public abstract class Character extends Entity {
     // These stats will hold their respective calculated values
     public double speed, intelligence, attack, spirit, health, spellpower;
     // These stats are simple integers which will later be scaled to actual values
-    public double spd, intl, atk, spr, hlt, spp;
+    public int spd, intl, atk, spr, hlt, spp;
     // These are the modifiers that each character has, specific to itself.
     public int spdMod, intlMod, atkMod, sprMod, hltMod, sppMod;
     public double currHealth;

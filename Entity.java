@@ -91,6 +91,7 @@ public class Entity {
     public void setName(String name) {
         this.name = name;
     }
+<<<<<<< Updated upstream
     public boolean CheckRange(int range, Character target) {
         int[] targetPos = target.GetPosition();
         int[] myPos = this.GetPosition();
@@ -100,4 +101,7 @@ public class Entity {
 
         return Math.max(x, y) <= range;
     }
+=======
+    //
+>>>>>>> Stashed changes
 }
