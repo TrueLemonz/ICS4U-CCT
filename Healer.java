@@ -21,10 +21,10 @@ public class Healer extends Character {
     * If opposite team, damages them by 5
     */
     public boolean Special (ActionContext context) {
-        Block[][] grid = context.GetGrid();
-        if ( this.GetIsStunned() ) {
+        if ( !CheckConditions(4)) {
             return false;
         }
+        Block[][] grid = context.GetGrid();
         Character target = context.GetTarget();
         for ( int i = 0; i < 8; i++ ) {
             for (int j = 0; j < 8; j++ ) {
@@ -33,10 +33,12 @@ public class Healer extends Character {
                         if ( CheckRange(1, target) && target.team == this.team)  {
                             if ( target.GetCurrHealth() + 5 < target.GetCalculatedStats()[target.HLTPOS] )
                                 target.SetCurrHealth(target.GetCurrHealth() + 5);
+                                this.SetCurrMagic( this.GetCurrMagic() - 4);
                                 return true;
                         }
                         else if ( CheckRange(1, target) && target.team != this.team) {
                             target.SetCurrHealth(target.GetCurrHealth() - 5);
+                            this.SetCurrMagic( this.GetCurrMagic() - 4);
                             return true;
                         }
                         else {
@@ -50,21 +52,22 @@ public class Healer extends Character {
     }
     // Gives teammate +4 intl and +2 spr
     public boolean Ability1 (ActionContext context) {
-        if ( this.GetIsStunned() ) {
+        if ( !CheckConditions ( 3) ) {
             return false;
         }
-        Character target = context.GetTarget();
+        Character target = context.GetTarget(); 
         if ( target != null && target instanceof Character &&  CheckRange(4, target) &&target.team == this.team) {
             target.SetIntl( target.GetRawStats()[target.INTLPOS] + 4);
             target.SetSpr( target.GetRawStats()[target.SPRPOS] + 2);
-            target.ScaleStats();
+            // target.CalculateStats();
+            this.SetCurrMagic( this.GetCurrMagic() - 3 );
             return true;
         }
         return false;
     }
     // Basic attack, has a 50% chance to stun the target
     public boolean Ability2 (ActionContext context) {
-        if ( this.GetIsStunned() ) {
+        if ( !CheckConditions ( 2) ) {
             return false;
         }
         Character target = context.GetTarget();
@@ -74,6 +77,7 @@ public class Healer extends Character {
             if ( rand < 0.5 ) {
                 target.SetIsStunned(true);
             }
+            this.SetCurrMagic( this.GetCurrMagic() - 2);
             return true;
         }
         return false;

@@ -206,6 +206,12 @@ public abstract class Character extends Entity {
     public void SetAbility1Hint(String hint) {
         this.Ability1Hint = hint;
     }
+    public boolean CheckConditions ( int magic) {
+        if ( !this.isAlive || this.isStunned || this.currMagic - magic < 0) {
+            return false;
+        }
+        else return true;
+    }
 
     public abstract boolean Ability2(ActionContext context);
     private String Ability2Hint;

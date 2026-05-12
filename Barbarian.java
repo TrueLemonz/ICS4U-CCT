@@ -20,9 +20,10 @@ public class Barbarian extends Character {
     }
     // Picks up character, throws them behind
     public boolean Special(ActionContext context) {
-        if ( !this.GetIsAlive() || this.GetIsStunned() || this.GetCurrMagic() - 2 < 0 ) {
+        if ( !CheckConditions(2) ) {
             return false;
         }
+        applyPassive();
         if (CheckRange(1, context.GetTarget())) {
             int[] targetPos = context.GetTarget().GetPosition();
             int[] myPos = this.GetPosition();
@@ -117,9 +118,10 @@ public class Barbarian extends Character {
     // Strong attack, meant to hit multiple times so that block/parry is calculated for each hit
     // and its unlikely for the whole thing to be blocked
     public boolean Ability1 (ActionContext context) {
-        if ( !this.GetIsAlive() || this.GetIsStunned() || this.GetCurrMagic() - 1 < 0) {
+        if ( !CheckConditions(1) ){
             return false;
         }
+        applyPassive();
         if ( CheckRange(1, context.GetTarget()) ) {
             ScaleStats();
             context.GetTarget().SetCurrHealth(context.GetTarget().GetCurrHealth() - this.attack * 4);
@@ -131,9 +133,10 @@ public class Barbarian extends Character {
     }
 
     public boolean Ability2 (ActionContext context) {
-        if ( !this.GetIsAlive() || this.GetIsStunned() || this.GetCurrMagic() - 1 < 0) {
+        if ( !CheckConditions( 1) ) {
             return false;
         }
+        applyPassive();
         if ( this.GetCurrHealth() > 0.2 * this.GetCalculatedStats()[HLTPOS] ) {
             this.SetCurrHealth(this.GetCurrHealth() - 0.2 * this.GetCalculatedStats()[HLTPOS]);
             this.SetCalculatedStats(ATTACKPOS, this.GetCalculatedStats()[ATTACKPOS] * 1.15);
@@ -143,7 +146,7 @@ public class Barbarian extends Character {
         }
         return false;
     }
-    private void ApplyPassive() {
-        this.attack *= 1 + missingHPBonus;
+    private void applyPassive() {
+        this.attack *= missingHPBonus;
     }
 }

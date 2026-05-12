@@ -16,7 +16,7 @@ public class Guardian extends Character {
 
 
     public boolean Special(ActionContext context) {
-        if ( !this.GetIsAlive() || this.GetIsStunned() || this.GetCurrMagic() - 2 < 0) {
+        if ( !CheckConditions(2)) { 
             return false;
         }
         if ( context.GetGrid()[context.getPosX()][context.getPosY()].getEntity().GetObject() == 0) {
@@ -30,7 +30,7 @@ public class Guardian extends Character {
     }
     // had to change from void to boolean because I simplified the methods earlier
     public boolean Ability1(ActionContext context) {
-        if ( !this.GetIsAlive() || this.GetIsStunned() || this.GetCurrMagic()- 1 < 0 ) {
+        if ( !CheckConditions(1)) {
             return false;
         }
         this.SetHlt ( this.GetRawStats()[HLTPOS] + 1);
@@ -40,7 +40,7 @@ public class Guardian extends Character {
     }
 
     public boolean Ability2(ActionContext context) {
-        if ( !this.GetIsAlive() || this.GetIsStunned() || this.GetCurrMagic() - 1 < 0 ) {
+         if ( !CheckConditions(1)) {
             return false;
         }
         if (1.1 * this.GetCurrHealth() <= this.health ) {
