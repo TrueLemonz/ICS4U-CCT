@@ -7,8 +7,7 @@ public class RPGMain {
         Scanner scanner = new Scanner(System.in);
         boolean gameRunning = true;
         int PlayerChoice;
-        Player Player1 = new Player();
-        Player Player2 = new Player();
+        
 
         while (gameRunning) {
             System.out.println("Welcome to the RPG Game!");
@@ -19,10 +18,10 @@ public class RPGMain {
                 for (int i = 0; i < 3; i++) {
                     boolean HasSelected = false;
                     int SelectedClass = -1;
-                    Character ClasslessCharacter = new Character().GenerateCharacter();
+                    Character ClasslesCharacter = new Character().GenerateCharacter();
                     while (!HasSelected) {
                         System.out.println("Character " + (i + 1) + ":");
-                        ds.PrintInitialStats(new Character[]{ClasslessCharacter});
+                        ds.PrintInitialStats(new Character[]{ClasslesCharacter});
                         System.out.println("Which class would you like your character to be? (can back out) \n1. Necromancer \n2. Healer \n3. Crusader \n4. Barbarian \n5. Paladin \n6. Guardian");
                         int choice = scanner.nextInt();
                         if (choice == 1) {
@@ -114,22 +113,22 @@ public class RPGMain {
                         }
                     }
                     if (SelectedClass == 1) {
-                        gs.Player1.PlayerTeam[i] = new Necromancer(ClasslessChaaracter);
+                        gs.Player1.PlayerTeam[i] = new Necromancer(ClasslesCharacter);
                     }
                     else if (SelectedClass == 2) {
-                        gs.Player1.PlayerTeam[i] = new Healer(ClasslessChaaracter);
+                        gs.Player1.PlayerTeam[i] = new Healer(ClasslesCharacter);
                     }
                     else if (SelectedClass == 3) {
-                        //gs.Player1.PlayerTeam[i] = new Crusader(ClasslessChaaracter);
+                        //gs.Player1.PlayerTeam[i] = new Crusader(ClasslesCharacter);
                     }
                     else if (SelectedClass == 4) {
-                        gs.Player1.PlayerTeam[i] = new Barbarian(ClasslessChaaracter);
+                        gs.Player1.PlayerTeam[i] = new Barbarian(ClasslesCharacter);
                     }
                     else if (SelectedClass == 5) {
-                        //gs.Player1.PlayerTeam[i] = new Paladin(ClasslessChaaracter);
+                        //gs.Player1.PlayerTeam[i] = new Paladin(ClasslesCharacter);
                     }
                     else if (SelectedClass == 6) {
-                        //gs.Player1.PlayerTeam[i] = new Guardian(ClasslessChaaracter);
+                        //gs.Player1.PlayerTeam[i] = new Guardian(ClasslesCharacter);
                     }
                 }
             }
