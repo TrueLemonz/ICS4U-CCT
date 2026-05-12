@@ -1,4 +1,4 @@
-public abstract class Character extends Entity {
+public class Character extends Entity {
 
     // These stats will hold their respective calculated values
     public double speed, intelligence, attack, spirit, health, spellpower;
@@ -27,7 +27,9 @@ public abstract class Character extends Entity {
     private boolean isMinion = false; // for checking if the character is a minion or not, used in necromancer's abilities
 
     
-    public Character() {}
+    public Character() {
+    
+    }
 
     public Character(int spd, int intl, int atk, int spr, int hlt, int spp, boolean isStunned) {
         super();
@@ -41,6 +43,7 @@ public abstract class Character extends Entity {
     }
 
     public Character GenerateCharacter() {
+        
         int points = 20;
         for (int i = 0; i < points; i++) {
             int stat = (int) (Math.random() * 6);
@@ -189,7 +192,9 @@ public abstract class Character extends Entity {
 
         return Math.max(x, y) <= range;
     }
-    public abstract boolean Special(ActionContext context);
+    public boolean Special(ActionContext context) {
+        return false;
+    }
     private String SpecialHint;
     public String GetSpecialHint() {
         return this.SpecialHint;
@@ -198,7 +203,9 @@ public abstract class Character extends Entity {
         this.SpecialHint = hint;
     }
 
-    public abstract boolean Ability1(ActionContext context);
+    public boolean Ability1(ActionContext context) {
+        return false;
+    }
     private String Ability1Hint;
     public String GetAbility1Hint() {
         return this.Ability1Hint;
@@ -213,7 +220,9 @@ public abstract class Character extends Entity {
         else return true;
     }
 
-    public abstract boolean Ability2(ActionContext context);
+    public boolean Ability2(ActionContext context) {
+        return false;
+    }
     private String Ability2Hint;
     public String GetAbility2Hint() {
         return this.Ability2Hint;

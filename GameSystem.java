@@ -3,6 +3,8 @@ public class GameSystem {
     public static int GAMEHEIGHT = 8;
     public static int GAMEWIDTH = 8;
     private int currTeam;
+    Player Player1 = new Player();
+    Player Player2 = new Player();
 
     public GameSystem(){};
 
@@ -88,13 +90,13 @@ public class GameSystem {
       for (int i = 0; i < this.gameBoard.length; i++) {
          for (int j = 0; j < this.gameBoard[i].length; j++) {
             if (this.gameBoard[i][j].getEntity().GetObject() == 1) {
-               Character c = (Character) this.gameBoard[i][j].getEntity();
-               if (c.GetTeam() == 1 && !c.GetIsAlive()) {
-                  Team1Lose = false;
-               } 
-               else if (c.GetTeam() == 2 && !c.GetIsAlive()) {
-                  Team2Lose = false;
-               }
+                Character c = (Character) this.gameBoard[i][j].getEntity();
+                if (c.GetTeam() == 1 && !c.GetIsAlive()) {
+                    Team1Lose = false;
+                } 
+                else if (c.GetTeam() == 2 && !c.GetIsAlive()) {
+                    Team2Lose = false;
+                }
             }
          }
       }
