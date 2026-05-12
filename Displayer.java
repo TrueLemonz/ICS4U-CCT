@@ -86,7 +86,7 @@ public class Displayer {
             }
             System.out.println("------------------------------------");
             System.out.println("Character   : " + c.GetName());
-            System.out.println("Team        : " + c.GetTeam());
+            System.out.println("Team        : " + c.getTeam());
             System.out.println("Speed       : " + c.GetRawStats()[c.SPDPOS]);
             System.out.println("Intelligence: " + c.GetRawStats()[c.INTLPOS]);
             System.out.println("Attack      : " + c.GetRawStats()[c.ATKPOS]);
@@ -106,7 +106,7 @@ public class Displayer {
             }
             System.out.println("------------------------------------");
             System.out.println("Character   : " + c.GetName());
-            System.out.println("Team        : " + c.GetTeam());
+            System.out.println("Team        : " + c.getTeam());
             System.out.println("Health      : " + c.GetCurrHealth() + " / " + c.GetCalculatedStats()[c.HLTPOS]);
             System.out.println("------------------------------------");
         }

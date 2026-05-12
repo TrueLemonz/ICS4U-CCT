@@ -101,10 +101,10 @@ public class GameSystem {
          for (int j = 0; j < this.gameBoard[i].length; j++) {
             if (this.gameBoard[i][j].getEntity().GetObject() == 1) {
                 Character c = (Character) this.gameBoard[i][j].getEntity();
-                if (c.GetTeam() == 1 && !c.GetIsAlive()) {
+                if (c.getTeam() == 1 && !c.GetIsAlive()) {
                     Team1Lose = false;
                 } 
-                else if (c.GetTeam() == 2 && !c.GetIsAlive()) {
+                else if (c.getTeam() == 2 && !c.GetIsAlive()) {
                     Team2Lose = false;
                 }
             }

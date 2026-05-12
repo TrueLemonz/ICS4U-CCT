@@ -25,7 +25,7 @@ public class Character extends Entity {
     public final static int MAXHEALTHPOS = 4;
     public final static int SPELLPOWERPOS = 5;
     private boolean isMinion = false; // for checking if the character is a minion or not, used in necromancer's abilities
-
+    private boolean IsDivineSheielded;
     
     public Character() {
     
@@ -120,6 +120,12 @@ public class Character extends Entity {
     public void SetCalculatedStats( int pos, double amt ) {
         this.GetCalculatedStats()[pos] = amt;
     }
+    public boolean GetIsDivineShielded() {
+        return this.IsDivineSheielded;
+    }
+    public void SetIsDivineSheielded(boolean isDivineSheielded) {
+        this.IsDivineSheielded = isDivineSheielded;
+    }
     public double GetCurrHealth() {
         return this.currHealth;
     }
@@ -130,7 +136,7 @@ public class Character extends Entity {
         int[] stats = {this.spd, this.intl, this.atk, this.spr, this.hlt, this.spp};
         return stats;
     }
-    public int GetTeam() {
+    public int getTeam() {
         return this.team;
     }
     public void SetHlt(int hlt) {
@@ -178,6 +184,9 @@ public class Character extends Entity {
     public double GetMagic() {
         return this.currMagic;
     }
+    public double GetMaxHealth() {
+        return this.health;
+    }
     public void SetMagic(double magic) {
         this.currMagic = magic;
     }
@@ -223,8 +232,14 @@ public class Character extends Entity {
     public void SetAbility1Hint(String hint) {
         this.Ability1Hint = hint;
     }
+    public boolean CheckConditions ( int magic, int range, Entity target) {
+        if ( !this.isAlive || this.isStunned || this.currMagic - magic < 0 || !CheckRange(range, target)) {
+            return false;
+        }
+        else return true;
+    }
     public boolean CheckConditions ( int magic) {
-        if ( !this.isAlive || this.isStunned || this.currMagic - magic < 0) {
+        if ( !this.isAlive || this.isStunned || this.currMagic - magic < 0 ) {
             return false;
         }
         else return true;
