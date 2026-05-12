@@ -70,8 +70,8 @@ public class RPGMain {
                                 }
                             } 
                             else if (choice == 4) { //TODO make this accurate
-                                System.out.println("Healer \nAn intelligent and resilient mage who can heal allies and provide buffs.\nAbilities: \nSpecial: Prayer - Heals allies, and damages enemies. ");
-                                System.out.println("Ability 1: Praise - Grants a +4 magic and +4 stamina buff to an ally. \nAbility 2: Strike - Weak attack that may stun.");
+                                System.out.println("Barbarian \nA glass cannon who outputs heavy damage. What doesn't kill him makes him stronger.\nAbilities: \nSpecial: Flip - Throws an enemy target opposite to the barbarian. ");
+                                System.out.println("Ability 1: Kickpunch - Melee attack dealing massive damage. \nAbility 2: Lupus - The barbarian damages himself and gains a permanent damage increase.");
                                 System.out.println("Stat buffs: \n+0 speed\n+3 intelligence\n-1 attack\n+3 spirit\n+2 health\n+1 spellpower");
                                 System.out.println("Would you like to select this class? (y/N)");
                                 String confirm = scanner.next();
