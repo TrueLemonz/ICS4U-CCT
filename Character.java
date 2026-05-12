@@ -9,6 +9,7 @@ public abstract class Character extends Entity {
     public double currHealth;
     public int team;
     private boolean isStunned;
+    private int turns = 1; // Just for minions really
     
     public Character() {}
 
@@ -128,6 +129,12 @@ public abstract class Character extends Entity {
     }
     public boolean GetIsStunned() {
         return this.isStunned;
+    }
+    public void AddTurn() { // Two ridiculous methods just for minions (could be used for stunning or buffs i don't know)
+        this.turns++;
+    }
+    public int GetTurns() {
+        return this.turns;
     }
     public boolean CheckRange(int range, Entity target) {
         if (this.isStunned) {
