@@ -9,6 +9,7 @@ public abstract class Character extends Entity {
     public double currHealth;
     public double currMagic;
     public int team;
+    public boolean isAlive = true;
     private boolean isStunned;
     private int turns = 1; // Just for minions really
     public final static int SPDPOS = 0;
@@ -170,11 +171,8 @@ public abstract class Character extends Entity {
     public void SetMinion(boolean isMinion) { //RIDICULOUS function
         this.isMinion = isMinion;
     }
-    private int GetTurns() {
-        return this.turns;
-    }
-    public void AddTurn() { //ANOTHER RIDICULOUS FUNCTION
-        this.turns++;
+    public boolean GetIsAlive() {
+        return this.isAlive;
     }
     public boolean CheckRange(int range, Entity target) {
         if (this.isStunned) {

@@ -31,7 +31,7 @@ public class Healer extends Character {
                 if ( grid[i][j].getEntity() instanceof Character) {             
                     if ( target != null && target instanceof Character ) {
                         if ( CheckRange(1, target) && target.team == this.team)  {
-                            if ( target.GetCurrHealth() + 5 < target.GetMaxHealth() )
+                            if ( target.GetCurrHealth() + 5 < target.GetCalculatedStats()[target.HLTPOS] )
                                 target.SetCurrHealth(target.GetCurrHealth() + 5);
                                 return true;
                         }
@@ -55,8 +55,8 @@ public class Healer extends Character {
         }
         Character target = context.getTarget();
         if ( target != null && target instanceof Character &&  CheckRange(4, target) &&target.team == this.team) {
-            target.SetIntl( target.GetIntl() + 4);
-            target.SetSpr( target.GetSpr() + 2);
+            target.SetIntl( target.GetRawStats()[target.INTLPOS] + 4);
+            target.SetSpr( target.GetRawStats()[target.SPRPOS] + 2);
             target.ScaleStats();
             return true;
         }

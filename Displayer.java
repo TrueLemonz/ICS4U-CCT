@@ -72,7 +72,6 @@ public class Displayer {
             }
 
             printLine(CELL_WIDTH);
-<<<<<<< HEAD
         }
     }
 
@@ -83,12 +82,12 @@ public class Displayer {
             System.out.println("------------------------------------");
             System.out.println("Character   : " + c.GetName());
             System.out.println("Team        : " + c.GetTeam());
-            System.out.println("Speed       : " + c.GetSpeed());
-            System.out.println("Intelligence: " + c.GetIntelligence());
-            System.out.println("Attack      : " + c.GetAttack());
-            System.out.println("Spirit      : " + c.GetSpirit());
-            System.out.println("Health      : " + c.GetMaxHealth());
-            System.out.println("Spell Power : " + c.GetSpellpower());
+            System.out.println("Speed       : " + c.GetCalculatedStats()[c.SPDPOS]);
+            System.out.println("Intelligence: " + c.GetCalculatedStats()[c.INTLPOS]);
+            System.out.println("Attack      : " + c.GetCalculatedStats()[c.ATKPOS]);
+            System.out.println("Spirit      : " + c.GetCalculatedStats()[c.SPRPOS]);
+            System.out.println("Health      : " + c.GetCalculatedStats()[c.HLTPOS]);
+            System.out.println("Spell Power : " + c.GetCalculatedStats()[c.SPPPOS]);
             System.out.println("------------------------------------");
         }
     }
@@ -99,10 +98,8 @@ public class Displayer {
             System.out.println("------------------------------------");
             System.out.println("Character   : " + c.GetName());
             System.out.println("Team        : " + c.GetTeam());
-            System.out.println("Health      : " + c.GetCurrHealth() + " / " + c.GetMaxHealth());
+            System.out.println("Health      : " + c.GetCurrHealth() + " / " + c.GetCalculatedStats()[c.HLTPOS]);
             System.out.println("------------------------------------");
-=======
->>>>>>> e53ddab (Don't even ask bro)
         }
     }
 }

@@ -32,8 +32,8 @@ public class Guardian extends Character {
     }
 
     public boolean Ability2(ActionContext context) {
-        if (1.1 * this.GetHealth() <= this.health ) {
-            this.SetHealth(this.GetHealth() * 1.1); // Sorry if this broke it, tried to make everything encapsulated
+        if (1.1 * this.GetCurrHealth() <= this.health ) {
+            this.SetCurrHealth(this.GetCurrHealth() * 1.1); // Sorry if this broke it, tried to make everything encapsulated
             return true;
         }
         else {

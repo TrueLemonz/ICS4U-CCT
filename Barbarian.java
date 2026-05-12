@@ -1,6 +1,6 @@
 public class Barbarian extends Character {
     // Had to change this, Math.log only takes one variable. Must be log 10.
-    private double missingHPBonus = 1.1 * Math.log (this.GetHealth() / this.health );
+    private double missingHPBonus = 1.1 * Math.log (this.GetCurrHealth() / this.GetCalculatedStats()[this.HLTPOS] );
 
     public Barbarian(Character character) {
         super();
@@ -109,7 +109,7 @@ public class Barbarian extends Character {
         }
         this.intl -= 4;
         ScaleStats();
-        System.out.println( SpecialHint());
+        //System.out.println( SpecialHint());
         return false;
     }
     // Strong attack, meant to hit multiple times so that block/parry is calculated for each hit
@@ -117,7 +117,7 @@ public class Barbarian extends Character {
     public boolean Ability1 (ActionContext context) {
         if ( CheckRange(1, context.getTarget()) ) {
             ScaleStats();
-            context.getTarget().SetHealth(context.getTarget().GetHealth() - this.attack * 4);
+            context.getTarget().SetCurrHealth(context.getTarget().GetCurrHealth() - this.attack * 4);
             this.intl -= 2;
             ScaleStats();
             return true;
@@ -126,8 +126,8 @@ public class Barbarian extends Character {
     }
 
     public boolean Ability2 (ActionContext context) {
-        if ( this.GetHealth() > 0.2 * this.health ) {
-            SetHealth(this.GetHealth() - 0.2 * this.health);
+        if ( this.GetCurrHealth() > 0.2 * this.GetCalculatedStats()[this.HLTPOS] ) {
+            this.SetCurrHealth(this.GetCurrHealth() - 0.2 * this.GetCalculatedStats()[this.HLTPOS]);
             this.attack *= 1.15;
             this.intl -= 2;
             ScaleStats();
