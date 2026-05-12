@@ -7,6 +7,7 @@ public abstract class Character extends Entity {
     // These are the modifiers that each character has, specific to itself.
     public int spdMod, intlMod, atkMod, sprMod, hltMod, sppMod;
     public double currHealth;
+    public double currMagic;
     public int team;
     private boolean isStunned;
     private int turns = 1; // Just for minions really
@@ -61,44 +62,19 @@ public abstract class Character extends Entity {
             return false;
         }
     }
+    public double[] GetCalculatedStats() {
+        double[] stats = {this.speed, this.intelligence, this.attack, this.spirit, this.health, this.spellpower};
+        return stats;
+    }
     public double GetCurrHealth() {
         return this.currHealth;
     }
-    public double GetMaxHealth() {
-        return this.health;
+    public double GetCurrMagic() {
+        return this.currMagic;
     }
-    public double GetAttack() {
-        return this.attack;
-    }
-    public double GetSpeed() {
-        return this.speed;
-    }
-    public double GetIntelligence() {
-        return this.intelligence;
-    }
-    public double GetSpirit() {
-        return this.spirit;
-    }
-    public double GetSpellpower() {
-        return this.spellpower;
-    }
-    public int GetAtk() {
-        return this.atk;
-    }
-    public int GetSpd() {
-        return this.spd;
-    }
-    public int GetIntl() {
-        return this.intl;
-    }
-    public int GetSpr() {
-        return this.spr;
-    }
-    public int GetHlt() {
-        return this.hlt;
-    }
-    public int GetSpp() {
-        return this.spp;
+    public int[] GetRawStats() {
+        int[] stats = {this.spd, this.intl, this.atk, this.spr, this.hlt, this.spp};
+        return stats;
     }
     public int GetTeam() {
         return this.team;
@@ -108,6 +84,9 @@ public abstract class Character extends Entity {
     }
     public void SetCurrHealth(double currHealth) {
         this.currHealth = currHealth;
+    }
+    public void SetCurrMagic(double currMagic) {
+        this.currMagic = currMagic;
     }
     public void SetAtk(int atk) {
         this.atk = atk;
