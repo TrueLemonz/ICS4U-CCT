@@ -19,10 +19,10 @@ public class RPGMain {
                 for (int i = 0; i < 3; i++) {
                     boolean HasSelected = false;
                     int SelectedClass = -1;
-                    Character ClasslessChaaracter = new Character().GenerateCharacter();
+                    Character ClasslessCharacter = new Character().GenerateCharacter();
                     while (!HasSelected) {
                         System.out.println("Character " + (i + 1) + ":");
-                        ds.PrintInitialStats(new Character[]{ClasslessChaaracter});
+                        ds.PrintInitialStats(new Character[]{ClasslessCharacter});
                         System.out.println("Which class would you like your character to be? (can back out) \n1. Necromancer \n2. Healer \n3. Crusader \n4. Barbarian \n5. Paladin \n6. Guardian");
                         int choice = scanner.nextInt();
                         if (choice == 1) {
