@@ -28,8 +28,8 @@ public class RPGMain {
                             System.out.println("Which class would you like your character to be? (can back out) \n1. Necromancer \n2. Healer \n3. Crusader \n4. Barbarian \n5. Paladin \n6. Guardian");
                             int choice = scanner.nextInt();
                             if (choice == 1) {
-                                System.out.println("Necromancer \nAn intelligent and powerful mage who can summon minions to fight.\nAbilities: \nSpecial: Summon Minion - Summons a weak minion to fight. ");
-                                System.out.println("Ability 1: Buff Minion - Buffs an adjacent minion \nAbility 2: Meat Sheild - Sacrafice an adjacent minion to tank a hit.");
+                                System.out.println("Necromancer \nA disturbed warlock who conjures and manipulates the dead. \nAbilities: \nSpecial: Summon Minion - Summons a weak minion to fight. ");
+                                System.out.println("Ability 1: Buff Minion - Buffs an adjacent minion \nAbility 2: Meat Shield - Sacrafice an adjacent minion to tank a hit.");
                                 System.out.println("Stat buffs: \n-1 speed\n+3 intelligence\n+1 attack\n+2 spirit\n+1 health\n+2 spellpower");
                                 System.out.println("Would you like to select this class? (y/N)");
                                 String confirm = scanner.next();
@@ -42,8 +42,8 @@ public class RPGMain {
                                 }
                             } 
                             else if (choice == 2) {
-                                System.out.println("Healer \nAn intelligent and resilient mage who can heal allies and provide buffs.\nAbilities: \nSpecial: Prayer - Heals allies, and damages enemies. ");
-                                System.out.println("Ability 1: Praise - Grants a +4 magic and +4 stamina buff to an ally. \nAbility 2: Strike - Weak attack that may stun.");
+                                System.out.println("Healer \n A benevolent soul who specialises in the mending of allies. \nAbilities: \nSpecial: Prayer - Heals allies, and damages enemies. ");
+                                System.out.println("Ability 1: Praise - Grants an ally +4 intl and +2 spirit. \nAbility 2: Strike - Weak attack that may stun.");
                                 System.out.println("Stat buffs: \n+0 speed\n+3 intelligence\n-1 attack\n+3 spirit\n+2 health\n+1 spellpower");
                                 System.out.println("Would you like to select this class? (y/N)");
                                 String confirm = scanner.next();
@@ -55,10 +55,10 @@ public class RPGMain {
                                     System.out.println("Returning to selection.");
                                 }
                             } 
-                            else if (choice == 3) { //TODO make this accurate
-                                System.out.println("Crusader \nA sturdy warrior who can protect allies and deal significant damage.\nAbilities: \nSpecial: Divine Shield - Creates a protective barrier around an adjacent ally. ");
+                            else if (choice == 3) { // Done
+                                System.out.println("Crusader \nA highly poised warrior who both safeguards allies and threatens moderate damage.\nAbilities: \nSpecial: Divine Shield - Creates a protective barrier around an adjacent ally. ");
                                 System.out.println("Ability 1: Holy Light - Heals an adjacent ally. \nAbility 2: Condemn - Deals damage to an enemy.");
-                                System.out.println("Stat buffs: \n+2 speed\n+2 intelligence\n+2 attack\n+1 spirit\n+3 health\n+1 spellpower");
+                                System.out.println("Stat buffs: \n+0 speed\n+2 intelligence\n+1 attack\n+1 spirit\n+3 health\n+1 spellpower");
                                 System.out.println("Would you like to select this class? (y/N)");
                                 String confirm = scanner.next();
                                 if (confirm.equalsIgnoreCase("Y")) {
@@ -69,10 +69,10 @@ public class RPGMain {
                                     System.out.println("Returning to selection.");
                                 }
                             } 
-                            else if (choice == 4) { //TODO make this accurate
+                            else if (choice == 4) { // Done
                                 System.out.println("Barbarian \nA glass cannon who outputs heavy damage. What doesn't kill him makes him stronger.\nAbilities: \nSpecial: Flip - Throws an enemy target opposite to the barbarian. ");
                                 System.out.println("Ability 1: Kickpunch - Melee attack dealing massive damage. \nAbility 2: Lupus - The barbarian damages himself and gains a permanent damage increase.");
-                                System.out.println("Stat buffs: \n+0 speed\n+3 intelligence\n-1 attack\n+3 spirit\n+2 health\n+1 spellpower");
+                                System.out.println("Stat buffs: \n+4 speed\n-1 intelligence\n+6 attack\n+1 spirit\n-4 health\n+2 spellpower");
                                 System.out.println("Would you like to select this class? (y/N)");
                                 String confirm = scanner.next();
                                 if (confirm.equalsIgnoreCase("Y")) {
@@ -83,10 +83,10 @@ public class RPGMain {
                                     System.out.println("Returning to selection.");
                                 }
                             } 
-                            else if (choice == 5) { //TODO make this accurate
-                                System.out.println("Healer \nAn intelligent and resilient mage who can heal allies and provide buffs.\nAbilities: \nSpecial: Prayer - Heals allies, and damages enemies. ");
-                                System.out.println("Ability 1: Praise - Grants a +4 magic and +4 stamina buff to an ally. \nAbility 2: Strike - Weak attack that may stun.");
-                                System.out.println("Stat buffs: \n+0 speed\n+3 intelligence\n-1 attack\n+3 spirit\n+2 health\n+1 spellpower");
+                            else if (choice == 5) { // Done
+                                System.out.println("Paladin \nA bastion of light who defends and heals allies.\nAbilities: \nSpecial: Aura - Adjacent allies take half damage for 1 turn. ");
+                                System.out.println("Ability 1: Rally - Grants +2 spd to all allies for 2 turns. \nAbility 2: Shield Bash - Weak attack that restores magic.");
+                                System.out.println("Stat buffs: \n+0 speed\n+2 intelligence\n+0 attack\n+1 spirit\n+5 health\n+1 spellpower");
                                 System.out.println("Would you like to select this class? (y/N)");
                                 String confirm = scanner.next();
                                 if (confirm.equalsIgnoreCase("Y")) {
@@ -97,9 +97,9 @@ public class RPGMain {
                                     System.out.println("Returning to selection.");
                                 }
                             } 
-                            else if (choice == 6) { //TODO make this accurate
-                                System.out.println("Healer \nAn intelligent and resilient mage who can heal allies and provide buffs.\nAbilities: \nSpecial: Prayer - Heals allies, and damages enemies. ");
-                                System.out.println("Ability 1: Praise - Grants a +4 magic and +4 stamina buff to an ally. \nAbility 2: Strike - Weak attack that may stun.");
+                            else if (choice == 6) { // Done
+                                System.out.println("Guardian \nProtector of lands who creates blockades. \nAbilities: \nSpecial: Blockade - Creates an obstacle");
+                                System.out.println("Ability 1: Fortify - Grants +1 hlt but -1 spd to the guardian. \nAbility 2: Heal - Heals for a portion of max helath.");
                                 System.out.println("Stat buffs: \n+0 speed\n+3 intelligence\n-1 attack\n+3 spirit\n+2 health\n+1 spellpower");
                                 System.out.println("Would you like to select this class? (y/N)");
                                 String confirm = scanner.next();
@@ -165,7 +165,11 @@ public class RPGMain {
                         }
                     } // End of generating 3 characters
                     System.out.println("PLAYER " + i + " TEAM:");
+                    // added an else statement which somehow made it correctly display 3 character info plates
+                    // was making it display 2 without the else statement
+                    if ( i == 1) {
                     ds.PrintInitialStats(gs.Player1.PlayerTeam);
+                    }
                     if (i == 1) {
                         System.out.println("Now initializing next player's team. Please hand over the computer. Press [ENTER] when ready.");
                     }

@@ -43,27 +43,31 @@ public class Character extends Entity {
     }
 
     public Character GenerateCharacter() {
-        
+        // Added condition since we wanted the max to be 8,
+        // i-- in else because a point would be lost
         int points = 20;
         for (int i = 0; i < points; i++) {
             int stat = (int) (Math.random() * 6);
             if (stat == 0){
                 this.spd++;
             }
-            if (stat == 1){
+            else if (stat == 1 && this.intl < 8){
                 this.intl++;
             }
-            if (stat == 2){
+            else if (stat == 2 && this.atk < 8){
                 this.atk++;
             }
-            if (stat == 3){
+            else if (stat == 3 && this.spr < 8){
                 this.spr++;
             }
-            if (stat == 4){
+            else if (stat == 4 && this.hlt < 8){
                 this.hlt++;
             }
-            if (stat == 5){
+            else if (stat == 5 && this.spp < 8){
                 this.spp++;
+            }
+            else {
+                i--;
             }
         }
         return this;
