@@ -1,6 +1,6 @@
 public class Displayer {
     private static final int CELL_WIDTH = 15; // Define a constant for cell width
-    private static final int CELL_PADDING_Y = 1; // Adds a line that many times on both sides of the cell content
+    private static final int CELL_PADDING_Y = 2; // Adds a line that many times on both sides of the cell content
 
     public Displayer() {}
 
