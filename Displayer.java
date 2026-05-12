@@ -72,6 +72,7 @@ public class Displayer {
             }
 
             printLine(CELL_WIDTH);
+<<<<<<< HEAD
         }
     }
 
@@ -100,6 +101,8 @@ public class Displayer {
             System.out.println("Team        : " + c.GetTeam());
             System.out.println("Health      : " + c.GetCurrHealth() + " / " + c.GetMaxHealth());
             System.out.println("------------------------------------");
+=======
+>>>>>>> e53ddab (Don't even ask bro)
         }
     }
 }
