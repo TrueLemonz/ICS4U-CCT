@@ -109,6 +109,7 @@ public class Barbarian extends Character {
         }
         this.intl -= 4;
         ScaleStats();
+        System.out.println( SpecialHint());
         return false;
     }
     // Strong attack, meant to hit multiple times so that block/parry is calculated for each hit

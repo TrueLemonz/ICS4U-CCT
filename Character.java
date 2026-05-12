@@ -11,6 +11,18 @@ public abstract class Character extends Entity {
     public int team;
     private boolean isStunned;
     private int turns = 1; // Just for minions really
+    public final static int SPDPOS = 0;
+    public final static int INTLPOS = 1;
+    public final static int ATKPOS = 2;
+    public final static int SPRPOS = 3;
+    public final static int HLTPOS = 4;
+    public final static int SPPPOS = 5;
+    public final static int SPEEDPOS = 0;
+    public final static int INTELLIGENCEPOS = 1;
+    public final static int ATTACKPOS = 2;
+    public final static int SPIRITPOS = 3;
+    public final static int MAXHEALTHPOS = 4;
+    public final static int SPELLPOWERPOS = 5;
     
     public Character() {}
 
