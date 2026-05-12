@@ -45,18 +45,20 @@ public class Displayer {
             // print row content
             for (int j = 0; j < row.length; j++) {
                 Block b = row[j];
-
-                String val = String.valueOf(b.getEntity().GetName());
                 String formattedVal = "";
-                
-                if (b.getEntity().GetObject() == 1) {
-                    formattedVal = "{" + val + "}";
-                } else if (b.getEntity().GetObject() == 2) {
-                    formattedVal = "[" + val + "]";
-                } else if (b.getEntity().GetObject() == 3) {
-                    formattedVal = "(" + val + ")";
-                } else if (b.getEntity().GetObject() == 0) {
-                    formattedVal = val;
+
+                if (b != null && b.getEntity() != null) {
+                    String val = String.valueOf(b.getEntity().GetName());
+                    int objectType = b.getEntity().GetObject();
+                    if (objectType == 1) {
+                        formattedVal = "{" + val + "}";
+                    } else if (objectType == 2) {
+                        formattedVal = "[" + val + "]";
+                    } else if (objectType == 3) {
+                        formattedVal = "(" + val + ")";
+                    } else if (objectType == 0) {
+                        formattedVal = val;
+                    }
                 }
 
                 System.out.print("|" + centerString(formattedVal, CELL_WIDTH));

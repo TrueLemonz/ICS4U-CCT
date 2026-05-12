@@ -116,37 +116,77 @@ public class RPGMain {
                             }
                         }
                         if (SelectedClass == 1) {
-                            gs.Player1.PlayerTeam[j] = new Necromancer(ClasslesCharacter);
+                            if (i == 1) {
+                                gs.Player1.PlayerTeam[j] = new Necromancer(ClasslesCharacter, i);
+                            }
+                            else {
+                                gs.Player2.PlayerTeam[j] = new Necromancer(ClasslesCharacter, i);
+                            }
                         }
                         else if (SelectedClass == 2) {
-                            gs.Player1.PlayerTeam[j] = new Healer(ClasslesCharacter);
+                            if (i == 1) {
+                                gs.Player1.PlayerTeam[j] = new Healer(ClasslesCharacter, i);
+                            }
+                            else {
+                                gs.Player2.PlayerTeam[j] = new Healer(ClasslesCharacter, i);
+                            }
                         }
                         else if (SelectedClass == 3) {
-                            //gs.Player1.PlayerTeam[i] = new Crusader(ClasslesCharacter);
+                            // if (i == 1) {
+                            //     gs.Player1.PlayerTeam[j] = new Crusader(ClasslesCharacter, i);
+                            // }
+                            // else {
+                            //     gs.Player2.PlayerTeam[j] = new Crusader(ClasslesCharacter, i);
+                            // }
                         }
                         else if (SelectedClass == 4) {
-                            gs.Player1.PlayerTeam[j] = new Barbarian(ClasslesCharacter);
+                            if (i == 1) {
+                                gs.Player1.PlayerTeam[j] = new Barbarian(ClasslesCharacter, i);
+                            }
+                            else {
+                                gs.Player2.PlayerTeam[j] = new Barbarian(ClasslesCharacter, i);
+                            }
                         }
                         else if (SelectedClass == 5) {
-                            //gs.Player1.PlayerTeam[i] = new Paladin(ClasslesCharacter);
+                            // if (i == 1) {
+                            //     gs.Player1.PlayerTeam[j] = new Paladin(ClasslesCharacter, i);
+                            // }
+                            // else {
+                            //     gs.Player2.PlayerTeam[j] = new Paladin(ClasslesCharacter, i);
+                            // }
                         }
                         else if (SelectedClass == 6) {
-                            //gs.Player1.PlayerTeam[i] = new Guardian(ClasslesCharacter);
-                        }
-                        else {
-                            for ( int k = 0; k < 3; k++ ) {
-                                gs.Player1.PlayerTeam[k] = new Character().GenerateCharacter();
-                            }
-                            System.out.println("Error in class selection.");
+                            // if (i == 1) {
+                            //     gs.Player1.PlayerTeam[j] = new Guardian(ClasslesCharacter, i);
+                            // }
+                            // else {
+                            //     gs.Player2.PlayerTeam[j] = new Guardian(ClasslesCharacter, i);
+                            // }
                         }
                     } // End of generating 3 characters
                     System.out.println("PLAYER " + i + " TEAM:");
                     ds.PrintInitialStats(gs.Player1.PlayerTeam);
-                    System.out.println("Now initializing next player's team. Please hand over the computer. Press enter when ready.");
+                    if (i == 1) {
+                        System.out.println("Now initializing next player's team. Please hand over the computer. Press [ENTER] when ready.");
+                    }
+                    else {
+                        System.out.println("Teams initialized. Press [ENTER] to continue.");
+                    }
                     scanner.nextLine();
+                    scanner.nextLine(); // Must use twice, first one consumes leftover enter from previous input, second one waits for actual enter key press.
                 } //End of generating 2 teams
+                gs.refreshGameBoard();
+                gs.gameBoard[0][0] = new Block(gs.Player1.PlayerTeam[0]);
+                gs.gameBoard[1][0] = new Block(gs.Player1.PlayerTeam[1]);
+                gs.gameBoard[0][1] = new Block(gs.Player1.PlayerTeam[2]);
+                gs.gameBoard[7][7] = new Block(gs.Player2.PlayerTeam[0]);
+                gs.gameBoard[6][7] = new Block(gs.Player2.PlayerTeam[1]);
+                gs.gameBoard[7][6] = new Block(gs.Player2.PlayerTeam[2]);
+                gs.populateGameBoard(5, 3);
+                ds.PrintGrid(gs.gameBoard);
             } //TODO add the other two options
-        }
+        } //STOP RUNNING
+        scanner.close();
         // gs.refreshGameBoard();
         // gs.populateGameBoard(5, 5);
         // ds.PrintGrid(gs.gameBoard);

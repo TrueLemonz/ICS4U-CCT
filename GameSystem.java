@@ -6,7 +6,9 @@ public class GameSystem {
     Player Player1 = new Player();
     Player Player2 = new Player();
 
-    public GameSystem(){};
+    public GameSystem() {
+        refreshGameBoard();
+    }
 
     public void refreshGameBoard(){
         for (int i = 0; i < GAMEHEIGHT; i++) {
@@ -33,7 +35,11 @@ public class GameSystem {
         int emptyCount = 0;
         for (int i = 0; i < this.gameBoard.length; i++) {
             for (int j = 0; j < this.gameBoard[i].length; j++) {
-                if (this.gameBoard[i][j].getEntity().GetObject() == 0) {
+                Block block = this.gameBoard[i][j];
+                if (block == null || block.getEntity() == null) {
+                    continue;
+                }
+                if (block.getEntity().GetObject() == 0) {
                     emptyCount++; //count number of empty blocks in the grid
                 }
             }
@@ -46,7 +52,11 @@ public class GameSystem {
         
         for (int i = 0; i < this.gameBoard.length; i++) {
             for (int j = 0; j < this.gameBoard[i].length; j++) {
-                if (this.gameBoard[i][j].getEntity().GetObject() == 0) {
+                Block block = this.gameBoard[i][j];
+                if (block == null || block.getEntity() == null) {
+                    continue;
+                }
+                if (block.getEntity().GetObject() == 0) {
                     emptyPositions[index][0] = i; //stores empty row coordinate
                     emptyPositions[index][1] = j; //stores empty column coordinate
                     index++;
@@ -111,12 +121,13 @@ public class GameSystem {
 
    public void GenRandObstacles() {
     int block = (int) (Math.random() * gameBoard.length * gameBoard[0].length);
-     if (this.gameBoard[block / gameBoard[0].length][block % gameBoard[0].length].getEntity().GetObject() == 0) {
+    Block current = this.gameBoard[block / gameBoard[0].length][block % gameBoard[0].length];
+    if (current != null && current.getEntity() != null && current.getEntity().GetObject() == 0) {
         int rand = (int) (Math.random() * 10); 
-            if (rand < 2) { 
-                this.gameBoard[block / gameBoard[0].length][block % gameBoard[0].length] = new Block(new Obstacle());
-            }
+        if (rand < 2) { 
+            this.gameBoard[block / gameBoard[0].length][block % gameBoard[0].length] = new Block(new Obstacle());
         }
+    }
     }
 }
 

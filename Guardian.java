@@ -1,5 +1,7 @@
 public class Guardian extends Character {
-    public Guardian() {
+    public Guardian(Character character, int team) {
+        super();
+        this.team = team;
         this.spdMod -= 2;
         this.intlMod = 4;
         this.atkMod = 0;

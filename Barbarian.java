@@ -2,8 +2,9 @@ public class Barbarian extends Character {
     // Had to change this, Math.log only takes one variable. Must be log 10.
     private double missingHPBonus = 1.1 * Math.log (this.GetCurrHealth() / this.GetCalculatedStats()[this.HLTPOS] );
 
-    public Barbarian(Character character) {
+    public Barbarian(Character character, int team) {
         super();
+        this.team = team;
         this.spdMod = 2;
         this.intlMod = -1;
         this.atkMod = 8;

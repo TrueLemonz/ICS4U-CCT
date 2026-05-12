@@ -1,6 +1,7 @@
 public class Necromancer extends Character {
-    public Necromancer(Character character) {
+    public Necromancer(Character character, int team) {
         super();
+        this.team = team;
         this.spdMod = -1;
         this.intlMod = 3;
         this.atkMod = 1;
@@ -17,7 +18,7 @@ public class Necromancer extends Character {
 
     public boolean Special(ActionContext context) {
         if (context.GetGrid()[context.getPosX()][context.getPosY()].getEntity().GetObject() == 0) {
-            context.GetGrid()[context.getPosX()][context.getPosY()] = new Block(new Minion());
+            context.GetGrid()[context.getPosX()][context.getPosY()] = new Block(new Minion(this.team));
             return true;
         }
         else {
