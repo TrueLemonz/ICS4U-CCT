@@ -25,7 +25,6 @@ public class RPGMain {
                         while (!HasSelected) {
                             System.out.println("Character " + (j + 1) + ":");
                             ds.PrintInitialStats(new Character[]{ClasslesCharacter});
-                            ClasslesCharacter.SetTeam(1);
                             System.out.println("Which class would you like your character to be? (can back out) \n1. Necromancer \n2. Healer \n3. Crusader \n4. Barbarian \n5. Paladin \n6. Guardian");
                             int choice = scanner.nextInt();
                             if (choice == 1) {
@@ -117,16 +116,16 @@ public class RPGMain {
                             }
                         }
                         if (SelectedClass == 1) {
-                            gs.Player1.PlayerTeam[i] = new Necromancer(ClasslesCharacter);
+                            gs.Player1.PlayerTeam[j] = new Necromancer(ClasslesCharacter);
                         }
                         else if (SelectedClass == 2) {
-                            gs.Player1.PlayerTeam[i] = new Healer(ClasslesCharacter);
+                            gs.Player1.PlayerTeam[j] = new Healer(ClasslesCharacter);
                         }
                         else if (SelectedClass == 3) {
                             //gs.Player1.PlayerTeam[i] = new Crusader(ClasslesCharacter);
                         }
                         else if (SelectedClass == 4) {
-                            gs.Player1.PlayerTeam[i] = new Barbarian(ClasslesCharacter);
+                            gs.Player1.PlayerTeam[j] = new Barbarian(ClasslesCharacter);
                         }
                         else if (SelectedClass == 5) {
                             //gs.Player1.PlayerTeam[i] = new Paladin(ClasslesCharacter);
@@ -134,11 +133,15 @@ public class RPGMain {
                         else if (SelectedClass == 6) {
                             //gs.Player1.PlayerTeam[i] = new Guardian(ClasslesCharacter);
                         }
+                        else {
+                            for ( int k = 0; k < 3; k++ ) {
+                                gs.Player1.PlayerTeam[k] = new Character().GenerateCharacter();
+                            }
+                            System.out.println("Error in class selection.");
+                        }
                     } // End of generating 3 characters
                     System.out.println("PLAYER " + i + " TEAM:");
-                    for (int k = 0; k < 3; k++) {
-                        ds.PrintInitialStats(new Character[]{gs.Player1.PlayerTeam[k]});
-                    }
+                    ds.PrintInitialStats(gs.Player1.PlayerTeam);
                     System.out.println("Now initializing next player's team. Please hand over the computer. Press enter when ready.");
                     scanner.nextLine();
                 } //End of generating 2 teams
@@ -148,4 +151,5 @@ public class RPGMain {
         // gs.populateGameBoard(5, 5);
         // ds.PrintGrid(gs.gameBoard);
     }
+
 }

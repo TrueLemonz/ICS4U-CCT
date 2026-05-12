@@ -79,7 +79,7 @@ public class Displayer {
         System.out.println("            INITIAL STATS            ");
         for ( int i = 0; i < characters.length; i++) {
             Character c = characters[i];
-            if ( c.GetName() == null) {
+            if ( c == null) {
                 return false;
             }
             System.out.println("------------------------------------");
