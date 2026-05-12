@@ -149,6 +149,29 @@ public abstract class Character extends Entity {
         return Math.max(x, y) <= range;
     }
     public abstract boolean Special(ActionContext context);
+    private String SpecialHint;
+    public String GetSpecialHint() {
+        return this.SpecialHint;
+    }
+    public void SetSpecialHint(String hint) {
+        this.SpecialHint = hint;
+    }
+
     public abstract boolean Ability1(ActionContext context);
+    private String Ability1Hint;
+    public String GetAbility1Hint() {
+        return this.Ability1Hint;
+    }
+    public void SetAbility1Hint(String hint) {
+        this.Ability1Hint = hint;
+    }
+
     public abstract boolean Ability2(ActionContext context);
+    private String Ability2Hint;
+    public String GetAbility2Hint() {
+        return this.Ability2Hint;
+    }
+    public void SetAbility2Hint(String hint) {
+        this.Ability2Hint = hint;
+    }
 }
