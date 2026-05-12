@@ -75,10 +75,13 @@ public class Displayer {
         }
     }
 
-    public void PrintInitialStats (Character[] characters) {
+    public boolean PrintInitialStats (Character[] characters) {
         System.out.println("            INITIAL STATS            ");
         for ( int i = 0; i < characters.length; i++) {
             Character c = characters[i];
+            if ( c == null) {
+                return false;
+            }
             System.out.println("------------------------------------");
             System.out.println("Character   : " + c.GetName());
             System.out.println("Team        : " + c.GetTeam());
@@ -89,17 +92,24 @@ public class Displayer {
             System.out.println("Health      : " + c.GetRawStats()[c.HLTPOS]);
             System.out.println("Spell Power : " + c.GetRawStats()[c.SPPPOS]);
             System.out.println("------------------------------------");
+            return true;
         }
+        return false;
     }
-    public void PrintStats (Character[] characters) {
+    public boolean PrintStats (Character[] characters) {
         System.out.println("            CURRENT STATS            ");
         for ( int i = 0; i < characters.length; i++) {
             Character c = characters[i];
+            if ( c == null) {
+                return false;
+            }
             System.out.println("------------------------------------");
             System.out.println("Character   : " + c.GetName());
             System.out.println("Team        : " + c.GetTeam());
             System.out.println("Health      : " + c.GetCurrHealth() + " / " + c.GetCalculatedStats()[c.HLTPOS]);
             System.out.println("------------------------------------");
+            return true;
         }
+        return false;
     }
 }
