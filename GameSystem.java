@@ -107,40 +107,6 @@ public class GameSystem {
       return false;
    }
 
-   public void DistributeRNGStats() {
-    for (int i = 0; i < this.gameBoard.length; i++) {
-            for (int j = 0; j < this.gameBoard[i].length; j++) {
-                if (this.gameBoard[i][j].getEntity().GetObject() == 1) {
-                    Character c = (Character) this.gameBoard[i][j].getEntity();
-                    for ( int k = 0; k < 20; k++ ) {
-                        int rand = (int) (Math.random() * 6);
-                        if (rand == 0 && c.spd <= 8) {
-                            c.spd++;
-                        } 
-                        else if (rand == 1 && c.intl <= 8) {
-                            c.intl++;
-                        }
-                        else if (rand == 2 && c.atk <= 8) {
-                            c.atk++;
-                        } 
-                        else if (rand == 3 && c.spr <= 8) {
-                            c.spr++;
-                        }
-                        else if (rand == 4 && c.hlt <= 8) {
-                            c.hlt++;
-                        } 
-                        else if (rand == 5 && c.spp <= 8) {
-                            c.spp++;
-                        }
-                        else {
-                            k--;
-                        }
-                    }
-                }
-           }
-       }
-   }
-
    public void GenRandObstacles() {
     int block = (int) (Math.random() * gameBoard.length * gameBoard[0].length);
      if (this.gameBoard[block / gameBoard[0].length][block % gameBoard[0].length].getEntity().GetObject() == 0) {
