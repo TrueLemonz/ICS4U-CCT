@@ -21,11 +21,11 @@ public class Healer extends Character {
     * If opposite team, damages them by 5
     */
     public boolean Special (ActionContext context) {
-        Block[][] grid = context.getGrid();
+        Block[][] grid = context.GetGrid();
         if ( this.GetIsStunned() ) {
             return false;
         }
-        Character target = context.getTarget();
+        Character target = context.GetTarget();
         for ( int i = 0; i < 8; i++ ) {
             for (int j = 0; j < 8; j++ ) {
                 if ( grid[i][j].getEntity() instanceof Character) {             
@@ -53,7 +53,7 @@ public class Healer extends Character {
         if ( this.GetIsStunned() ) {
             return false;
         }
-        Character target = context.getTarget();
+        Character target = context.GetTarget();
         if ( target != null && target instanceof Character &&  CheckRange(4, target) &&target.team == this.team) {
             target.SetIntl( target.GetRawStats()[target.INTLPOS] + 4);
             target.SetSpr( target.GetRawStats()[target.SPRPOS] + 2);
@@ -67,7 +67,7 @@ public class Healer extends Character {
         if ( this.GetIsStunned() ) {
             return false;
         }
-        Character target = context.getTarget();
+        Character target = context.GetTarget();
         if ( target != null && target instanceof Character && CheckRange(2, target) && target.team != this.team) {
             target.SetCurrHealth(target.GetCurrHealth() - 2);
             double rand = Math.random();

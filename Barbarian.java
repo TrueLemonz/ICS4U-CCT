@@ -20,105 +20,110 @@ public class Barbarian extends Character {
     }
     // Picks up character, throws them behind
     public boolean Special(ActionContext context) {
-        if (CheckRange(1, context.getTarget())) {
-            int[] targetPos = context.getTarget().GetPosition();
+        if ( !this.GetIsAlive() || this.GetIsStunned() || this.GetCurrMagic() - 2 < 0 ) {
+            return false;
+        }
+        if (CheckRange(1, context.GetTarget())) {
+            int[] targetPos = context.GetTarget().GetPosition();
             int[] myPos = this.GetPosition();
 
             // Performs Special vertically
             // Checks that the barbarian is not at the top or bottom of the grid, or he'll throw the target out of the grid
-            if (this.GetPosition()[1] == 0 || this.GetPosition()[1] == context.getGrid().length - 1) {
+            if (this.GetPosition()[1] == 0 || this.GetPosition()[1] == context.GetGrid().length - 1) {
             return false;
             }
             else {
                 // target is above barbarian
                 if (targetPos[0] == myPos[0] && targetPos[1] == myPos[1] + 1) {
-                context.getGrid()[myPos[0]][myPos[1] - 2].SetEntity(context.getTarget());
-                context.getGrid()[myPos[0]][myPos[1]].SetEntity(null);
-                context.getTarget().position[0] = myPos[0];
-                context.getTarget().position[1] = myPos[1] - 2;
+                context.GetGrid()[myPos[0]][myPos[1] - 2].SetEntity(context.GetTarget());
+                context.GetGrid()[myPos[0]][myPos[1]].SetEntity(null);
+                context.GetTarget().position[0] = myPos[0];
+                context.GetTarget().position[1] = myPos[1] - 2;
                 return true;
                 }
                 // target is below barbarian
                 else if (targetPos[0] == myPos[0] && targetPos[1] == myPos[1] - 1) {
-                context.getGrid()[myPos[0]][myPos[1] + 2].SetEntity(context.getTarget());
-                context.getGrid()[myPos[0]][myPos[1]].SetEntity(null);
-                context.getTarget().position[0] = myPos[0];
-                context.getTarget().position[1] = myPos[1] + 2;
+                context.GetGrid()[myPos[0]][myPos[1] + 2].SetEntity(context.GetTarget());
+                context.GetGrid()[myPos[0]][myPos[1]].SetEntity(null);
+                context.GetTarget().position[0] = myPos[0];
+                context.GetTarget().position[1] = myPos[1] + 2;
                 return true;
                 }
             }
             // Performs Special horizontally  
             // Checks that the barbarian is not at the extreme left or right of the grid or he'll throw the target out of the grid
-            if ( this.GetPosition()[0] == 0 || this.GetPosition()[0] == context.getGrid()[0].length - 1) {
+            if ( this.GetPosition()[0] == 0 || this.GetPosition()[0] == context.GetGrid()[0].length - 1) {
                 return false;
             }
             else {
                 // target is to the left of barbarian
                 if (targetPos[0] == myPos[0] - 1 && targetPos[1] == myPos[1]) {
-                    context.getGrid()[myPos[0] + 2][myPos[1]].SetEntity(context.getTarget());
-                    context.getGrid()[myPos[0]][myPos[1]].SetEntity(null);
-                    context.getTarget().position[0] = myPos[0] + 2;
-                    context.getTarget().position[1] = myPos[1];
+                    context.GetGrid()[myPos[0] + 2][myPos[1]].SetEntity(context.GetTarget());
+                    context.GetGrid()[myPos[0]][myPos[1]].SetEntity(null);
+                    context.GetTarget().position[0] = myPos[0] + 2;
+                    context.GetTarget().position[1] = myPos[1];
                     return true;
                 }
                 // target is to the right of barbarian
                 else if (targetPos[0] == myPos[0] + 1 && targetPos[1] == myPos[1]) {
-                    context.getGrid()[myPos[0] - 2][myPos[1]].SetEntity(context.getTarget());
-                    context.getGrid()[myPos[0]][myPos[1]].SetEntity(null);
-                    context.getTarget().position[0] = myPos[0] - 2;
-                    context.getTarget().position[1] = myPos[1];
+                    context.GetGrid()[myPos[0] - 2][myPos[1]].SetEntity(context.GetTarget());
+                    context.GetGrid()[myPos[0]][myPos[1]].SetEntity(null);
+                    context.GetTarget().position[0] = myPos[0] - 2;
+                    context.GetTarget().position[1] = myPos[1];
                     return true;
                 }
             }
             // Performs Special diagonally
             // Checks both vertical and horizontal conditions
-            if ( this.GetPosition()[0] == 0 || this.GetPosition()[0] == context.getGrid()[0].length - 1 
-                 || this.GetPosition()[1] == 0 || this.GetPosition()[1] == context.getGrid().length - 1 ) {
+            if ( this.GetPosition()[0] == 0 || this.GetPosition()[0] == context.GetGrid()[0].length - 1 
+                 || this.GetPosition()[1] == 0 || this.GetPosition()[1] == context.GetGrid().length - 1 ) {
                     return false;
                  }
                  else {
                     if (targetPos[0] == myPos[0] - 1 && targetPos[1] == myPos[1] - 1) {
-                        context.getGrid()[targetPos[0] + 2][targetPos[1] + 2].SetEntity(context.getTarget());
-                        context.getGrid()[targetPos[0]][targetPos[1]].SetEntity(null);
-                        context.getTarget().position[0] = targetPos[0] + 2;
-                        context.getTarget().position[1] = targetPos[1] + 2;
+                        context.GetGrid()[targetPos[0] + 2][targetPos[1] + 2].SetEntity(context.GetTarget());
+                        context.GetGrid()[targetPos[0]][targetPos[1]].SetEntity(null);
+                        context.GetTarget().position[0] = targetPos[0] + 2;
+                        context.GetTarget().position[1] = targetPos[1] + 2;
                         return true;
                     }
                     else if (targetPos[0] == myPos[0] - 1 && targetPos[1] == myPos[1] + 1) {
-                        context.getGrid()[targetPos[0] + 2][targetPos[1] - 2].SetEntity(context.getTarget());
-                        context.getGrid()[targetPos[0]][targetPos[1]].SetEntity(null);
-                        context.getTarget().position[0] = targetPos[0] + 2;
-                        context.getTarget().position[1] = targetPos[1] - 2;
+                        context.GetGrid()[targetPos[0] + 2][targetPos[1] - 2].SetEntity(context.GetTarget());
+                        context.GetGrid()[targetPos[0]][targetPos[1]].SetEntity(null);
+                        context.GetTarget().position[0] = targetPos[0] + 2;
+                        context.GetTarget().position[1] = targetPos[1] - 2;
                         return true;
                     }
                     else if (targetPos[0] == myPos[0] + 1 && targetPos[1] == myPos[1] - 1) {
-                        context.getGrid()[targetPos[0] - 2][targetPos[1] + 2].SetEntity(context.getTarget());
-                        context.getGrid()[targetPos[0]][targetPos[1]].SetEntity(null);
-                        context.getTarget().position[0] = targetPos[0] - 2;
-                        context.getTarget().position[1] = targetPos[1] + 2;
+                        context.GetGrid()[targetPos[0] - 2][targetPos[1] + 2].SetEntity(context.GetTarget());
+                        context.GetGrid()[targetPos[0]][targetPos[1]].SetEntity(null);
+                        context.GetTarget().position[0] = targetPos[0] - 2;
+                        context.GetTarget().position[1] = targetPos[1] + 2;
                         return true;
                     }
                     else if (targetPos[0] == myPos[0] + 1 && targetPos[1] == myPos[1] + 1) {
-                        context.getGrid()[targetPos[0] - 2][targetPos[1] - 2].SetEntity(context.getTarget());
-                        context.getGrid()[targetPos[0]][targetPos[1]].SetEntity(null);
-                        context.getTarget().position[0] = targetPos[0] - 2;
-                        context.getTarget().position[1] = targetPos[1] - 2;
+                        context.GetGrid()[targetPos[0] - 2][targetPos[1] - 2].SetEntity(context.GetTarget());
+                        context.GetGrid()[targetPos[0]][targetPos[1]].SetEntity(null);
+                        context.GetTarget().position[0] = targetPos[0] - 2;
+                        context.GetTarget().position[1] = targetPos[1] - 2;
                         return true;
                     }
                  }
         }
-        this.intl -= 4;
-        ScaleStats();
+        this.SetCurrMagic ( this.GetCurrMagic() - 2);
         //System.out.println( SpecialHint());
         return false;
     }
     // Strong attack, meant to hit multiple times so that block/parry is calculated for each hit
     // and its unlikely for the whole thing to be blocked
     public boolean Ability1 (ActionContext context) {
-        if ( CheckRange(1, context.getTarget()) ) {
+        if ( !this.GetIsAlive() || this.GetIsStunned() || this.GetCurrMagic() - 1 < 0) {
+            return false;
+        }
+        if ( CheckRange(1, context.GetTarget()) ) {
             ScaleStats();
-            context.getTarget().SetCurrHealth(context.getTarget().GetCurrHealth() - this.attack * 4);
-            this.intl -= 2;
+            context.GetTarget().SetCurrHealth(context.GetTarget().GetCurrHealth() - this.attack * 4);
+            this.SetCurrMagic( this.GetCurrMagic() - 1);
             ScaleStats();
             return true;
         }
@@ -126,10 +131,13 @@ public class Barbarian extends Character {
     }
 
     public boolean Ability2 (ActionContext context) {
-        if ( this.GetCurrHealth() > 0.2 * this.GetCalculatedStats()[this.HLTPOS] ) {
-            this.SetCurrHealth(this.GetCurrHealth() - 0.2 * this.GetCalculatedStats()[this.HLTPOS]);
-            this.attack *= 1.15;
-            this.intl -= 2;
+        if ( !this.GetIsAlive() || this.GetIsStunned() || this.GetCurrMagic() - 1 < 0) {
+            return false;
+        }
+        if ( this.GetCurrHealth() > 0.2 * this.GetCalculatedStats()[HLTPOS] ) {
+            this.SetCurrHealth(this.GetCurrHealth() - 0.2 * this.GetCalculatedStats()[HLTPOS]);
+            this.SetCalculatedStats(ATTACKPOS, this.GetCalculatedStats()[ATTACKPOS] * 1.15);
+            this.SetCurrMagic( this.GetCurrMagic() - 2);
             ScaleStats();
             return true;
         }

@@ -14,9 +14,14 @@ public class Guardian extends Character {
         this.spp += this.sppMod;
     }
 
+
     public boolean Special(ActionContext context) {
-        if ( context.getGrid()[context.getPosX()][context.getPosY()].getEntity().GetObject() == 0) {
-            context.getGrid()[context.getPosX()][context.getPosY()] = new Block(new Obstacle());
+        if ( !this.GetIsAlive() || this.GetIsStunned() || this.GetCurrMagic() - 2 < 0) {
+            return false;
+        }
+        if ( context.GetGrid()[context.getPosX()][context.getPosY()].getEntity().GetObject() == 0) {
+            context.GetGrid()[context.getPosX()][context.getPosY()] = new Block(new Obstacle());
+            this.SetCurrMagic( this.GetCurrMagic() - 2);
             return true;
         }
         else {
@@ -25,15 +30,22 @@ public class Guardian extends Character {
     }
     // had to change from void to boolean because I simplified the methods earlier
     public boolean Ability1(ActionContext context) {
-        this.hlt++;
-        this.spd--;
-        ApplyStats();
+        if ( !this.GetIsAlive() || this.GetIsStunned() || this.GetCurrMagic()- 1 < 0 ) {
+            return false;
+        }
+        this.SetHlt ( this.GetRawStats()[HLTPOS] + 1);
+        this.SetIntl ( this.GetRawStats()[INTLPOS] + 1);
+        this.SetCurrMagic ( this.GetCurrMagic() - 1);
         return true;
     }
 
     public boolean Ability2(ActionContext context) {
+        if ( !this.GetIsAlive() || this.GetIsStunned() || this.GetCurrMagic() - 1 < 0 ) {
+            return false;
+        }
         if (1.1 * this.GetCurrHealth() <= this.health ) {
             this.SetCurrHealth(this.GetCurrHealth() * 1.1); // Sorry if this broke it, tried to make everything encapsulated
+            this.SetCurrMagic( this.GetCurrMagic() - 1);
             return true;
         }
         else {

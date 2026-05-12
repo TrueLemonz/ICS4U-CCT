@@ -110,6 +110,9 @@ public abstract class Character extends Entity {
         double[] stats = {this.speed, this.intelligence, this.attack, this.spirit, this.health, this.spellpower};
         return stats;
     }
+    public void SetCalculatedStats( int pos, double amt ) {
+        this.GetCalculatedStats()[pos] = amt;
+    }
     public double GetCurrHealth() {
         return this.currHealth;
     }
