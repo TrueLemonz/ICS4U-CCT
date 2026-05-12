@@ -82,12 +82,12 @@ public class Displayer {
             System.out.println("------------------------------------");
             System.out.println("Character   : " + c.GetName());
             System.out.println("Team        : " + c.GetTeam());
-            System.out.println("Speed       : " + c.GetCalculatedStats()[c.SPDPOS]);
-            System.out.println("Intelligence: " + c.GetCalculatedStats()[c.INTLPOS]);
-            System.out.println("Attack      : " + c.GetCalculatedStats()[c.ATKPOS]);
-            System.out.println("Spirit      : " + c.GetCalculatedStats()[c.SPRPOS]);
-            System.out.println("Health      : " + c.GetCalculatedStats()[c.HLTPOS]);
-            System.out.println("Spell Power : " + c.GetCalculatedStats()[c.SPPPOS]);
+            System.out.println("Speed       : " + c.GetRawStats()[c.SPDPOS]);
+            System.out.println("Intelligence: " + c.GetRawStats()[c.INTLPOS]);
+            System.out.println("Attack      : " + c.GetRawStats()[c.ATKPOS]);
+            System.out.println("Spirit      : " + c.GetRawStats()[c.SPRPOS]);
+            System.out.println("Health      : " + c.GetRawStats()[c.HLTPOS]);
+            System.out.println("Spell Power : " + c.GetRawStats()[c.SPPPOS]);
             System.out.println("------------------------------------");
         }
     }

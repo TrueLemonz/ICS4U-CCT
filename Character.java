@@ -132,6 +132,12 @@ public class Character extends Entity {
     public void SetHlt(int hlt) {
         this.hlt = hlt;
     }
+    public void SetTeam(int team) {
+        this.team = team;
+    }
+    public String GetName() {
+        return "Character";
+    }
     public void SetCurrHealth(double currHealth) {
         this.currHealth = currHealth;
     }
