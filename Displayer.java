@@ -92,7 +92,6 @@ public class Displayer {
             System.out.println("Health      : " + c.GetRawStats()[c.HLTPOS]);
             System.out.println("Spell Power : " + c.GetRawStats()[c.SPPPOS]);
             System.out.println("------------------------------------");
-            return true;
         }
         return false;
     }
@@ -108,7 +107,6 @@ public class Displayer {
             System.out.println("Team        : " + c.GetTeam());
             System.out.println("Health      : " + c.GetCurrHealth() + " / " + c.GetCalculatedStats()[c.HLTPOS]);
             System.out.println("------------------------------------");
-            return true;
         }
         return false;
     }
