@@ -15,6 +15,10 @@ public class Healer extends Character {
         this.hlt = character.hlt + this.hltMod;
         this.spp = character.spp + this.sppMod;
     }
+
+    public String getName() {
+        return "Healer";
+    }
     /*Reads every entity on the grid and checks the range (1)
     * If entity is a character, it checks their team
     * If belonging to the same team as the healer, heals them for 5

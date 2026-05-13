@@ -16,6 +16,9 @@ public class Minion extends Character {
         this.hlt += this.hltMod;
         this.spp += this.sppMod;
     }
+    public String getName() {
+        return "Minion";
+    }
     public boolean Special(ActionContext context) {
         return false;
     }

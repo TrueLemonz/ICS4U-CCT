@@ -10,6 +10,18 @@ public class GameSystem {
         refreshGameBoard();
     }
 
+
+    public boolean Move( Character character, int posX, int posY) {   
+        int nullX = character.GetPosition()[0];
+        int nullY = character.GetPosition()[1];
+        if ( this.gameBoard[posX][posY] == null && character.CheckConditions(0) ) {
+            this.gameBoard[posX][posY].SetEntity(character);
+            this.gameBoard[nullX][nullY] = null;
+            return true;
+        }
+        return false;
+    }
+
     public void refreshGameBoard(){
         for (int i = 0; i < GAMEHEIGHT; i++) {
             for (int j = 0; j < GAMEWIDTH; j++) {
@@ -37,7 +49,7 @@ public class GameSystem {
             for (int j = 0; j < this.gameBoard[i].length; j++) {
                 Block block = this.gameBoard[i][j];
                 if (block == null || block.getEntity() == null) {
-                    continue;
+                   continue;
                 }
                 if (block.getEntity().GetObject() == 0) {
                     emptyCount++; //count number of empty blocks in the grid
@@ -95,11 +107,12 @@ public class GameSystem {
    }
 
    public boolean CheckWin() {
+    Entity entity = new Entity();
     boolean Team1Lose = true;
     boolean Team2Lose = true;
       for (int i = 0; i < this.gameBoard.length; i++) {
          for (int j = 0; j < this.gameBoard[i].length; j++) {
-            if (this.gameBoard[i][j].getEntity().GetObject() == 1) {
+            if (this.gameBoard[i][j].getEntity().GetObject() == entity.CHARACTER) {
                 Character c = (Character) this.gameBoard[i][j].getEntity();
                 if (c.getTeam() == 1 && !c.GetIsAlive()) {
                     Team1Lose = false;

@@ -19,6 +19,9 @@ public class Barbarian extends Character {
         this.spp = character.spp + this.sppMod;
 
     }
+    public String getName() {
+        return "Barbarian";
+    }
     // Picks up character, throws them behind
     public boolean Special(ActionContext context) {
         if ( !CheckConditions(2, 1, context.GetTarget()) ) {

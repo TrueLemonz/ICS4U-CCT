@@ -30,10 +30,9 @@ public class Displayer {
         centerPrint("MAP:", CELL_WIDTH * GameSystem.GAMEWIDTH + GameSystem.GAMEWIDTH + 1); 
         System.out.print("\n");
         printLine(CELL_WIDTH);
-        
         for (int i = 0; i < grid.length; i++) {
             Block[] row = grid[i];
-
+            Entity entity = new Entity();
             // top padding for the entire row
             for (int k = 0; k < CELL_PADDING_Y; k++) {
                 for (int j = 0; j < row.length; j++) {
@@ -50,11 +49,11 @@ public class Displayer {
                 if (b != null && b.getEntity() != null) {
                     String val = String.valueOf(b.getEntity().GetName());
                     int objectType = b.getEntity().GetObject();
-                    if (objectType == 1) {
+                    if (objectType == entity.CHARACTER) {
                         formattedVal = "{" + val + "}";
-                    } else if (objectType == 2) {
+                    } else if (objectType == entity.OBSTACLE) {
                         formattedVal = "[" + val + "]";
-                    } else if (objectType == 3) {
+                    } else if (objectType == entity.FOOD) {
                         formattedVal = "(" + val + ")";
                     } else if (objectType == 0) {
                         formattedVal = val;

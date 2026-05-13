@@ -5,6 +5,7 @@ public class RPGMain {
         GameSystem gs = new GameSystem();
         Displayer ds = new Displayer();
         Scanner scanner = new Scanner(System.in);
+        Character c = new Character();
         boolean gameRunning = true;
         int PlayerChoice;
         
@@ -170,6 +171,9 @@ public class RPGMain {
                     if ( i == 1) {
                     ds.PrintInitialStats(gs.Player1.PlayerTeam);
                     }
+                    else {
+                        ds.PrintInitialStats(gs.Player2.PlayerTeam);
+                    }
                     if (i == 1) {
                         System.out.println("Now initializing next player's team. Please hand over the computer. Press [ENTER] when ready.");
                     }
@@ -180,14 +184,27 @@ public class RPGMain {
                     scanner.nextLine(); // Must use twice, first one consumes leftover enter from previous input, second one waits for actual enter key press.
                 } //End of generating 2 teams
                 gs.refreshGameBoard();
+                // I had to put this above the grid initialization here because more often than not it would replace the characters with food or obstalces ( or maybe they're just printed wrong, not sure)
+                gs.populateGameBoard(5, 3);
                 gs.gameBoard[0][0] = new Block(gs.Player1.PlayerTeam[0]);
                 gs.gameBoard[1][0] = new Block(gs.Player1.PlayerTeam[1]);
                 gs.gameBoard[0][1] = new Block(gs.Player1.PlayerTeam[2]);
                 gs.gameBoard[7][7] = new Block(gs.Player2.PlayerTeam[0]);
                 gs.gameBoard[6][7] = new Block(gs.Player2.PlayerTeam[1]);
                 gs.gameBoard[7][6] = new Block(gs.Player2.PlayerTeam[2]);
-                gs.populateGameBoard(5, 3);
                 ds.PrintGrid(gs.gameBoard);
+                int Player1Speed = 0;
+                int Player2Speed = 0;
+                for ( int i = 0; i < 3; i++) {
+                    Player1Speed += gs.Player1.PlayerTeam[i].GetSpd();
+                    Player2Speed += gs.Player2.PlayerTeam[i].GetSpd();
+                }
+                if ( Player1Speed > Player2Speed) {
+                    System.out.println("Player 1 starts!");
+                    Character maxSpeedCharacter = c.getMaxSpeed ( gs.Player1.PlayerTeam);
+                    System.out.println("Move "  + maxSpeedCharacter.getName() );
+                }
+        
             } //TODO add the other two options
         } //STOP RUNNING
         scanner.close();
@@ -195,5 +212,4 @@ public class RPGMain {
         // gs.populateGameBoard(5, 5);
         // ds.PrintGrid(gs.gameBoard);
     }
-
 }

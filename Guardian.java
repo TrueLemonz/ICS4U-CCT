@@ -15,6 +15,9 @@ public class Guardian extends Character {
         this.hlt += this.hltMod;
         this.spp += this.sppMod;
     }
+    public String getName() {
+        return "Guardian";
+    }
 
 
     public boolean Special(ActionContext context) {

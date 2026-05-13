@@ -15,6 +15,9 @@ public class Necromancer extends Character {
         this.hlt = character.hlt + this.hltMod;
         this.spp = character.spp + this.sppMod;
     }
+    public String getName() {
+        return "Necromancer";
+    }
 
     public boolean Special(ActionContext context) {
         if (context.GetGrid()[context.getPosX()][context.getPosY()].getEntity().GetObject() == 0) {
@@ -26,7 +29,8 @@ public class Necromancer extends Character {
         }
     }
     public boolean Ability1(ActionContext context) {
-        if (context.GetTarget().GetObject() == 1) {
+        Entity entity = new Entity();
+        if (context.GetTarget().GetObject() == entity.CHARACTER) {
             if (!context.GetTarget().IsMinion()) {
                 context.GetTarget().AddTurn();
                 return true;
@@ -40,7 +44,8 @@ public class Necromancer extends Character {
         }
     }
     public boolean Ability2(ActionContext context) {
-        if (context.GetGrid()[context.getPosX()][context.getPosY()].getEntity().GetObject() == 1) {
+        Entity entity = new Entity();
+        if (context.GetGrid()[context.getPosX()][context.getPosY()].getEntity().GetObject() == entity.CHARACTER) {
             return true;
         }
         else {

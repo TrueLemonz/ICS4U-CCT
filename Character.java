@@ -145,7 +145,7 @@ public class Character extends Entity {
     public void SetTeam(int team) {
         this.team = team;
     }
-    public String GetName() {
+    public String getName() {
         return "Character";
     }
     public void SetCurrHealth(double currHealth) {
@@ -199,6 +199,9 @@ public class Character extends Entity {
     public boolean GetIsAlive() {
         return this.isAlive;
     }
+    public int GetSpd() {
+        return this.spd;
+    }
     public boolean CheckRange(int range, Entity target) {
         if (this.isStunned) {
             return false;
@@ -244,6 +247,99 @@ public class Character extends Entity {
         }
         else return true;
     }
+    /*Returns character with the most speed
+    * Will put it to chance if speeds are equal
+    * c1, c2 and c3 refer to character 1, etc. respectively */
+    public Character getMaxSpeed(Character[] PlayerTeam) { 
+        //  c1 has highest speed
+        if ( PlayerTeam[0].GetSpd() > PlayerTeam[1].GetSpd() && PlayerTeam[0].GetSpd() > PlayerTeam[2].GetSpd()) {
+            return PlayerTeam[0];
+        }
+        // c2 has highest speed
+        else if ( PlayerTeam[1].GetSpd() > PlayerTeam[0].GetSpd() && PlayerTeam[1].GetSpd() > PlayerTeam[2].GetSpd() ) {
+            return PlayerTeam[1];
+        } 
+        // c3 has highest speed
+        else if ( PlayerTeam[2].GetSpd() > PlayerTeam[1].GetSpd() && PlayerTeam[2].GetSpd() > PlayerTeam[0].GetSpd() ) {
+            return PlayerTeam[2];
+        }
+        // c1 has a higher speed than c2 but is equal to c3, 50% change to return either c1 or c3
+        else if ( PlayerTeam[0].GetSpd() > PlayerTeam[1].GetSpd() && PlayerTeam[0].GetSpd() == PlayerTeam[2].GetSpd() ) {
+            int randNum = (int) (Math.random() * 2);
+            if ( randNum == 1) {
+                return PlayerTeam[0];
+            }
+            else {
+                return PlayerTeam[2];
+            }
+        }
+        // If c1 has a higher speed than c3 but is equal to c2, 50% change to return either c1 or c2
+        else if ( PlayerTeam[0].GetSpd() > PlayerTeam[2].GetSpd() && PlayerTeam[0].GetSpd() == PlayerTeam[1].GetSpd() ) {
+            int randNum = (int) (Math.random() * 2);
+            if ( randNum == 1) {
+                return PlayerTeam[0];
+            }
+            else {
+                return PlayerTeam[1];
+            }
+
+        }
+        // If c2 has a higher speed than c1 but is equal to c3, 50% change to return either c2 or c3
+        else if ( PlayerTeam[1].GetSpd() > PlayerTeam[0].GetSpd() && PlayerTeam[0].GetSpd() == PlayerTeam[2].GetSpd() ) {
+            int randNum = (int) (Math.random() * 2);
+            if ( randNum == 1) {
+                return PlayerTeam[1];
+            }
+            else {
+                return PlayerTeam[2];
+            }
+
+        }
+        // If c2 has a higher speed than c3 but is equal to c1, 50% change to return either c2 or c1 
+        else if ( PlayerTeam[1].GetSpd() > PlayerTeam[2].GetSpd() && PlayerTeam[1].GetSpd() == PlayerTeam[0].GetSpd() ) {
+            int randNum = (int) (Math.random() * 2);
+            if ( randNum == 1) {
+                return PlayerTeam[0];
+            }
+            else {
+                return PlayerTeam[1];
+            }
+        }
+        // If c3 has a higher speed than c1 but is equal to c2, 50% change to return either c3 or c2
+        else if ( PlayerTeam[2].GetSpd() > PlayerTeam[0].GetSpd() && PlayerTeam[2].GetSpd() == PlayerTeam[1].GetSpd() ) {
+            int randNum = (int) (Math.random() * 2);
+            if ( randNum == 1) {
+                return PlayerTeam[1];
+            }
+            else {
+                return PlayerTeam[2];
+            }
+        }
+        // If c3 has a higher speed than c2 but is equal to c1, 50% change to return either c3 or c1
+        else if ( PlayerTeam[2].GetSpd() > PlayerTeam[1].GetSpd() && PlayerTeam[2].GetSpd() == PlayerTeam[0].GetSpd() ) {
+            int randNum = (int) (Math.random() * 2);
+            if ( randNum == 1) {
+                return PlayerTeam[0];
+            }
+            else {
+                return PlayerTeam[2];
+            }
+        }
+        // they all have the same speed
+        else  {
+            int randNum = (int) (Math.random() * 3);
+            for ( int i = 1; i <= 3; i++) {
+                if ( randNum == i) {
+                    return PlayerTeam[i-1];
+                }
+            }
+        }
+        // Dummy - code won't reach here
+        return PlayerTeam[0];
+    }
+    //TODO write getMedianSpeed
+    //public Character getMedianSpeed(Character maxSpeedCharacter) {
+      
 
     public boolean Ability2(ActionContext context) {
         return false;

@@ -16,7 +16,9 @@ public class Crusader extends Character {
         this.hlt = character.hlt + this.hltMod;
         this.spp = character.spp + this.sppMod;
     }
-
+    public String getName() {
+        return "Crusader";
+    }
     public boolean Special(ActionContext context) {
         if ( !CheckConditions(2,1, context.GetTarget()) || context.GetTarget().getTeam() != this.team ) {
             return false;
