@@ -4,7 +4,10 @@ public class Entity {
     private boolean isObstacle;
     private boolean isCharacter;
     int[] position = new int[2];
-
+    // Final variables for the GetObject() method
+    public final static int FOOD = 3;
+    public final static int OBSTACLE = 2;
+    public final static int CHARACTER = 1;
     public Entity(String name, boolean isFood, boolean isObstacle, boolean isCharacter) {
         this.name = name;
         this.isFood = isFood;
@@ -38,13 +41,13 @@ public class Entity {
      */
     public int GetObject() {
         if (isFood) {
-            return 3;
+            return FOOD;
         } 
         else if (isObstacle) {
-            return 2;
+            return OBSTACLE;
         } 
         else if (isCharacter) {
-            return 1;
+            return CHARACTER;
         } 
         else {
             return 0;

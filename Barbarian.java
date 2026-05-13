@@ -21,11 +21,10 @@ public class Barbarian extends Character {
     }
     // Picks up character, throws them behind
     public boolean Special(ActionContext context) {
-        if ( !CheckConditions(2) ) {
+        if ( !CheckConditions(2, 1, context.GetTarget()) ) {
             return false;
         }
         applyPassive();
-        if (CheckRange(1, context.GetTarget())) {
             int[] targetPos = context.GetTarget().GetPosition();
             int[] myPos = this.GetPosition();
 
@@ -109,32 +108,31 @@ public class Barbarian extends Character {
                         context.GetTarget().position[0] = targetPos[0] - 2;
                         context.GetTarget().position[1] = targetPos[1] - 2;
                         return true;
-                    }
-                 }
+                }
+            }
+            this.SetCurrMagic ( this.GetCurrMagic() - 2);
+            return false;
         }
-        this.SetCurrMagic ( this.GetCurrMagic() - 2);
         //System.out.println( SpecialHint());
-        return false;
-    }
     // Strong attack, meant to hit multiple times so that block/parry is calculated for each hit
     // and its unlikely for the whole thing to be blocked
     public boolean Ability1 (ActionContext context) {
-        if ( !CheckConditions(1) ){
+        if ( !CheckConditions(1, 1, context.GetTarget()) ){
             return false;
         }
         applyPassive();
-        if ( CheckRange(1, context.GetTarget()) ) {
             ScaleStats();
-            context.GetTarget().SetCurrHealth(context.GetTarget().GetCurrHealth() - this.attack * 4);
+            if ( context.GetTarget().GetIsDivineShielded()) {
+                context.GetTarget().SetCurrHealth(context.GetTarget().GetCurrHealth() - this.attack * 2);
+            }
+            else context.GetTarget().SetCurrHealth(context.GetTarget().GetCurrHealth() - this.attack * 4);
             this.SetCurrMagic( this.GetCurrMagic() - 1);
             ScaleStats();
             return true;
         }
-        return false;
-    }
 
     public boolean Ability2 (ActionContext context) {
-        if ( !CheckConditions( 1) ) {
+        if ( !CheckConditions( 1, 1, context.GetTarget() ) ) {
             return false;
         }
         applyPassive();

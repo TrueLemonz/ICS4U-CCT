@@ -56,7 +56,7 @@ public class RPGMain {
                                 }
                             } 
                             else if (choice == 3) { // Done
-                                System.out.println("Crusader \nA highly poised warrior who both safeguards allies and threatens moderate damage.\nAbilities: \nSpecial: Divine Shield - Creates a protective barrier around an adjacent ally. ");
+                                System.out.println("Crusader \nA highly poised warrior who both safeguards allies and threatens moderate damage.\nAbilities: \nSpecial: Divine Shield - Protects an ally, reducing their damage taken and increasing their healing received. ");
                                 System.out.println("Ability 1: Holy Light - Heals an adjacent ally. \nAbility 2: Condemn - Deals damage to an enemy.");
                                 System.out.println("Stat buffs: \n+0 speed\n+2 intelligence\n+1 attack\n+1 spirit\n+3 health\n+1 spellpower");
                                 System.out.println("Would you like to select this class? (y/N)");
@@ -132,12 +132,12 @@ public class RPGMain {
                             }
                         }
                         else if (SelectedClass == 3) {
-                            // if (i == 1) {
-                            //     gs.Player1.PlayerTeam[j] = new Crusader(ClasslesCharacter, i);
-                            // }
-                            // else {
-                            //     gs.Player2.PlayerTeam[j] = new Crusader(ClasslesCharacter, i);
-                            // }
+                             if (i == 1) {
+                                gs.Player1.PlayerTeam[j] = new Crusader(ClasslesCharacter, i);
+                             }
+                            else {
+                                gs.Player2.PlayerTeam[j] = new Crusader(ClasslesCharacter, i);
+                             }
                         }
                         else if (SelectedClass == 4) {
                             if (i == 1) {
@@ -156,12 +156,12 @@ public class RPGMain {
                             // }
                         }
                         else if (SelectedClass == 6) {
-                            // if (i == 1) {
-                            //     gs.Player1.PlayerTeam[j] = new Guardian(ClasslesCharacter, i);
-                            // }
-                            // else {
-                            //     gs.Player2.PlayerTeam[j] = new Guardian(ClasslesCharacter, i);
-                            // }
+                             if (i == 1) {
+                                gs.Player1.PlayerTeam[j] = new Guardian(ClasslesCharacter, i);
+                             }
+                             else {
+                                 gs.Player2.PlayerTeam[j] = new Guardian(ClasslesCharacter, i);
+                             }
                         }
                     } // End of generating 3 characters
                     System.out.println("PLAYER " + i + " TEAM:");

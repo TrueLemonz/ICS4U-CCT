@@ -52,7 +52,7 @@ public class Healer extends Character {
     }
     // Gives teammate +4 intl and +2 spr
     public boolean Ability1 (ActionContext context) {
-        if ( !CheckConditions ( 3) ) {
+        if ( !CheckConditions ( 3, 3 ,context.GetTarget() ) ) {
             return false;
         }
         Character target = context.GetTarget(); 
@@ -67,12 +67,15 @@ public class Healer extends Character {
     }
     // Basic attack, has a 50% chance to stun the target
     public boolean Ability2 (ActionContext context) {
-        if ( !CheckConditions ( 2) ) {
+        if ( !CheckConditions ( 2, 2, context.GetTarget() ) ) {
             return false;
         }
         Character target = context.GetTarget();
         if ( target != null && target instanceof Character && CheckRange(2, target) && target.team != this.team) {
-            target.SetCurrHealth(target.GetCurrHealth() - 2);
+            if ( target.GetIsDivineShielded()) {
+                target.SetCurrHealth(target.GetCurrHealth() - 1);
+            }
+            else target.SetCurrHealth(target.GetCurrHealth() - 2);
             double rand = Math.random();
             if ( rand < 0.5 ) {
                 target.SetIsStunned(true);
