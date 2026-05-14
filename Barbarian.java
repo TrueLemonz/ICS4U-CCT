@@ -4,7 +4,9 @@ public class Barbarian extends Character {
 
     public Barbarian(Character character, int team) {
         super();
-        this.team = team;
+        this.SetName("Barbarian");
+        this.SetFullName(character.GetFullName());
+        this.SetTeam(team);
         this.spdMod = 2;
         this.intlMod = -1;
         this.atkMod = 8;

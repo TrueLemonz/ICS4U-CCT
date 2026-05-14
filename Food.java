@@ -1,7 +1,7 @@
 public class Food extends Entity {
     public Food() {
         super();
-        this.SetObject(1);
+        this.SetObject(3);
         this.SetName("Food");
     }
 }

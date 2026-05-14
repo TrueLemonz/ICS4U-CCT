@@ -1,8 +1,10 @@
 public class Entity {
     private String name;
+    private String fullName;
     private boolean isFood;
     private boolean isObstacle;
     private boolean isCharacter;
+    private int team = 0;
     int[] position = new int[2];
     // Final variables for the GetObject() method
     public final static int FOOD = 3;
@@ -16,6 +18,7 @@ public class Entity {
     }
 
     public Entity() {
+        this.team = 0;
         this.name = null;
         this.isFood = false;
         this.isObstacle = false;
@@ -88,13 +91,25 @@ public class Entity {
         return name;
     }
 
+    public String GetFullName() {
+        return fullName;
+    }
+    public void SetFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
     /*
      * Changes name of entity.
      */
     public void SetName(String name) {
         this.name = name;
     }
-
+    public int GetTeam() {
+        return this.team;
+    }
+    public void SetTeam(int team) {
+        this.team = team;
+    }
     public boolean CheckRange(int range, Character target) {
         int[] targetPos = target.GetPosition();
         int[] myPos = this.GetPosition();

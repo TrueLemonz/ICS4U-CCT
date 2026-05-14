@@ -1,86 +1,100 @@
 public class Displayer {
     private static final int CELL_WIDTH = 15; // Define a constant for cell width
-    private static final int CELL_PADDING_Y = 2; // Adds a line that many times on both sides of the cell content
+    private static final int CELL_PADDING_Y = 1; // Adds a line that many times on both sides of the cell content
 
     public Displayer() {}
 
-    private void printLine(int length) {
-        for (int i = 0; i < length*GameSystem.GAMEWIDTH + GameSystem.GAMEWIDTH + 1; i++) {
+    private void printLine(int colsPerCell, int rowLength) {
+        int totalDashes = rowLength * (colsPerCell * (CELL_WIDTH + 1)) + 1;
+        for (int i = 0; i < totalDashes; i++) {
             System.out.print("-");
         }
         System.out.print("\n");
     }
 
     private static String centerString(String text, int width) {
+        if (text == null) {
+            text = "";
+        }
         if (text.length() >= width) {
             return text;
         }
         int padding = width - text.length();
         int leftSpaces = padding / 2;
         int rightSpaces = padding - leftSpaces;
-        return String.format("%" + leftSpaces + "s%s%" + rightSpaces + "s", "", text, "");
+        return " ".repeat(leftSpaces) + text + " ".repeat(rightSpaces);
     }
 
-    // print 
     public static void centerPrint(String text, int width) {
         System.out.println(centerString(text, width));
     }
 
     public void PrintGrid(Block[][] grid) {
-        centerPrint("MAP:", CELL_WIDTH * GameSystem.GAMEWIDTH + GameSystem.GAMEWIDTH + 1); 
+        if (grid == null || grid.length == 0) {
+            return;
+        }
+
+        int colsPerCell = 3;
+        int rowLength = grid[0].length;
+        int totalWidth = rowLength * (colsPerCell * (CELL_WIDTH + 1)) + 1;
+
+        centerPrint("MAP:", totalWidth); 
         System.out.print("\n");
-        printLine(CELL_WIDTH);
+        printLine(colsPerCell, rowLength);
+        
         for (int i = 0; i < grid.length; i++) {
             Block[] row = grid[i];
-            Entity entity = new Entity();
-            // top padding for the entire row
+
+            // Top padding for the entire row
             for (int k = 0; k < CELL_PADDING_Y; k++) {
                 for (int j = 0; j < row.length; j++) {
-                    System.out.print("|" + centerString("", CELL_WIDTH));
+                    for (int c = 0; c < colsPerCell; c++) {
+                        System.out.print("|" + centerString("", CELL_WIDTH));
+                    }
                 }
                 System.out.print("|\n");
             }
 
-            // print row content
+            // Print row content
             for (int j = 0; j < row.length; j++) {
                 Block b = row[j];
-                String formattedVal = "";
+                String formattedClass = "";
+                String formattedInfo = "";
+                String formattedName = "";
 
                 if (b != null && b.getEntity() != null) {
-                    String val = String.valueOf(b.getEntity().GetName());
+                    formattedClass = String.valueOf(b.getEntity().GetName()) + " Team: " + String.valueOf(b.getEntity().GetTeam());
+                    formattedInfo = "Team: " + String.valueOf(b.getEntity().GetTeam());
                     int objectType = b.getEntity().GetObject();
-                    if (objectType == entity.CHARACTER) {
-                        formattedVal = "{" + val + "}";
-                    } else if (objectType == entity.OBSTACLE) {
-                        formattedVal = "[" + val + "]";
-                    } else if (objectType == entity.FOOD) {
-                        formattedVal = "(" + val + ")";
-                    } else if (objectType == 0) {
-                        formattedVal = val;
+                    if (objectType == 1) {
+                        formattedName = b.getEntity().GetFullName();
                     }
                 }
-
-                System.out.print("|" + centerString(formattedVal, CELL_WIDTH));
+                System.out.print("|" + centerString(formattedName, CELL_WIDTH));
+                System.out.print("|" + centerString(formattedClass, CELL_WIDTH));
+                System.out.print("|" + centerString(formattedInfo, CELL_WIDTH));
             }
             System.out.print("|\n");
 
-            // bottom padding for the entire row
+            // Bottom padding for the entire row
             for (int k = 0; k < CELL_PADDING_Y; k++) {
                 for (int j = 0; j < row.length; j++) {
-                    System.out.print("|" + centerString("", CELL_WIDTH));
+                    for (int c = 0; c < colsPerCell; c++) {
+                        System.out.print("|" + centerString("", CELL_WIDTH));
+                    }
                 }
                 System.out.print("|\n");
             }
 
-            printLine(CELL_WIDTH);
+            printLine(colsPerCell, row.length);
         }
     }
 
-    public boolean PrintInitialStats (Character[] characters) {
+    public boolean PrintInitialStats(Character[] characters) {
         System.out.println("            INITIAL STATS            ");
-        for ( int i = 0; i < characters.length; i++) {
+        for (int i = 0; i < characters.length; i++) {
             Character c = characters[i];
-            if ( c == null) {
+            if (c == null) {
                 return false;
             }
             System.out.println("------------------------------------");
@@ -96,11 +110,12 @@ public class Displayer {
         }
         return false;
     }
-    public boolean PrintStats (Character[] characters) {
+
+    public boolean PrintStats(Character[] characters) {
         System.out.println("            CURRENT STATS            ");
-        for ( int i = 0; i < characters.length; i++) {
+        for (int i = 0; i < characters.length; i++) {
             Character c = characters[i];
-            if ( c.GetName() == null) {
+            if (c.GetName() == null) {
                 return false;
             }
             System.out.println("------------------------------------");

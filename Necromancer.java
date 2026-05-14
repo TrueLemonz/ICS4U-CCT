@@ -1,7 +1,9 @@
 public class Necromancer extends Character {
     public Necromancer(Character character, int team) {
         super();
-        this.team = team;
+        this.SetName("Necromancer");
+        this.SetFullName(character.GetFullName());
+        this.SetTeam(team);
         this.spdMod = -1;
         this.intlMod = 3;
         this.atkMod = 1;

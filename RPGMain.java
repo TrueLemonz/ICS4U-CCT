@@ -4,16 +4,15 @@ public class RPGMain {
     public static void main(String[] args) {
         GameSystem gs = new GameSystem();
         Displayer ds = new Displayer();
-        Scanner scanner = new Scanner(System.in);
-        Character c = new Character();
-        boolean gameRunning = true;
+        Scanner Input = new Scanner(System.in);
+        boolean GameRunning = true;
         int PlayerChoice;
         
 
-        while (gameRunning) {
+        while (GameRunning) {
             System.out.println("Welcome to the RPG Game!");
             System.out.println("What would you like to do? \n1. Start Game \n2. Hall of fame\n3. Exit");
-            PlayerChoice = scanner.nextInt();
+            PlayerChoice = Input.nextInt();
             if (PlayerChoice == 1) {
                 for (int i = 1; i <= 2; i++) {
                     System.out.println("Initializing Player " + i + "'s team...");
@@ -27,13 +26,13 @@ public class RPGMain {
                             System.out.println("Character " + (j + 1) + ":");
                             ds.PrintInitialStats(new Character[]{ClasslesCharacter});
                             System.out.println("Which class would you like your character to be? (can back out) \n1. Necromancer \n2. Healer \n3. Crusader \n4. Barbarian \n5. Paladin \n6. Guardian");
-                            int choice = scanner.nextInt();
-                            if (choice == 1) {
-                                System.out.println("Necromancer \nA disturbed warlock who conjures and manipulates the dead. \nAbilities: \nSpecial: Summon Minion - Summons a weak minion to fight. ");
-                                System.out.println("Ability 1: Buff Minion - Buffs an adjacent minion \nAbility 2: Meat Shield - Sacrafice an adjacent minion to tank a hit.");
+                            int Choice = Input.nextInt();
+                            if (Choice == 1) {
+                                System.out.println("Necromancer \nAn intelligent and powerful mage who can summon minions to fight.\nAbilities: \nSpecial: Summon Minion - Summons a weak minion to fight. ");
+                                System.out.println("Ability 1: Buff Minion - Buffs an adjacent minion \nAbility 2: Meat Sheild - Sacrafice an adjacent minion to tank a hit.");
                                 System.out.println("Stat buffs: \n-1 speed\n+3 intelligence\n+1 attack\n+2 spirit\n+1 health\n+2 spellpower");
                                 System.out.println("Would you like to select this class? (y/N)");
-                                String confirm = scanner.next();
+                                String confirm = Input.next();
                                 if (confirm.equalsIgnoreCase("Y")) {
                                     SelectedClass = 1;
                                     HasSelected = true;
@@ -42,12 +41,12 @@ public class RPGMain {
                                     System.out.println("Returning to selection.");
                                 }
                             } 
-                            else if (choice == 2) {
-                                System.out.println("Healer \n A benevolent soul who specialises in the mending of allies. \nAbilities: \nSpecial: Prayer - Heals allies, and damages enemies. ");
-                                System.out.println("Ability 1: Praise - Grants an ally +4 intl and +2 spirit. \nAbility 2: Strike - Weak attack that may stun.");
+                            else if (Choice == 2) {
+                                System.out.println("Healer \nAn intelligent and resilient mage who can heal allies and provide buffs.\nAbilities: \nSpecial: Prayer - Heals allies, and damages enemies. ");
+                                System.out.println("Ability 1: Praise - Grants a +4 magic and +4 stamina buff to an ally. \nAbility 2: Strike - Weak attack that may stun.");
                                 System.out.println("Stat buffs: \n+0 speed\n+3 intelligence\n-1 attack\n+3 spirit\n+2 health\n+1 spellpower");
                                 System.out.println("Would you like to select this class? (y/N)");
-                                String confirm = scanner.next();
+                                String confirm = Input.next();
                                 if (confirm.equalsIgnoreCase("Y")) {
                                     SelectedClass = 2;
                                     HasSelected = true;
@@ -56,12 +55,12 @@ public class RPGMain {
                                     System.out.println("Returning to selection.");
                                 }
                             } 
-                            else if (choice == 3) { // Done
-                                System.out.println("Crusader \nA highly poised warrior who both safeguards allies and threatens moderate damage.\nAbilities: \nSpecial: Divine Shield - Protects an ally, reducing their damage taken and increasing their healing received. ");
+                            else if (Choice == 3) { //TODO make this accurate
+                                System.out.println("Crusader \nA sturdy warrior who can protect allies and deal significant damage.\nAbilities: \nSpecial: Divine Shield - Creates a protective barrier around an adjacent ally. ");
                                 System.out.println("Ability 1: Holy Light - Heals an adjacent ally. \nAbility 2: Condemn - Deals damage to an enemy.");
                                 System.out.println("Stat buffs: \n+0 speed\n+2 intelligence\n+1 attack\n+1 spirit\n+3 health\n+1 spellpower");
                                 System.out.println("Would you like to select this class? (y/N)");
-                                String confirm = scanner.next();
+                                String confirm = Input.next();
                                 if (confirm.equalsIgnoreCase("Y")) {
                                     SelectedClass = 3;
                                     HasSelected = true;
@@ -70,12 +69,12 @@ public class RPGMain {
                                     System.out.println("Returning to selection.");
                                 }
                             } 
-                            else if (choice == 4) { // Done
-                                System.out.println("Barbarian \nA glass cannon who outputs heavy damage. What doesn't kill him makes him stronger.\nAbilities: \nSpecial: Flip - Throws an enemy target opposite to the barbarian. ");
-                                System.out.println("Ability 1: Kickpunch - Melee attack dealing massive damage. \nAbility 2: Lupus - The barbarian damages himself and gains a permanent damage increase.");
-                                System.out.println("Stat buffs: \n+4 speed\n-1 intelligence\n+6 attack\n+1 spirit\n-4 health\n+2 spellpower");
+                            else if (Choice == 4) { //TODO make this accurate
+                                System.out.println("Healer \nAn intelligent and resilient mage who can heal allies and provide buffs.\nAbilities: \nSpecial: Prayer - Heals allies, and damages enemies. ");
+                                System.out.println("Ability 1: Praise - Grants a +4 magic and +4 stamina buff to an ally. \nAbility 2: Strike - Weak attack that may stun.");
+                                System.out.println("Stat buffs: \n+0 speed\n+3 intelligence\n-1 attack\n+3 spirit\n+2 health\n+1 spellpower");
                                 System.out.println("Would you like to select this class? (y/N)");
-                                String confirm = scanner.next();
+                                String confirm = Input.next();
                                 if (confirm.equalsIgnoreCase("Y")) {
                                     SelectedClass = 4;
                                     HasSelected = true;
@@ -84,12 +83,12 @@ public class RPGMain {
                                     System.out.println("Returning to selection.");
                                 }
                             } 
-                            else if (choice == 5) { // Done
-                                System.out.println("Paladin \nA bastion of light who defends and heals allies.\nAbilities: \nSpecial: Aura - Adjacent allies take half damage for 1 turn. ");
-                                System.out.println("Ability 1: Rally - Grants +2 spd to all allies for 2 turns. \nAbility 2: Shield Bash - Weak attack that restores magic.");
-                                System.out.println("Stat buffs: \n+0 speed\n+2 intelligence\n+0 attack\n+1 spirit\n+5 health\n+1 spellpower");
+                            else if (Choice == 5) { //TODO make this accurate
+                                System.out.println("Healer \nAn intelligent and resilient mage who can heal allies and provide buffs.\nAbilities: \nSpecial: Prayer - Heals allies, and damages enemies. ");
+                                System.out.println("Ability 1: Praise - Grants a +4 magic and +4 stamina buff to an ally. \nAbility 2: Strike - Weak attack that may stun.");
+                                System.out.println("Stat buffs: \n+0 speed\n+3 intelligence\n-1 attack\n+3 spirit\n+2 health\n+1 spellpower");
                                 System.out.println("Would you like to select this class? (y/N)");
-                                String confirm = scanner.next();
+                                String confirm = Input.next();
                                 if (confirm.equalsIgnoreCase("Y")) {
                                     SelectedClass = 5;
                                     HasSelected = true;
@@ -98,12 +97,12 @@ public class RPGMain {
                                     System.out.println("Returning to selection.");
                                 }
                             } 
-                            else if (choice == 6) { // Done
-                                System.out.println("Guardian \nProtector of lands who creates blockades. \nAbilities: \nSpecial: Blockade - Creates an obstacle");
-                                System.out.println("Ability 1: Fortify - Grants +1 hlt but -1 spd to the guardian. \nAbility 2: Heal - Heals for a portion of max helath.");
+                            else if (Choice == 6) { //TODO make this accurate
+                                System.out.println("Healer \nAn intelligent and resilient mage who can heal allies and provide buffs.\nAbilities: \nSpecial: Prayer - Heals allies, and damages enemies. ");
+                                System.out.println("Ability 1: Praise - Grants a +4 magic and +4 stamina buff to an ally. \nAbility 2: Strike - Weak attack that may stun.");
                                 System.out.println("Stat buffs: \n+0 speed\n+3 intelligence\n-1 attack\n+3 spirit\n+2 health\n+1 spellpower");
                                 System.out.println("Would you like to select this class? (y/N)");
-                                String confirm = scanner.next();
+                                String confirm = Input.next();
                                 if (confirm.equalsIgnoreCase("Y")) {
                                     SelectedClass = 6;
                                     HasSelected = true;
@@ -113,7 +112,7 @@ public class RPGMain {
                                 }
                             } 
                             else {
-                                System.out.println("Invalid choice, please try again.");
+                                System.out.println("Invalid Choice, please try again.");
                             }
                         }
                         if (SelectedClass == 1) {
@@ -180,36 +179,23 @@ public class RPGMain {
                     else {
                         System.out.println("Teams initialized. Press [ENTER] to continue.");
                     }
-                    scanner.nextLine();
-                    scanner.nextLine(); // Must use twice, first one consumes leftover enter from previous input, second one waits for actual enter key press.
+                    Input.nextLine();
+                    Input.nextLine(); // Must use twice, first one consumes leftover enter from previous Input, second one waits for actual enter key press.
                 } //End of generating 2 teams
                 gs.refreshGameBoard();
-                // I had to put this above the grid initialization here because more often than not it would replace the characters with food or obstalces ( or maybe they're just printed wrong, not sure)
-                gs.populateGameBoard(5, 3);
-                gs.gameBoard[0][0] = new Block(gs.Player1.PlayerTeam[0]);
-                gs.gameBoard[1][0] = new Block(gs.Player1.PlayerTeam[1]);
-                gs.gameBoard[0][1] = new Block(gs.Player1.PlayerTeam[2]);
-                gs.gameBoard[7][7] = new Block(gs.Player2.PlayerTeam[0]);
-                gs.gameBoard[6][7] = new Block(gs.Player2.PlayerTeam[1]);
-                gs.gameBoard[7][6] = new Block(gs.Player2.PlayerTeam[2]);
-                ds.PrintGrid(gs.gameBoard);
-                int Player1Speed = 0;
-                int Player2Speed = 0;
-                for ( int i = 0; i < 3; i++) {
-                    Player1Speed += gs.Player1.PlayerTeam[i].GetSpd();
-                    Player2Speed += gs.Player2.PlayerTeam[i].GetSpd();
-                }
-                if ( Player1Speed > Player2Speed) {
-                    System.out.println("Player 1 starts!");
-                    Character maxSpeedCharacter = c.getMaxSpeed ( gs.Player1.PlayerTeam);
-                    System.out.println("Move "  + maxSpeedCharacter.getName() );
-                }
-        
+                gs.GameBoard[0][0] = new Block(gs.Player1.PlayerTeam[0]);
+                gs.GameBoard[1][0] = new Block(gs.Player1.PlayerTeam[1]);
+                gs.GameBoard[0][1] = new Block(gs.Player1.PlayerTeam[2]);
+                gs.GameBoard[7][7] = new Block(gs.Player2.PlayerTeam[0]);
+                gs.GameBoard[6][7] = new Block(gs.Player2.PlayerTeam[1]);
+                gs.GameBoard[7][6] = new Block(gs.Player2.PlayerTeam[2]);
+                gs.PopulateGameBoard(7, 3);
+                ds.PrintGrid(gs.GameBoard);
             } //TODO add the other two options
         } //STOP RUNNING
-        scanner.close();
+        Input.close();
         // gs.refreshGameBoard();
-        // gs.populateGameBoard(5, 5);
-        // ds.PrintGrid(gs.gameBoard);
+        // gs.PopulateGameBoard(5, 5);
+        // ds.PrintGrid(gs.GameBoard);
     }
 }

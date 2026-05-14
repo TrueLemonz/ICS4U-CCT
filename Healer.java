@@ -1,7 +1,9 @@
 public class Healer extends Character {
     public Healer(Character character, int team) {
         super();
-        this.team = team;
+        this.SetName("Healer");
+        this.SetFullName(character.GetFullName());
+        this.SetTeam(team);
         this.spdMod = 0;
         this.intlMod = 3;
         this.atkMod = -1;

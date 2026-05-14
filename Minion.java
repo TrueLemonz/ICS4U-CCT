@@ -2,6 +2,8 @@ public class Minion extends Character {
     private int turns = 1;
     public Minion(int team) {
         super();
+        this.SetName("Minion");
+        this.SetFullName("Mini");
         this.team = team;
         this.spdMod = 1;
         this.intlMod = 1;

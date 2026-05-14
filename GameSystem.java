@@ -1,5 +1,5 @@
 public class GameSystem {
-    public Block[][] gameBoard = new Block[GAMEHEIGHT][GAMEWIDTH];
+    public Block[][] GameBoard = new Block[GAMEHEIGHT][GAMEWIDTH];
     public static int GAMEHEIGHT = 8;
     public static int GAMEWIDTH = 8;
     private int currTeam;
@@ -25,7 +25,7 @@ public class GameSystem {
     public void refreshGameBoard(){
         for (int i = 0; i < GAMEHEIGHT; i++) {
             for (int j = 0; j < GAMEWIDTH; j++) {
-                this.gameBoard[i][j] = new Block(new Entity(
+                this.GameBoard[i][j] = new Block(new Entity(
                     "",
                     false,
                     false,
@@ -35,7 +35,7 @@ public class GameSystem {
         }
     }
 
-    public void populateGameBoard(int obstacleCount, int foodCount) {
+    public void PopulateGameBoard(int obstacleCount, int foodCount) {
         for (int i = 0; i < obstacleCount; i++) {
             randBlock(new Obstacle());
         }
@@ -45,9 +45,9 @@ public class GameSystem {
     }
     public void randBlock(Entity entity) {
         int emptyCount = 0;
-        for (int i = 0; i < this.gameBoard.length; i++) {
-            for (int j = 0; j < this.gameBoard[i].length; j++) {
-                Block block = this.gameBoard[i][j];
+        for (int i = 0; i < this.GameBoard.length; i++) {
+            for (int j = 0; j < this.GameBoard[i].length; j++) {
+                Block block = this.GameBoard[i][j];
                 if (block == null || block.getEntity() == null) {
                    continue;
                 }
@@ -62,9 +62,9 @@ public class GameSystem {
         int[][] emptyPositions = new int[emptyCount][2];
         int index = 0;
         
-        for (int i = 0; i < this.gameBoard.length; i++) {
-            for (int j = 0; j < this.gameBoard[i].length; j++) {
-                Block block = this.gameBoard[i][j];
+        for (int i = 0; i < this.GameBoard.length; i++) {
+            for (int j = 0; j < this.GameBoard[i].length; j++) {
+                Block block = this.GameBoard[i][j];
                 if (block == null || block.getEntity() == null) {
                     continue;
                 }
@@ -80,7 +80,7 @@ public class GameSystem {
         int targetRow = emptyPositions[randomIndex][0];
         int targetCol = emptyPositions[randomIndex][1];
 
-        this.gameBoard[targetRow][targetCol] = new Block(entity); //place the new block at the coordinates
+        this.GameBoard[targetRow][targetCol] = new Block(entity); //place the new block at the coordinates
     }
     
     // Sets the current team playin
@@ -110,11 +110,11 @@ public class GameSystem {
     Entity entity = new Entity();
     boolean Team1Lose = true;
     boolean Team2Lose = true;
-      for (int i = 0; i < this.gameBoard.length; i++) {
-         for (int j = 0; j < this.gameBoard[i].length; j++) {
-            if (this.gameBoard[i][j].getEntity().GetObject() == entity.CHARACTER) {
-                Character c = (Character) this.gameBoard[i][j].getEntity();
-                if (c.getTeam() == 1 && !c.GetIsAlive()) {
+      for (int i = 0; i < this.GameBoard.length; i++) {
+         for (int j = 0; j < this.GameBoard[i].length; j++) {
+            if (this.GameBoard[i][j].getEntity().GetObject() == 1) {
+                Character c = (Character) this.GameBoard[i][j].getEntity();
+                if (c.GetTeam() == 1 && !c.GetIsAlive()) {
                     Team1Lose = false;
                 } 
                 else if (c.getTeam() == 2 && !c.GetIsAlive()) {
@@ -133,12 +133,12 @@ public class GameSystem {
    }
 
    public void GenRandObstacles() {
-    int block = (int) (Math.random() * gameBoard.length * gameBoard[0].length);
-    Block current = this.gameBoard[block / gameBoard[0].length][block % gameBoard[0].length];
+    int block = (int) (Math.random() * GameBoard.length * GameBoard[0].length);
+    Block current = this.GameBoard[block / GameBoard[0].length][block % GameBoard[0].length];
     if (current != null && current.getEntity() != null && current.getEntity().GetObject() == 0) {
         int rand = (int) (Math.random() * 10); 
         if (rand < 2) { 
-            this.gameBoard[block / gameBoard[0].length][block % gameBoard[0].length] = new Block(new Obstacle());
+            this.GameBoard[block / GameBoard[0].length][block % GameBoard[0].length] = new Block(new Obstacle());
         }
     }
     }

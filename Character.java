@@ -28,11 +28,13 @@ public class Character extends Entity {
     private boolean IsDivineSheielded;
     
     public Character() {
-    
+        super();
+        this.SetObject(1);
     }
 
     public Character(int spd, int intl, int atk, int spr, int hlt, int spp, boolean isStunned) {
         super();
+        this.SetObject(1);
         this.spd = spd;
         this.intl = intl;
         this.atk = atk;
@@ -43,8 +45,10 @@ public class Character extends Entity {
     }
 
     public Character GenerateCharacter() {
-        // Added condition since we wanted the max to be 8,
-        // i-- in else because a point would be lost
+        int nameInt = (int) (Math.random() * 15);
+        String[] names = {"Alice", "Bob", "Charlie", "David", "Eve", "Frank", "Grace", "Henry", "Ivy", "Jack", "Kate", "Liam", "Mia", "Noah", "Olivia"};
+        this.SetFullName(names[nameInt]);
+
         int points = 20;
         for (int i = 0; i < points; i++) {
             int stat = (int) (Math.random() * 6);
@@ -136,18 +140,11 @@ public class Character extends Entity {
         int[] stats = {this.spd, this.intl, this.atk, this.spr, this.hlt, this.spp};
         return stats;
     }
-    public int getTeam() {
-        return this.team;
-    }
+
     public void SetHlt(int hlt) {
         this.hlt = hlt;
     }
-    public void SetTeam(int team) {
-        this.team = team;
-    }
-    public String getName() {
-        return "Character";
-    }
+
     public void SetCurrHealth(double currHealth) {
         this.currHealth = currHealth;
     }
