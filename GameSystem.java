@@ -14,9 +14,9 @@ public class GameSystem {
     public boolean Move( Character character, int posX, int posY) {   
         int nullX = character.GetPosition()[0];
         int nullY = character.GetPosition()[1];
-        if ( this.gameBoard[posX][posY] == null && character.CheckConditions(0) ) {
-            this.gameBoard[posX][posY].SetEntity(character);
-            this.gameBoard[nullX][nullY] = null;
+        if ( this.GameBoard[posX][posY] == null && character.CheckConditions(0) ) {
+            this.GameBoard[posX][posY].SetEntity(character);
+            this.GameBoard[nullX][nullY] = null;
             return true;
         }
         return false;
@@ -117,7 +117,7 @@ public class GameSystem {
                 if (c.GetTeam() == 1 && !c.GetIsAlive()) {
                     Team1Lose = false;
                 } 
-                else if (c.getTeam() == 2 && !c.GetIsAlive()) {
+                else if (c.GetTeam() == 2 && !c.GetIsAlive()) {
                     Team2Lose = false;
                 }
             }

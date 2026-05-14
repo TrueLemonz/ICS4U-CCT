@@ -20,7 +20,7 @@ public class Crusader extends Character {
         return "Crusader";
     }
     public boolean Special(ActionContext context) {
-        if ( !CheckConditions(2,1, context.GetTarget()) || context.GetTarget().getTeam() != this.team ) {
+        if ( !CheckConditions(2,1, context.GetTarget()) || context.GetTarget().GetTeam() != this.team ) {
             return false;
         }
         Character ally = context.GetTarget(); 
@@ -30,7 +30,7 @@ public class Crusader extends Character {
 
     public boolean Ability1 ( ActionContext context ) {
         Character ally = context.GetTarget();
-        if ( !CheckConditions(2, 2, ally ) || context.GetTarget().getTeam() != this.team ) {
+        if ( !CheckConditions(2, 2, ally ) || context.GetTarget().GetTeam() != this.team ) {
             return false;
         }   
         if ( ally.GetCurrHealth() + 15 <= ally.GetMaxHealth() ) {
