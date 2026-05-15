@@ -336,7 +336,7 @@ public class Character extends Entity {
     }
     //TODO write getMedianSpeed
     //public Character getMedianSpeed(Character maxSpeedCharacter) {
-      
+          
 
     public boolean Ability2(ActionContext context) {
         return false;

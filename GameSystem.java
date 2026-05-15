@@ -49,6 +49,7 @@ public class GameSystem {
             for (int j = 0; j < this.GameBoard[i].length; j++) {
                 Block block = this.GameBoard[i][j];
                 if (block == null || block.getEntity() == null) {
+                    // TODO put the rest of the code in the if statement
                    continue;
                 }
                 if (block.getEntity().GetObject() == 0) {
@@ -56,7 +57,9 @@ public class GameSystem {
                 }
             }
         }
+        // TODO return false
         if (emptyCount == 0) { //cancel if grid is full
+            // TODO replace with return false
             return;
         }
         int[][] emptyPositions = new int[emptyCount][2];
@@ -66,6 +69,7 @@ public class GameSystem {
             for (int j = 0; j < this.GameBoard[i].length; j++) {
                 Block block = this.GameBoard[i][j];
                 if (block == null || block.getEntity() == null) {
+                    // TODO put the rest of the code in the if statement
                     continue;
                 }
                 if (block.getEntity().GetObject() == 0) {
