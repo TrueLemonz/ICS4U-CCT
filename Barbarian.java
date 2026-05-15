@@ -21,6 +21,15 @@ public class Barbarian extends Character {
         this.spp = character.spp + this.sppMod;
 
     }
+    public int GetSpecialRange() {
+        return 1;
+    }
+    public int GetAbility1Range() {
+        return 1;
+    }
+    public int GetAbility2Range() {
+        return 9;
+    }
     public String getName() {
         return "Barbarian";
     }

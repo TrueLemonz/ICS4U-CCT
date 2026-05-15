@@ -16,6 +16,15 @@ public class Crusader extends Character {
         this.hlt = character.hlt + this.hltMod;
         this.spp = character.spp + this.sppMod;
     }
+    public int GetSpecialRange() {
+        return 1;
+    }
+    public int GetAbility1Range() {
+        return 2;
+    }
+    public int GetAbility2Range() {
+        return 2;
+    }
     public String getName() {
         return "Crusader";
     }

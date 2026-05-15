@@ -15,6 +15,15 @@ public class Guardian extends Character {
         this.hlt += this.hltMod;
         this.spp += this.sppMod;
     }
+    public int GetSpecialRange() {
+        return 9;
+    }
+    public int GetAbility1Range() {
+        return 9;
+    }
+    public int GetAbility2Range() {
+        return 9;
+    }
     public String getName() {
         return "Guardian";
     }

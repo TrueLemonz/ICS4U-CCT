@@ -247,37 +247,37 @@ public class Character extends Entity {
     /*Returns character with the most speed
     * Will put it to chance if speeds are equal
     * c1, c2 and c3 refer to character 1, etc. respectively */
-    public Character getMaxSpeed(Character[] PlayerTeam) { 
+    public int GetMaxSpeedIndex(Character[] PlayerTeam) { 
         //  c1 has highest speed
         if ( PlayerTeam[0].GetSpd() > PlayerTeam[1].GetSpd() && PlayerTeam[0].GetSpd() > PlayerTeam[2].GetSpd()) {
-            return PlayerTeam[0];
+            return 0;
         }
         // c2 has highest speed
         else if ( PlayerTeam[1].GetSpd() > PlayerTeam[0].GetSpd() && PlayerTeam[1].GetSpd() > PlayerTeam[2].GetSpd() ) {
-            return PlayerTeam[1];
+            return 1;
         } 
         // c3 has highest speed
         else if ( PlayerTeam[2].GetSpd() > PlayerTeam[1].GetSpd() && PlayerTeam[2].GetSpd() > PlayerTeam[0].GetSpd() ) {
-            return PlayerTeam[2];
+            return 2;
         }
         // c1 has a higher speed than c2 but is equal to c3, 50% change to return either c1 or c3
         else if ( PlayerTeam[0].GetSpd() > PlayerTeam[1].GetSpd() && PlayerTeam[0].GetSpd() == PlayerTeam[2].GetSpd() ) {
             int randNum = (int) (Math.random() * 2);
             if ( randNum == 1) {
-                return PlayerTeam[0];
+                return 0;
             }
             else {
-                return PlayerTeam[2];
+                return 2;
             }
         }
         // If c1 has a higher speed than c3 but is equal to c2, 50% change to return either c1 or c2
         else if ( PlayerTeam[0].GetSpd() > PlayerTeam[2].GetSpd() && PlayerTeam[0].GetSpd() == PlayerTeam[1].GetSpd() ) {
             int randNum = (int) (Math.random() * 2);
             if ( randNum == 1) {
-                return PlayerTeam[0];
+                return 0;
             }
             else {
-                return PlayerTeam[1];
+                return 1;
             }
 
         }
@@ -285,10 +285,10 @@ public class Character extends Entity {
         else if ( PlayerTeam[1].GetSpd() > PlayerTeam[0].GetSpd() && PlayerTeam[0].GetSpd() == PlayerTeam[2].GetSpd() ) {
             int randNum = (int) (Math.random() * 2);
             if ( randNum == 1) {
-                return PlayerTeam[1];
+                return 1;
             }
             else {
-                return PlayerTeam[2];
+                return 2;
             }
 
         }
@@ -296,30 +296,30 @@ public class Character extends Entity {
         else if ( PlayerTeam[1].GetSpd() > PlayerTeam[2].GetSpd() && PlayerTeam[1].GetSpd() == PlayerTeam[0].GetSpd() ) {
             int randNum = (int) (Math.random() * 2);
             if ( randNum == 1) {
-                return PlayerTeam[0];
+                return 0;
             }
             else {
-                return PlayerTeam[1];
+                return 1;
             }
         }
         // If c3 has a higher speed than c1 but is equal to c2, 50% change to return either c3 or c2
         else if ( PlayerTeam[2].GetSpd() > PlayerTeam[0].GetSpd() && PlayerTeam[2].GetSpd() == PlayerTeam[1].GetSpd() ) {
             int randNum = (int) (Math.random() * 2);
             if ( randNum == 1) {
-                return PlayerTeam[1];
+                return 1;
             }
             else {
-                return PlayerTeam[2];
+                return 2;
             }
         }
         // If c3 has a higher speed than c2 but is equal to c1, 50% change to return either c3 or c1
         else if ( PlayerTeam[2].GetSpd() > PlayerTeam[1].GetSpd() && PlayerTeam[2].GetSpd() == PlayerTeam[0].GetSpd() ) {
             int randNum = (int) (Math.random() * 2);
             if ( randNum == 1) {
-                return PlayerTeam[0];
+                return 0;
             }
             else {
-                return PlayerTeam[2];
+                return 2;
             }
         }
         // they all have the same speed
@@ -327,16 +327,62 @@ public class Character extends Entity {
             int randNum = (int) (Math.random() * 3);
             for ( int i = 1; i <= 3; i++) {
                 if ( randNum == i) {
-                    return PlayerTeam[i-1];
+                    return i-1;
                 }
             }
         }
         // Dummy - code won't reach here
-        return PlayerTeam[0];
+        return 0;
     }
     //TODO write getMedianSpeed
     //public Character getMedianSpeed(Character maxSpeedCharacter) {
-      
+    public int getMedianSpeedIndex ( int maxSpeedIndex, Character[] PlayerTeam ) {
+        if ( maxSpeedIndex == 0 ) {
+            if ( PlayerTeam[1].GetSpd() > PlayerTeam[2].GetSpd() ) {
+                return 1;
+            }
+            else if (PlayerTeam[2].GetSpd() > PlayerTeam[1].GetSpd() ) {
+                return 2;
+            }
+            else {
+                int randNum = (int) (Math.random() * 2);
+                if ( randNum == 1) {
+                    return 1;
+                }
+                else return 2;
+            }
+        }
+        else if ( maxSpeedIndex == 1) {
+            if ( PlayerTeam[0].GetSpd() > PlayerTeam[2].GetSpd() ) {
+                return 0;
+            }
+            else if ( PlayerTeam[2].GetSpd() > PlayerTeam[0].GetSpd() ) {
+                return 2;
+            }
+            else {
+                int randNum = (int) (Math.random() * 2);
+                if ( randNum == 1) {
+                    return 0;
+                }
+                else return 2;
+            }
+        }
+        else { // maxSpeedIndex = 2
+            if ( PlayerTeam[0].GetSpd() > PlayerTeam[1].GetSpd() ) {
+                return 0;
+            }
+            else if (PlayerTeam[1].GetSpd() > PlayerTeam[0].GetSpd() ) {
+                return 1;
+            }
+            else {
+                int randNum = (int) (Math.random() * 2);
+                if ( randNum == 1) {
+                    return 0;
+                } // randNum = 2
+                else return 1;
+            }
+        }
+    }
 
     public boolean Ability2(ActionContext context) {
         return false;

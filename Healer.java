@@ -18,6 +18,16 @@ public class Healer extends Character {
         this.spp = character.spp + this.sppMod;
     }
 
+    public int GetSpecialRange() {
+        return 1;
+    }
+    public int GetAbility1Range() {
+        return 3;
+    }
+    public int GetAbility2Range() {
+        return 2;
+    }
+
     public String getName() {
         return "Healer";
     }
