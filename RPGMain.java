@@ -339,7 +339,7 @@ public class RPGMain {
                                         else if ( abilityChoice == 3 ) {
                                             medSpdCharacter.Ability2();
                                             if (medSpdCharacter.Ability2() ) {
-                                                System.out.println(medSpdCharacter.GetFullName() + " the " + medSpdCharacter.GetName() + " flips " + target.GetFullName() + " the " + target.GetName() + "!");
+                                                System.out.println(medSpdCharacter.GetFullName() + " the " + medSpdCharacter.GetName() + " lupus' all over the place");
                                             }
                                         }
                                     }
