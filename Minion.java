@@ -35,6 +35,7 @@ public class Minion extends Character {
         if ( this.spp + this.sppMod < 0 ) {
             this.spp = 0;
         }
+        ScaleStats();
     }
     public String getName() {
         return "Minion";

@@ -35,6 +35,7 @@ public class Paladin extends Character {
         if ( this.spp + this.sppMod < 0 ) {
             this.spp = 1;
         }
+        ScaleStats();
     }
     public int GetSpecialRange() {
         return 1;
