@@ -331,13 +331,16 @@ public class RPGMain {
                                                 // TODO check errors and requirements
                                                 Character target = gs.GameBoard[x][y].GetEntity().GetCharacter();
                                                 ActionContext barbAbility1 = new ActionContext(target);
-                                                if ( maxSpdCharacter.Special(barbAbility1) ) {
-                                                    System.out.println(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " flips " + target.GetFullName() + " the " + target.GetName() + "!");
-                                                    maxSpdCharacter.Special(barbAbility1);
+                                                if ( medSpdCharacter.Special(barbAbility1) ) {
+                                                    System.out.println(medSpdCharacter.GetFullName() + " the " + medSpdCharacter.GetName() + " flips " + target.GetFullName() + " the " + target.GetName() + "!");
+                                                    medSpdCharacter.Special(barbAbility1);
                                                 }
                                         }
                                         else if ( abilityChoice == 3 ) {
-                                            maxSpdCharacter.Ability2();
+                                            medSpdCharacter.Ability2();
+                                            if (medSpdCharacter.Ability2() ) {
+                                                System.out.println(medSpdCharacter.GetFullName() + " the " + medSpdCharacter.GetName() + " flips " + target.GetFullName() + " the " + target.GetName() + "!");
+                                            }
                                         }
                                     }
                                         }
