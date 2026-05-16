@@ -148,12 +148,12 @@ public class RPGMain {
                             }
                         }
                         else if (SelectedClass == 5) {
-                            // if (i == 1) {
-                            //     gs.Player1.PlayerTeam[j] = new Paladin(ClasslesCharacter, i);
-                            // }
-                            // else {
-                            //     gs.Player2.PlayerTeam[j] = new Paladin(ClasslesCharacter, i);
-                            // }
+                            if (i == 1) {
+                                gs.Player1.PlayerTeam[j] = new Paladin(ClasslesCharacter, i);
+                            }
+                            else {
+                                gs.Player2.PlayerTeam[j] = new Paladin(ClasslesCharacter, i);
+                            }
                         }
                         else if (SelectedClass == 6) {
                              if (i == 1) {
@@ -191,6 +191,37 @@ public class RPGMain {
                 gs.GameBoard[7][6] = new Block(gs.Player2.PlayerTeam[2]);
                 gs.PopulateGameBoard(7, 3);
                 ds.PrintGrid(gs.GameBoard);
+                boolean Player1Turn = true;
+
+                if (gs.Player1.PlayerTeam[0].GetCurrHealth() <= 0 && gs.Player1.PlayerTeam[1].GetCurrHealth() <= 0 && gs.Player1.PlayerTeam[2].GetCurrHealth() <= 0) {
+                    System.out.println("Player 2 wins!");
+                    GameRunning = false;
+                }
+                else if (gs.Player2.PlayerTeam[0].GetCurrHealth() <= 0 && gs.Player2.PlayerTeam[1].GetCurrHealth() <= 0 && gs.Player2.PlayerTeam[2].GetCurrHealth() <= 0) {
+                    System.out.println("Player 1 wins!");
+                    GameRunning = false;
+                } else {
+                    if (Player1Turn) {
+                        System.out.println("Player 1's turn. Press [ENTER] to continue.");
+                        Input.nextLine();
+                        Input.nextLine();
+                        int LivingAllies = gs.Player1.GetLivingAllies();
+                        for (int i = 0; i < LivingAllies; i++) {
+                            System.out.println("Select a character to take action with: \n1. " + gs.Player1.PlayerTeam[i].GetFullName() + " the " + gs.Player1.PlayerTeam[i].GetName() + "\n");
+                        }
+                        Player1Turn = false;
+                    }
+                    else {
+                        System.out.println("Player 2's turn. Press [ENTER] to continue.");
+                        Input.nextLine();
+                        Input.nextLine();
+                        int LivingAllies = gs.Player2.GetLivingAllies();
+                        for (int i = 0; i < LivingAllies; i++) {
+                            System.out.println("Select a character to take action with: \n1. " + gs.Player2.PlayerTeam[i].GetFullName() + " the " + gs.Player2.PlayerTeam[i].GetName() + "\n");
+                        }
+                        Player1Turn = true;
+                    }
+                }
             } //TODO add the other two options
         } //STOP RUNNING
         Input.close();

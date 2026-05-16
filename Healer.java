@@ -10,12 +10,30 @@ public class Healer extends Character {
         this.sprMod = 3;
         this.hltMod = 2;
         this.sppMod = 1;
-        this.spd = character.spd + this.spdMod;
+        this.spd = character.spd + this.spdMod ;
+        if ( this.spd + this.spdMod < 0 ) {
+            this.spd = 0;
+        }
         this.intl = character.intl + this.intlMod;
+        if ( this.intl + this.intlMod < 0 ) {
+            this.intl = 0;
+        }
         this.atk = character.atk + this.atkMod;
+        if ( this.atk + this.atkMod < 0 ) {
+            this.atk = 0;
+        }
         this.spr = character.spr + this.sprMod;
+        if ( this.spr + this.sprMod < 0 ) {
+            this.spr = 0;
+        }
         this.hlt = character.hlt + this.hltMod;
+        if ( this.hlt + this.hltMod < 0 ) {
+            this.hlt = 0;
+        }
         this.spp = character.spp + this.sppMod;
+        if ( this.spp + this.sppMod < 0 ) {
+            this.spp = 0;
+        }
     }
 
     public int GetSpecialRange() {

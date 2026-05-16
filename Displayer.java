@@ -1,6 +1,6 @@
 public class Displayer {
-    private static final int CELL_WIDTH = 15; // Define a constant for cell width
-    private static final int CELL_PADDING_Y = 1; // Adds a line that many times on both sides of the cell content
+    private static final int CELL_WIDTH = 15; // Maintains a narrow width to prevent wrapping
+    private static final int CELL_PADDING_Y = 1; 
 
     public Displayer() {}
 
@@ -17,7 +17,7 @@ public class Displayer {
             text = "";
         }
         if (text.length() >= width) {
-            return text;
+            return text.substring(0, width);
         }
         int padding = width - text.length();
         int leftSpaces = padding / 2;
@@ -34,7 +34,8 @@ public class Displayer {
             return;
         }
 
-        int colsPerCell = 3;
+        // Reduced to 1 to ensure single-column cells
+        int colsPerCell = 1;
         int rowLength = grid[0].length;
         int totalWidth = rowLength * (colsPerCell * (CELL_WIDTH + 1)) + 1;
 
@@ -45,43 +46,57 @@ public class Displayer {
         for (int i = 0; i < grid.length; i++) {
             Block[] row = grid[i];
 
-            // Top padding for the entire row
+            // Top padding 
             for (int k = 0; k < CELL_PADDING_Y; k++) {
                 for (int j = 0; j < row.length; j++) {
-                    for (int c = 0; c < colsPerCell; c++) {
-                        System.out.print("|" + centerString("", CELL_WIDTH));
-                    }
+                    System.out.print("|" + centerString("", CELL_WIDTH));
                 }
                 System.out.print("|\n");
             }
 
-            // Print row content
+            // Print Row Content: First vertical line (Names)
             for (int j = 0; j < row.length; j++) {
                 Block b = row[j];
-                String formattedClass = "";
-                String formattedInfo = "";
                 String formattedName = "";
 
                 if (b != null && b.getEntity() != null) {
-                    formattedClass = String.valueOf(b.getEntity().GetName()) + " Team: " + String.valueOf(b.getEntity().GetTeam());
-                    formattedInfo = "Team: " + String.valueOf(b.getEntity().GetTeam());
                     int objectType = b.getEntity().GetObject();
                     if (objectType == 1) {
                         formattedName = b.getEntity().GetFullName();
                     }
                 }
                 System.out.print("|" + centerString(formattedName, CELL_WIDTH));
+            }
+            System.out.print("|\n");
+
+            // Print Row Content: Second vertical line (Classes)
+            for (int j = 0; j < row.length; j++) {
+                Block b = row[j];
+                String formattedClass = "";
+
+                if (b != null && b.getEntity() != null) {
+                    formattedClass = String.valueOf(b.getEntity().GetName());
+                }
                 System.out.print("|" + centerString(formattedClass, CELL_WIDTH));
+            }
+            System.out.print("|\n");
+
+            // Print Row Content: Third vertical line (Teams)
+            for (int j = 0; j < row.length; j++) {
+                Block b = row[j];
+                String formattedInfo = "";
+
+                if (b != null && b.getEntity().GetObject() == 1) {
+                    formattedInfo = "Team: " + String.valueOf(b.getEntity().GetTeam());
+                }
                 System.out.print("|" + centerString(formattedInfo, CELL_WIDTH));
             }
             System.out.print("|\n");
 
-            // Bottom padding for the entire row
+            // Bottom padding 
             for (int k = 0; k < CELL_PADDING_Y; k++) {
                 for (int j = 0; j < row.length; j++) {
-                    for (int c = 0; c < colsPerCell; c++) {
-                        System.out.print("|" + centerString("", CELL_WIDTH));
-                    }
+                    System.out.print("|" + centerString("", CELL_WIDTH));
                 }
                 System.out.print("|\n");
             }

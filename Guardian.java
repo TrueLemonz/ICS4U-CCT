@@ -1,19 +1,39 @@
 public class Guardian extends Character {
     public Guardian(Character character, int team) {
         super();
-        this.team = team;
+        this.SetName("Guardian");
+        this.SetFullName(character.GetFullName());
+        this.SetTeam(team);
         this.spdMod -= 2;
         this.intlMod = 4;
         this.atkMod = 0;
         this.sprMod = 1;
         this.hltMod = 5;
         this.sppMod = 0;
-        this.spd += this.spdMod ;
-        this.intl += this.intlMod;
-        this.atk += this.atkMod;
-        this.spr += this.sprMod;
-        this.hlt += this.hltMod;
-        this.spp += this.sppMod;
+        this.spd = character.spd + this.spdMod ;
+        if ( this.spd + this.spdMod < 0 ) {
+            this.spd = 0;
+        }
+        this.intl = character.intl + this.intlMod;
+        if ( this.intl + this.intlMod < 0 ) {
+            this.intl = 0;
+        }
+        this.atk = character.atk + this.atkMod;
+        if ( this.atk + this.atkMod < 0 ) {
+            this.atk = 0;
+        }
+        this.spr = character.spr + this.sprMod;
+        if ( this.spr + this.sprMod < 0 ) {
+            this.spr = 0;
+        }
+        this.hlt = character.hlt + this.hltMod;
+        if ( this.hlt + this.hltMod < 0 ) {
+            this.hlt = 0;
+        }
+        this.spp = character.spp + this.sppMod;
+        if ( this.spp + this.sppMod < 0 ) {
+            this.spp = 0;
+        }
     }
     public int GetSpecialRange() {
         return 9;

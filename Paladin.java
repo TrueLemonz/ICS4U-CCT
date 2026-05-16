@@ -1,8 +1,8 @@
-public class Crusader extends Character {
+public class Paladin extends Character {
 
-    public Crusader(Character character, int team) {
+    public Paladin(Character character, int team) {
         super();
-        this.SetName("Crusader");
+        this.SetName("Paladin");
         this.SetFullName(character.GetFullName());
         this.SetTeam(team);
         this.spdMod = 2;
@@ -35,7 +35,6 @@ public class Crusader extends Character {
         if ( this.spp + this.sppMod < 0 ) {
             this.spp = 1;
         }
-        ScaleStats();
     }
     public int GetSpecialRange() {
         return 1;
@@ -47,7 +46,7 @@ public class Crusader extends Character {
         return 2;
     }
     public String getName() {
-        return "Crusader";
+        return "Paladin";
     }
     public boolean Special(ActionContext context) {
         if ( !CheckConditions(2,1, context.GetTarget()) || context.GetTarget().GetTeam() != this.team ) {

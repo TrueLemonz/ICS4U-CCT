@@ -42,6 +42,8 @@ public class Character extends Entity {
         this.hlt = hlt;
         this.spp = spp;
         this.isStunned = isStunned;
+        this.currHealth = health;
+        this.currMagic = spellpower;
     }
 
     public Character GenerateCharacter() {
