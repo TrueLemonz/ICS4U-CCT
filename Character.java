@@ -198,7 +198,10 @@ public class Character extends Entity {
         this.isMinion = isMinion;
     }
     public boolean GetIsAlive() {
-        return this.isAlive;
+        if ( this.currHealth > 0) {
+            return true;
+        }
+        else return false;
     }
     public int GetSpd() {
         return this.spd;
@@ -338,8 +341,7 @@ public class Character extends Entity {
         // Dummy - code won't reach here
         return 0;
     }
-    //TODO write getMedianSpeed
-    //public Character getMedianSpeed(Character maxSpeedCharacter) {
+
     public int getMedianSpeedIndex ( int maxSpeedIndex, Character[] PlayerTeam ) {
         if ( maxSpeedIndex == 0 ) {
             if ( PlayerTeam[1].GetSpd() > PlayerTeam[2].GetSpd() ) {

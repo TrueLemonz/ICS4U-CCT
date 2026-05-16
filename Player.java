@@ -5,7 +5,7 @@ public class Player {
     public int GetLivingAllies() {
         int LivingAllies = 0;
         for (int i = 0; i < this.PlayerTeam.length; i++) {
-            if (this.PlayerTeam[i].GetCurrHealth() > 0) {
+            if (this.PlayerTeam[i].GetIsAlive()) {
                 LivingAllies++;
             }
         }

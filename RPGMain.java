@@ -193,15 +193,145 @@ public class RPGMain {
                 ds.PrintGrid(gs.GameBoard);
                 boolean Player1Turn = true;
                 while (!gs.CheckWin()) {
-                    if (Player1Turn) {
-                        System.out.println("Player 1's turn. Press [ENTER] to continue.");
-                        Input.nextLine();
-                        int LivingAllies = gs.Player1.GetLivingAllies();
-                        for (int i = 0; i < LivingAllies; i++) {
-                            System.out.println("DO SOMETHING HERE");
-                        }
-                        Player1Turn = false;
+                    // dummy to call character methods faster
+                    Character c = new Character();
+                    int p1TotalSpeed = 0;
+                    int p2TotalSpeed = 0;
+                    for ( int i = 0; i < 3; i++) {
+                         p1TotalSpeed += gs.Player1.PlayerTeam[i].GetSpd();
+                         p2TotalSpeed += gs.Player2.PlayerTeam[i].GetSpd();
                     }
+                    if ( p1TotalSpeed > p2TotalSpeed) {
+                        System.out.println("Player 1 speed: " + p1TotalSpeed + "\nPlayer 2 speed: " + p2TotalSpeed );
+                        int maxSpdIndexP1 = c.GetMaxSpeedIndex(gs.Player1.PlayerTeam);
+                        int medSpdIndexP1 = c.getMedianSpeedIndex(maxSpdIndexP1, gs.Player1.PlayerTeam);
+                        // Dummy
+                        int lowSpdIndexP1 = 0;
+                        for ( int i = 0; i < 3; i ++ ) {
+                            if ( i != maxSpdIndexP1 && i != medSpdIndexP1) {
+                                lowSpdIndexP1 = i;
+                            }
+                        }
+                        Character maxSpdCharacter = gs.Player1.PlayerTeam[maxSpdIndexP1];
+                        Character medSpdCharacter = gs.Player1.PlayerTeam[medSpdIndexP1];
+                        Character lowSpdCharacter = gs.Player1.PlayerTeam[lowSpdIndexP1];
+                        System.out.println("Player 1 starts! Press [ENTER] to continue.");
+                        Input.nextLine();
+                        if ( maxSpdCharacter.GetIsAlive() ) { 
+                            System.out.print(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + "'s turn.");
+                            System.out.print("Move " + maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + "!");
+                            System.out.print("Choose x-coordinate: ");
+                            int x = Input.nextInt();
+                            System.out.print("Choose y-coordinate: ");
+                            int y = Input.nextInt();
+                            gs.Move( maxSpdCharacter, x, y);
+                            if (maxSpdCharacter.CheckSpecialPossible() || maxSpdCharacter.CheckAbility1Possible() || maxSpdCharacter.CheckAbility2Possible() ) {
+                                if ( maxSpdCharacter.CheckSpecialPossible() ) {
+                                    if (gs.Player1.PlayerTeam[maxSpdIndexP1] instanceof Barbarian) {}
+                                    else if (maxSpdCharacter instanceof Crusader) {}
+                                    else if (maxSpdCharacter instanceof Guardian) {}
+                                    else if (maxSpdCharacter instanceof Healer) {}
+                                    else if (maxSpdCharacter instanceof Necromancer) {}
+                                    else {}
+                                }
+                                if ( maxSpdCharacter.CheckAbility1Possible() ) {
+                                    if (maxSpdCharacter instanceof Barbarian) {}
+                                    else if (maxSpdCharacter instanceof Crusader) {}
+                                    else if (maxSpdCharacter instanceof Guardian) {}
+                                    else if (maxSpdCharacter instanceof Healer) {}
+                                    else if (maxSpdCharacter instanceof Necromancer) {}
+                                    else {}
+                                }
+                                if ( maxSpdCharacter.CheckAbility2Possible() ) {
+                                    if (maxSpdCharacter instanceof Barbarian) {}
+                                    else if (maxSpdCharacter instanceof Crusader) {}
+                                    else if (maxSpdCharacter instanceof Guardian) {}
+                                    else if (maxSpdCharacter instanceof Healer) {}
+                                    else if (maxSpdCharacter instanceof Necromancer) {}
+                                    else {}
+                                }
+                            }
+                            else {
+                                System.out.println(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " cannot cast any abilities this round.");
+                            }
+                        } 
+                        if ( gs.Player1.PlayerTeam[medSpdIndexP1].GetIsAlive() ) {
+                            System.out.print(medSpdCharacter.GetFullName() + " the " + medSpdCharacter.GetName() + "'s turn.");
+                            System.out.print("Move " + medSpdCharacter.GetFullName() + " the " + medSpdCharacter.GetName() + "!");
+                            System.out.print("Choose x-coordinate: ");
+                            int x = Input.nextInt();
+                            System.out.print("Choose y-coordinate: ");
+                            int y = Input.nextInt();
+                            gs.Move( medSpdCharacter, x, y);
+                            if (medSpdCharacter.CheckSpecialPossible() || medSpdCharacter.CheckAbility1Possible() || medSpdCharacter.CheckAbility2Possible() ) {
+                                if ( maxSpdCharacter.CheckSpecialPossible() ) {
+                                    if (gs.Player1.PlayerTeam[maxSpdIndexP1] instanceof Barbarian) {}
+                                    else if (medSpdCharacter instanceof Crusader) {}
+                                    else if (medSpdCharacter instanceof Guardian) {}
+                                    else if (medSpdCharacter instanceof Healer) {}
+                                    else if (medSpdCharacter instanceof Necromancer) {}
+                                    else {}
+                                }
+                                if ( medSpdCharacter.CheckAbility1Possible() ) {
+                                    if (medSpdCharacter instanceof Barbarian) {}
+                                    else if (medSpdCharacter instanceof Crusader) {}
+                                    else if (medSpdCharacter instanceof Guardian) {}
+                                    else if (medSpdCharacter instanceof Healer) {}
+                                    else if (medSpdCharacter instanceof Necromancer) {}
+                                    else {}
+                                }
+                                if ( medSpdCharacter.CheckAbility2Possible() ) {
+                                    if (medSpdCharacter instanceof Barbarian) {}
+                                    else if (medSpdCharacter instanceof Crusader) {}
+                                    else if (medSpdCharacter instanceof Guardian) {}
+                                    else if (medSpdCharacter instanceof Healer) {}
+                                    else if (medSpdCharacter instanceof Necromancer) {}
+                                    else {}
+                                }
+                            }
+                            else {
+                                System.out.println(medSpdCharacter.GetFullName() + " the " + medSpdCharacter.GetName() + " cannot cast any abilities this round.");
+                            }
+                        }
+                        if ( lowSpdCharacter.GetIsAlive()) { 
+                            System.out.print(lowSpdCharacter.GetFullName() + " the " + lowSpdCharacter.GetName() + "'s turn.");
+                            System.out.print("Move " + lowSpdCharacter.GetFullName() + " the " + lowSpdCharacter.GetName() + "!");
+                            System.out.print("Choose x-coordinate: ");
+                            int x = Input.nextInt();
+                            System.out.print("Choose y-coordinate: ");
+                            int y = Input.nextInt();
+                            gs.Move( lowSpdCharacter, x, y);
+                            if (lowSpdCharacter.CheckSpecialPossible() || lowSpdCharacter.CheckAbility1Possible() || lowSpdCharacter.CheckAbility2Possible() ) {
+                                if ( lowSpdCharacter.CheckSpecialPossible() ) {
+                                    if (lowSpdCharacter instanceof Barbarian) {}
+                                    else if (lowSpdCharacter instanceof Crusader) {}
+                                    else if (lowSpdCharacter instanceof Guardian) {}
+                                    else if (lowSpdCharacter instanceof Healer) {}
+                                    else if (lowSpdCharacter instanceof Necromancer) {}
+                                    else {}
+                                }
+                                if ( lowSpdCharacter.CheckAbility1Possible() ) {
+                                    if (lowSpdCharacter instanceof Barbarian) {}
+                                    else if (lowSpdCharacter instanceof Crusader) {}
+                                    else if (lowSpdCharacter instanceof Guardian) {}
+                                    else if (lowSpdCharacter instanceof Healer) {}
+                                    else if (lowSpdCharacter instanceof Necromancer) {}
+                                    else {}
+                                }
+                                if ( lowSpdCharacter.CheckAbility2Possible() ) {
+                                    if (lowSpdCharacter instanceof Barbarian) {}
+                                    else if (lowSpdCharacter instanceof Crusader) {}
+                                    else if (lowSpdCharacter instanceof Guardian) {}
+                                    else if (lowSpdCharacter instanceof Healer) {}
+                                    else if (lowSpdCharacter instanceof Necromancer) {}
+                                    else {}
+                                }
+                            }
+                            else {
+                                System.out.println(lowSpdCharacter.GetFullName() + " the " + lowSpdCharacter.GetName() + " cannot cast any abilities this round.");
+                            }
+                        }
+                        }
                     else {
                         System.out.println("Player 2's turn. Press [ENTER] to continue.");
                         Input.nextLine();
