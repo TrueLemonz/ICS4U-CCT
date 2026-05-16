@@ -37,16 +37,16 @@ public class Healer extends Character {
         ScaleStats();
     }
 
-    public boolean CheckSpecialPossible() {return false;}
     public boolean CheckAbility1Possible() {return false;}
     public boolean CheckAbility2Possible() {return false;}
-    public int GetSpecialRange() {
+    public boolean CheckAbility3Possible() {return false;}
+    public int GetAbility1Range() {
         return 1;
     }
-    public int GetAbility1Range() {
+    public int GetAbility2Range() {
         return 3;
     }
-    public int GetAbility2Range() {
+    public int GetAbility3Range() {
         return 2;
     }
 
@@ -58,7 +58,7 @@ public class Healer extends Character {
     * If belonging to the same team as the healer, heals them for 5
     * If opposite team, damages them by 5
     */
-    public boolean Special (ActionContext context) {
+    public boolean Ability1 (ActionContext context) {
         if ( !CheckConditions(4)) {
             return false;
         }
@@ -89,7 +89,7 @@ public class Healer extends Character {
         return false;
     }
     // Gives teammate +4 intl and +2 spr
-    public boolean Ability1 (ActionContext context) {
+    public boolean Ability2 (ActionContext context) {
         if ( !CheckConditions ( 3, 3 ,context.GetTarget() ) ) {
             return false;
         }
@@ -104,7 +104,7 @@ public class Healer extends Character {
         return false;
     }
     // Basic attack, has a 50% chance to stun the target
-    public boolean Ability2 (ActionContext context) {
+    public boolean Ability3 (ActionContext context) {
         if ( !CheckConditions ( 2, 2, context.GetTarget() ) ) {
             return false;
         }

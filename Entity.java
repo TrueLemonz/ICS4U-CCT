@@ -4,6 +4,9 @@ public class Entity {
     private boolean isFood;
     private boolean isObstacle;
     private boolean isCharacter;
+    public Food food;
+    public Obstacle obstacle;
+    public Character character;
     private int team = 0;
     int[] position = new int[2];
     // Final variables for the GetObject() method
@@ -55,6 +58,9 @@ public class Entity {
         else {
             return 0;
         }
+    }
+    public Character GetCharacter() {
+        return this.character;
     }
 
     public void SetObject(int objectType) {

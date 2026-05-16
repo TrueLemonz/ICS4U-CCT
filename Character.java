@@ -218,17 +218,6 @@ public class Character extends Entity {
 
         return Math.max(x, y) <= range;
     }
-    public boolean Special(ActionContext context) {
-        return false;
-    }
-    private String SpecialHint;
-    public String GetSpecialHint() {
-        return this.SpecialHint;
-    }
-    public void SetSpecialHint(String hint) {
-        this.SpecialHint = hint;
-    }
-
     public boolean Ability1(ActionContext context) {
         return false;
     }
@@ -238,6 +227,17 @@ public class Character extends Entity {
     }
     public void SetAbility1Hint(String hint) {
         this.Ability1Hint = hint;
+    }
+
+    public boolean Ability2(ActionContext context) {
+        return false;
+    }
+    private String Ability2Hint;
+    public String GetAbility2Hint() {
+        return this.Ability2Hint;
+    }
+    public void SetAbility2Hint(String hint) {
+        this.Ability2Hint = hint;
     }
     public boolean CheckConditions ( int magic, int range, Entity target) {
         if ( !this.isAlive || this.isStunned || this.currMagic - magic < 0 || !CheckRange(range, target)) {
@@ -388,24 +388,25 @@ public class Character extends Entity {
             }
         }
     }
-    public boolean CheckSpecialPossible() {
-        return false;
-    }
     public boolean CheckAbility1Possible() {
         return false;
     }
     public boolean CheckAbility2Possible() {
         return false;
     }
-    public boolean Ability2(ActionContext context) {
+    public boolean CheckAbility3Possible() {
         return false;
     }
-    public boolean Ability2() {return false;}
-    private String Ability2Hint;
-    public String GetAbility2Hint() {
-        return this.Ability2Hint;
+    public boolean Ability3(ActionContext context) {
+        return false;
     }
-    public void SetAbility2Hint(String hint) {
-        this.Ability2Hint = hint;
+    public boolean Ability3() {return false;}
+    public boolean Ability2() {return false;}
+    private String Ability3Hint;
+    public String GetAbility3Hint() {
+        return this.Ability3Hint;
+    }
+    public void SetAbility3Hint(String hint) {
+        this.Ability3Hint = hint;
     }
 }

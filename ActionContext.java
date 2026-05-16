@@ -15,6 +15,11 @@ public class ActionContext {
         this.posx = x;
         this.posy = y;
     }
+    public ActionContext( int x, int y, Block[][] grid) {
+        this.grid = grid;
+        this.posx = x;
+        this.posy = y;
+    }
 
     public ActionContext(Character target) {
         this.target = target;

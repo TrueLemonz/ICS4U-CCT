@@ -37,22 +37,22 @@ public class Crusader extends Character {
         }
         ScaleStats();
     }
-    public boolean CheckSpecialPossible() {return false;}
     public boolean CheckAbility1Possible() {return false;}
     public boolean CheckAbility2Possible() {return false;}
-    public int GetSpecialRange() {
+    public boolean CheckAbility3Possible() {return false;}
+    public int GetAbility1Range() {
         return 1;
     }
-    public int GetAbility1Range() {
+    public int GetAbility2Range() {
         return 2;
     }
-    public int GetAbility2Range() {
+    public int GetAbility3Range() {
         return 2;
     }
     public String getName() {
         return "Crusader";
     }
-    public boolean Special(ActionContext context) {
+    public boolean Ability1(ActionContext context) {
         if ( !CheckConditions(2,1, context.GetTarget()) || context.GetTarget().GetTeam() != this.team ) {
             return false;
         }
@@ -61,7 +61,7 @@ public class Crusader extends Character {
         return true;
     }
 
-    public boolean Ability1 ( ActionContext context ) {
+    public boolean Ability2 ( ActionContext context ) {
         Character ally = context.GetTarget();
         if ( !CheckConditions(2, 2, ally ) || context.GetTarget().GetTeam() != this.team ) {
             return false;
@@ -76,7 +76,7 @@ public class Crusader extends Character {
         return false;
     }
 
-    public boolean Ability2 ( ActionContext context ) {
+    public boolean Ability3 ( ActionContext context ) {
         if ( !CheckConditions(2, 1, context.GetTarget()) ) {
             return false;
         }

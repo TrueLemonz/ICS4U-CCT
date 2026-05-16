@@ -36,24 +36,24 @@ public class Guardian extends Character {
         }
         ScaleStats();
     }
-    public boolean CheckSpecialPossible() {return false;}
     public boolean CheckAbility1Possible() {return false;}
     public boolean CheckAbility2Possible() {return false;}
-    public int GetSpecialRange() {
-        return 9;
-    }
+    public boolean CheckAbility3Possible() {return false;}
     public int GetAbility1Range() {
         return 9;
     }
     public int GetAbility2Range() {
         return 9;
     }
+    public int GetAbility3Range() {
+        return 922;
+    }
     public String getName() {
         return "Guardian";
     }
 
 
-    public boolean Special(ActionContext context) {
+    public boolean Ability1(ActionContext context) {
         if ( !CheckConditions(2)) { 
             return false;
         }
@@ -67,7 +67,7 @@ public class Guardian extends Character {
         }
     }
     // had to change from void to boolean because I simplified the methods earlier
-    public boolean Ability1(ActionContext context) {
+    public boolean Ability2() {
         if ( !CheckConditions(1)) {
             return false;
         }
@@ -77,7 +77,7 @@ public class Guardian extends Character {
         return true;
     }
 
-    public boolean Ability2(ActionContext context) {
+    public boolean Ability3() {
          if ( !CheckConditions(1)) {
             return false;
         }

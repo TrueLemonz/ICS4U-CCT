@@ -39,23 +39,23 @@ public class Barbarian extends Character {
         }
         ScaleStats();
     }
-    public boolean CheckSpecialPossible() {return false;}
     public boolean CheckAbility1Possible() {return false;}
     public boolean CheckAbility2Possible() {return false;}
-    public int GetSpecialRange() {
-        return 1;
-    }
+    public boolean CheckAbility3Possible() {return false;}
     public int GetAbility1Range() {
         return 1;
     }
     public int GetAbility2Range() {
+        return 1;
+    }
+    public int GetAbility3Range() {
         return 9;
     }
     public String getName() {
         return "Barbarian";
     }
     // Picks up character, throws them behind
-    public boolean Special(ActionContext context) {
+    public boolean Ability1(ActionContext context) {
         if ( !CheckConditions(2, 1, context.GetTarget()) ) {
             return false;
         }
@@ -63,7 +63,7 @@ public class Barbarian extends Character {
             int[] targetPos = context.GetTarget().GetPosition();
             int[] myPos = this.GetPosition();
 
-            // Performs Special vertically
+            // Performs Ability1 vertically
             // Checks that the barbarian is not at the top or bottom of the grid, or he'll throw the target out of the grid
             if (this.GetPosition()[1] == 0 || this.GetPosition()[1] == context.GetGrid().length - 1) {
             return false;
@@ -86,7 +86,7 @@ public class Barbarian extends Character {
                 return true;
                 }
             }
-            // Performs Special horizontally  
+            // Performs Ability1 horizontally  
             // Checks that the barbarian is not at the extreme left or right of the grid or he'll throw the target out of the grid
             if ( this.GetPosition()[0] == 0 || this.GetPosition()[0] == context.GetGrid()[0].length - 1) {
                 return false;
@@ -109,7 +109,7 @@ public class Barbarian extends Character {
                     return true;
                 }
             }
-            // Performs Special diagonally
+            // Performs Ability1 diagonally
             // Checks both vertical and horizontal conditions
             if ( this.GetPosition()[0] == 0 || this.GetPosition()[0] == context.GetGrid()[0].length - 1 
                  || this.GetPosition()[1] == 0 || this.GetPosition()[1] == context.GetGrid().length - 1 ) {
@@ -148,10 +148,10 @@ public class Barbarian extends Character {
             this.SetCurrMagic ( this.GetCurrMagic() - 2);
             return false;
         }
-        //System.out.println( SpecialHint());
+        //System.out.println( Ability1Hint());
     // Strong attack, meant to hit multiple times so that block/parry is calculated for each hit
     // and its unlikely for the whole thing to be blocked
-    public boolean Ability1 (ActionContext context) {
+    public boolean Ability2 (ActionContext context) {
         if ( !CheckConditions(1, 1, context.GetTarget()) ){
             return false;
         }
@@ -166,7 +166,7 @@ public class Barbarian extends Character {
             return true;
         }
 
-    public boolean Ability2 () {
+    public boolean Ability3 () {
         applyPassive();
         if ( this.GetCurrHealth() > 0.2 * this.GetCalculatedStats()[HLTPOS] ) {
             this.SetCurrHealth(this.GetCurrHealth() - 0.2 * this.GetCalculatedStats()[HLTPOS]);

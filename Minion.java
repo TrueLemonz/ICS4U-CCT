@@ -40,13 +40,13 @@ public class Minion extends Character {
     public String getName() {
         return "Minion";
     }
-    public boolean Special(ActionContext context) {
-        return false;
-    }
     public boolean Ability1(ActionContext context) {
         return false;
     }
     public boolean Ability2(ActionContext context) {
+        return false;
+    }
+    public boolean Ability3(ActionContext context) {
         return false;
     }
 }
