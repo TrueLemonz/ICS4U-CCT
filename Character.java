@@ -341,7 +341,6 @@ public class Character extends Entity {
         // Dummy - code won't reach here
         return 0;
     }
-
     public int getMedianSpeedIndex ( int maxSpeedIndex, Character[] PlayerTeam ) {
         if ( maxSpeedIndex == 0 ) {
             if ( PlayerTeam[1].GetSpd() > PlayerTeam[2].GetSpd() ) {
@@ -389,10 +388,19 @@ public class Character extends Entity {
             }
         }
     }
-
+    public boolean CheckSpecialPossible() {
+        return false;
+    }
+    public boolean CheckAbility1Possible() {
+        return false;
+    }
+    public boolean CheckAbility2Possible() {
+        return false;
+    }
     public boolean Ability2(ActionContext context) {
         return false;
     }
+    public boolean Ability2() {return false;}
     private String Ability2Hint;
     public String GetAbility2Hint() {
         return this.Ability2Hint;
