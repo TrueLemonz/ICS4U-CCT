@@ -2,6 +2,8 @@ public class ActionContext {
     private Character target;
     private Block[][] grid;
     private int posx, posy;
+
+    public ActionContext() {}
     public ActionContext(Character target, Block[][] grid) {
         this.target = target;
         this.grid = grid;

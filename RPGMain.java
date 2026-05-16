@@ -5,9 +5,9 @@ public class RPGMain {
         GameSystem gs = new GameSystem();
         Displayer ds = new Displayer();
         Scanner Input = new Scanner(System.in);
+        ActionContext ac = new ActionContext();
         boolean GameRunning = true;
         int PlayerChoice;
-        
 
         while (GameRunning) {
             System.out.println("Welcome to the RPG Game!");
@@ -21,7 +21,7 @@ public class RPGMain {
                         int SelectedClass = -1;
                         Character ClasslesCharacter = new Character().GenerateCharacter();
                         ClasslesCharacter.SetTeam(i);
-                        
+
                         while (!HasSelected) {
                             System.out.println("Character " + (j + 1) + ":");
                             ds.PrintInitialStats(new Character[]{ClasslesCharacter});
@@ -40,7 +40,7 @@ public class RPGMain {
                                 else {
                                     System.out.println("Returning to selection.");
                                 }
-                            } 
+                            }
                             else if (Choice == 2) {
                                 System.out.println("Healer \nAn intelligent and resilient mage who can heal allies and provide buffs.\nAbilities: \nAbility1: Prayer - Heals allies, and damages enemies. ");
                                 System.out.println("Ability 1: Praise - Grants a +4 magic and +4 stamina buff to an ally. \nAbility 2: Strike - Weak attack that may stun.");
@@ -54,7 +54,7 @@ public class RPGMain {
                                 else {
                                     System.out.println("Returning to selection.");
                                 }
-                            } 
+                            }
                             else if (Choice == 3) { //TODO make this accurate
                                 System.out.println("Crusader \nA sturdy warrior who can protect allies and deal significant damage.\nAbilities: \nAbility1: Divine Shield - Creates a protective barrier around an adjacent ally. ");
                                 System.out.println("Ability 1: Holy Light - Heals an adjacent ally. \nAbility 2: Condemn - Deals damage to an enemy.");
@@ -68,7 +68,7 @@ public class RPGMain {
                                 else {
                                     System.out.println("Returning to selection.");
                                 }
-                            } 
+                            }
                             else if (Choice == 4) { //TODO make this accurate
                                 System.out.println("Healer \nAn intelligent and resilient mage who can heal allies and provide buffs.\nAbilities: \nAbility1: Prayer - Heals allies, and damages enemies. ");
                                 System.out.println("Ability 1: Praise - Grants a +4 magic and +4 stamina buff to an ally. \nAbility 2: Strike - Weak attack that may stun.");
@@ -82,7 +82,7 @@ public class RPGMain {
                                 else {
                                     System.out.println("Returning to selection.");
                                 }
-                            } 
+                            }
                             else if (Choice == 5) { //TODO make this accurate
                                 System.out.println("Healer \nAn intelligent and resilient mage who can heal allies and provide buffs.\nAbilities: \nAbility1: Prayer - Heals allies, and damages enemies. ");
                                 System.out.println("Ability 1: Praise - Grants a +4 magic and +4 stamina buff to an ally. \nAbility 2: Strike - Weak attack that may stun.");
@@ -96,7 +96,7 @@ public class RPGMain {
                                 else {
                                     System.out.println("Returning to selection.");
                                 }
-                            } 
+                            }
                             else if (Choice == 6) { //TODO make this accurate
                                 System.out.println("Healer \nAn intelligent and resilient mage who can heal allies and provide buffs.\nAbilities: \nAbility1: Prayer - Heals allies, and damages enemies. ");
                                 System.out.println("Ability 1: Praise - Grants a +4 magic and +4 stamina buff to an ally. \nAbility 2: Strike - Weak attack that may stun.");
@@ -110,7 +110,7 @@ public class RPGMain {
                                 else {
                                     System.out.println("Returning to selection.");
                                 }
-                            } 
+                            }
                             else {
                                 System.out.println("Invalid Choice, please try again.");
                             }
@@ -132,12 +132,12 @@ public class RPGMain {
                             }
                         }
                         else if (SelectedClass == 3) {
-                             if (i == 1) {
+                            if (i == 1) {
                                 gs.Player1.PlayerTeam[j] = new Crusader(ClasslesCharacter, i);
-                             }
+                            }
                             else {
                                 gs.Player2.PlayerTeam[j] = new Crusader(ClasslesCharacter, i);
-                             }
+                            }
                         }
                         else if (SelectedClass == 4) {
                             if (i == 1) {
@@ -156,19 +156,19 @@ public class RPGMain {
                             }
                         }
                         else if (SelectedClass == 6) {
-                             if (i == 1) {
+                            if (i == 1) {
                                 gs.Player1.PlayerTeam[j] = new Guardian(ClasslesCharacter, i);
-                             }
-                             else {
-                                 gs.Player2.PlayerTeam[j] = new Guardian(ClasslesCharacter, i);
-                             }
+                            }
+                            else {
+                                gs.Player2.PlayerTeam[j] = new Guardian(ClasslesCharacter, i);
+                            }
                         }
                     } // End of generating 3 characters
                     System.out.println("PLAYER " + i + " TEAM:");
                     // added an else statement which somehow made it correctly display 3 character info plates
                     // was making it display 2 without the else statement
-                    if ( i == 1) {
-                    ds.PrintInitialStats(gs.Player1.PlayerTeam);
+                    if (i == 1) {
+                        ds.PrintInitialStats(gs.Player1.PlayerTeam);
                     }
                     else {
                         ds.PrintInitialStats(gs.Player2.PlayerTeam);
@@ -197,18 +197,18 @@ public class RPGMain {
                     Character c = new Character();
                     int p1TotalSpeed = 0;
                     int p2TotalSpeed = 0;
-                    for ( int i = 0; i < 3; i++) {
-                         p1TotalSpeed += gs.Player1.PlayerTeam[i].GetSpd();
-                         p2TotalSpeed += gs.Player2.PlayerTeam[i].GetSpd();
+                    for (int i = 0; i < 3; i++) {
+                        p1TotalSpeed += gs.Player1.PlayerTeam[i].GetSpd();
+                        p2TotalSpeed += gs.Player2.PlayerTeam[i].GetSpd();
                     }
-                    if ( p1TotalSpeed > p2TotalSpeed) {
-                        System.out.println("Player 1 speed: " + p1TotalSpeed + "\nPlayer 2 speed: " + p2TotalSpeed );
+                    if (p1TotalSpeed > p2TotalSpeed) {
+                        System.out.println("Player 1 speed: " + p1TotalSpeed + "\nPlayer 2 speed: " + p2TotalSpeed);
                         int maxSpdIndexP1 = c.GetMaxSpeedIndex(gs.Player1.PlayerTeam);
                         int medSpdIndexP1 = c.getMedianSpeedIndex(maxSpdIndexP1, gs.Player1.PlayerTeam);
                         // Dummy
                         int lowSpdIndexP1 = 0;
-                        for ( int i = 0; i < 3; i ++ ) {
-                            if ( i != maxSpdIndexP1 && i != medSpdIndexP1) {
+                        for (int i = 0; i < 3; i++) {
+                            if (i != maxSpdIndexP1 && i != medSpdIndexP1) {
                                 lowSpdIndexP1 = i;
                             }
                         }
@@ -217,244 +217,257 @@ public class RPGMain {
                         Character lowSpdCharacter = gs.Player1.PlayerTeam[lowSpdIndexP1];
                         System.out.println("Player 1 starts! Press [ENTER] to continue.");
                         Input.nextLine();
-                        if ( maxSpdCharacter.GetIsAlive() ) { 
+                        if (maxSpdCharacter.GetIsAlive()) {
                             System.out.print(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + "'s turn.");
                             System.out.print("Move " + maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + "!");
                             System.out.print("Choose x-coordinate: ");
                             int x = Input.nextInt();
                             System.out.print("Choose y-coordinate: ");
                             int y = Input.nextInt();
-                            gs.Move( maxSpdCharacter, x, y);
-                            if (maxSpdCharacter.CheckAbility1Possible() || maxSpdCharacter.CheckAbility2Possible() || maxSpdCharacter.CheckAbility3Possible() ) {
-                                    if (maxSpdCharacter instanceof Barbarian) {
-                                        if ( maxSpdCharacter.CheckAbility1Possible() ) {
-                                            System.out.println("1. Ability1 - Flip");
-                                        }
-                                        if ( maxSpdCharacter.CheckAbility2Possible() ) {
-                                            System.out.println("2. Ability 1 - Kickpunch");
-                                        }
-                                        if ( maxSpdCharacter.CheckAbility3Possible() ) {
-                                            System.out.println("3. Ability 2 - Lupus");
-                                        }
-                                        System.out.print("Choose ability: ");
-                                        int abilityChoice = Input.nextInt();
-                                        if ( abilityChoice == 1 ) {
-                                                System.out.print("Choose x-coordinate of enemy you would like to flip: ");
-                                                x = Input.nextInt();
-
-                                                // TODO check errors and requirements
-                                                System.out.print("Choose y-coordinate of enemy you would like to flip: ");
-                                                y = Input.nextInt();
-                                                // TODO check errors and requirements
-                                                Character target = gs.GameBoard[x][y].GetEntity().GetCharacter();
-                                                ActionContext barbAbility1 = new ActionContext(target);
-                                                if ( maxSpdCharacter.Ability1(barbAbility1) ) {
-                                                    System.out.println(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " flips " + target.GetFullName() + " the " + target.GetName() + "!");
-                                                    maxSpdCharacter.Ability1(barbAbility1);
-                                                    gs.refreshGameBoard();
-                                                    ds.PrintGrid(gs.GameBoard);
-                                                }
-                                            }
-                                        else if ( abilityChoice == 2 ) {
-                                            System.out.print("Choose x-coordinate of enemy you would like to flip: ");
-                                                x = Input.nextInt();
-                                                // TODO check errors and requirements
-                                                System.out.print("Choose y-coordinate of enemy you would like to flip: ");
-                                                y = Input.nextInt();
-                                                // TODO check errors and requirements
-                                                Character target = gs.GameBoard[x][y].GetEntity().GetCharacter();
-                                                ActionContext barbAbility2 = new ActionContext(target);
-                                                if ( maxSpdCharacter.Ability1(barbAbility2) ) {
-                                                    System.out.println(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " flips " + target.GetFullName() + " the " + target.GetName() + "!");
-                                                    maxSpdCharacter.Ability1(barbAbility2);
-                                                }
-                                        }
-                                        else if ( abilityChoice == 3 ) {
-                                            maxSpdCharacter.Ability3();
+                            gs.Move(maxSpdCharacter, x, y);
+                            if (maxSpdCharacter.CheckAbility1Possible() || maxSpdCharacter.CheckAbility2Possible() || maxSpdCharacter.CheckAbility3Possible()) {
+                                if (maxSpdCharacter instanceof Barbarian) {
+                                    if (maxSpdCharacter.CheckAbility1Possible()) {
+                                        System.out.println("1. Ability1 - Flip");
+                                    }
+                                    if (maxSpdCharacter.CheckAbility2Possible()) {
+                                        System.out.println("2. Ability 1 - Kickpunch");
+                                    }
+                                    if (maxSpdCharacter.CheckAbility3Possible()) {
+                                        System.out.println("3. Ability 2 - Lupus");
+                                    }
+                                    System.out.print("Choose ability: ");
+                                    int abilityChoice = Input.nextInt();
+                                    if (abilityChoice == 1) {
+                                        System.out.print("Choose x-coordinate of enemy you would like to flip: ");
+                                        x = Input.nextInt();
+                                        // TODO check errors and requirements
+                                        System.out.print("Choose y-coordinate of enemy you would like to flip: ");
+                                        y = Input.nextInt();
+                                        // TODO check errors and requirements
+                                        Character target = gs.GameBoard[x][y].GetEntity().GetCharacter();
+                                        ActionContext barbAbility1 = new ActionContext(target);
+                                        if (maxSpdCharacter.Ability1(barbAbility1)) {
+                                            System.out.println(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " flips " + target.GetFullName() + " the " + target.GetName() + "!");
+                                            maxSpdCharacter.Ability1(barbAbility1);
+                                            gs.refreshGameBoard();
+                                            ds.PrintGrid(gs.GameBoard);
                                         }
                                     }
-                                    else if (maxSpdCharacter instanceof Crusader) {}
-                                    else if (maxSpdCharacter instanceof Guardian) {}
-                                    else if (maxSpdCharacter instanceof Healer) {}
-                                    else if (maxSpdCharacter instanceof Necromancer) {}
-                                    else {}
+                                    else if (abilityChoice == 2) {
+                                        System.out.print("Choose x-coordinate of enemy you would like to flip: ");
+                                        x = Input.nextInt();
+                                        // TODO check errors and requirements
+                                        System.out.print("Choose y-coordinate of enemy you would like to flip: ");
+                                        y = Input.nextInt();
+                                        // TODO check errors and requirements
+                                        Character target = gs.GameBoard[x][y].GetEntity().GetCharacter();
+                                        ActionContext barbAbility2 = new ActionContext(target);
+                                        if (maxSpdCharacter.Ability1(barbAbility2)) {
+                                            System.out.println(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " flips " + target.GetFullName() + " the " + target.GetName() + "!");
+                                            maxSpdCharacter.Ability1(barbAbility2);
+                                        }
+                                    }
+                                    else if (abilityChoice == 3) {
+                                        maxSpdCharacter.Ability3();
+                                    }
                                 }
+                                else if (maxSpdCharacter instanceof Crusader) {}
+                                else if (maxSpdCharacter instanceof Guardian) {}
+                                else if (maxSpdCharacter instanceof Healer) {}
+                                else if (maxSpdCharacter instanceof Necromancer) {}
+                                else {}
                             }
                             else {
                                 System.out.println(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " cannot cast any abilities this round.");
-                            } 
-                            if ( medSpdCharacter.GetIsAlive() ) {
-                                System.out.print(medSpdCharacter.GetFullName() + " the " + medSpdCharacter.GetName() + "'s turn.");
-                                System.out.print("Move " + medSpdCharacter.GetFullName() + " the " + medSpdCharacter.GetName() + "!");
-                                System.out.print("Choose x-coordinate: ");
-                                int x = Input.nextInt();
-                                System.out.print("Choose y-coordinate: ");
-                                int y = Input.nextInt();
-                                gs.Move( medSpdCharacter, x, y);
-                                if (medSpdCharacter.CheckAbility1Possible() || medSpdCharacter.CheckAbility2Possible() || medSpdCharacter.CheckAbility3Possible() ) {
-                                    if ( medSpdCharacter.CheckAbility1Possible() ) {
-                                        if (medSpdCharacter instanceof Barbarian) {
-                                            if ( medSpdCharacter.CheckAbility1Possible() ) {
+                            }
+                        }
+                        if (medSpdCharacter.GetIsAlive()) {
+                            System.out.print(medSpdCharacter.GetFullName() + " the " + medSpdCharacter.GetName() + "'s turn.");
+                            System.out.print("Move " + medSpdCharacter.GetFullName() + " the " + medSpdCharacter.GetName() + "!");
+                            System.out.print("Choose x-coordinate: ");
+                            int x = Input.nextInt();
+                            System.out.print("Choose y-coordinate: ");
+                            int y = Input.nextInt();
+                            gs.Move(medSpdCharacter, x, y);
+                            if (medSpdCharacter.CheckAbility1Possible() || medSpdCharacter.CheckAbility2Possible() || medSpdCharacter.CheckAbility3Possible()) {
+                                if (medSpdCharacter.CheckAbility1Possible()) {
+                                    if (medSpdCharacter instanceof Barbarian) {
+                                        if (medSpdCharacter.CheckAbility1Possible()) {
                                             System.out.println("1. Ability1 - Flip");
                                         }
-                                        if ( medSpdCharacter.CheckAbility2Possible() ) {
+                                        if (medSpdCharacter.CheckAbility2Possible()) {
                                             System.out.println("2. Ability 1 - Kickpunch");
                                         }
-                                        if ( medSpdCharacter.CheckAbility3Possible() ) {
+                                        if (medSpdCharacter.CheckAbility3Possible()) {
                                             System.out.println("3. Ability 2 - Lupus");
                                         }
                                         System.out.print("Choose ability: ");
                                         int abilityChoice = Input.nextInt();
-                                        if ( abilityChoice == 1 ) {
-                                                System.out.print("Choose x-coordinate of enemy you would like to flip: ");
-                                                x = Input.nextInt();
-
-                                                // TODO check errors and requirements
-                                                System.out.print("Choose y-coordinate of enemy you would like to flip: ");
-                                                y = Input.nextInt();
-                                                // TODO check errors and requirements
-                                                Character target = gs.GameBoard[x][y].GetEntity().GetCharacter();
-                                                ActionContext barbAbility1 = new ActionContext(target);
-                                                if ( maxSpdCharacter.Ability1(barbAbility1) ) {
-                                                    System.out.println(medSpdCharacter.GetFullName() + " the " + medSpdCharacter.GetName() + " flips " + target.GetFullName() + " the " + target.GetName() + "!");
-                                                    maxSpdCharacter.Ability1(barbAbility1);
-                                                    gs.refreshGameBoard();
-                                                    ds.PrintGrid(gs.GameBoard);
-                                                }
-                                            }
-                                        else if ( abilityChoice == 2 ) {
+                                        if (abilityChoice == 1) {
                                             System.out.print("Choose x-coordinate of enemy you would like to flip: ");
-                                                x = Input.nextInt();
-                                                // TODO check errors and requirements
-                                                System.out.print("Choose y-coordinate of enemy you would like to flip: ");
-                                                y = Input.nextInt();
-                                                // TODO check errors and requirements
-                                                Character target = gs.GameBoard[x][y].GetEntity().GetCharacter();
-                                                ActionContext barbAbility2 = new ActionContext(target);
-                                                if ( medSpdCharacter.Ability1(barbAbility2) ) {
-                                                    System.out.println(medSpdCharacter.GetFullName() + " the " + medSpdCharacter.GetName() + " flips " + target.GetFullName() + " the " + target.GetName() + "!");
-                                                    medSpdCharacter.Ability1(barbAbility2);
-                                                }
+                                            x = Input.nextInt();
+                                            // TODO check errors and requirements
+                                            System.out.print("Choose y-coordinate of enemy you would like to flip: ");
+                                            y = Input.nextInt();
+                                            // TODO check errors and requirements
+                                            Character target = gs.GameBoard[x][y].GetEntity().GetCharacter();
+                                            ActionContext barbAbility1 = new ActionContext(target);
+                                            if (maxSpdCharacter.Ability1(barbAbility1)) {
+                                                System.out.println(medSpdCharacter.GetFullName() + " the " + medSpdCharacter.GetName() + " flips " + target.GetFullName() + " the " + target.GetName() + "!");
+                                                maxSpdCharacter.Ability1(barbAbility1);
+                                                gs.refreshGameBoard();
+                                                ds.PrintGrid(gs.GameBoard);
+                                            }
                                         }
-                                        else if ( abilityChoice == 3 ) {
+                                        else if (abilityChoice == 2) {
+                                            System.out.print("Choose x-coordinate of enemy you would like to flip: ");
+                                            x = Input.nextInt();
+                                            // TODO check errors and requirements
+                                            System.out.print("Choose y-coordinate of enemy you would like to flip: ");
+                                            y = Input.nextInt();
+                                            // TODO check errors and requirements
+                                            Character target = gs.GameBoard[x][y].GetEntity().GetCharacter();
+                                            ActionContext barbAbility2 = new ActionContext(target);
+                                            if (medSpdCharacter.Ability1(barbAbility2)) {
+                                                System.out.println(medSpdCharacter.GetFullName() + " the " + medSpdCharacter.GetName() + " flips " + target.GetFullName() + " the " + target.GetName() + "!");
+                                                medSpdCharacter.Ability1(barbAbility2);
+                                            }
+                                        }
+                                        else if (abilityChoice == 3) {
                                             medSpdCharacter.Ability3();
-                                            if (medSpdCharacter.Ability3() ) {
+                                            if (medSpdCharacter.Ability3()) {
                                                 System.out.println(medSpdCharacter.GetFullName() + " the " + medSpdCharacter.GetName() + " lupus' all over the place");
                                             }
                                         }
                                     }
+                                    else if (medSpdCharacter instanceof Crusader) {}
+                                    else if (medSpdCharacter instanceof Guardian) {}
+                                    else if (medSpdCharacter instanceof Healer) {
+                                        if (medSpdCharacter.CheckAbility1Possible()) {
+                                            System.out.println("Ability 1 - Prayer");
                                         }
-                                        else if (medSpdCharacter instanceof Crusader) {}
-                                        else if (medSpdCharacter instanceof Guardian) {}
-                                        else if (medSpdCharacter instanceof Healer) {}
-                                        else if (medSpdCharacter instanceof Necromancer) {}
-                                        else {}
+                                        if (medSpdCharacter.CheckAbility2Possible()) {
+                                            System.out.println("Ability 2 - Praise");
+                                        }
+                                        if (medSpdCharacter.CheckAbility3Possible()) {
+                                            System.out.println("Ability 3 - Strike");
+                                        }
+                                        System.out.print("Choose ability: ");
+                                        int abilityChoice = Input.nextInt();
+                                        if (abilityChoice == 1) {
+
+
+                                        }
                                     }
+                                    else if (medSpdCharacter instanceof Necromancer) {}
+                                    else {}
                                 }
-                                    if ( medSpdCharacter.CheckAbility2Possible() ) {
-                                        if (medSpdCharacter instanceof Barbarian) {}
-                                        else if (medSpdCharacter instanceof Crusader) {}
-                                        else if (medSpdCharacter instanceof Guardian) {}
-                                        else if (medSpdCharacter instanceof Healer) {}
-                                        else if (medSpdCharacter instanceof Necromancer) {}
-                                        else {}
-                                    }
-                                    if ( medSpdCharacter.CheckAbility3Possible() ) {
-                                        if (medSpdCharacter instanceof Barbarian) {}
-                                        else if (medSpdCharacter instanceof Crusader) {}
-                                        else if (medSpdCharacter instanceof Guardian) {}
-                                        else if (medSpdCharacter instanceof Healer) {}
-                                        else if (medSpdCharacter instanceof Necromancer) {}
-                                        else {}
-                                    }
-                                else {
-                                    System.out.println(medSpdCharacter.GetFullName() + " the " + medSpdCharacter.GetName() + " cannot cast any abilities this round.");
+                                if (medSpdCharacter.CheckAbility2Possible()) {
+                                    if (medSpdCharacter instanceof Barbarian) {}
+                                    else if (medSpdCharacter instanceof Crusader) {}
+                                    else if (medSpdCharacter instanceof Guardian) {}
+                                    else if (medSpdCharacter instanceof Healer) {}
+                                    else if (medSpdCharacter instanceof Necromancer) {}
+                                    else {}
                                 }
-                            if ( lowSpdCharacter.GetIsAlive()) { 
-                                System.out.print(lowSpdCharacter.GetFullName() + " the " + lowSpdCharacter.GetName() + "'s turn.");
-                                System.out.print("Move " + lowSpdCharacter.GetFullName() + " the " + lowSpdCharacter.GetName() + "!");
-                                System.out.print("Choose x-coordinate: ");
-                                int x = Input.nextInt();
-                                System.out.print("Choose y-coordinate: ");
-                                int y = Input.nextInt();
-                                gs.Move( lowSpdCharacter, x, y);
-                                if (lowSpdCharacter.CheckAbility1Possible() || lowSpdCharacter.CheckAbility2Possible() || lowSpdCharacter.CheckAbility3Possible() ) {
-                                    if ( lowSpdCharacter.CheckAbility1Possible() ) {
-                                        if (lowSpdCharacter instanceof Barbarian) {
-                                            if ( lowSpdCharacter.CheckAbility1Possible() ) {
+                                if (medSpdCharacter.CheckAbility3Possible()) {
+                                    if (medSpdCharacter instanceof Barbarian) {}
+                                    else if (medSpdCharacter instanceof Crusader) {}
+                                    else if (medSpdCharacter instanceof Guardian) {}
+                                    else if (medSpdCharacter instanceof Healer) {}
+                                    else if (medSpdCharacter instanceof Necromancer) {}
+                                    else {}
+                                }
+                            }
+                            else {
+                                System.out.println(medSpdCharacter.GetFullName() + " the " + medSpdCharacter.GetName() + " cannot cast any abilities this round.");
+                            }
+                        }
+                        if (lowSpdCharacter.GetIsAlive()) {
+                            System.out.print(lowSpdCharacter.GetFullName() + " the " + lowSpdCharacter.GetName() + "'s turn.");
+                            System.out.print("Move " + lowSpdCharacter.GetFullName() + " the " + lowSpdCharacter.GetName() + "!");
+                            System.out.print("Choose x-coordinate: ");
+                            int x = Input.nextInt();
+                            System.out.print("Choose y-coordinate: ");
+                            int y = Input.nextInt();
+                            gs.Move(lowSpdCharacter, x, y);
+                            if (lowSpdCharacter.CheckAbility1Possible() || lowSpdCharacter.CheckAbility2Possible() || lowSpdCharacter.CheckAbility3Possible()) {
+                                if (lowSpdCharacter.CheckAbility1Possible()) {
+                                    if (lowSpdCharacter instanceof Barbarian) {
+                                        if (lowSpdCharacter.CheckAbility1Possible()) {
                                             System.out.println("1. Ability1 - Flip");
                                         }
-                                        if ( lowSpdCharacter.CheckAbility2Possible() ) {
+                                        if (lowSpdCharacter.CheckAbility2Possible()) {
                                             System.out.println("2. Ability 1 - Kickpunch");
                                         }
-                                        if ( lowSpdCharacter.CheckAbility3Possible() ) {
+                                        if (lowSpdCharacter.CheckAbility3Possible()) {
                                             System.out.println("3. Ability 2 - Lupus");
                                         }
                                         System.out.print("Choose ability: ");
                                         int abilityChoice = Input.nextInt();
-                                        if ( abilityChoice == 1 ) {
-                                                System.out.print("Choose x-coordinate of enemy you would like to flip: ");
-                                                x = Input.nextInt();
-
-                                                // TODO check errors and requirements
-                                                System.out.print("Choose y-coordinate of enemy you would like to flip: ");
-                                                y = Input.nextInt();
-                                                // TODO check errors and requirements
-                                                Character target = gs.GameBoard[x][y].GetEntity().GetCharacter();
-                                                ActionContext barbAbility1 = new ActionContext(target);
-                                                if ( maxSpdCharacter.Ability1(barbAbility1) ) {
-                                                    System.out.println(lowSpdCharacter.GetFullName() + " the " + lowSpdCharacter.GetName() + " flips " + target.GetFullName() + " the " + target.GetName() + "!");
-                                                    maxSpdCharacter.Ability1(barbAbility1);
-                                                    gs.refreshGameBoard();
-                                                    ds.PrintGrid(gs.GameBoard);
-                                                }
-                                            }
-                                        else if ( abilityChoice == 2 ) {
+                                        if (abilityChoice == 1) {
                                             System.out.print("Choose x-coordinate of enemy you would like to flip: ");
-                                                x = Input.nextInt();
-                                                // TODO check errors and requirements
-                                                System.out.print("Choose y-coordinate of enemy you would like to flip: ");
-                                                y = Input.nextInt();
-                                                // TODO check errors and requirements
-                                                Character target = gs.GameBoard[x][y].GetEntity().GetCharacter();
-                                                ActionContext barbAbility2 = new ActionContext(target);
-                                                if ( maxSpdCharacter.Ability1(barbAbility2) ) {
-                                                    System.out.println(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " flips " + target.GetFullName() + " the " + target.GetName() + "!");
-                                                    maxSpdCharacter.Ability1(barbAbility2);
-                                                }
+                                            x = Input.nextInt();
+                                            // TODO check errors and requirements
+                                            System.out.print("Choose y-coordinate of enemy you would like to flip: ");
+                                            y = Input.nextInt();
+                                            // TODO check errors and requirements
+                                            Character target = gs.GameBoard[x][y].GetEntity().GetCharacter();
+                                            ActionContext barbAbility1 = new ActionContext(target);
+                                            if (maxSpdCharacter.Ability1(barbAbility1)) {
+                                                System.out.println(lowSpdCharacter.GetFullName() + " the " + lowSpdCharacter.GetName() + " flips " + target.GetFullName() + " the " + target.GetName() + "!");
+                                                maxSpdCharacter.Ability1(barbAbility1);
+                                                gs.refreshGameBoard();
+                                                ds.PrintGrid(gs.GameBoard);
+                                            }
                                         }
-                                        else if ( abilityChoice == 3 ) {
+                                        else if (abilityChoice == 2) {
+                                            System.out.print("Choose x-coordinate of enemy you would like to flip: ");
+                                            x = Input.nextInt();
+                                            // TODO check errors and requirements
+                                            System.out.print("Choose y-coordinate of enemy you would like to flip: ");
+                                            y = Input.nextInt();
+                                            // TODO check errors and requirements
+                                            Character target = gs.GameBoard[x][y].GetEntity().GetCharacter();
+                                            ActionContext barbAbility2 = new ActionContext(target);
+                                            if (maxSpdCharacter.Ability1(barbAbility2)) {
+                                                System.out.println(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " flips " + target.GetFullName() + " the " + target.GetName() + "!");
+                                                maxSpdCharacter.Ability1(barbAbility2);
+                                            }
+                                        }
+                                        else if (abilityChoice == 3) {
                                             maxSpdCharacter.Ability3();
                                         }
-                                        }
-                                        else if (lowSpdCharacter instanceof Crusader) {}
-                                        else if (lowSpdCharacter instanceof Guardian) {}
-                                        else if (lowSpdCharacter instanceof Healer) {}
-                                        else if (lowSpdCharacter instanceof Necromancer) {}
-                                        else {}
                                     }
-                                    if ( lowSpdCharacter.CheckAbility2Possible() ) {
-                                        if (lowSpdCharacter instanceof Barbarian) {}
-                                        else if (lowSpdCharacter instanceof Crusader) {}
-                                        else if (lowSpdCharacter instanceof Guardian) {}
-                                        else if (lowSpdCharacter instanceof Healer) {}
-                                        else if (lowSpdCharacter instanceof Necromancer) {}
-                                        else {}
-                                    }
-                                    if ( lowSpdCharacter.CheckAbility3Possible() ) {
-                                        if (lowSpdCharacter instanceof Barbarian) {}
-                                        else if (lowSpdCharacter instanceof Crusader) {}
-                                        else if (lowSpdCharacter instanceof Guardian) {}
-                                        else if (lowSpdCharacter instanceof Healer) {}
-                                        else if (lowSpdCharacter instanceof Necromancer) {}
-                                        else {}
-                                    }
+                                    else if (lowSpdCharacter instanceof Crusader) {}
+                                    else if (lowSpdCharacter instanceof Guardian) {}
+                                    else if (lowSpdCharacter instanceof Healer) {}
+                                    else if (lowSpdCharacter instanceof Necromancer) {}
+                                    else {}
                                 }
-                                else {
-                                    System.out.println(lowSpdCharacter.GetFullName() + " the " + lowSpdCharacter.GetName() + " cannot cast any abilities this round.");
+                                if (lowSpdCharacter.CheckAbility2Possible()) {
+                                    if (lowSpdCharacter instanceof Barbarian) {}
+                                    else if (lowSpdCharacter instanceof Crusader) {}
+                                    else if (lowSpdCharacter instanceof Guardian) {}
+                                    else if (lowSpdCharacter instanceof Healer) {}
+                                    else if (lowSpdCharacter instanceof Necromancer) {}
+                                    else {}
+                                }
+                                if (lowSpdCharacter.CheckAbility3Possible()) {
+                                    if (lowSpdCharacter instanceof Barbarian) {}
+                                    else if (lowSpdCharacter instanceof Crusader) {}
+                                    else if (lowSpdCharacter instanceof Guardian) {}
+                                    else if (lowSpdCharacter instanceof Healer) {}
+                                    else if (lowSpdCharacter instanceof Necromancer) {}
+                                    else {}
                                 }
                             }
+                            else {
+                                System.out.println(lowSpdCharacter.GetFullName() + " the " + lowSpdCharacter.GetName() + " cannot cast any abilities this round.");
+                            }
                         }
+                    }
                     else {
                         System.out.println("Player 2's turn. Press [ENTER] to continue.");
                         Input.nextLine();
@@ -462,8 +475,8 @@ public class RPGMain {
                         int medSpdIndexP2 = c.getMedianSpeedIndex(maxSpdIndexP2, gs.Player2.PlayerTeam);
                         // Dummy
                         int lowSpdIndexP2 = 0;
-                        for ( int i = 0; i < 3; i ++ ) {
-                            if ( i != maxSpdIndexP2 && i != medSpdIndexP2) {
+                        for (int i = 0; i < 3; i++) {
+                            if (i != maxSpdIndexP2 && i != medSpdIndexP2) {
                                 lowSpdIndexP2 = i;
                             }
                         }
@@ -472,566 +485,339 @@ public class RPGMain {
                         Character lowSpdCharacter = gs.Player2.PlayerTeam[lowSpdIndexP2];
                         System.out.println("Player 1 starts! Press [ENTER] to continue.");
                         Input.nextLine();
-                        if ( maxSpdCharacter.GetIsAlive() ) { 
+                        int x = 0;
+                        int y = 0;
+                        if (maxSpdCharacter.GetIsAlive()) {
                             System.out.print(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + "'s turn.");
                             System.out.print("Move " + maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + "!");
                             System.out.print("Choose x-coordinate: ");
-                            int x = Input.nextInt();
+                            x = Input.nextInt();
                             System.out.print("Choose y-coordinate: ");
-                            int y = Input.nextInt();
-                            gs.Move( maxSpdCharacter, x, y);
-                            if (maxSpdCharacter.CheckAbility1Possible() || maxSpdCharacter.CheckAbility2Possible() || maxSpdCharacter.CheckAbility3Possible() ) {
-                                    if (maxSpdCharacter instanceof Barbarian) {
-                                        if ( maxSpdCharacter.CheckAbility1Possible() ) {
-                                            System.out.println("Ability 1 - Flip");
-                                        }
-                                        if ( maxSpdCharacter.CheckAbility2Possible() ) {
-                                            System.out.println("Ability 2 - Kickpunch");
-                                        }
-                                        if ( maxSpdCharacter.CheckAbility3Possible() ) {
-                                            System.out.println("Ability 3 - Lupus");
-                                        }
-                                        System.out.print("Choose ability: ");
-                                        int abilityChoice = Input.nextInt();
-                                        if ( abilityChoice == 1 ) {
-                                                System.out.print("Choose x-coordinate of enemy you would like to flip: ");
-                                                x = Input.nextInt();
-
-                                                // TODO check errors and requirements
-                                                System.out.print("Choose y-coordinate of enemy you would like to flip: ");
-                                                y = Input.nextInt();
-                                                // TODO check errors and requirements
-                                                Character target = gs.GameBoard[x][y].GetEntity().GetCharacter();
-                                                ActionContext barbAbility1 = new ActionContext(target);
-                                                if ( maxSpdCharacter.Ability1(barbAbility1) ) {
-                                                    System.out.println(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " flips " + target.GetFullName() + " the " + target.GetName() + "!");
-                                                    maxSpdCharacter.Ability1(barbAbility1);
-                                                    gs.refreshGameBoard();
-                                                    ds.PrintGrid(gs.GameBoard);
-                                                }
-                                            }
-                                        else if ( abilityChoice == 2 ) {
-                                            System.out.print("Choose x-coordinate of enemy you would like to flip: ");
-                                                x = Input.nextInt();
-                                                // TODO check errors and requirements
-                                                System.out.print("Choose y-coordinate of enemy you would like to flip: ");
-                                                y = Input.nextInt();
-                                                // TODO check errors and requirements
-                                                Character target = gs.GameBoard[x][y].GetEntity().GetCharacter();
-                                                ActionContext barbAbility2 = new ActionContext(target);
-                                                if ( maxSpdCharacter.Ability1(barbAbility2) ) {
-                                                    System.out.println(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " flips " + target.GetFullName() + " the " + target.GetName() + "!");
-                                                    maxSpdCharacter.Ability1(barbAbility2);
-                                                }
-                                        }
-                                        else if ( abilityChoice == 3 ) {
-                                            maxSpdCharacter.Ability3();
+                            y = Input.nextInt();
+                            gs.Move(maxSpdCharacter, x, y);
+                            if (maxSpdCharacter.CheckAbility1Possible() || maxSpdCharacter.CheckAbility2Possible() || maxSpdCharacter.CheckAbility3Possible()) {
+                                if (maxSpdCharacter instanceof Barbarian) {
+                                    if (maxSpdCharacter.CheckAbility1Possible()) {
+                                        System.out.println("Ability 1 - Flip");
+                                    }
+                                    if (maxSpdCharacter.CheckAbility2Possible()) {
+                                        System.out.println("Ability 2 - Kickpunch");
+                                    }
+                                    if (maxSpdCharacter.CheckAbility3Possible()) {
+                                        System.out.println("Ability 3 - Lupus");
+                                    }
+                                    System.out.print("Choose ability: ");
+                                    int abilityChoice = Input.nextInt();
+                                    if (abilityChoice == 1) {
+                                        System.out.print("Choose x-coordinate of enemy you would like to flip: ");
+                                        x = Input.nextInt();
+                                        // TODO check errors and requirements
+                                        System.out.print("Choose y-coordinate of enemy you would like to flip: ");
+                                        y = Input.nextInt();
+                                        // TODO check errors and requirements
+                                        Character target = gs.GameBoard[x][y].GetEntity().GetCharacter();
+                                        ActionContext barbAbility1 = new ActionContext(target);
+                                        if (maxSpdCharacter.Ability1(barbAbility1)) {
+                                            System.out.println(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " flips " + target.GetFullName() + " the " + target.GetName() + "!");
+                                            maxSpdCharacter.Ability1(barbAbility1);
+                                            gs.refreshGameBoard();
+                                            ds.PrintGrid(gs.GameBoard);
                                         }
                                     }
-                                    else if (maxSpdCharacter instanceof Crusader) {}
-                                    else if (maxSpdCharacter instanceof Guardian) {
-                                        if ( maxSpdCharacter.CheckAbility1Possible() ) {
-                                            System.out.println("Ability 1 - Obstruct");
+                                    else if (abilityChoice == 2) {
+                                        System.out.print("Choose x-coordinate of enemy you would like to punch: ");
+                                        x = Input.nextInt();
+                                        // TODO check errors and requirements
+                                        System.out.print("Choose y-coordinate of enemy you would like to punch: ");
+                                        y = Input.nextInt();
+                                        // TODO check errors and requirements
+                                        Character target = gs.GameBoard[x][y].GetEntity().GetCharacter();
+                                        ActionContext barbAbility2 = new ActionContext(target);
+                                        if (maxSpdCharacter.Ability1(barbAbility2)) {
+                                            System.out.println(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + "  " + target.GetFullName() + " the " + target.GetName() + "!");
+                                            maxSpdCharacter.Ability1(barbAbility2);
                                         }
-                                        if ( maxSpdCharacter.CheckAbility2Possible() ) {
-                                            System.out.println("Ability 2 - Fortify");
+                                    }
+                                    else if (abilityChoice == 3) {
+                                        maxSpdCharacter.Ability3();
+                                    }
+                                }
+                                else if (maxSpdCharacter instanceof Crusader) {}
+                                else if (maxSpdCharacter instanceof Guardian) {
+                                    if (maxSpdCharacter.CheckAbility1Possible()) {
+                                        System.out.println("Ability 1 - Obstruct");
+                                    }
+                                    if (maxSpdCharacter.CheckAbility2Possible()) {
+                                        System.out.println("Ability 2 - Fortify");
+                                    }
+                                    if (maxSpdCharacter.CheckAbility3Possible()) {
+                                        System.out.println("Ability 3 - Heal");
+                                    }
+                                    System.out.print("Choose ability: ");
+                                    int abilityChoice = Input.nextInt();
+                                    if (abilityChoice == 1) {
+                                        System.out.print("Choose x-coordinate of the obstacle you would like to create: ");
+                                        x = Input.nextInt();
+                                        System.out.print("Choose y-coordinate of the obstacle you would like to create:");
+                                        y = Input.nextInt();
+                                        ActionContext GuardAbility1 = new ActionContext(x, y, gs.GameBoard);
+                                        if (maxSpdCharacter.Ability1(GuardAbility1)) {
+                                            maxSpdCharacter.Ability1(GuardAbility1);
+                                            System.out.println(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " places a boulder!");
+                                            gs.refreshGameBoard();
+                                            ds.PrintGrid(gs.GameBoard);
                                         }
-                                        if ( maxSpdCharacter.CheckAbility3Possible() ) {
-                                            System.out.println("Ability 3 - Heal");
+                                        else {
+                                            System.out.print(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " fails to place");
                                         }
-                                        System.out.print("Choose ability: ");
-                                        int abilityChoice = Input.nextInt();
-                                        if ( abilityChoice == 1 ) {
-                                            System.out.print("Choose x-coordinate of the obstacle you would like to create: ");
-                                            x = Input.nextInt();
-                                            System.out.print("Choose y-coordinate of the obstacle you would like to create:");
-                                            y = Input.nextInt();
-                                            ActionContext GuardAbility1 = new ActionContext (x, y, gs.GameBoard);
-                                            if ( maxSpdCharacter.Ability1(GuardAbility1) ) {
-                                                maxSpdCharacter.Ability1(GuardAbility1);
-                                                System.out.println(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " places a boulder!");
-                                                gs.refreshGameBoard();
-                                                ds.PrintGrid(gs.GameBoard);
-                                            }
-                                            else {
-                                                System.out.print(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " fails to place");
-                                            }
-                                        }
-                                        else if ( abilityChoice == 2 ) {
-                                            if ( maxSpdCharacter.Ability2() ) {
+                                    }
+                                    else if (abilityChoice == 2) {
+                                        if (maxSpdCharacter.Ability2()) {
                                             System.out.println(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " fortifies himself!");
                                             maxSpdCharacter.Ability2();
-                                            }
-                                            else {
-                                                System.out.print(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " fails to fortify himself!");
-                                            }
-                                         }
-                                        else if ( abilityChoice == 3) {
-                                            if ( maxSpdCharacter.Ability3() ) {
-                                                maxSpdCharacter.Ability3();
-                                                System.out.print(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " heals himself!");
-                                                
-                                            }
-                                            else {
-                                                System.out.print(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " fails to heal himself!");          
-                                            }
+                                        }
+                                        else {
+                                            System.out.print(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " fails to fortify himself!");
+                                        }
                                     }
-                                    else if (maxSpdCharacter instanceof Healer) {}
-                                    else if (maxSpdCharacter instanceof Necromancer) {}
-                                    else {}
+                                    else if (abilityChoice == 3) {
+                                        if (maxSpdCharacter.Ability3()) {
+                                            maxSpdCharacter.Ability3();
+                                            System.out.print(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " heals himself!");
+                                        }
+                                        else {
+                                            System.out.print(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " fails to heal himself!");
+                                        }
+                                    }
                                 }
+                                else if (maxSpdCharacter instanceof Healer) {}
+                                else if (maxSpdCharacter instanceof Necromancer) {}
+                                else {}
                             }
                             else {
                                 System.out.println(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " cannot cast any abilities this round.");
-                            } 
-                            if ( medSpdCharacter.GetIsAlive() ) {
-                                System.out.print(medSpdCharacter.GetFullName() + " the " + medSpdCharacter.GetName() + "'s turn.");
-                                System.out.print("Move " + medSpdCharacter.GetFullName() + " the " + medSpdCharacter.GetName() + "!");
-                                System.out.print("Choose x-coordinate: ");
-                                int xMed = Input.nextInt();
-                                System.out.print("Choose y-coordinate: ");
-                                int yMed = Input.nextInt();
-                                gs.Move( medSpdCharacter, xMed, yMed);
-                                if (medSpdCharacter.CheckAbility1Possible() || medSpdCharacter.CheckAbility2Possible() || medSpdCharacter.CheckAbility3Possible() ) {
-                                    if ( medSpdCharacter.CheckAbility1Possible() ) {
-                                        if (medSpdCharacter instanceof Barbarian) {
-                                            if ( medSpdCharacter.CheckAbility1Possible() ) {
-                                            System.out.println("Ability 1 - Flip");
-                                        }
-                                        if ( medSpdCharacter.CheckAbility2Possible() ) {
-                                            System.out.println("Ability 2 - Kickpunch");
-                                        }
-                                        if ( medSpdCharacter.CheckAbility3Possible() ) {
-                                            System.out.println("Ability 3 - Lupus");
-                                        }
-                                        System.out.print("Choose ability: ");
-                                        int abilityChoice = Input.nextInt();
-                                        if ( abilityChoice == 1 ) {
-                                                System.out.print("Choose x-coordinate of enemy you would like to flip: ");
-                                                x = Input.nextInt();
-
-                                                // TODO check errors and requirements
-                                                System.out.print("Choose y-coordinate of enemy you would like to flip: ");
-                                                y = Input.nextInt();
-                                                // TODO check errors and requirements
-                                                Character target = gs.GameBoard[x][y].GetEntity().GetCharacter();
-                                                ActionContext barbAbility1 = new ActionContext(target);
-                                                if ( maxSpdCharacter.Ability1(barbAbility1) ) {
-                                                    System.out.println(medSpdCharacter.GetFullName() + " the " + medSpdCharacter.GetName() + " flips " + target.GetFullName() + " the " + target.GetName() + "!");
-                                                    maxSpdCharacter.Ability1(barbAbility1);
-                                                    gs.refreshGameBoard();
-                                                    ds.PrintGrid(gs.GameBoard);
-                                                }
-                                            }
-                                        else if ( abilityChoice == 2 ) {
-                                            System.out.print("Choose x-coordinate of enemy you would like to flip: ");
-                                                x = Input.nextInt();
-                                                // TODO check errors and requirements
-                                                System.out.print("Choose y-coordinate of enemy you would like to flip: ");
-                                                y = Input.nextInt();
-                                                // TODO check errors and requirements
-                                                Character target = gs.GameBoard[x][y].GetEntity().GetCharacter();
-                                                ActionContext barbAbility2 = new ActionContext(target);
-                                                if ( maxSpdCharacter.Ability1(barbAbility2) ) {
-                                                    System.out.println(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " flips " + target.GetFullName() + " the " + target.GetName() + "!");
-                                                    maxSpdCharacter.Ability1(barbAbility2);
-                                                }
-                                        }
-                                        else if ( abilityChoice == 3 ) {
-                                            maxSpdCharacter.Ability3();
+                            }
+                        }
+                        if (medSpdCharacter.GetIsAlive()) {
+                            System.out.print(medSpdCharacter.GetFullName() + " the " + medSpdCharacter.GetName() + "'s turn.");
+                            System.out.print("Move " + medSpdCharacter.GetFullName() + " the " + medSpdCharacter.GetName() + "!");
+                            System.out.print("Choose x-coordinate: ");
+                            int xMed = Input.nextInt();
+                            System.out.print("Choose y-coordinate: ");
+                            int yMed = Input.nextInt();
+                            gs.Move(medSpdCharacter, xMed, yMed);
+                            if (medSpdCharacter.CheckAbility1Possible() || medSpdCharacter.CheckAbility2Possible() || medSpdCharacter.CheckAbility3Possible()) {
+                                if (medSpdCharacter instanceof Barbarian) {
+                                    if (medSpdCharacter.CheckAbility1Possible()) {
+                                        System.out.println("Ability 1 - Flip");
+                                    }
+                                    if (medSpdCharacter.CheckAbility2Possible()) {
+                                        System.out.println("Ability 2 - Kickpunch");
+                                    }
+                                    if (medSpdCharacter.CheckAbility3Possible()) {
+                                        System.out.println("Ability 3 - Lupus");
+                                    }
+                                    System.out.print("Choose ability: ");
+                                    int abilityChoice = Input.nextInt();
+                                    if (abilityChoice == 1) {
+                                        System.out.print("Choose x-coordinate of enemy you would like to flip: ");
+                                        x = Input.nextInt();
+                                        // TODO check errors and requirements
+                                        System.out.print("Choose y-coordinate of enemy you would like to flip: ");
+                                        y = Input.nextInt();
+                                        // TODO check errors and requirements
+                                        Character target = gs.GameBoard[x][y].GetEntity().GetCharacter();
+                                        ActionContext barbAbility1 = new ActionContext(target);
+                                        if (medSpdCharacter.Ability1(barbAbility1)) {
+                                            System.out.println(medSpdCharacter.GetFullName() + " the " + medSpdCharacter.GetName() + " flips " + target.GetFullName() + " the " + target.GetName() + "!");
+                                            medSpdCharacter.Ability1(barbAbility1);
+                                            gs.refreshGameBoard();
+                                            ds.PrintGrid(gs.GameBoard);
                                         }
                                     }
+                                    else if (abilityChoice == 2) {
+                                        System.out.print("Choose x-coordinate of enemy you would like to flip: ");
+                                        x = Input.nextInt();
+                                        // TODO check errors and requirements
+                                        System.out.print("Choose y-coordinate of enemy you would like to flip: ");
+                                        y = Input.nextInt();
+                                        // TODO check errors and requirements
+                                        Character target = gs.GameBoard[x][y].GetEntity().GetCharacter();
+                                        ActionContext barbAbility2 = new ActionContext(target);
+                                        if (medSpdCharacter.Ability1(barbAbility2)) {
+                                            System.out.println(medSpdCharacter.GetFullName() + " the " + medSpdCharacter.GetName() + " flips " + target.GetFullName() + " the " + target.GetName() + "!");
+                                            medSpdCharacter.Ability1(barbAbility2);
                                         }
-                                        else if (medSpdCharacter instanceof Crusader) {}
-                                        else if (medSpdCharacter instanceof Guardian) {}
-                                        if ( maxSpdCharacter.CheckAbility1Possible() ) {
-                                            System.out.println("Ability 1 - Obstruct");
-                                        }
-                                        if ( maxSpdCharacter.CheckAbility2Possible() ) {
-                                            System.out.println("Ability 2 - Fortify");
-                                        }
-                                        if ( maxSpdCharacter.CheckAbility3Possible() ) {
-                                            System.out.println("Ability 3 - Heal");
-                                        }
-                                        System.out.print("Choose ability: ");
-                                        int abilityChoice = Input.nextInt();
-                                        if ( abilityChoice == 1 ) {
-                                            System.out.print("Choose x-coordinate of the obstacle you would like to create: ");
-                                            x = Input.nextInt();
-                                            System.out.print("Choose y-coordinate of the obstacle you would like to create:");
-                                            y = Input.nextInt();
-                                            ActionContext GuardAbility1 = new ActionContext (x, y, gs.GameBoard);
-                                            if ( maxSpdCharacter.Ability1(GuardAbility1) ) {
-                                                maxSpdCharacter.Ability1(GuardAbility1);
-                                                System.out.println(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " places a boulder!");
-                                                gs.refreshGameBoard();
-                                                ds.PrintGrid(gs.GameBoard);
-                                            }
-                                            else {
-                                                System.out.print(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " fails to place");
-                                            }
-                                        }
-                                        else if ( abilityChoice == 2 ) {
-                                            if ( maxSpdCharacter.Ability2() ) {
-                                            System.out.println(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " fortifies himself!");
-                                            maxSpdCharacter.Ability2();
-                                            }
-                                            else {
-                                                System.out.print(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " fails to fortify himself!");
-                                            }
-                                         }
-                                        else if ( abilityChoice == 3) {
-                                            if ( maxSpdCharacter.Ability3() ) {
-                                                maxSpdCharacter.Ability3();
-                                                System.out.print(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " heals himself!");
-                                                
-                                            }
-                                            else {
-                                                System.out.print(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " fails to heal himself!");          
-                                            }
                                     }
-                                        else if (medSpdCharacter instanceof Healer) {}
-                                        else if (medSpdCharacter instanceof Necromancer) {}
-                                        else {}
+                                    else if (abilityChoice == 3) {
+                                        medSpdCharacter.Ability3();
                                     }
                                 }
-                                    if ( medSpdCharacter.CheckAbility2Possible() ) {
-                                        if (medSpdCharacter instanceof Barbarian) {}
-                                        else if (medSpdCharacter instanceof Crusader) {}
-                                        else if (medSpdCharacter instanceof Guardian) {
-                                            if ( maxSpdCharacter.CheckAbility1Possible() ) {
-                                            System.out.println("Ability 1 - Obstruct");
-                                        }
-                                        if ( maxSpdCharacter.CheckAbility2Possible() ) {
-                                            System.out.println("Ability 2 - Fortify");
-                                        }
-                                        if ( maxSpdCharacter.CheckAbility3Possible() ) {
-                                            System.out.println("Ability 3 - Heal");
-                                        }
-                                        System.out.print("Choose ability: ");
-                                        int abilityChoice = Input.nextInt();
-                                        if ( abilityChoice == 1 ) {
-                                            System.out.print("Choose x-coordinate of the obstacle you would like to create: ");
-                                            x = Input.nextInt();
-                                            System.out.print("Choose y-coordinate of the obstacle you would like to create:");
-                                            y = Input.nextInt();
-                                            ActionContext GuardAbility1 = new ActionContext (x, y, gs.GameBoard);
-                                            if ( maxSpdCharacter.Ability1(GuardAbility1) ) {
-                                                maxSpdCharacter.Ability1(GuardAbility1);
-                                                System.out.println(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " places a boulder!");
-                                                gs.refreshGameBoard();
-                                                ds.PrintGrid(gs.GameBoard);
-                                            }
-                                            else {
-                                                System.out.print(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " fails to place");
-                                            }
-                                        }
-                                        else if ( abilityChoice == 2 ) {
-                                            if ( maxSpdCharacter.Ability2() ) {
-                                            System.out.println(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " fortifies himself!");
-                                            maxSpdCharacter.Ability2();
-                                            }
-                                            else {
-                                                System.out.print(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " fails to fortify himself!");
-                                            }
-                                         }
-                                        else if ( abilityChoice == 3) {
-                                            if ( maxSpdCharacter.Ability3() ) {
-                                                maxSpdCharacter.Ability3();
-                                                System.out.print(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " heals himself!");
-                                                
-                                            }
-                                            else {
-                                                System.out.print(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " fails to heal himself!");          
-                                            }
+                                else if (medSpdCharacter instanceof Crusader) {}
+                                else if (medSpdCharacter instanceof Guardian) {
+                                    if (medSpdCharacter.CheckAbility1Possible()) {
+                                        System.out.println("Ability 1 - Obstruct");
                                     }
-                                        }
-                                        else if (medSpdCharacter instanceof Healer) {}
-                                        else if (medSpdCharacter instanceof Necromancer) {}
-                                        else {}
+                                    if (medSpdCharacter.CheckAbility2Possible()) {
+                                        System.out.println("Ability 2 - Fortify");
                                     }
-                                    if ( medSpdCharacter.CheckAbility3Possible() ) {
-                                        if (medSpdCharacter instanceof Barbarian) {}
-                                        else if (medSpdCharacter instanceof Crusader) {}
-                                        else if (medSpdCharacter instanceof Guardian) {
-                                            if ( maxSpdCharacter.CheckAbility1Possible() ) {
-                                            System.out.println("Ability 1 - Obstruct");
-                                        }
-                                        if ( maxSpdCharacter.CheckAbility2Possible() ) {
-                                            System.out.println("Ability 2 - Fortify");
-                                        }
-                                        if ( maxSpdCharacter.CheckAbility3Possible() ) {
-                                            System.out.println("Ability 3 - Heal");
-                                        }
-                                        System.out.print("Choose ability: ");
-                                        int abilityChoice = Input.nextInt();
-                                        if ( abilityChoice == 1 ) {
-                                            System.out.print("Choose x-coordinate of the obstacle you would like to create: ");
-                                            x = Input.nextInt();
-                                            System.out.print("Choose y-coordinate of the obstacle you would like to create:");
-                                            y = Input.nextInt();
-                                            ActionContext GuardAbility1 = new ActionContext (x, y, gs.GameBoard);
-                                            if ( maxSpdCharacter.Ability1(GuardAbility1) ) {
-                                                maxSpdCharacter.Ability1(GuardAbility1);
-                                                System.out.println(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " places a boulder!");
-                                                gs.refreshGameBoard();
-                                                ds.PrintGrid(gs.GameBoard);
-                                            }
-                                            else {
-                                                System.out.print(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " fails to place");
-                                            }
-                                        }
-                                        else if ( abilityChoice == 2 ) {
-                                            if ( maxSpdCharacter.Ability2() ) {
-                                            System.out.println(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " fortifies himself!");
-                                            maxSpdCharacter.Ability2();
-                                            }
-                                            else {
-                                                System.out.print(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " fails to fortify himself!");
-                                            }
-                                         }
-                                        else if ( abilityChoice == 3) {
-                                            if ( maxSpdCharacter.Ability3() ) {
-                                                maxSpdCharacter.Ability3();
-                                                System.out.print(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " heals himself!");
-                                                
-                                            }
-                                            else {
-                                                System.out.print(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " fails to heal himself!");          
-                                            }
-                                        }
-                                        }
-                                        else if (medSpdCharacter instanceof Healer) {}
-                                        else if (medSpdCharacter instanceof Necromancer) {}
-                                        else {}
+                                    if (medSpdCharacter.CheckAbility3Possible()) {
+                                        System.out.println("Ability 3 - Heal");
                                     }
-                                else {
-                                    System.out.println(medSpdCharacter.GetFullName() + " the " + medSpdCharacter.GetName() + " cannot cast any abilities this round.");
-                                }
-                            if ( lowSpdCharacter.GetIsAlive()) { 
-                                System.out.print(lowSpdCharacter.GetFullName() + " the " + lowSpdCharacter.GetName() + "'s turn.");
-                                System.out.print("Move " + lowSpdCharacter.GetFullName() + " the " + lowSpdCharacter.GetName() + "!");
-                                System.out.print("Choose x-coordinate: ");
-                                int xLow = Input.nextInt();
-                                System.out.print("Choose y-coordinate: ");
-                                int yLow = Input.nextInt();
-                                gs.Move( lowSpdCharacter, xLow, yLow);
-                                if (lowSpdCharacter.CheckAbility1Possible() || lowSpdCharacter.CheckAbility2Possible() || lowSpdCharacter.CheckAbility3Possible() ) {
-                                    if ( lowSpdCharacter.CheckAbility1Possible() ) {
-                                        if (lowSpdCharacter instanceof Barbarian) {
-                                            if ( lowSpdCharacter.CheckAbility1Possible() ) {
-                                            System.out.println("Ability 1 - Flip");
+                                    System.out.print("Choose ability: ");
+                                    int abilityChoice = Input.nextInt();
+                                    if (abilityChoice == 1) {
+                                        System.out.print("Choose x-coordinate of the obstacle you would like to create: ");
+                                        x = Input.nextInt();
+                                        System.out.print("Choose y-coordinate of the obstacle you would like to create:");
+                                        y = Input.nextInt();
+                                        ActionContext GuardAbility1 = new ActionContext(x, y, gs.GameBoard);
+                                        if (medSpdCharacter.Ability1(GuardAbility1)) {
+                                            medSpdCharacter.Ability1(GuardAbility1);
+                                            System.out.println(medSpdCharacter.GetFullName() + " the " + medSpdCharacter.GetName() + " places a boulder!");
+                                            gs.refreshGameBoard();
+                                            ds.PrintGrid(gs.GameBoard);
                                         }
-                                        if ( lowSpdCharacter.CheckAbility2Possible() ) {
-                                            System.out.println("Ability 2 - Kickpunch");
+                                        else {
+                                            System.out.print(medSpdCharacter.GetFullName() + " the " + medSpdCharacter.GetName() + " fails to place");
                                         }
-                                        if ( lowSpdCharacter.CheckAbility3Possible() ) {
-                                            System.out.println("Ability 3 - Lupus");
-                                        }
-                                        System.out.print("Choose ability: ");
-                                        int abilityChoice = Input.nextInt();
-                                        if ( abilityChoice == 1 ) {
-                                                System.out.print("Choose x-coordinate of enemy you would like to flip: ");
-                                                x = Input.nextInt();
-
-                                                // TODO check errors and requirements
-                                                System.out.print("Choose y-coordinate of enemy you would like to flip: ");
-                                                y = Input.nextInt();
-                                                // TODO check errors and requirements
-                                                Character target = gs.GameBoard[x][y].GetEntity().GetCharacter();
-                                                ActionContext barbAbility1 = new ActionContext(target);
-                                                if ( maxSpdCharacter.Ability1(barbAbility1) ) {
-                                                    System.out.println(lowSpdCharacter.GetFullName() + " the " + lowSpdCharacter.GetName() + " flips " + target.GetFullName() + " the " + target.GetName() + "!");
-                                                    maxSpdCharacter.Ability1(barbAbility1);
-                                                    gs.refreshGameBoard();
-                                                    ds.PrintGrid(gs.GameBoard);
-                                                }
-                                            }
-                                        else if ( abilityChoice == 2 ) {
-                                            System.out.print("Choose x-coordinate of enemy you would like to flip: ");
-                                                x = Input.nextInt();
-                                                // TODO check errors and requirements
-                                                System.out.print("Choose y-coordinate of enemy you would like to flip: ");
-                                                y = Input.nextInt();
-                                                // TODO check errors and requirements
-                                                Character target = gs.GameBoard[x][y].GetEntity().GetCharacter();
-                                                ActionContext barbAbility2 = new ActionContext(target);
-                                                if ( maxSpdCharacter.Ability1(barbAbility2) ) {
-                                                    System.out.println(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " flips " + target.GetFullName() + " the " + target.GetName() + "!");
-                                                    maxSpdCharacter.Ability1(barbAbility2);
-                                                }
-                                        }
-                                        else if ( abilityChoice == 3 ) {
-                                            maxSpdCharacter.Ability3();
-                                        }
-                                        }
-                                        else if (lowSpdCharacter instanceof Crusader) {}
-                                        else if (lowSpdCharacter instanceof Guardian) {
-                                            if ( maxSpdCharacter.CheckAbility1Possible() ) {
-                                            System.out.println("Ability 1 - Obstruct");
-                                        }
-                                        if ( maxSpdCharacter.CheckAbility2Possible() ) {
-                                            System.out.println("Ability 2 - Fortify");
-                                        }
-                                        if ( maxSpdCharacter.CheckAbility3Possible() ) {
-                                            System.out.println("Ability 3 - Heal");
-                                        }
-                                        System.out.print("Choose ability: ");
-                                        int abilityChoice = Input.nextInt();
-                                        if ( abilityChoice == 1 ) {
-                                            System.out.print("Choose x-coordinate of the obstacle you would like to create: ");
-                                            x = Input.nextInt();
-                                            System.out.print("Choose y-coordinate of the obstacle you would like to create:");
-                                            y = Input.nextInt();
-                                            ActionContext GuardAbility1 = new ActionContext (x, y, gs.GameBoard);
-                                            if ( maxSpdCharacter.Ability1(GuardAbility1) ) {
-                                                maxSpdCharacter.Ability1(GuardAbility1);
-                                                System.out.println(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " places a boulder!");
-                                                gs.refreshGameBoard();
-                                                ds.PrintGrid(gs.GameBoard);
-                                            }
-                                            else {
-                                                System.out.print(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " fails to place");
-                                            }
-                                        }
-                                        else if ( abilityChoice == 2 ) {
-                                            if ( maxSpdCharacter.Ability2() ) {
-                                            System.out.println(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " fortifies himself!");
-                                            maxSpdCharacter.Ability2();
-                                            }
-                                            else {
-                                                System.out.print(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " fails to fortify himself!");
-                                            }
-                                         }
-                                        else if ( abilityChoice == 3) {
-                                            if ( maxSpdCharacter.Ability3() ) {
-                                                maxSpdCharacter.Ability3();
-                                                System.out.print(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " heals himself!");
-                                                
-                                            }
-                                            else {
-                                                System.out.print(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " fails to heal himself!");          
-                                            }
                                     }
+                                    else if (abilityChoice == 2) {
+                                        if (medSpdCharacter.Ability2()) {
+                                            System.out.println(medSpdCharacter.GetFullName() + " the " + medSpdCharacter.GetName() + " fortifies himself!");
+                                            medSpdCharacter.Ability2();
                                         }
-                                        else if (lowSpdCharacter instanceof Healer) {}
-                                        else if (lowSpdCharacter instanceof Necromancer) {}
-                                        else {}
+                                        else {
+                                            System.out.print(medSpdCharacter.GetFullName() + " the " + medSpdCharacter.GetName() + " fails to fortify himself!");
+                                        }
                                     }
-                                    if ( lowSpdCharacter.CheckAbility2Possible() ) {
-                                        if (lowSpdCharacter instanceof Barbarian) {}
-                                        else if (lowSpdCharacter instanceof Crusader) {}
-                                        else if (lowSpdCharacter instanceof Guardian) {
-                                            if ( maxSpdCharacter.CheckAbility1Possible() ) {
-                                            System.out.println("Ability 1 - Obstruct");
+                                    else if (abilityChoice == 3) {
+                                        if (medSpdCharacter.Ability3()) {
+                                            medSpdCharacter.Ability3();
+                                            System.out.print(medSpdCharacter.GetFullName() + " the " + medSpdCharacter.GetName() + " heals himself!");
                                         }
-                                        if ( maxSpdCharacter.CheckAbility2Possible() ) {
-                                            System.out.println("Ability 2 - Fortify");
+                                        else {
+                                            System.out.print(medSpdCharacter.GetFullName() + " the " + medSpdCharacter.GetName() + " fails to heal himself!");
                                         }
-                                        if ( maxSpdCharacter.CheckAbility3Possible() ) {
-                                            System.out.println("Ability 3 - Heal");
-                                        }
-                                        System.out.print("Choose ability: ");
-                                        int abilityChoice = Input.nextInt();
-                                        if ( abilityChoice == 1 ) {
-                                            System.out.print("Choose x-coordinate of the obstacle you would like to create: ");
-                                            x = Input.nextInt();
-                                            System.out.print("Choose y-coordinate of the obstacle you would like to create:");
-                                            y = Input.nextInt();
-                                            ActionContext GuardAbility1 = new ActionContext (x, y, gs.GameBoard);
-                                            if ( maxSpdCharacter.Ability1(GuardAbility1) ) {
-                                                maxSpdCharacter.Ability1(GuardAbility1);
-                                                System.out.println(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " places a boulder!");
-                                                gs.refreshGameBoard();
-                                                ds.PrintGrid(gs.GameBoard);
-                                            }
-                                            else {
-                                                System.out.print(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " fails to place");
-                                            }
-                                        }
-                                        else if ( abilityChoice == 2 ) {
-                                            if ( maxSpdCharacter.Ability2() ) {
-                                            System.out.println(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " fortifies himself!");
-                                            maxSpdCharacter.Ability2();
-                                            }
-                                            else {
-                                                System.out.print(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " fails to fortify himself!");
-                                            }
-                                         }
-                                        else if ( abilityChoice == 3) {
-                                            if ( maxSpdCharacter.Ability3() ) {
-                                                maxSpdCharacter.Ability3();
-                                                System.out.print(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " heals himself!");
-                                                
-                                            }
-                                            else {
-                                                System.out.print(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " fails to heal himself!");          
-                                            }
-                                    }
-                                        }
-                                        else if (lowSpdCharacter instanceof Healer) {}
-                                        else if (lowSpdCharacter instanceof Necromancer) {}
-                                        else {}
-                                    }
-                                    if ( lowSpdCharacter.CheckAbility3Possible() ) {
-                                        if (lowSpdCharacter instanceof Barbarian) {}
-                                        else if (lowSpdCharacter instanceof Crusader) {}
-                                        else if (lowSpdCharacter instanceof Guardian) {
-                                            if ( maxSpdCharacter.CheckAbility1Possible() ) {
-                                            System.out.println("Ability 1 - Obstruct");
-                                        }
-                                        if ( maxSpdCharacter.CheckAbility2Possible() ) {
-                                            System.out.println("Ability 2 - Fortify");
-                                        }
-                                        if ( maxSpdCharacter.CheckAbility3Possible() ) {
-                                            System.out.println("Ability 3 - Heal");
-                                        }
-                                        System.out.print("Choose ability: ");
-                                        int abilityChoice = Input.nextInt();
-                                        if ( abilityChoice == 1 ) {
-                                            System.out.print("Choose x-coordinate of the obstacle you would like to create: ");
-                                            x = Input.nextInt();
-                                            System.out.print("Choose y-coordinate of the obstacle you would like to create:");
-                                            y = Input.nextInt();
-                                            ActionContext GuardAbility1 = new ActionContext (x, y, gs.GameBoard);
-                                            if ( maxSpdCharacter.Ability1(GuardAbility1) ) {
-                                                maxSpdCharacter.Ability1(GuardAbility1);
-                                                System.out.println(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " places a boulder!");
-                                                gs.refreshGameBoard();
-                                                ds.PrintGrid(gs.GameBoard);
-                                            }
-                                            else {
-                                                System.out.print(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " fails to place");
-                                            }
-                                        }
-                                        else if ( abilityChoice == 2 ) {
-                                            if ( maxSpdCharacter.Ability2() ) {
-                                            System.out.println(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " fortifies himself!");
-                                            maxSpdCharacter.Ability2();
-                                            }
-                                            else {
-                                                System.out.print(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " fails to fortify himself!");
-                                            }
-                                         }
-                                        else if ( abilityChoice == 3) {
-                                            if ( maxSpdCharacter.Ability3() ) {
-                                                maxSpdCharacter.Ability3();
-                                                System.out.print(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " heals himself!");
-                                                
-                                            }
-                                            else {
-                                                System.out.print(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " fails to heal himself!");          
-                                            }
-                                    }
-                                        }
-                                        else if (lowSpdCharacter instanceof Healer) {}
-                                        else if (lowSpdCharacter instanceof Necromancer) {}
-                                        else {}
                                     }
                                 }
-                                else {
-                                    System.out.println(lowSpdCharacter.GetFullName() + " the " + lowSpdCharacter.GetName() + " cannot cast any abilities this round.");
+                                else if (medSpdCharacter instanceof Healer) {}
+                                else if (medSpdCharacter instanceof Necromancer) {}
+                                else {}
+                            }
+                            else {
+                                System.out.println(medSpdCharacter.GetFullName() + " the " + medSpdCharacter.GetName() + " cannot cast any abilities this round.");
+                            }
+                        }
+                        if (lowSpdCharacter.GetIsAlive()) {
+                            System.out.print(lowSpdCharacter.GetFullName() + " the " + lowSpdCharacter.GetName() + "'s turn.");
+                            System.out.print("Move " + lowSpdCharacter.GetFullName() + " the " + lowSpdCharacter.GetName() + "!");
+                            System.out.print("Choose x-coordinate: ");
+                            int xLow = Input.nextInt();
+                            System.out.print("Choose y-coordinate: ");
+                            int yLow = Input.nextInt();
+                            gs.Move(lowSpdCharacter, xLow, yLow);
+                            if (lowSpdCharacter.CheckAbility1Possible() || lowSpdCharacter.CheckAbility2Possible() || lowSpdCharacter.CheckAbility3Possible()) {
+                                if (lowSpdCharacter instanceof Barbarian) {
+                                    if (lowSpdCharacter.CheckAbility1Possible()) {
+                                        System.out.println("Ability 1 - Flip");
+                                    }
+                                    if (lowSpdCharacter.CheckAbility2Possible()) {
+                                        System.out.println("Ability 2 - Kickpunch");
+                                    }
+                                    if (lowSpdCharacter.CheckAbility3Possible()) {
+                                        System.out.println("Ability 3 - Lupus");
+                                    }
+                                    System.out.print("Choose ability: ");
+                                    int abilityChoice = Input.nextInt();
+                                    if (abilityChoice == 1) {
+                                        System.out.print("Choose x-coordinate of enemy you would like to flip: ");
+                                        x = Input.nextInt();
+                                        // TODO check errors and requirements
+                                        System.out.print("Choose y-coordinate of enemy you would like to flip: ");
+                                        y = Input.nextInt();
+                                        // TODO check errors and requirements
+                                        Character target = gs.GameBoard[x][y].GetEntity().GetCharacter();
+                                        ActionContext barbAbility1 = new ActionContext(target);
+                                        if (lowSpdCharacter.Ability1(barbAbility1)) {
+                                            System.out.println(lowSpdCharacter.GetFullName() + " the " + lowSpdCharacter.GetName() + " flips " + target.GetFullName() + " the " + target.GetName() + "!");
+                                            lowSpdCharacter.Ability1(barbAbility1);
+                                            gs.refreshGameBoard();
+                                            ds.PrintGrid(gs.GameBoard);
+                                        }
+                                    }
+                                    else if (abilityChoice == 2) {
+                                        System.out.print("Choose x-coordinate of enemy you would like to flip: ");
+                                        x = Input.nextInt();
+                                        // TODO check errors and requirements
+                                        System.out.print("Choose y-coordinate of enemy you would like to flip: ");
+                                        y = Input.nextInt();
+                                        // TODO check errors and requirements
+                                        Character target = gs.GameBoard[x][y].GetEntity().GetCharacter();
+                                        ActionContext barbAbility2 = new ActionContext(target);
+                                        if (lowSpdCharacter.Ability1(barbAbility2)) {
+                                            System.out.println(lowSpdCharacter.GetFullName() + " the " + lowSpdCharacter.GetName() + " flips " + target.GetFullName() + " the " + target.GetName() + "!");
+                                            lowSpdCharacter.Ability1(barbAbility2);
+                                        }
+                                    }
+                                    else if (abilityChoice == 3) {
+                                        lowSpdCharacter.Ability3();
+                                    }
                                 }
+                                else if (lowSpdCharacter instanceof Crusader) {}
+                                else if (lowSpdCharacter instanceof Guardian) {
+                                    if (lowSpdCharacter.CheckAbility1Possible()) {
+                                        System.out.println("Ability 1 - Obstruct");
+                                    }
+                                    if (lowSpdCharacter.CheckAbility2Possible()) {
+                                        System.out.println("Ability 2 - Fortify");
+                                    }
+                                    if (lowSpdCharacter.CheckAbility3Possible()) {
+                                        System.out.println("Ability 3 - Heal");
+                                    }
+                                    System.out.print("Choose ability: ");
+                                    int abilityChoice = Input.nextInt();
+                                    if (abilityChoice == 1) {
+                                        System.out.print("Choose x-coordinate of the obstacle you would like to create: ");
+                                        x = Input.nextInt();
+                                        System.out.print("Choose y-coordinate of the obstacle you would like to create:");
+                                        y = Input.nextInt();
+                                        ActionContext GuardAbility1 = new ActionContext(x, y, gs.GameBoard);
+                                        if (lowSpdCharacter.Ability1(GuardAbility1)) {
+                                            lowSpdCharacter.Ability1(GuardAbility1);
+                                            System.out.println(lowSpdCharacter.GetFullName() + " the " + lowSpdCharacter.GetName() + " places a boulder!");
+                                            gs.refreshGameBoard();
+                                            ds.PrintGrid(gs.GameBoard);
+                                        }
+                                        else {
+                                            System.out.print(lowSpdCharacter.GetFullName() + " the " + lowSpdCharacter.GetName() + " fails to place");
+                                        }
+                                    }
+                                    else if (abilityChoice == 2) {
+                                        if (lowSpdCharacter.Ability2()) {
+                                            System.out.println(lowSpdCharacter.GetFullName() + " the " + lowSpdCharacter.GetName() + " fortifies himself!");
+                                            lowSpdCharacter.Ability2();
+                                        }
+                                        else {
+                                            System.out.print(lowSpdCharacter.GetFullName() + " the " + lowSpdCharacter.GetName() + " fails to fortify himself!");
+                                        }
+                                    }
+                                    else if (abilityChoice == 3) {
+                                        if (lowSpdCharacter.Ability3()) {
+                                            lowSpdCharacter.Ability3();
+                                            System.out.print(lowSpdCharacter.GetFullName() + " the " + lowSpdCharacter.GetName() + " heals himself!");
+                                        }
+                                        else {
+                                            System.out.print(lowSpdCharacter.GetFullName() + " the " + lowSpdCharacter.GetName() + " fails to heal himself!");
+                                        }
+                                    }
+                                }
+                                else if (lowSpdCharacter instanceof Healer) {}
+                                else if (lowSpdCharacter instanceof Necromancer) {}
+                                else {}
+                            }
+                            else {
+                                System.out.println(lowSpdCharacter.GetFullName() + " the " + lowSpdCharacter.GetName() + " cannot cast any abilities this round.");
                             }
                         }
                     }
@@ -1049,4 +835,3 @@ public class RPGMain {
         // ds.PrintGrid(gs.GameBoard);
     }
 }
-
