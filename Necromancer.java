@@ -39,7 +39,10 @@ public class Necromancer extends Character {
     public String getName() {
         return "Necromancer";
     }
-
+    
+    public boolean CheckSpecialPossible() {return false;}
+    public boolean CheckAbility1Possible() {return false;}
+    public boolean CheckAbility2Possible() {return false;}
     public boolean Special(ActionContext context) {
         if (context.GetGrid()[context.getPosX()][context.getPosY()].GetEntity().GetObject() == 0) {
             context.GetGrid()[context.getPosX()][context.getPosY()] = new Block(new Minion(this.team));

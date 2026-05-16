@@ -37,6 +37,9 @@ public class Healer extends Character {
         ScaleStats();
     }
 
+    public boolean CheckSpecialPossible() {return false;}
+    public boolean CheckAbility1Possible() {return false;}
+    public boolean CheckAbility2Possible() {return false;}
     public int GetSpecialRange() {
         return 1;
     }

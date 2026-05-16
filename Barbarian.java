@@ -39,6 +39,9 @@ public class Barbarian extends Character {
         }
         ScaleStats();
     }
+    public boolean CheckSpecialPossible() {return false;}
+    public boolean CheckAbility1Possible() {return false;}
+    public boolean CheckAbility2Possible() {return false;}
     public int GetSpecialRange() {
         return 1;
     }
@@ -155,7 +158,7 @@ public class Barbarian extends Character {
         applyPassive();
             ScaleStats();
             if ( context.GetTarget().GetIsDivineShielded()) {
-                context.GetTarget().SetCurrHealth(context.GetTarget().GetCurrHealth() - this.attack * 2);
+                context.GetTarget().SetCurrHealth(context.GetTarget().GetCalculatedStats()[this.MAXHEALTHPOS] - this.attack * 2);
             }
             else context.GetTarget().SetCurrHealth(context.GetTarget().GetCurrHealth() - this.attack * 4);
             this.SetCurrMagic( this.GetCurrMagic() - 1);
@@ -163,10 +166,7 @@ public class Barbarian extends Character {
             return true;
         }
 
-    public boolean Ability2 (ActionContext context) {
-        if ( !CheckConditions( 1, 1, context.GetTarget() ) ) {
-            return false;
-        }
+    public boolean Ability2 () {
         applyPassive();
         if ( this.GetCurrHealth() > 0.2 * this.GetCalculatedStats()[HLTPOS] ) {
             this.SetCurrHealth(this.GetCurrHealth() - 0.2 * this.GetCalculatedStats()[HLTPOS]);
