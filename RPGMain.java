@@ -21,7 +21,7 @@ public class RPGMain {
                         int SelectedClass = -1;
                         Character ClasslesCharacter = new Character().GenerateCharacter();
                         ClasslesCharacter.SetTeam(i);
-                        ClasslesCharacter.SetName("John RPG");
+                        
                         while (!HasSelected) {
                             System.out.println("Character " + (j + 1) + ":");
                             ds.PrintInitialStats(new Character[]{ClasslesCharacter});

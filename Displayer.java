@@ -98,7 +98,7 @@ public class Displayer {
                 return false;
             }
             System.out.println("------------------------------------");
-            System.out.println("Character   : " + c.GetName());
+            System.out.println("Name        : " + c.GetFullName());
             System.out.println("Team        : " + c.GetTeam());
             System.out.println("Speed       : " + c.GetRawStats()[c.SPDPOS]);
             System.out.println("Intelligence: " + c.GetRawStats()[c.INTLPOS]);
