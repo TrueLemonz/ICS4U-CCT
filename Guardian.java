@@ -54,7 +54,7 @@ public class Guardian extends Character {
         if ( !CheckConditions(2)) { 
             return false;
         }
-        if ( context.GetGrid()[context.getPosX()][context.getPosY()].getEntity().GetObject() == 0) {
+        if ( context.GetGrid()[context.getPosX()][context.getPosY()].GetEntity().GetObject() == 0) {
             context.GetGrid()[context.getPosX()][context.getPosY()] = new Block(new Obstacle());
             this.SetCurrMagic( this.GetCurrMagic() - 2);
             return true;

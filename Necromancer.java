@@ -41,7 +41,7 @@ public class Necromancer extends Character {
     }
 
     public boolean Special(ActionContext context) {
-        if (context.GetGrid()[context.getPosX()][context.getPosY()].getEntity().GetObject() == 0) {
+        if (context.GetGrid()[context.getPosX()][context.getPosY()].GetEntity().GetObject() == 0) {
             context.GetGrid()[context.getPosX()][context.getPosY()] = new Block(new Minion(this.team));
             return true;
         }
@@ -66,7 +66,7 @@ public class Necromancer extends Character {
     }
     public boolean Ability2(ActionContext context) {
         Entity entity = new Entity();
-        if (context.GetGrid()[context.getPosX()][context.getPosY()].getEntity().GetObject() == entity.CHARACTER) {
+        if (context.GetGrid()[context.getPosX()][context.getPosY()].GetEntity().GetObject() == entity.CHARACTER) {
             return true;
         }
         else {

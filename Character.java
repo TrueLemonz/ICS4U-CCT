@@ -95,7 +95,9 @@ public class Character extends Entity {
         this.attack = this.atk * 9.5;
         this.spirit = this.spr * 0.5;
         this.health = this.hlt * 10;
-        this.spellpower = this.spp; //calculated in attack  
+        this.spellpower = this.spp; //calculated in attack
+        this.currHealth = this.health;
+        this.currMagic = this.spellpower;
     }
      
     public boolean EatFood(Food food) {

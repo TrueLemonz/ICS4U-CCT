@@ -37,21 +37,21 @@ public class GameSystem {
 
     public void PopulateGameBoard(int obstacleCount, int foodCount) {
         for (int i = 0; i < obstacleCount; i++) {
-            randBlock(new Obstacle());
+            RandBlock(new Obstacle());
         }
         for (int i = 0; i < foodCount; i++) {
-            randBlock(new Food());
+            RandBlock(new Food());
         }
     }
-    public void randBlock(Entity entity) {
+    public void RandBlock(Entity entity) {
         int emptyCount = 0;
         for (int i = 0; i < this.GameBoard.length; i++) {
             for (int j = 0; j < this.GameBoard[i].length; j++) {
                 Block block = this.GameBoard[i][j];
-                if (block == null || block.getEntity() == null) {
+                if (block == null || block.GetEntity() == null) {
                    continue;
                 }
-                if (block.getEntity().GetObject() == 0) {
+                if (block.GetEntity().GetObject() == 0) {
                     emptyCount++; //count number of empty blocks in the grid
                 }
             }
@@ -65,10 +65,10 @@ public class GameSystem {
         for (int i = 0; i < this.GameBoard.length; i++) {
             for (int j = 0; j < this.GameBoard[i].length; j++) {
                 Block block = this.GameBoard[i][j];
-                if (block == null || block.getEntity() == null) {
+                if (block == null || block.GetEntity() == null) {
                     continue;
                 }
-                if (block.getEntity().GetObject() == 0) {
+                if (block.GetEntity().GetObject() == 0) {
                     emptyPositions[index][0] = i; //stores empty row coordinate
                     emptyPositions[index][1] = j; //stores empty column coordinate
                     index++;
@@ -106,36 +106,39 @@ public class GameSystem {
       }
    }
 
-   public boolean CheckWin() {
-    Entity entity = new Entity();
-    boolean Team1Lose = true;
-    boolean Team2Lose = true;
-      for (int i = 0; i < this.GameBoard.length; i++) {
-         for (int j = 0; j < this.GameBoard[i].length; j++) {
-            if (this.GameBoard[i][j].getEntity().GetObject() == 1) {
-                Character c = (Character) this.GameBoard[i][j].getEntity();
-                if (c.GetTeam() == 1 && !c.GetIsAlive()) {
-                    Team1Lose = false;
-                } 
-                else if (c.GetTeam() == 2 && !c.GetIsAlive()) {
-                    Team2Lose = false;
+   public int GetWinningTeam() {
+      boolean team1Alive = false;
+      boolean team2Alive = false;
+         for (int i = 0; i < this.GameBoard.length; i++) {
+            for (int j = 0; j < this.GameBoard[i].length; j++) {
+                if (this.GameBoard[i][j].GetEntity().GetObject() == 1) {
+                    Character c = (Character) this.GameBoard[i][j].GetEntity();
+                    if (c.GetTeam() == 1 && c.GetCurrHealth() > 0) {
+                        team1Alive = true;
+                    } 
+                    else if (c.GetTeam() == 2 && c.GetCurrHealth() > 0) {
+                        team2Alive = true;
+                    }
                 }
             }
          }
-      }
-      if (Team1Lose) {
-         return true;
-      } 
-      else if (Team2Lose) {
-         return true;
-      }
-      return false;
+         if (!team1Alive && team2Alive) {
+            return 2;
+         }
+         else if (!team2Alive && team1Alive) {
+            return 1;
+         }
+         return 0;
+   }
+
+   public boolean CheckWin() {
+      return GetWinningTeam() != 0;
    }
 
    public void GenRandObstacles() {
     int block = (int) (Math.random() * GameBoard.length * GameBoard[0].length);
     Block current = this.GameBoard[block / GameBoard[0].length][block % GameBoard[0].length];
-    if (current != null && current.getEntity() != null && current.getEntity().GetObject() == 0) {
+    if (current != null && current.GetEntity() != null && current.GetEntity().GetObject() == 0) {
         int rand = (int) (Math.random() * 10); 
         if (rand < 2) { 
             this.GameBoard[block / GameBoard[0].length][block % GameBoard[0].length] = new Block(new Obstacle());

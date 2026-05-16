@@ -63,7 +63,7 @@ public class Healer extends Character {
         Character target = context.GetTarget();
         for ( int i = 0; i < 8; i++ ) {
             for (int j = 0; j < 8; j++ ) {
-                if ( grid[i][j].getEntity() instanceof Character) {             
+                if ( grid[i][j].GetEntity() instanceof Character) {             
                     if ( target != null && target instanceof Character ) {
                         if ( CheckRange(1, target) && target.team == this.team)  {
                             if ( target.GetCurrHealth() + 5 < target.GetCalculatedStats()[target.HLTPOS] )

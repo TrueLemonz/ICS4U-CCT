@@ -192,35 +192,30 @@ public class RPGMain {
                 gs.PopulateGameBoard(7, 3);
                 ds.PrintGrid(gs.GameBoard);
                 boolean Player1Turn = true;
-
-                if (gs.Player1.PlayerTeam[0].GetCurrHealth() <= 0 && gs.Player1.PlayerTeam[1].GetCurrHealth() <= 0 && gs.Player1.PlayerTeam[2].GetCurrHealth() <= 0) {
-                    System.out.println("Player 2 wins!");
-                    GameRunning = false;
-                }
-                else if (gs.Player2.PlayerTeam[0].GetCurrHealth() <= 0 && gs.Player2.PlayerTeam[1].GetCurrHealth() <= 0 && gs.Player2.PlayerTeam[2].GetCurrHealth() <= 0) {
-                    System.out.println("Player 1 wins!");
-                    GameRunning = false;
-                } else {
+                while (!gs.CheckWin()) {
                     if (Player1Turn) {
                         System.out.println("Player 1's turn. Press [ENTER] to continue.");
                         Input.nextLine();
-                        Input.nextLine();
                         int LivingAllies = gs.Player1.GetLivingAllies();
                         for (int i = 0; i < LivingAllies; i++) {
-                            System.out.println("Select a character to take action with: \n1. " + gs.Player1.PlayerTeam[i].GetFullName() + " the " + gs.Player1.PlayerTeam[i].GetName() + "\n");
+                            System.out.println("DO SOMETHING HERE");
                         }
                         Player1Turn = false;
                     }
                     else {
                         System.out.println("Player 2's turn. Press [ENTER] to continue.");
                         Input.nextLine();
-                        Input.nextLine();
                         int LivingAllies = gs.Player2.GetLivingAllies();
                         for (int i = 0; i < LivingAllies; i++) {
-                            System.out.println("Select a character to take action with: \n1. " + gs.Player2.PlayerTeam[i].GetFullName() + " the " + gs.Player2.PlayerTeam[i].GetName() + "\n");
+                            System.out.println("DO SOMETHING HERE");
                         }
                         Player1Turn = true;
                     }
+                }
+                if (gs.CheckWin()) {
+                    int winner = gs.GetWinningTeam();
+                    System.out.println("Player " + winner + " wins!");
+                    GameRunning = false;
                 }
             } //TODO add the other two options
         } //STOP RUNNING

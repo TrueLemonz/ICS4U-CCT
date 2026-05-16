@@ -59,10 +59,10 @@ public class Displayer {
                 Block b = row[j];
                 String formattedName = "";
 
-                if (b != null && b.getEntity() != null) {
-                    int objectType = b.getEntity().GetObject();
+                if (b != null && b.GetEntity() != null) {
+                    int objectType = b.GetEntity().GetObject();
                     if (objectType == 1) {
-                        formattedName = b.getEntity().GetFullName();
+                        formattedName = b.GetEntity().GetFullName();
                     }
                 }
                 System.out.print("|" + centerString(formattedName, CELL_WIDTH));
@@ -74,8 +74,8 @@ public class Displayer {
                 Block b = row[j];
                 String formattedClass = "";
 
-                if (b != null && b.getEntity() != null) {
-                    formattedClass = String.valueOf(b.getEntity().GetName());
+                if (b != null && b.GetEntity() != null) {
+                    formattedClass = String.valueOf(b.GetEntity().GetName());
                 }
                 System.out.print("|" + centerString(formattedClass, CELL_WIDTH));
             }
@@ -86,8 +86,8 @@ public class Displayer {
                 Block b = row[j];
                 String formattedInfo = "";
 
-                if (b != null && b.getEntity().GetObject() == 1) {
-                    formattedInfo = "Team: " + String.valueOf(b.getEntity().GetTeam());
+                if (b != null && b.GetEntity().GetObject() == 1) {
+                    formattedInfo = "Team: " + String.valueOf(b.GetEntity().GetTeam());
                 }
                 System.out.print("|" + centerString(formattedInfo, CELL_WIDTH));
             }
