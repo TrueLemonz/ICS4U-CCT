@@ -68,7 +68,7 @@ public class Healer extends Character {
                 if ( grid[i][j].GetEntity() instanceof Character) {             
                     if ( target != null && target instanceof Character ) {
                         if ( CheckRange(1, target) && target.team == this.team)  {
-                            if ( target.GetCurrHealth() + 5 < target.GetCalculatedStats()[target.HLTPOS] )
+                            if ( target.GetCurrHealth() + 5 < target.GetCalculatedStats()[Character.HLTPOS] )
                                 target.SetCurrHealth(target.GetCurrHealth() + 5);
                                 this.SetCurrMagic( this.GetCurrMagic() - 4);
                                 return true;
@@ -94,8 +94,8 @@ public class Healer extends Character {
         }
         Character target = context.GetTarget(); 
         if ( target != null && target instanceof Character &&  CheckRange(4, target) &&target.team == this.team) {
-            target.SetIntl( target.GetRawStats()[target.INTLPOS] + 4);
-            target.SetSpr( target.GetRawStats()[target.SPRPOS] + 2);
+            target.SetIntl( target.GetRawStats()[Character.INTLPOS] + 4);
+            target.SetSpr( target.GetRawStats()[Character.SPRPOS] + 2);
             // target.CalculateStats();
             this.SetCurrMagic( this.GetCurrMagic() - 3 );
             return true;

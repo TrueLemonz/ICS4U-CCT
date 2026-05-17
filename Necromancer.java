@@ -52,14 +52,13 @@ public class Necromancer extends Character {
         }
     }
     public boolean Ability2(ActionContext context) {
-        Entity entity = new Entity();
-        if (context.GetTarget().GetObject() == entity.CHARACTER) {
+        if (context.GetTarget().GetObject() == Entity.CHARACTER) {
             if (!context.GetTarget().IsMinion()) {
                 context.GetTarget().AddTurn();
                 return true;
             }
             Minion target = (Minion) context.GetTarget();
-            target.AddTurn();
+            target.Buff();
             return true;
         }
         else {
@@ -67,8 +66,7 @@ public class Necromancer extends Character {
         }
     }
     public boolean Ability3(ActionContext context) {
-        Entity entity = new Entity();
-        if (context.GetGrid()[context.getPosX()][context.getPosY()].GetEntity().GetObject() == entity.CHARACTER) {
+        if (context.GetGrid()[context.getPosX()][context.getPosY()].GetEntity().GetObject() == Entity.CHARACTER) {
             return true;
         }
         else {

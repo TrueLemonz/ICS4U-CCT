@@ -15,16 +15,20 @@ public class GameSystem {
         int nullX = character.GetPosition()[0];
         int nullY = character.GetPosition()[1];
         
-        if (this.GameBoard[posX][posY] != null && character.CheckConditions(0) && this.GameBoard[posX][posY].GetEntity().GetObject() == 0) {
+        if (posX < 0 || posY < 0 || posY >= GAMEHEIGHT || posX >= GAMEWIDTH) {
+            return false;
+        }
+        
+        if (this.GameBoard[posY][posX] != null && character.CheckConditions(0) && this.GameBoard[posY][posX].GetEntity().GetObject() == 0) {
             // actually set new position
-            this.GameBoard[posX][posY].SetEntity(character);
+            this.GameBoard[posY][posX].SetEntity(character);
             
             // update internal variables (inside of character)
             character.GetPosition()[0] = posX;
             character.GetPosition()[1] = posY;
             
             // Replace the old block with an empty block (used to be null)
-            this.GameBoard[nullX][nullY] = new Block(new Entity("", false, false, false));
+            this.GameBoard[nullY][nullX] = new Block(new Entity("", false, false, false));
             
             return true;
         }

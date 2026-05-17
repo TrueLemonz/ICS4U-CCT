@@ -111,8 +111,8 @@ public class Character extends Entity {
     public boolean SetPosition(int[] coordinates, Block[][] grid) {
         int x = coordinates[0];
         int y = coordinates[1];
-        if (grid[x][y] != null) {
-            grid[x][y].SetEntity(this);
+        if (y >= 0 && y < grid.length && x >= 0 && x < grid[0].length && grid[y][x] != null) {
+            grid[y][x].SetEntity(this);
             this.position[0] = x;
             this.position[1] = y;
             return true;
