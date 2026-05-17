@@ -49,4 +49,28 @@ public class Minion extends Character {
     public boolean Ability3(ActionContext context) {
         return false;
     }
+    public String[] getAbilityMenu() {
+        return new String[]{
+            "1. Do nothing", 
+            "2. Do nothing", 
+            "3. Do nothing"
+        };
+    }
+    public boolean executeAbility(int choice, ActionContext context) {
+        if (choice == 1 && CheckAbility1Possible()) {
+            System.out.println(this.GetFullName() + " Does nothing!");
+            // Apply damage/effects here
+            return true;
+        } else if (choice == 2 && CheckAbility2Possible()) {
+            System.out.println(this.GetFullName() + " Does nothing!");
+            // Apply damage/effects here
+            return true;
+        } else if (choice == 3 && CheckAbility3Possible()) {
+            System.out.println(this.GetFullName() + " Does nothing!");
+            // Apply damage/effects here
+            return true;
+        }
+        System.out.println("Ability failed or unavailable.");
+        return false;
+    }
 }

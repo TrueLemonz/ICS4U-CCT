@@ -75,4 +75,28 @@ public class Necromancer extends Character {
             return false;
         }
     }
+    public String[] getAbilityMenu() {
+        return new String[]{
+            "1. Summon Minion", 
+            "2. Raise Dead", 
+            "3. Sacrifice"
+        };
+    }
+    public boolean executeAbility(int choice, ActionContext context) {
+        if (choice == 1 && CheckAbility1Possible()) {
+            System.out.println(this.GetFullName() + " summons a Minion!");
+            // Apply damage/effects here
+            return true;
+        } else if (choice == 2 && CheckAbility2Possible()) {
+            System.out.println(this.GetFullName() + " buffs a minion!");
+            // Apply damage/effects here
+            return true;
+        } else if (choice == 3 && CheckAbility3Possible()) {
+            System.out.println(this.GetFullName() + " sacrifices a minion!");
+            // Apply damage/effects here
+            return true;
+        }
+        System.out.println("Ability failed or unavailable.");
+        return false;
+    }
 }

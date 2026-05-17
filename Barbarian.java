@@ -180,4 +180,28 @@ public class Barbarian extends Character {
     private void applyPassive() {
         this.attack *= missingHPBonus;
     }
+    public String[] getAbilityMenu() {
+        return new String[]{
+            "1. Pickup and Throw", 
+            "2. Rage Strike", 
+            "3. Lupus"
+        };
+    }
+    public boolean executeAbility(int choice, ActionContext context) {
+        if (choice == 1 && CheckAbility1Possible()) {
+            System.out.println(this.GetFullName() + " flips " + context.GetTarget().GetFullName() + "!");
+            // Apply damage/effects here
+            return true;
+        } else if (choice == 2 && CheckAbility2Possible()) {
+            System.out.println(this.GetFullName() + " uses Rage Strike!");
+            // Apply damage/effects here
+            return true;
+        } else if (choice == 3 && CheckAbility3Possible()) {
+            System.out.println(this.GetFullName() + " casts Lupus!");
+            // Apply damage/effects here
+            return true;
+        }
+        System.out.println("Ability failed or unavailable.");
+        return false;
+    }
 }

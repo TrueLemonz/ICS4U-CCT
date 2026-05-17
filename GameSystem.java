@@ -11,12 +11,21 @@ public class GameSystem {
     }
 
 
-    public boolean Move( Character character, int posX, int posY) {   
+    public boolean Move(Character character, int posX, int posY) {   
         int nullX = character.GetPosition()[0];
         int nullY = character.GetPosition()[1];
-        if ( this.GameBoard[posX][posY] == null && character.CheckConditions(0) && this.GameBoard[posX][posY].GetEntity().GetObject() == 0) {
+        
+        if (this.GameBoard[posX][posY] != null && character.CheckConditions(0) && this.GameBoard[posX][posY].GetEntity().GetObject() == 0) {
+            // actually set new position
             this.GameBoard[posX][posY].SetEntity(character);
-            this.GameBoard[nullX][nullY] = null;
+            
+            // update internal variables (inside of character)
+            character.GetPosition()[0] = posX;
+            character.GetPosition()[1] = posY;
+            
+            // Replace the old block with an empty block (used to be null)
+            this.GameBoard[nullX][nullY] = new Block(new Entity("", false, false, false));
+            
             return true;
         }
         return false;
@@ -111,7 +120,7 @@ public class GameSystem {
         boolean team2Alive = false;
         for (int i = 0; i < this.GameBoard.length; i++) {
             for (int j = 0; j < this.GameBoard[i].length; j++) {
-                if (this.GameBoard[i][j].GetEntity().GetObject() == 1) {
+                if (this.GameBoard[i][j] != null && this.GameBoard[i][j].GetEntity() != null && this.GameBoard[i][j].GetEntity().GetObject() == 1) {
                     Character c = (Character) this.GameBoard[i][j].GetEntity();
                     if (c.GetTeam() == 1 && c.GetCurrHealth() > 0) {
                         team1Alive = true;

@@ -401,4 +401,11 @@ public class Character extends Entity {
     public void SetAbility3Hint(String hint) {
         this.Ability3Hint = hint;
     }
+    public String[] getAbilityMenu() {
+        return new String[]{"No abilities available."};
+    }
+
+    public boolean executeAbility(int choice, ActionContext context) {
+        return false; 
+    }
 }
