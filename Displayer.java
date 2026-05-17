@@ -19,10 +19,15 @@ public class Displayer {
         if (text.length() >= width) {
             return text.substring(0, width);
         }
+        
         int padding = width - text.length();
         int leftSpaces = padding / 2;
-        int rightSpaces = padding - leftSpaces;
-        return " ".repeat(leftSpaces) + text + " ".repeat(rightSpaces);
+        
+        // make the left padding part
+        String leftPadded = String.format("%" + (leftSpaces + text.length()) + "s", text);
+        
+        // add the right padding part so that its in the center altogether
+        return String.format("%-" + width + "s", leftPadded);
     }
 
     public static void centerPrint(String text, int width) {
