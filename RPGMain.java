@@ -226,16 +226,16 @@ public class RPGMain {
                             System.out.print("Choose y-coordinate: ");
                             y = Input.nextInt();
                             gs.Move(maxSpdCharacter, x, y);
-                            if (maxSpdCharacter.CheckAbility1Possible() || maxSpdCharacter.CheckAbility2Possible() || maxSpdCharacter.CheckAbility3Possible()) {
+                            if (maxSpdCharacter.Ability1() || maxSpdCharacter.Ability2() || maxSpdCharacter.Ability3()) {
                                 // P1 max speed character - 1
                                 if (maxSpdCharacter instanceof Barbarian) {
-                                    if (maxSpdCharacter.CheckAbility1Possible()) {
+                                    if (maxSpdCharacter.Ability1()) {
                                         System.out.println("1. Ability1 - Flip");
                                     }
-                                    if (maxSpdCharacter.CheckAbility2Possible()) {
+                                    if (maxSpdCharacter.Ability2()) {
                                         System.out.println("2. Ability 1 - Kickpunch");
                                     }
-                                    if (maxSpdCharacter.CheckAbility3Possible()) {
+                                    if (maxSpdCharacter.Ability3()) {
                                         System.out.println("3. Ability 2 - Lupus");
                                     }
                                     System.out.print("Choose ability: ");
@@ -279,13 +279,13 @@ public class RPGMain {
                                 else if (maxSpdCharacter instanceof Crusader) {}
                                 // P1 max speed character - 1
                                 else if (maxSpdCharacter instanceof Guardian) {
-                                    if (lowSpdCharacter.CheckAbility1Possible()) {
+                                    if (lowSpdCharacter.Ability1()) {
                                         System.out.println("Ability 1 - Obstruct");
                                     }
-                                    if (lowSpdCharacter.CheckAbility2Possible()) {
+                                    if (lowSpdCharacter.Ability2()) {
                                         System.out.println("Ability 2 - Fortify");
                                     }
-                                    if (lowSpdCharacter.CheckAbility3Possible()) {
+                                    if (lowSpdCharacter.Ability3()) {
                                         System.out.println("Ability 3 - Heal");
                                     }
                                     System.out.print("Choose ability: ");
@@ -327,25 +327,25 @@ public class RPGMain {
                                 }
                                 // P1 max speed character - 1
                                 else if (maxSpdCharacter instanceof Healer) {
-                                    if (maxSpdCharacter.CheckAbility1Possible()) {
+                                    if (maxSpdCharacter.Ability1()) {
                                         System.out.println("Ability 1 - Prayer");
                                     }
-                                    if (maxSpdCharacter.CheckAbility2Possible()) {
+                                    if (maxSpdCharacter.Ability2()) {
                                         System.out.println("Ability 2 - Praise");
                                     }
-                                    if (maxSpdCharacter.CheckAbility3Possible()) {
+                                    if (maxSpdCharacter.Ability3()) {
                                         System.out.println("Ability 3 - Strike");
                                     }
                                     System.out.print("Choose ability: ");
                                     int abilityChoice = Input.nextInt();
-                                    if (abilityChoice == 1 && maxSpdCharacter.CheckAbility1Possible()) {
+                                    if (abilityChoice == 1 && maxSpdCharacter.Ability1()) {
                                         maxSpdCharacter.Ability1(ac);
                                         System.out.println(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " casts Prayer.");
                                     }
-                                    else if ( abilityChoice == 1 && !maxSpdCharacter.CheckAbility1Possible() ) {
+                                    else if ( abilityChoice == 1 && !maxSpdCharacter.Ability1() ) {
                                         System.out.println(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " fails to cast Prayer.");
                                     }
-                                    if (abilityChoice == 2 && maxSpdCharacter.CheckAbility2Possible()) {
+                                    if (abilityChoice == 2 && maxSpdCharacter.Ability2()) {
                                         System.out.print("Enter the x-coordinate of the ally you would like to buff: ");
                                         x = Input.nextInt();
                                         System.out.print("Enter the y-coordinate of the ally you would like to buff: ");
@@ -355,10 +355,10 @@ public class RPGMain {
                                         maxSpdCharacter.Ability1(healerAbility2);
                                         System.out.println(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " buffs " + target.GetFullName() + " the " + target.GetName() );
                                     }
-                                    else if ( abilityChoice == 2 && !medSpdCharacter.CheckAbility2Possible() ) {
+                                    else if ( abilityChoice == 2 && !medSpdCharacter.Ability2() ) {
                                         System.out.print(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " is unable to cast Praise ");
                                     }
-                                    else if ( abilityChoice == 3 && maxSpdCharacter.CheckAbility2Possible() ) {
+                                    else if ( abilityChoice == 3 && maxSpdCharacter.Ability2() ) {
                                         System.out.print("Enter the x-coordinate of the enemy you would like to attack: ");
                                         x = Input.nextInt();
                                         System.out.print("Enter the x-coordinate of the enemy you would like to attack: ");
@@ -368,7 +368,7 @@ public class RPGMain {
                                         maxSpdCharacter.Ability3(healerAbility3);
                                         System.out.println(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " casts energy bolt on " + target.GetFullName() + " the " + target.GetName() );
                                     }
-                                    else if ( abilityChoice == 3 && !maxSpdCharacter.CheckAbility3Possible() ) {
+                                    else if ( abilityChoice == 3 && !maxSpdCharacter.Ability3() ) {
                                         System.out.print(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " is unable to cast Energy Bolt. ");
                                     }
                                 }
@@ -389,16 +389,16 @@ public class RPGMain {
                             System.out.print("Choose y-coordinate: ");
                             y = Input.nextInt();
                             gs.Move(medSpdCharacter, x, y);
-                            if (medSpdCharacter.CheckAbility1Possible() || medSpdCharacter.CheckAbility2Possible() || medSpdCharacter.CheckAbility3Possible()) {
+                            if (medSpdCharacter.Ability1() || medSpdCharacter.Ability2() || medSpdCharacter.Ability3()) {
                                 // P1 med speed character - 2
                                 if (medSpdCharacter instanceof Barbarian) {
-                                    if (medSpdCharacter.CheckAbility1Possible()) {
+                                    if (medSpdCharacter.Ability1()) {
                                         System.out.println("1. Ability1 - Flip");
                                     }
-                                    if (medSpdCharacter.CheckAbility2Possible()) {
+                                    if (medSpdCharacter.Ability2()) {
                                         System.out.println("2. Ability 1 - Kickpunch");
                                     }
-                                    if (medSpdCharacter.CheckAbility3Possible()) {
+                                    if (medSpdCharacter.Ability3()) {
                                         System.out.println("3. Ability 2 - Lupus");
                                     }
                                     System.out.print("Choose ability: ");
@@ -444,13 +444,13 @@ public class RPGMain {
                                 else if (medSpdCharacter instanceof Crusader) {}
                                 // P1 med speed character - 2
                                 else if (medSpdCharacter instanceof Guardian) {
-                                    if (lowSpdCharacter.CheckAbility1Possible()) {
+                                    if (lowSpdCharacter.Ability1()) {
                                         System.out.println("Ability 1 - Obstruct");
                                     }
-                                    if (lowSpdCharacter.CheckAbility2Possible()) {
+                                    if (lowSpdCharacter.Ability2()) {
                                         System.out.println("Ability 2 - Fortify");
                                     }
-                                    if (lowSpdCharacter.CheckAbility3Possible()) {
+                                    if (lowSpdCharacter.Ability3()) {
                                         System.out.println("Ability 3 - Heal");
                                     }
                                     System.out.print("Choose ability: ");
@@ -492,25 +492,25 @@ public class RPGMain {
                                 }
                                 // P1 med speed character - 2
                                 else if (medSpdCharacter instanceof Healer) {
-                                    if (medSpdCharacter.CheckAbility1Possible()) {
+                                    if (medSpdCharacter.Ability1()) {
                                         System.out.println("Ability 1 - Prayer");
                                     }
-                                    if (medSpdCharacter.CheckAbility2Possible()) {
+                                    if (medSpdCharacter.Ability2()) {
                                         System.out.println("Ability 2 - Praise");
                                     }
-                                    if (medSpdCharacter.CheckAbility3Possible()) {
+                                    if (medSpdCharacter.Ability3()) {
                                         System.out.println("Ability 3 - Strike");
                                     }
                                     System.out.print("Choose ability: ");
                                     int abilityChoice = Input.nextInt();
-                                    if (abilityChoice == 1 && medSpdCharacter.CheckAbility1Possible()) {
+                                    if (abilityChoice == 1 && medSpdCharacter.Ability1()) {
                                         medSpdCharacter.Ability1(ac);
                                         System.out.println(medSpdCharacter.GetFullName() + " the " + medSpdCharacter.GetName() + " casts Prayer.");
                                     }
-                                    else if ( abilityChoice == 1 && !medSpdCharacter.CheckAbility1Possible() ) {
+                                    else if ( abilityChoice == 1 && !medSpdCharacter.Ability1() ) {
                                         System.out.println(medSpdCharacter.GetFullName() + " the " + medSpdCharacter.GetName() + " fails to cast Prayer.");
                                     }
-                                    if (abilityChoice == 2 && medSpdCharacter.CheckAbility2Possible()) {
+                                    if (abilityChoice == 2 && medSpdCharacter.Ability2()) {
                                         System.out.print("Enter the x-coordinate of the ally you would like to buff: ");
                                         x = Input.nextInt();
                                         System.out.print("Enter the y-coordinate of the ally you would like to buff: ");
@@ -520,10 +520,10 @@ public class RPGMain {
                                         medSpdCharacter.Ability1(healerAbility2);
                                         System.out.println(medSpdCharacter.GetFullName() + " the " + medSpdCharacter.GetName() + " buffs " + target.GetFullName() + " the " + target.GetName() );
                                     }
-                                    else if ( abilityChoice == 2 && !medSpdCharacter.CheckAbility2Possible() ) {
+                                    else if ( abilityChoice == 2 && !medSpdCharacter.Ability2() ) {
                                         System.out.print(medSpdCharacter.GetFullName() + " the " + medSpdCharacter.GetName() + " is unable to cast Praise ");
                                     }
-                                    else if ( abilityChoice == 3 && medSpdCharacter.CheckAbility2Possible() ) {
+                                    else if ( abilityChoice == 3 && medSpdCharacter.Ability2() ) {
                                         System.out.print("Enter the x-coordinate of the enemy you would like to attack: ");
                                         x = Input.nextInt();
                                         System.out.print("Enter the x-coordinate of the enemy you would like to attack: ");
@@ -533,7 +533,7 @@ public class RPGMain {
                                         medSpdCharacter.Ability3(healerAbility3);
                                         System.out.println(medSpdCharacter.GetFullName() + " the " + medSpdCharacter.GetName() + " casts energy bolt on " + target.GetFullName() + " the " + target.GetName() );
                                     }
-                                    else if ( abilityChoice == 3 && !medSpdCharacter.CheckAbility3Possible() ) {
+                                    else if ( abilityChoice == 3 && !medSpdCharacter.Ability3() ) {
                                         System.out.print(medSpdCharacter.GetFullName() + " the " + medSpdCharacter.GetName() + " is unable to cast Energy Bolt. ");
                                     }
                                 }
@@ -554,16 +554,16 @@ public class RPGMain {
                             System.out.print("Choose y-coordinate: ");
                             y = Input.nextInt();
                             gs.Move(lowSpdCharacter, x, y);
-                            if (lowSpdCharacter.CheckAbility1Possible() || lowSpdCharacter.CheckAbility2Possible() || lowSpdCharacter.CheckAbility3Possible()) {
+                            if (lowSpdCharacter.Ability1() || lowSpdCharacter.Ability2() || lowSpdCharacter.Ability3()) {
                                 // P1 low speed character - 3
                                 if (lowSpdCharacter instanceof Barbarian) {
-                                    if (lowSpdCharacter.CheckAbility1Possible()) {
+                                    if (lowSpdCharacter.Ability1()) {
                                         System.out.println("1. Ability1 - Flip");
                                     }
-                                    if (lowSpdCharacter.CheckAbility2Possible()) {
+                                    if (lowSpdCharacter.Ability2()) {
                                         System.out.println("2. Ability 1 - Kickpunch");
                                     }
-                                    if (lowSpdCharacter.CheckAbility3Possible()) {
+                                    if (lowSpdCharacter.Ability3()) {
                                         System.out.println("3. Ability 2 - Lupus");
                                     }
                                     System.out.print("Choose ability: ");
@@ -607,13 +607,13 @@ public class RPGMain {
                                 else if (lowSpdCharacter instanceof Crusader) {}
                                 // P1 low speed character - 3
                                 else if (lowSpdCharacter instanceof Guardian) {
-                                    if (lowSpdCharacter.CheckAbility1Possible()) {
+                                    if (lowSpdCharacter.Ability1()) {
                                         System.out.println("Ability 1 - Obstruct");
                                     }
-                                    if (lowSpdCharacter.CheckAbility2Possible()) {
+                                    if (lowSpdCharacter.Ability2()) {
                                         System.out.println("Ability 2 - Fortify");
                                     }
-                                    if (lowSpdCharacter.CheckAbility3Possible()) {
+                                    if (lowSpdCharacter.Ability3()) {
                                         System.out.println("Ability 3 - Heal");
                                     }
                                     System.out.print("Choose ability: ");
@@ -655,25 +655,25 @@ public class RPGMain {
                                 }
                                 // P1 low speed character - 3
                                 else if (lowSpdCharacter instanceof Healer) {
-                                    if (lowSpdCharacter.CheckAbility1Possible()) {
+                                    if (lowSpdCharacter.Ability1()) {
                                         System.out.println("Ability 1 - Prayer");
                                     }
-                                    if (lowSpdCharacter.CheckAbility2Possible()) {
+                                    if (lowSpdCharacter.Ability2()) {
                                         System.out.println("Ability 2 - Praise");
                                     }
-                                    if (lowSpdCharacter.CheckAbility3Possible()) {
+                                    if (lowSpdCharacter.Ability3()) {
                                         System.out.println("Ability 3 - Strike");
                                     }
                                     System.out.print("Choose ability: ");
                                     int abilityChoice = Input.nextInt();
-                                    if (abilityChoice == 1 && lowSpdCharacter.CheckAbility1Possible()) {
+                                    if (abilityChoice == 1 && lowSpdCharacter.Ability1()) {
                                         lowSpdCharacter.Ability1(ac);
                                         System.out.println(lowSpdCharacter.GetFullName() + " the " + lowSpdCharacter.GetName() + " casts Prayer.");
                                     }
-                                    else if ( abilityChoice == 1 && !lowSpdCharacter.CheckAbility1Possible() ) {
+                                    else if ( abilityChoice == 1 && !lowSpdCharacter.Ability1() ) {
                                         System.out.println(lowSpdCharacter.GetFullName() + " the " + lowSpdCharacter.GetName() + " fails to cast Prayer.");
                                     }
-                                    if (abilityChoice == 2 && lowSpdCharacter.CheckAbility2Possible()) {
+                                    if (abilityChoice == 2 && lowSpdCharacter.Ability2()) {
                                         System.out.print("Enter the x-coordinate of the ally you would like to buff: ");
                                         x = Input.nextInt();
                                         System.out.print("Enter the y-coordinate of the ally you would like to buff: ");
@@ -683,10 +683,10 @@ public class RPGMain {
                                         lowSpdCharacter.Ability1(healerAbility2);
                                         System.out.println(lowSpdCharacter.GetFullName() + " the " + lowSpdCharacter.GetName() + " buffs " + target.GetFullName() + " the " + target.GetName() );
                                     }
-                                    else if ( abilityChoice == 2 && !medSpdCharacter.CheckAbility2Possible() ) {
+                                    else if ( abilityChoice == 2 && !medSpdCharacter.Ability2() ) {
                                         System.out.print(lowSpdCharacter.GetFullName() + " the " + lowSpdCharacter.GetName() + " is unable to cast Praise ");
                                     }
-                                    else if ( abilityChoice == 3 && lowSpdCharacter.CheckAbility2Possible() ) {
+                                    else if ( abilityChoice == 3 && lowSpdCharacter.Ability2() ) {
                                         System.out.print("Enter the x-coordinate of the enemy you would like to attack: ");
                                         x = Input.nextInt();
                                         System.out.print("Enter the x-coordinate of the enemy you would like to attack: ");
@@ -696,7 +696,7 @@ public class RPGMain {
                                         lowSpdCharacter.Ability3(healerAbility3);
                                         System.out.println(lowSpdCharacter.GetFullName() + " the " + lowSpdCharacter.GetName() + " casts energy bolt on " + target.GetFullName() + " the " + target.GetName() );
                                     }
-                                    else if ( abilityChoice == 3 && !medSpdCharacter.CheckAbility3Possible() ) {
+                                    else if ( abilityChoice == 3 && !medSpdCharacter.Ability3() ) {
                                         System.out.print(lowSpdCharacter.GetFullName() + " the " + lowSpdCharacter.GetName() + " is unable to cast Energy Bolt. ");
                                     }
                                 }
@@ -737,15 +737,15 @@ public class RPGMain {
                             System.out.print("Choose y-coordinate: ");
                             y = Input.nextInt();
                             gs.Move(maxSpdCharacter, x, y);
-                            if (maxSpdCharacter.CheckAbility1Possible() || maxSpdCharacter.CheckAbility2Possible() || maxSpdCharacter.CheckAbility3Possible()) {
+                            if (maxSpdCharacter.Ability1() || maxSpdCharacter.Ability2() || maxSpdCharacter.Ability3()) {
                                 if (maxSpdCharacter instanceof Barbarian) {
-                                    if (maxSpdCharacter.CheckAbility1Possible()) {
+                                    if (maxSpdCharacter.Ability1()) {
                                         System.out.println("Ability 1 - Flip");
                                     }
-                                    if (maxSpdCharacter.CheckAbility2Possible()) {
+                                    if (maxSpdCharacter.Ability2()) {
                                         System.out.println("Ability 2 - Kickpunch");
                                     }
-                                    if (maxSpdCharacter.CheckAbility3Possible()) {
+                                    if (maxSpdCharacter.Ability3()) {
                                         System.out.println("Ability 3 - Lupus");
                                     }
                                     System.out.print("Choose ability: ");
@@ -786,13 +786,13 @@ public class RPGMain {
                                 }
                                 else if (maxSpdCharacter instanceof Crusader) {}
                                 else if (maxSpdCharacter instanceof Guardian) {
-                                    if (maxSpdCharacter.CheckAbility1Possible()) {
+                                    if (maxSpdCharacter.Ability1()) {
                                         System.out.println("Ability 1 - Obstruct");
                                     }
-                                    if (maxSpdCharacter.CheckAbility2Possible()) {
+                                    if (maxSpdCharacter.Ability2()) {
                                         System.out.println("Ability 2 - Fortify");
                                     }
-                                    if (maxSpdCharacter.CheckAbility3Possible()) {
+                                    if (maxSpdCharacter.Ability3()) {
                                         System.out.println("Ability 3 - Heal");
                                     }
                                     System.out.print("Choose ability: ");
@@ -833,25 +833,25 @@ public class RPGMain {
                                     }
                                 }
                                 else if (maxSpdCharacter instanceof Healer) {
-                                    if (maxSpdCharacter.CheckAbility1Possible()) {
+                                    if (maxSpdCharacter.Ability1()) {
                                         System.out.println("Ability 1 - Prayer");
                                     }
-                                    if (maxSpdCharacter.CheckAbility2Possible()) {
+                                    if (maxSpdCharacter.Ability2()) {
                                         System.out.println("Ability 2 - Praise");
                                     }
-                                    if (maxSpdCharacter.CheckAbility3Possible()) {
+                                    if (maxSpdCharacter.Ability3()) {
                                         System.out.println("Ability 3 - Strike");
                                     }
                                     System.out.print("Choose ability: ");
                                     int abilityChoice = Input.nextInt();
-                                    if (abilityChoice == 1 && maxSpdCharacter.CheckAbility1Possible()) {
+                                    if (abilityChoice == 1 && maxSpdCharacter.Ability1()) {
                                         maxSpdCharacter.Ability1(ac);
                                         System.out.println(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " casts Prayer.");
                                     }
-                                    else if ( abilityChoice == 1 && !maxSpdCharacter.CheckAbility1Possible() ) {
+                                    else if ( abilityChoice == 1 && !maxSpdCharacter.Ability1() ) {
                                         System.out.println(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " fails to cast Prayer.");
                                     }
-                                    if (abilityChoice == 2 && maxSpdCharacter.CheckAbility2Possible()) {
+                                    if (abilityChoice == 2 && maxSpdCharacter.Ability2()) {
                                         System.out.print("Enter the x-coordinate of the ally you would like to buff: ");
                                         x = Input.nextInt();
                                         System.out.print("Enter the y-coordinate of the ally you would like to buff: ");
@@ -861,10 +861,10 @@ public class RPGMain {
                                         maxSpdCharacter.Ability1(healerAbility2);
                                         System.out.println(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " buffs " + target.GetFullName() + " the " + target.GetName() );
                                     }
-                                    else if ( abilityChoice == 2 && !medSpdCharacter.CheckAbility2Possible() ) {
+                                    else if ( abilityChoice == 2 && !medSpdCharacter.Ability2() ) {
                                         System.out.print(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " is unable to cast Praise ");
                                     }
-                                    else if ( abilityChoice == 3 && maxSpdCharacter.CheckAbility2Possible() ) {
+                                    else if ( abilityChoice == 3 && maxSpdCharacter.Ability2() ) {
                                         System.out.print("Enter the x-coordinate of the enemy you would like to attack: ");
                                         x = Input.nextInt();
                                         System.out.print("Enter the x-coordinate of the enemy you would like to attack: ");
@@ -874,7 +874,7 @@ public class RPGMain {
                                         maxSpdCharacter.Ability3(healerAbility3);
                                         System.out.println(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " casts energy bolt on " + target.GetFullName() + " the " + target.GetName() );
                                     }
-                                    else if ( abilityChoice == 3 && !maxSpdCharacter.CheckAbility3Possible() ) {
+                                    else if ( abilityChoice == 3 && !maxSpdCharacter.Ability3() ) {
                                         System.out.print(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + " is unable to cast Energy Bolt. ");
                                     }
                                 }
@@ -893,15 +893,15 @@ public class RPGMain {
                             System.out.print("Choose y-coordinate: ");
                             y = Input.nextInt();
                             gs.Move(medSpdCharacter, x, y);
-                            if (medSpdCharacter.CheckAbility1Possible() || medSpdCharacter.CheckAbility2Possible() || medSpdCharacter.CheckAbility3Possible()) {
+                            if (medSpdCharacter.Ability1() || medSpdCharacter.Ability2() || medSpdCharacter.Ability3()) {
                                 if (medSpdCharacter instanceof Barbarian) {
-                                    if (medSpdCharacter.CheckAbility1Possible()) {
+                                    if (medSpdCharacter.Ability1()) {
                                         System.out.println("Ability 1 - Flip");
                                     }
-                                    if (medSpdCharacter.CheckAbility2Possible()) {
+                                    if (medSpdCharacter.Ability2()) {
                                         System.out.println("Ability 2 - Kickpunch");
                                     }
-                                    if (medSpdCharacter.CheckAbility3Possible()) {
+                                    if (medSpdCharacter.Ability3()) {
                                         System.out.println("Ability 3 - Lupus");
                                     }
                                     System.out.print("Choose ability: ");
@@ -943,13 +943,13 @@ public class RPGMain {
                                 }
                                 else if (medSpdCharacter instanceof Crusader) {}
                                 else if (medSpdCharacter instanceof Guardian) {
-                                    if (medSpdCharacter.CheckAbility1Possible()) {
+                                    if (medSpdCharacter.Ability1()) {
                                         System.out.println("Ability 1 - Obstruct");
                                     }
-                                    if (medSpdCharacter.CheckAbility2Possible()) {
+                                    if (medSpdCharacter.Ability2()) {
                                         System.out.println("Ability 2 - Fortify");
                                     }
-                                    if (medSpdCharacter.CheckAbility3Possible()) {
+                                    if (medSpdCharacter.Ability3()) {
                                         System.out.println("Ability 3 - Heal");
                                     }
                                     System.out.print("Choose ability: ");
@@ -990,25 +990,25 @@ public class RPGMain {
                                     }
                                 }
                                 else if (medSpdCharacter instanceof Healer) {
-                                    if (medSpdCharacter.CheckAbility1Possible()) {
+                                    if (medSpdCharacter.Ability1()) {
                                         System.out.println("Ability 1 - Prayer");
                                     }
-                                    if (medSpdCharacter.CheckAbility2Possible()) {
+                                    if (medSpdCharacter.Ability2()) {
                                         System.out.println("Ability 2 - Praise");
                                     }
-                                    if (medSpdCharacter.CheckAbility3Possible()) {
+                                    if (medSpdCharacter.Ability3()) {
                                         System.out.println("Ability 3 - Strike");
                                     }
                                     System.out.print("Choose ability: ");
                                     int abilityChoice = Input.nextInt();
-                                    if (abilityChoice == 1 && medSpdCharacter.CheckAbility1Possible()) {
+                                    if (abilityChoice == 1 && medSpdCharacter.Ability1()) {
                                         medSpdCharacter.Ability1(ac);
                                         System.out.println(medSpdCharacter.GetFullName() + " the " + medSpdCharacter.GetName() + " casts Prayer.");
                                     }
-                                    else if ( abilityChoice == 1 && !medSpdCharacter.CheckAbility1Possible() ) {
+                                    else if ( abilityChoice == 1 && !medSpdCharacter.Ability1() ) {
                                         System.out.println(medSpdCharacter.GetFullName() + " the " + medSpdCharacter.GetName() + " fails to cast Prayer.");
                                     }
-                                    if (abilityChoice == 2 && medSpdCharacter.CheckAbility2Possible()) {
+                                    if (abilityChoice == 2 && medSpdCharacter.Ability2()) {
                                         System.out.print("Enter the x-coordinate of the ally you would like to buff: ");
                                         x = Input.nextInt();
                                         System.out.print("Enter the y-coordinate of the ally you would like to buff: ");
@@ -1018,10 +1018,10 @@ public class RPGMain {
                                         medSpdCharacter.Ability1(healerAbility2);
                                         System.out.println(medSpdCharacter.GetFullName() + " the " + medSpdCharacter.GetName() + " buffs " + target.GetFullName() + " the " + target.GetName() );
                                     }
-                                    else if ( abilityChoice == 2 && !medSpdCharacter.CheckAbility2Possible() ) {
+                                    else if ( abilityChoice == 2 && !medSpdCharacter.Ability2() ) {
                                         System.out.print(medSpdCharacter.GetFullName() + " the " + medSpdCharacter.GetName() + " is unable to cast Praise ");
                                     }
-                                    else if ( abilityChoice == 3 && medSpdCharacter.CheckAbility2Possible() ) {
+                                    else if ( abilityChoice == 3 && medSpdCharacter.Ability2() ) {
                                         System.out.print("Enter the x-coordinate of the enemy you would like to attack: ");
                                         x = Input.nextInt();
                                         System.out.print("Enter the x-coordinate of the enemy you would like to attack: ");
@@ -1031,7 +1031,7 @@ public class RPGMain {
                                         medSpdCharacter.Ability3(healerAbility3);
                                         System.out.println(medSpdCharacter.GetFullName() + " the " + medSpdCharacter.GetName() + " casts energy bolt on " + target.GetFullName() + " the " + target.GetName() );
                                     }
-                                    else if ( abilityChoice == 3 && !medSpdCharacter.CheckAbility3Possible() ) {
+                                    else if ( abilityChoice == 3 && !medSpdCharacter.Ability3() ) {
                                         System.out.print(medSpdCharacter.GetFullName() + " the " + medSpdCharacter.GetName() + " is unable to cast Energy Bolt. ");
                                     }
                                 }
@@ -1050,15 +1050,15 @@ public class RPGMain {
                             System.out.print("Choose y-coordinate: ");
                             y = Input.nextInt();
                             gs.Move(lowSpdCharacter, x, y);
-                            if (lowSpdCharacter.CheckAbility1Possible() || lowSpdCharacter.CheckAbility2Possible() || lowSpdCharacter.CheckAbility3Possible()) {
+                            if (lowSpdCharacter.Ability1() || lowSpdCharacter.Ability2() || lowSpdCharacter.Ability3()) {
                                 if (lowSpdCharacter instanceof Barbarian) {
-                                    if (lowSpdCharacter.CheckAbility1Possible()) {
+                                    if (lowSpdCharacter.Ability1()) {
                                         System.out.println("Ability 1 - Flip");
                                     }
-                                    if (lowSpdCharacter.CheckAbility2Possible()) {
+                                    if (lowSpdCharacter.Ability2()) {
                                         System.out.println("Ability 2 - Kickpunch");
                                     }
-                                    if (lowSpdCharacter.CheckAbility3Possible()) {
+                                    if (lowSpdCharacter.Ability3()) {
                                         System.out.println("Ability 3 - Lupus");
                                     }
                                     System.out.print("Choose ability: ");
@@ -1100,13 +1100,13 @@ public class RPGMain {
                                 }
                                 else if (lowSpdCharacter instanceof Crusader) {}
                                 else if (lowSpdCharacter instanceof Guardian) {
-                                    if (lowSpdCharacter.CheckAbility1Possible()) {
+                                    if (lowSpdCharacter.Ability1()) {
                                         System.out.println("Ability 1 - Obstruct");
                                     }
-                                    if (lowSpdCharacter.CheckAbility2Possible()) {
+                                    if (lowSpdCharacter.Ability2()) {
                                         System.out.println("Ability 2 - Fortify");
                                     }
-                                    if (lowSpdCharacter.CheckAbility3Possible()) {
+                                    if (lowSpdCharacter.Ability3()) {
                                         System.out.println("Ability 3 - Heal");
                                     }
                                     System.out.print("Choose ability: ");
@@ -1147,25 +1147,25 @@ public class RPGMain {
                                     }
                                 }
                                 else if (lowSpdCharacter instanceof Healer) {
-                                    if (lowSpdCharacter.CheckAbility1Possible()) {
+                                    if (lowSpdCharacter.Ability1()) {
                                         System.out.println("Ability 1 - Prayer");
                                     }
-                                    if (lowSpdCharacter.CheckAbility2Possible()) {
+                                    if (lowSpdCharacter.Ability2()) {
                                         System.out.println("Ability 2 - Praise");
                                     }
-                                    if (lowSpdCharacter.CheckAbility3Possible()) {
+                                    if (lowSpdCharacter.Ability3()) {
                                         System.out.println("Ability 3 - Strike");
                                     }
                                     System.out.print("Choose ability: ");
                                     int abilityChoice = Input.nextInt();
-                                    if (abilityChoice == 1 && lowSpdCharacter.CheckAbility1Possible()) {
+                                    if (abilityChoice == 1 && lowSpdCharacter.Ability1()) {
                                         lowSpdCharacter.Ability1(ac);
                                         System.out.println(lowSpdCharacter.GetFullName() + " the " + lowSpdCharacter.GetName() + " casts Prayer.");
                                     }
-                                    else if ( abilityChoice == 1 && !lowSpdCharacter.CheckAbility1Possible() ) {
+                                    else if ( abilityChoice == 1 && !lowSpdCharacter.Ability1() ) {
                                         System.out.println(lowSpdCharacter.GetFullName() + " the " + lowSpdCharacter.GetName() + " fails to cast Prayer.");
                                     }
-                                    if (abilityChoice == 2 && lowSpdCharacter.CheckAbility2Possible()) {
+                                    if (abilityChoice == 2 && lowSpdCharacter.Ability2()) {
                                         System.out.print("Enter the x-coordinate of the ally you would like to buff: ");
                                         x = Input.nextInt();
                                         System.out.print("Enter the y-coordinate of the ally you would like to buff: ");
@@ -1175,10 +1175,10 @@ public class RPGMain {
                                         lowSpdCharacter.Ability1(healerAbility2);
                                         System.out.println(lowSpdCharacter.GetFullName() + " the " + lowSpdCharacter.GetName() + " buffs " + target.GetFullName() + " the " + target.GetName() );
                                     }
-                                    else if ( abilityChoice == 2 && !medSpdCharacter.CheckAbility2Possible() ) {
+                                    else if ( abilityChoice == 2 && !medSpdCharacter.Ability2() ) {
                                         System.out.print(lowSpdCharacter.GetFullName() + " the " + lowSpdCharacter.GetName() + " is unable to cast Praise ");
                                     }
-                                    else if ( abilityChoice == 3 && lowSpdCharacter.CheckAbility2Possible() ) {
+                                    else if ( abilityChoice == 3 && lowSpdCharacter.Ability2() ) {
                                         System.out.print("Enter the x-coordinate of the enemy you would like to attack: ");
                                         x = Input.nextInt();
                                         System.out.print("Enter the x-coordinate of the enemy you would like to attack: ");
@@ -1188,7 +1188,7 @@ public class RPGMain {
                                         lowSpdCharacter.Ability3(healerAbility3);
                                         System.out.println(lowSpdCharacter.GetFullName() + " the " + lowSpdCharacter.GetName() + " casts energy bolt on " + target.GetFullName() + " the " + target.GetName() );
                                     }
-                                    else if ( abilityChoice == 3 && !medSpdCharacter.CheckAbility3Possible() ) {
+                                    else if ( abilityChoice == 3 && !medSpdCharacter.Ability3() ) {
                                         System.out.print(lowSpdCharacter.GetFullName() + " the " + lowSpdCharacter.GetName() + " is unable to cast Energy Bolt. ");
                                     }
                                 }
