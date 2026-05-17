@@ -388,12 +388,12 @@ public class Character extends Entity {
             }
         }
     }
+    public boolean CheckAbility1Possible() { return false; }
+    public boolean CheckAbility2Possible() { return false; }
+    public boolean CheckAbility3Possible() { return false; }
     public boolean Ability3(ActionContext context) {
         return false;
     }
-    public boolean Ability3() {return false;}
-    public boolean Ability2() {return false;}
-   
     private String Ability3Hint;
     public String GetAbility3Hint() {
         return this.Ability3Hint;

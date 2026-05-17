@@ -36,6 +36,9 @@ public class Guardian extends Character {
         }
         ScaleStats();
     }
+    public boolean CheckAbility1Possible() { return false; }
+    public boolean CheckAbility2Possible() { return false; }
+    public boolean CheckAbility3Possible() { return false; }
     public int GetAbility1Range() {
         return 9;
     }
