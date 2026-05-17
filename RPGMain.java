@@ -208,16 +208,16 @@ public class RPGMain {
                         System.out.println("\n------------------------------------");
                         System.out.println(currentCharacter.GetFullName() + " the " + currentCharacter.GetName() + "'s turn. (Team: " + currentCharacter.GetTeam() + ")");
                         
-                        // handle movement Input
+                        // handle movement input here
                         System.out.print("Choose x-coordinate to move: ");
                         int moveX = Input.nextInt();
                         System.out.print("Choose y-coordinate to move: ");
                         int moveY = Input.nextInt();
                         
-                        // Pass movement to backend
+                        // Pass movement to backend to handle
                         gs.Move(currentCharacter, moveX, moveY);
                         
-                        // handle ability Input
+                        // handle ability input
                         String[] abilities = currentCharacter.getAbilityMenu();
                         System.out.println("\nAvailable Abilities:");
                         for (int j = 0; j < abilities.length; j++) {
