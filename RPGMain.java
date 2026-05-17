@@ -246,9 +246,9 @@ public class RPGMain {
                 
                 // Victory Condition Reached
                 int winner = gs.GetWinningTeam();
-                System.out.println("\n====================================");
+                System.out.println("\n=============================================");
                 System.out.println("          PLAYER " + winner + " WINS!          ");
-                System.out.println("====================================");
+                System.out.println("===============================================");
                 GameRunning = false;
                 
             } else if (PlayerChoice == 2) {
