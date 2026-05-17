@@ -115,12 +115,12 @@ public class Displayer {
             System.out.println("------------------------------------");
             System.out.println("Name        : " + c.GetFullName());
             System.out.println("Team        : " + c.GetTeam());
-            System.out.println("Speed       : " + c.GetRawStats()[c.SPDPOS]);
-            System.out.println("Intelligence: " + c.GetRawStats()[c.INTLPOS]);
-            System.out.println("Attack      : " + c.GetRawStats()[c.ATKPOS]);
-            System.out.println("Spirit      : " + c.GetRawStats()[c.SPRPOS]);
-            System.out.println("Health      : " + c.GetRawStats()[c.HLTPOS]);
-            System.out.println("Spell Power : " + c.GetRawStats()[c.SPPPOS]);
+            System.out.println("Speed       : " + c.GetRawStats()[Character.SPDPOS]);
+            System.out.println("Intelligence: " + c.GetRawStats()[Character.INTLPOS]);
+            System.out.println("Attack      : " + c.GetRawStats()[Character.ATKPOS]);
+            System.out.println("Spirit      : " + c.GetRawStats()[Character.SPRPOS]);
+            System.out.println("Health      : " + c.GetRawStats()[Character.HLTPOS]);
+            System.out.println("Spell Power : " + c.GetRawStats()[Character.SPPPOS]);
             System.out.println("------------------------------------");
         }
         return false;
@@ -136,9 +136,10 @@ public class Displayer {
             System.out.println("------------------------------------");
             System.out.println("Character   : " + c.GetName());
             System.out.println("Team        : " + c.GetTeam());
-            System.out.println("Health      : " + c.GetCurrHealth() + " / " + c.GetCalculatedStats()[c.HLTPOS]);
+            System.out.println("Health      : " + c.GetCurrHealth() + " / " + c.GetCalculatedStats()[Character.HLTPOS]);
             System.out.println("------------------------------------");
         }
         return false;
     }
 }
+//IF YOU SEE THIS COMMENT THE GITHUB WORKS

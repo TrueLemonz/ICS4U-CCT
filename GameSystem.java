@@ -14,7 +14,7 @@ public class GameSystem {
     public boolean Move( Character character, int posX, int posY) {   
         int nullX = character.GetPosition()[0];
         int nullY = character.GetPosition()[1];
-        if ( this.GameBoard[posX][posY] == null && character.CheckConditions(0) ) {
+        if ( this.GameBoard[posX][posY] == null && character.CheckConditions(0) && this.GameBoard[posX][posY].GetEntity().GetObject() == 0) {
             this.GameBoard[posX][posY].SetEntity(character);
             this.GameBoard[nullX][nullY] = null;
             return true;
@@ -107,9 +107,9 @@ public class GameSystem {
    }
 
    public int GetWinningTeam() {
-      boolean team1Alive = false;
-      boolean team2Alive = false;
-         for (int i = 0; i < this.GameBoard.length; i++) {
+        boolean team1Alive = false;
+        boolean team2Alive = false;
+        for (int i = 0; i < this.GameBoard.length; i++) {
             for (int j = 0; j < this.GameBoard[i].length; j++) {
                 if (this.GameBoard[i][j].GetEntity().GetObject() == 1) {
                     Character c = (Character) this.GameBoard[i][j].GetEntity();
@@ -121,29 +121,29 @@ public class GameSystem {
                     }
                 }
             }
-         }
-         if (!team1Alive && team2Alive) {
+        }
+        if (!team1Alive && team2Alive) {
             return 2;
-         }
-         else if (!team2Alive && team1Alive) {
+        }
+        else if (!team2Alive && team1Alive) {
             return 1;
-         }
-         return 0;
-   }
+        }
+        return 0;
+    }
 
    public boolean CheckWin() {
-      return GetWinningTeam() != 0;
+        return GetWinningTeam() != 0;
    }
 
    public void GenRandObstacles() {
-    int block = (int) (Math.random() * GameBoard.length * GameBoard[0].length);
-    Block current = this.GameBoard[block / GameBoard[0].length][block % GameBoard[0].length];
-    if (current != null && current.GetEntity() != null && current.GetEntity().GetObject() == 0) {
-        int rand = (int) (Math.random() * 10); 
-        if (rand < 2) { 
-            this.GameBoard[block / GameBoard[0].length][block % GameBoard[0].length] = new Block(new Obstacle());
+        int block = (int) (Math.random() * GameBoard.length * GameBoard[0].length);
+        Block current = this.GameBoard[block / GameBoard[0].length][block % GameBoard[0].length];
+        if (current != null && current.GetEntity() != null && current.GetEntity().GetObject() == 0) {
+            int rand = (int) (Math.random() * 10); 
+            if (rand < 2) { 
+                this.GameBoard[block / GameBoard[0].length][block % GameBoard[0].length] = new Block(new Obstacle());
+            }
         }
-    }
     }
 }
 
