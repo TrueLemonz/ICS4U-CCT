@@ -6,3 +6,4 @@ public class Obstacle extends Entity {
         this.SetName("Obstacle");
     }
 }
+//tag (for github)
