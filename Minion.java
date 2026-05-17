@@ -1,5 +1,4 @@
 public class Minion extends Character {
-    private int turns = 1;
     public Minion(int team) {
         super();
         this.SetName("Minion");
@@ -55,6 +54,10 @@ public class Minion extends Character {
             "2. Do nothing", 
             "3. Do nothing"
         };
+    }
+    public boolean Buff() {
+        this.SetCurrHealth(this.GetCurrHealth() + 1);
+        return true;
     }
     public boolean executeAbility(int choice, ActionContext context) {
         if (choice == 1 && CheckAbility1Possible()) {

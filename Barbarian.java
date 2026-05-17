@@ -1,6 +1,6 @@
 public class Barbarian extends Character {
     // Had to change this, Math.log only takes one variable. Must be log 10.
-    private double missingHPBonus = 1.1 * Math.log (this.GetCurrHealth() / this.GetCalculatedStats()[this.HLTPOS] );
+    private double missingHPBonus = 1.1 * Math.log (this.GetCurrHealth() / this.GetCalculatedStats()[Character.HLTPOS] );
 
     public Barbarian(Character character, int team) {
         super();
@@ -158,7 +158,7 @@ public class Barbarian extends Character {
         applyPassive();
             ScaleStats();
             if ( context.GetTarget().GetIsDivineShielded()) {
-                context.GetTarget().SetCurrHealth(context.GetTarget().GetCalculatedStats()[this.MAXHEALTHPOS] - this.attack * 2);
+                context.GetTarget().SetCurrHealth(context.GetTarget().GetCalculatedStats()[Character.MAXHEALTHPOS] - this.attack * 2);
             }
             else context.GetTarget().SetCurrHealth(context.GetTarget().GetCurrHealth() - this.attack * 4);
             this.SetCurrMagic( this.GetCurrMagic() - 1);

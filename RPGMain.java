@@ -5,8 +5,6 @@ public class RPGMain {
         GameSystem gs = new GameSystem();
         Displayer ds = new Displayer();
         Scanner Input = new Scanner(System.in);
-        ActionContext ac = new ActionContext();
-        Character c = new Character();
         boolean GameRunning = true;
         int PlayerChoice;
 
@@ -222,8 +220,8 @@ public class RPGMain {
                         // handle ability Input
                         String[] abilities = currentCharacter.getAbilityMenu();
                         System.out.println("\nAvailable Abilities:");
-                        for (String ability : abilities) {
-                            System.out.println(ability);
+                        for (int j = 0; j < abilities.length; j++) {
+                            System.out.println((j + 1) + ". " + abilities[j]);
                         }
                         System.out.println("0. Skip turn");
                         
@@ -235,7 +233,7 @@ public class RPGMain {
                             int targetX = Input.nextInt();
                             System.out.print("Choose target y-coordinate: ");
                             int targetY = Input.nextInt();
-                            
+                            //TODO i think this needs to be changed to be more flexible
                             // Pass ALL collected ability data to the Backend for processing
                             combatManager.executeAction(currentCharacter, choice, targetX, targetY, gs);
                         }
