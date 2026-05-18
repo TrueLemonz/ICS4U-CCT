@@ -41,9 +41,19 @@ public class Barbarian extends Character {
         }
         ScaleStats();
     }
-    public boolean CheckAbility1Possible() { return false; }
-    public boolean CheckAbility2Possible() { return false; }
-    public boolean CheckAbility3Possible() { return false; }
+    public boolean CheckAbility1Possible(GameSystem gs) { 
+        for ( int i = 0 ; i < gs.GameBoard.length; i++ ) {
+            for ( int j = 0; j < gs.GameBoard[i].length; i ++ ) {
+                Character target = gs.GameBoard[i][j].GetEntity().GetCharacter();
+                if ( CheckConditions(2, GetAbility1Range(), target) ) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    public boolean CheckAbility2Possible(GameSystem gs) { return false; }
+    public boolean CheckAbility3Possible(GameSystem gs) { return false; }
     public int GetAbility1Range() {
         return 1;
     }
@@ -183,4 +193,3 @@ public class Barbarian extends Character {
         this.attack *= missingHPBonus;
     }
 }
-

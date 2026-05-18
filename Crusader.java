@@ -39,9 +39,9 @@ public class Crusader extends Character {
         }
         ScaleStats();
     }
-    public boolean CheckAbility1Possible() { return false; }
-    public boolean CheckAbility2Possible() { return false; }
-    public boolean CheckAbility3Possible() { return false; }
+    public boolean CheckAbility1Possible(GameSystem gs) { return false; }
+    public boolean CheckAbility2Possible(GameSystem gs) { return false; }
+    public boolean CheckAbility3Possible(GameSystem gs) { return false; }
     public int GetAbility1Range() {
         return 1;
     }
@@ -95,5 +95,3 @@ public class Crusader extends Character {
         return false;
     }
 }
-
-

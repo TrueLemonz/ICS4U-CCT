@@ -10,5 +10,3 @@ public class BaseCharacter extends Character {
         return false;
     }
 }
-
-

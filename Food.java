@@ -5,4 +5,3 @@ public class Food extends Entity {
         this.SetName("Food");
     }
 }
-//tag (for github)

@@ -41,10 +41,9 @@ public class Necromancer extends Character {
     public String getName() {
         return "Necromancer";
     }
-    public boolean CheckAbility1Possible() { return true; }
-    public boolean CheckAbility2Possible() { return false; }
-    public boolean CheckAbility3Possible() { return false; } 
-
+    public boolean CheckAbility1Possible(GameSystem gs) { return false; }
+    public boolean CheckAbility2Possible(GameSystem gs) { return false; }
+    public boolean CheckAbility3Possible(GameSystem gs) { return false; } 
     public boolean Ability1(ActionContext context) {
         if (context.GetGrid()[context.getPosX()][context.getPosY()].GetEntity().GetObject() == 0) {
             context.GetGrid()[context.getPosX()][context.getPosY()] = new Block(new Minion(this.team));
@@ -79,5 +78,3 @@ public class Necromancer extends Character {
    
     
 }
-
-

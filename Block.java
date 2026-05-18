@@ -14,5 +14,3 @@ public class Block {
         this.entity = entity;
     }
 }
-
-

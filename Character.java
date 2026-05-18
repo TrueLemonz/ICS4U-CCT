@@ -50,8 +50,8 @@ public class Character extends Entity {
     }
 
     public Character GenerateCharacter() {
-        String[] names = {"Alice", "Bob", "Charlie", "David", "Eve", "Frank", "Grace", "Henry", "Ivy", "Jack", "Kate", "Liam", "Mia", "Noah", "Olivia", "Leo", "Lucas", "Sophia", "William", "Amelia", "James", "Balthazar", "Cassandra", "Dorian", "Evangeline", "Felix", "Genevieve", "Hector", "Isabella", "Julian", "Katarina", "Lysander", "Mariana", "Nathaniel", "Ophelia", "Percival", "Quinn", "Raphael", "Seraphina", "Theodore", "Ulysses", "Valentina", "Xavier", "Yvonne", "Zachary", "Mikhail", "Azazel", "Bealzebub", "Lucifer", "Abaddon", "Leviathan", "Asmodeus", "Mammon", "Belphegor", "Samael", "Astaroth", "Baphomet", "Mephistopheles", "Lilith", "Nyx", "Erebus", "Thanatos", "Hypnos", "Jan", "Jonathan"};
-        int nameInt = (int) (Math.random() * names.length);
+        int nameInt = (int) (Math.random() * 15);
+        String[] names = {"Alice", "Bob", "Charlie", "David", "Eve", "Frank", "Grace", "Henry", "Ivy", "Jack", "Kate", "Liam", "Mia", "Noah", "Olivia"};
         this.SetFullName(names[nameInt]);
 
         int points = 20;
@@ -390,9 +390,9 @@ public class Character extends Entity {
             }
         }
     }
-    public boolean CheckAbility1Possible() { return false; }
-    public boolean CheckAbility2Possible() { return false; }
-    public boolean CheckAbility3Possible() { return false; }
+    public boolean CheckAbility1Possible(GameSystem gs) { return false; }
+    public boolean CheckAbility2Possible(GameSystem gs) { return false; }
+    public boolean CheckAbility3Possible(GameSystem gs) { return false; }
     public boolean Ability3(ActionContext context) {
         return false;
     }
@@ -411,5 +411,4 @@ public class Character extends Entity {
         return false; 
     }
 }
-
-
+//tag (for github)

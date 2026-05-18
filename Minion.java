@@ -1,4 +1,5 @@
 public class Minion extends Character {
+    GameSystem gs = new GameSystem();
     public Minion(int team) {
         super();
         this.SetName("Minion");
@@ -60,15 +61,15 @@ public class Minion extends Character {
         return true;
     }
     public boolean executeAbility(int choice, ActionContext context) {
-        if (choice == 1 && CheckAbility1Possible()) {
+        if (choice == 1 && CheckAbility1Possible(gs)) {
             System.out.println(this.GetFullName() + " Does nothing!");
             // Apply damage/effects here
             return true;
-        } else if (choice == 2 && CheckAbility2Possible()) {
+        } else if (choice == 2 && CheckAbility2Possible(gs)) {
             System.out.println(this.GetFullName() + " Does nothing!");
             // Apply damage/effects here
             return true;
-        } else if (choice == 3 && CheckAbility3Possible()) {
+        } else if (choice == 3 && CheckAbility3Possible(gs)) {
             System.out.println(this.GetFullName() + " Does nothing!");
             // Apply damage/effects here
             return true;
@@ -77,5 +78,4 @@ public class Minion extends Character {
         return false;
     }
 }
-
-
+//tag (for github)
