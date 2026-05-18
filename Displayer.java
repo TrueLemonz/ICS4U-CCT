@@ -30,7 +30,7 @@ public class Displayer {
         return String.format("%-" + width + "s", leftPadded);
     }
 
-    public static void centerPrint(String text, int width) {
+    private static void centerPrint(String text, int width) {
         System.out.println(centerString(text, width));
     }
 
@@ -44,7 +44,7 @@ public class Displayer {
 
         centerPrint("MAP:", totalWidth); 
         System.out.print("\n");
-        System.out.printf("      %-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s", "CELL X = 0", "CELL X = 1", "CELL X = 2", "CELL X = 3", "CELL X = 4", "CELL X = 5", "CELL X = 6", "CELL X = 7");
+        System.out.printf("    %-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s", "CELL X = 0", "CELL X = 1", "CELL X = 2", "CELL X = 3", "CELL X = 4", "CELL X = 5", "CELL X = 6", "CELL X = 7");
         System.out.print("\n");
         printLine(rowLength);
         
@@ -107,7 +107,10 @@ public class Displayer {
             }
 
             printLine(row.length);
+            
         }
+        System.out.printf("    %-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s", "CELL X = 0", "CELL X = 1", "CELL X = 2", "CELL X = 3", "CELL X = 4", "CELL X = 5", "CELL X = 6", "CELL X = 7");
+        System.out.print("\n");
     }
 
     public boolean PrintInitialStats(Character[] characters) {
@@ -147,4 +150,5 @@ public class Displayer {
         return false;
     }
 }
-//tag (for github)
+
+

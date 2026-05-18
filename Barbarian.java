@@ -4,6 +4,8 @@ public class Barbarian extends Character {
 
     public Barbarian(Character character, int team) {
         super();
+        ApplyStats();
+        ScaleStats();
         this.SetName("Barbarian");
         this.SetFullName(character.GetFullName());
         this.SetTeam(team);
@@ -55,99 +57,99 @@ public class Barbarian extends Character {
         return "Barbarian";
     }
     // Picks up character, throws them behind
-    public boolean Ability1(ActionContext context) {
+        public boolean Ability1(ActionContext context) {
         if ( !CheckConditions(2, 1, context.GetTarget()) ) {
             return false;
         }
         applyPassive();
-            int[] targetPos = context.GetTarget().GetPosition();
-            int[] myPos = this.GetPosition();
+        int[] targetPos = context.GetTarget().GetPosition();
+        int[] myPos = this.GetPosition();
 
-            // Performs Ability1 vertically
-            // Checks that the barbarian is not at the top or bottom of the grid, or he'll throw the target out of the grid
-            if (this.GetPosition()[1] == 0 || this.GetPosition()[1] == context.GetGrid().length - 1) {
+        // Performs Ability1 vertically
+        // Checks that the barbarian is not at the top or bottom of the grid
+        if (myPos[0] == 0 || myPos[0] == context.GetGrid().length - 1) {
             return false;
-            }
-            else {
-                // target is above barbarian
-                if (targetPos[0] == myPos[0] && targetPos[1] == myPos[1] + 1) {
-                context.GetGrid()[myPos[0]][myPos[1] - 2].SetEntity(context.GetTarget());
+        }
+        else {
+            // target is above barbarian
+            if (targetPos[1] == myPos[1] && targetPos[0] == myPos[0] - 1) {
+                context.GetGrid()[myPos[0] + 2][myPos[1]].SetEntity(context.GetTarget());
                 context.GetGrid()[myPos[0]][myPos[1]].SetEntity(null);
-                context.GetTarget().position[0] = myPos[0];
-                context.GetTarget().position[1] = myPos[1] - 2;
+                context.GetTarget().position[0] = myPos[0] + 2;
+                context.GetTarget().position[1] = myPos[1];
                 return true;
-                }
-                // target is below barbarian
-                else if (targetPos[0] == myPos[0] && targetPos[1] == myPos[1] - 1) {
+            }
+            // target is below barbarian
+            else if (targetPos[1] == myPos[1] && targetPos[0] == myPos[0] + 1) {
+                context.GetGrid()[myPos[0] - 2][myPos[1]].SetEntity(context.GetTarget());
+                context.GetGrid()[myPos[0]][myPos[1]].SetEntity(null);
+                context.GetTarget().position[0] = myPos[0] - 2;
+                context.GetTarget().position[1] = myPos[1];
+                return true;
+            }
+        }
+        // Performs Ability1 horizontally
+        // Checks that the barbarian is not at the extreme left or right of the grid
+        if (myPos[1] == 0 || myPos[1] == context.GetGrid()[0].length - 1) {
+            return false;
+        }
+        else {
+            // target is to the left of barbarian
+            if (targetPos[0] == myPos[0] && targetPos[1] == myPos[1] - 1) {
                 context.GetGrid()[myPos[0]][myPos[1] + 2].SetEntity(context.GetTarget());
                 context.GetGrid()[myPos[0]][myPos[1]].SetEntity(null);
                 context.GetTarget().position[0] = myPos[0];
                 context.GetTarget().position[1] = myPos[1] + 2;
                 return true;
-                }
             }
-            // Performs Ability1 horizontally  
-            // Checks that the barbarian is not at the extreme left or right of the grid or he'll throw the target out of the grid
-            if ( this.GetPosition()[0] == 0 || this.GetPosition()[0] == context.GetGrid()[0].length - 1) {
-                return false;
+            // target is to the right of barbarian
+            else if (targetPos[0] == myPos[0] && targetPos[1] == myPos[1] + 1) {
+                context.GetGrid()[myPos[0]][myPos[1] - 2].SetEntity(context.GetTarget());
+                context.GetGrid()[myPos[0]][myPos[1]].SetEntity(null);
+                context.GetTarget().position[0] = myPos[0];
+                context.GetTarget().position[1] = myPos[1] - 2;
+                return true;
             }
-            else {
-                // target is to the left of barbarian
-                if (targetPos[0] == myPos[0] - 1 && targetPos[1] == myPos[1]) {
-                    context.GetGrid()[myPos[0] + 2][myPos[1]].SetEntity(context.GetTarget());
-                    context.GetGrid()[myPos[0]][myPos[1]].SetEntity(null);
-                    context.GetTarget().position[0] = myPos[0] + 2;
-                    context.GetTarget().position[1] = myPos[1];
-                    return true;
-                }
-                // target is to the right of barbarian
-                else if (targetPos[0] == myPos[0] + 1 && targetPos[1] == myPos[1]) {
-                    context.GetGrid()[myPos[0] - 2][myPos[1]].SetEntity(context.GetTarget());
-                    context.GetGrid()[myPos[0]][myPos[1]].SetEntity(null);
-                    context.GetTarget().position[0] = myPos[0] - 2;
-                    context.GetTarget().position[1] = myPos[1];
-                    return true;
-                }
-            }
-            // Performs Ability1 diagonally
-            // Checks both vertical and horizontal conditions
-            if ( this.GetPosition()[0] == 0 || this.GetPosition()[0] == context.GetGrid()[0].length - 1 
-                 || this.GetPosition()[1] == 0 || this.GetPosition()[1] == context.GetGrid().length - 1 ) {
-                    return false;
-                 }
-                 else {
-                    if (targetPos[0] == myPos[0] - 1 && targetPos[1] == myPos[1] - 1) {
-                        context.GetGrid()[targetPos[0] + 2][targetPos[1] + 2].SetEntity(context.GetTarget());
-                        context.GetGrid()[targetPos[0]][targetPos[1]].SetEntity(null);
-                        context.GetTarget().position[0] = targetPos[0] + 2;
-                        context.GetTarget().position[1] = targetPos[1] + 2;
-                        return true;
-                    }
-                    else if (targetPos[0] == myPos[0] - 1 && targetPos[1] == myPos[1] + 1) {
-                        context.GetGrid()[targetPos[0] + 2][targetPos[1] - 2].SetEntity(context.GetTarget());
-                        context.GetGrid()[targetPos[0]][targetPos[1]].SetEntity(null);
-                        context.GetTarget().position[0] = targetPos[0] + 2;
-                        context.GetTarget().position[1] = targetPos[1] - 2;
-                        return true;
-                    }
-                    else if (targetPos[0] == myPos[0] + 1 && targetPos[1] == myPos[1] - 1) {
-                        context.GetGrid()[targetPos[0] - 2][targetPos[1] + 2].SetEntity(context.GetTarget());
-                        context.GetGrid()[targetPos[0]][targetPos[1]].SetEntity(null);
-                        context.GetTarget().position[0] = targetPos[0] - 2;
-                        context.GetTarget().position[1] = targetPos[1] + 2;
-                        return true;
-                    }
-                    else if (targetPos[0] == myPos[0] + 1 && targetPos[1] == myPos[1] + 1) {
-                        context.GetGrid()[targetPos[0] - 2][targetPos[1] - 2].SetEntity(context.GetTarget());
-                        context.GetGrid()[targetPos[0]][targetPos[1]].SetEntity(null);
-                        context.GetTarget().position[0] = targetPos[0] - 2;
-                        context.GetTarget().position[1] = targetPos[1] - 2;
-                        return true;
-                }
-            }
-            this.SetCurrMagic ( this.GetCurrMagic() - 2);
+        }
+        // Performs Ability1 diagonally
+        // Checks both vertical and horizontal conditions
+        if (myPos[0] == 0 || myPos[0] == context.GetGrid().length - 1
+            || myPos[1] == 0 || myPos[1] == context.GetGrid()[0].length - 1) {
             return false;
         }
+        else {
+            if (targetPos[0] == myPos[0] - 1 && targetPos[1] == myPos[1] - 1) {
+                context.GetGrid()[targetPos[0] + 2][targetPos[1] + 2].SetEntity(context.GetTarget());
+                context.GetGrid()[targetPos[0]][targetPos[1]].SetEntity(null);
+                context.GetTarget().position[0] = targetPos[0] + 2;
+                context.GetTarget().position[1] = targetPos[1] + 2;
+                return true;
+            }
+            else if (targetPos[0] == myPos[0] - 1 && targetPos[1] == myPos[1] + 1) {
+                context.GetGrid()[targetPos[0] + 2][targetPos[1] - 2].SetEntity(context.GetTarget());
+                context.GetGrid()[targetPos[0]][targetPos[1]].SetEntity(null);
+                context.GetTarget().position[0] = targetPos[0] + 2;
+                context.GetTarget().position[1] = targetPos[1] - 2;
+                return true;
+            }
+            else if (targetPos[0] == myPos[0] + 1 && targetPos[1] == myPos[1] - 1) {
+                context.GetGrid()[targetPos[0] - 2][targetPos[1] + 2].SetEntity(context.GetTarget());
+                context.GetGrid()[targetPos[0]][targetPos[1]].SetEntity(null);
+                context.GetTarget().position[0] = targetPos[0] - 2;
+                context.GetTarget().position[1] = targetPos[1] + 2;
+                return true;
+            }
+            else if (targetPos[0] == myPos[0] + 1 && targetPos[1] == myPos[1] + 1) {
+                context.GetGrid()[targetPos[0] - 2][targetPos[1] - 2].SetEntity(context.GetTarget());
+                context.GetGrid()[targetPos[0]][targetPos[1]].SetEntity(null);
+                context.GetTarget().position[0] = targetPos[0] - 2;
+                context.GetTarget().position[1] = targetPos[1] - 2;
+                return true;
+            }
+        }
+        this.SetCurrMagic(this.GetCurrMagic() - 2);
+        return false;
+    }
         //System.out.println( Ability1Hint());
     // Strong attack, meant to hit multiple times so that block/parry is calculated for each hit
     // and its unlikely for the whole thing to be blocked
@@ -180,29 +182,5 @@ public class Barbarian extends Character {
     private void applyPassive() {
         this.attack *= missingHPBonus;
     }
-    public String[] getAbilityMenu() {
-        return new String[]{
-            "1. Pickup and Throw", 
-            "2. Rage Strike", 
-            "3. Lupus"
-        };
-    }
-    public boolean executeAbility(int choice, ActionContext context) {
-        if (choice == 1 && CheckAbility1Possible()) {
-            System.out.println(this.GetFullName() + " flips " + context.GetTarget().GetFullName() + "!");
-            // Apply damage/effects here
-            return true;
-        } else if (choice == 2 && CheckAbility2Possible()) {
-            System.out.println(this.GetFullName() + " uses Rage Strike!");
-            // Apply damage/effects here
-            return true;
-        } else if (choice == 3 && CheckAbility3Possible()) {
-            System.out.println(this.GetFullName() + " casts Lupus!");
-            // Apply damage/effects here
-            return true;
-        }
-        System.out.println("Ability failed or unavailable.");
-        return false;
-    }
 }
-//tag (for github)
+

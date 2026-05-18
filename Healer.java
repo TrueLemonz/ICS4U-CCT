@@ -1,6 +1,8 @@
 public class Healer extends Character {
     public Healer(Character character, int team) {
         super();
+        ApplyStats();
+        ScaleStats();
         this.SetName("Healer");
         this.SetFullName(character.GetFullName());
         this.SetTeam(team);
@@ -122,29 +124,7 @@ public class Healer extends Character {
         }
         return false;
     }
-    public String[] getAbilityMenu() {
-        return new String[]{
-            "1. Prayer", 
-            "2. Blessing", 
-            "3. Smite"
-        };
-    }
-    public boolean executeAbility(int choice, ActionContext context) {
-        if (choice == 1 && CheckAbility1Possible()) {
-            System.out.println(this.GetFullName() + " uses Prayer!");
-            // Apply damage/effects here
-            return true;
-        } else if (choice == 2 && CheckAbility2Possible()) {
-            System.out.println(this.GetFullName() + " uses Blessing!");
-            // Apply damage/effects here
-            return true;
-        } else if (choice == 3 && CheckAbility3Possible()) {
-            System.out.println(this.GetFullName() + " casts Smite on " + context.GetTarget().GetFullName() + "!");
-            // Apply damage/effects here
-            return true;
-        }
-        System.out.println("Ability failed or unavailable.");
-        return false;
-    }
+    
 }
-//tag (for github)
+
+

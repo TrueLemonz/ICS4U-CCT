@@ -29,11 +29,13 @@ public class Character extends Entity {
     
     public Character() {
         super();
+        this.character = this;
         this.SetObject(1);
     }
 
     public Character(int spd, int intl, int atk, int spr, int hlt, int spp, boolean isStunned) {
         super();
+        this.character = this;
         this.SetObject(1);
         this.spd = spd;
         this.intl = intl;
@@ -44,11 +46,12 @@ public class Character extends Entity {
         this.isStunned = isStunned;
         this.currHealth = health;
         this.currMagic = spellpower;
+        
     }
 
     public Character GenerateCharacter() {
-        int nameInt = (int) (Math.random() * 15);
-        String[] names = {"Alice", "Bob", "Charlie", "David", "Eve", "Frank", "Grace", "Henry", "Ivy", "Jack", "Kate", "Liam", "Mia", "Noah", "Olivia"};
+        String[] names = {"Alice", "Bob", "Charlie", "David", "Eve", "Frank", "Grace", "Henry", "Ivy", "Jack", "Kate", "Liam", "Mia", "Noah", "Olivia", "Leo", "Lucas", "Sophia", "William", "Amelia", "James", "Balthazar", "Cassandra", "Dorian", "Evangeline", "Felix", "Genevieve", "Hector", "Isabella", "Julian", "Katarina", "Lysander", "Mariana", "Nathaniel", "Ophelia", "Percival", "Quinn", "Raphael", "Seraphina", "Theodore", "Ulysses", "Valentina", "Xavier", "Yvonne", "Zachary", "Mikhail", "Azazel", "Bealzebub", "Lucifer", "Abaddon", "Leviathan", "Asmodeus", "Mammon", "Belphegor", "Samael", "Astaroth", "Baphomet", "Mephistopheles", "Lilith", "Nyx", "Erebus", "Thanatos", "Hypnos", "Jan", "Jonathan"};
+        int nameInt = (int) (Math.random() * names.length);
         this.SetFullName(names[nameInt]);
 
         int points = 20;
@@ -109,18 +112,16 @@ public class Character extends Entity {
     }
 
     public boolean SetPosition(int[] coordinates, Block[][] grid) {
-        int x = coordinates[0];
-        int y = coordinates[1];
-        if (y >= 0 && y < grid.length && x >= 0 && x < grid[0].length && grid[y][x] != null) {
-            grid[y][x].SetEntity(this);
-            this.position[0] = x;
-            this.position[1] = y;
-            return true;
-        }
-        else {
-            return false;
-        }
+    int x = coordinates[0];
+    int y = coordinates[1];
+    if (y >= 0 && y < grid.length && x >= 0 && x < grid[0].length && grid[y][x] != null) {
+        grid[y][x].SetEntity(this);
+        this.position[0] = y; // Move expects [0] = y
+        this.position[1] = x; // Move expects [1] = x
+        return true;
     }
+    return false;
+}
     public double[] GetCalculatedStats() {
         double[] stats = {this.speed, this.intelligence, this.attack, this.spirit, this.health, this.spellpower};
         return stats;
@@ -251,6 +252,7 @@ public class Character extends Entity {
         }
         else return true;
     }
+   
     /*Returns character with the most speed
     * Will put it to chance if speeds are equal
     * c1, c2 and c3 refer to character 1, etc. respectively */
@@ -409,4 +411,5 @@ public class Character extends Entity {
         return false; 
     }
 }
-//tag (for github)
+
+

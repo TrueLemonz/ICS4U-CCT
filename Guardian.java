@@ -1,6 +1,8 @@
 public class Guardian extends Character {
     public Guardian(Character character, int team) {
         super();
+        ApplyStats();
+        ScaleStats();
         this.SetName("Guardian");
         this.SetFullName(character.GetFullName());
         this.SetTeam(team);
@@ -90,29 +92,7 @@ public class Guardian extends Character {
             return false;
         }
     }
-    public String[] getAbilityMenu() {
-        return new String[]{
-            "1. Fortify", 
-            "2. Inspire", 
-            "3. Last Stand"
-        };
-    }
-    public boolean executeAbility(int choice, ActionContext context) {
-        if (choice == 1 && CheckAbility1Possible()) {
-            System.out.println(this.GetFullName() + " uses Fortify!");
-            // Apply damage/effects here
-            return true;
-        } else if (choice == 2 && CheckAbility2Possible()) {
-            System.out.println(this.GetFullName() + " uses Inspire!");
-            // Apply damage/effects here
-            return true;
-        } else if (choice == 3 && CheckAbility3Possible()) {
-            System.out.println(this.GetFullName() + " uses Last Stand!");
-            // Apply damage/effects here
-            return true;
-        }
-        System.out.println("Ability failed or unavailable.");
-        return false;
-    }
+    
+    
 }
-//tag (for github)
+
