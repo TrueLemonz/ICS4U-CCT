@@ -14,8 +14,8 @@ public class GameSystem {
         int nullY = character.GetPosition()[0]; // [0] = y
         int nullX = character.GetPosition()[1]; // [1] = x
 
-        if (posX < 0 || posY < 0 || posY >= GAMEHEIGHT || posX >= GAMEWIDTH || Math.abs(posX - nullX) > 1
-                || Math.abs(posY - nullY) > 1) {
+        if (posX < 0 || posY < 0 || posY >= GAMEHEIGHT || posX >= GAMEWIDTH || Math.abs(posX - nullX) > (character.GetRawStats()[Character.SPDPOS]/3)+1
+                || Math.abs(posY - nullY) > (character.GetRawStats()[Character.SPRPOS]/2)+1) {
             return false;
         }
 
