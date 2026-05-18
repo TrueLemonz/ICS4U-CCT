@@ -45,7 +45,7 @@ public class Barbarian extends Character {
         for ( int i = 0 ; i < gs.GameBoard.length; i++ ) {
             for ( int j = 0; j < gs.GameBoard[i].length; i ++ ) {
                 Character target = gs.GameBoard[i][j].GetEntity().GetCharacter();
-                if ( CheckConditions(2, GetAbility1Range(), target) ) {
+                if ( CheckConditions(2, GetAbility1Range(), target) && target.GetTeam() != this.team ) {
                     return true;
                 }
             }
