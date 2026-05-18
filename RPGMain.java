@@ -22,7 +22,7 @@ public class RPGMain {
                                     if (character.CheckAbility3Possible(gs)) {
                                         System.out.println("Ability 3 - Lupus");
                                     }
-                                    System.out.print("Choose ability: ");
+                                    System.out.print("Choose ability (0 if skipping turn): ");
                                     int abilityChoice = Input.nextInt();
                                     if (abilityChoice == 1) {
                                         System.out.print("Choose x-coordinate of enemy you would like to flip: ");
@@ -40,17 +40,17 @@ public class RPGMain {
                                         }
                                     }
                                     else if (abilityChoice == 2) {
-                                        System.out.print("Choose x-coordinate of enemy you would like to flip: ");
+                                        System.out.print("Choose x-coordinate of enemy you would like to strike: ");
                                         int x = Input.nextInt();
                                         // TODO check errors and requirements
-                                        System.out.print("Choose y-coordinate of enemy you would like to flip: ");
+                                        System.out.print("Choose y-coordinate of enemy you would like to strike: ");
                                         int y = Input.nextInt();
                                         // TODO check errors and requirements
                                         Character target = gs.GameBoard[y][x].GetEntity().GetCharacter();
                                         ActionContext barbAbility2 = new ActionContext(target, gs.GameBoard);
                                         boolean success = character.Ability2(barbAbility2);
                                         if (success) {
-                                            System.out.println(character.GetFullName() + " the " + character.GetName() + " flips " + target.GetFullName() + " the " + target.GetName() + "!");
+                                            System.out.println(character.GetFullName() + " the " + character.GetName() + " trikes " + target.GetFullName() + " the " + target.GetName() + "!");
                                         }
                                     }
                                     else if (abilityChoice == 3) {
@@ -58,8 +58,8 @@ public class RPGMain {
                                         System.out.println(character.GetFullName() + " the " + character.GetName() + " casts Lupus!!");
                                         }
                                     }
-                                    else {
-                                        System.out.println("s");
+                                    else if ( abilityChoice == 0 ){
+                                        System.out.println("wow");
                                     }
     
 }
