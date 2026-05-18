@@ -52,16 +52,25 @@ public class Barbarian extends Character {
         }
         return false;
     }
-    public boolean CheckAbility2Possible(GameSystem gs) { return false; }
-    public boolean CheckAbility3Possible(GameSystem gs) { return false; }
+    public boolean CheckAbility2Possible(GameSystem gs) { 
+        for ( int i = 0 ; i < gs.GameBoard.length; i++ ) {
+            for ( int j = 0; j < gs.GameBoard[i].length; i ++ ) {
+                Character target = gs.GameBoard[i][j].GetEntity().GetCharacter();
+                if ( CheckConditions(2, GetAbility2Range(), target) && target.GetTeam() != this.team ) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    public boolean CheckAbility3Possible(GameSystem gs) { 
+        return Ability3();
+    }
     public int GetAbility1Range() {
         return 1;
     }
     public int GetAbility2Range() {
         return 1;
-    }
-    public int GetAbility3Range() {
-        return 9;
     }
     public String getName() {
         return "Barbarian";

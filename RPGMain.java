@@ -1,6 +1,16 @@
 import java.util.Scanner;
 
 public class RPGMain {
+    private void promptMove ( Character character, Scanner Input, GameSystem gs, Displayer ds) {
+		System.out.println(character.GetFullName() + " the " + character.GetName() + "'s turn.");
+                            System.out.println("Move " + character.GetFullName() + " the " + character.GetName() + "!");
+                            System.out.print("Choose x-coordinate: ");
+                            int x = Input.nextInt();
+                            System.out.print("Choose y-coordinate: ");
+                            int y = Input.nextInt();
+                            gs.Move(character, x, y);
+                            ds.PrintGrid(gs.GameBoard);
+	}
     private void promptBarbarian(Character character, Scanner Input, GameSystem gs, Displayer ds) {
     System.out.print(character.GetFullName() + " the " + character.GetName() + "'s turn.");
     if (character.CheckAbility1Possible(gs)) {
@@ -111,8 +121,6 @@ private void promptHealer( Character character, Scanner Input, GameSystem gs, Di
                                     }
 }
 private void promptCrusader (Character character, Scanner Input, GameSystem gs, Displayer ds) {
-
-    ActionContext ac = new ActionContext();
     if (character.CheckAbility1Possible(gs)) {
                                         System.out.println("Ability 1 - Divine Shield");
                                     }
@@ -407,17 +415,8 @@ private void promptGuardian ( Character character, Scanner Input, GameSystem gs,
                         Character lowSpdCharacter = gs.Player1.PlayerTeam[lowSpdIndexP1];
                         System.out.println("Player 1 starts! Press [ENTER] to continue.");
                         Input.nextLine();
-                        int x = 0;
-                        int y = 0;
                         if (maxSpdCharacter.GetIsAlive() && !maxSpdCharacter.GetIsStunned()) {
-                            System.out.println(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + "'s turn.");
-                            System.out.println("Move " + maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + "!");
-                            System.out.print("Choose x-coordinate: ");
-                            x = Input.nextInt();
-                            System.out.print("Choose y-coordinate: ");
-                            y = Input.nextInt();
-                            gs.Move(maxSpdCharacter, x, y);
-                            ds.PrintGrid(gs.GameBoard);
+                           rpg.promptMove( maxSpdCharacter, Input, gs , ds);
                             if (maxSpdCharacter.CheckAbility1Possible(gs) || maxSpdCharacter.CheckAbility2Possible(gs) || maxSpdCharacter.CheckAbility3Possible(gs)) {
                                 if (maxSpdCharacter instanceof Barbarian) {
                                     rpg.promptBarbarian(maxSpdCharacter, Input, gs, ds);
@@ -439,14 +438,7 @@ private void promptGuardian ( Character character, Scanner Input, GameSystem gs,
                             }
                         }
                         if (medSpdCharacter.GetIsAlive() && !medSpdCharacter.GetIsStunned()) {
-                            System.out.println(medSpdCharacter.GetFullName() + " the " + medSpdCharacter.GetName() + "'s turn.");
-                            System.out.println("Move " + medSpdCharacter.GetFullName() + " the " + medSpdCharacter.GetName() + "!");
-                            System.out.print("Choose x-coordinate: ");
-                            x = Input.nextInt();
-                            System.out.print("Choose y-coordinate: ");
-                            y = Input.nextInt();
-                            gs.Move(medSpdCharacter, x, y);
-                            ds.PrintGrid(gs.GameBoard);
+                            rpg.promptMove( medSpdCharacter, Input, gs , ds);
                             if (medSpdCharacter.CheckAbility1Possible(gs) || medSpdCharacter.CheckAbility2Possible(gs) || medSpdCharacter.CheckAbility3Possible(gs)) {
                                 if (medSpdCharacter instanceof Barbarian) {
                                     rpg.promptBarbarian(medSpdCharacter, Input, gs, ds);
@@ -468,14 +460,7 @@ private void promptGuardian ( Character character, Scanner Input, GameSystem gs,
                             }
                         }
                         if (lowSpdCharacter.GetIsAlive() && !lowSpdCharacter.GetIsStunned()) {
-                            System.out.println(lowSpdCharacter.GetFullName() + " the " + lowSpdCharacter.GetName() + "'s turn.");
-                            System.out.println("Move " + lowSpdCharacter.GetFullName() + " the " + lowSpdCharacter.GetName() + "!");
-                            System.out.print("Choose x-coordinate: ");
-                            x = Input.nextInt();
-                            System.out.print("Choose y-coordinate: ");
-                            y = Input.nextInt();
-                            gs.Move(lowSpdCharacter, x, y);
-                            ds.PrintGrid(gs.GameBoard);
+                            rpg.promptMove( medSpdCharacter, Input, gs , ds);
                             if (lowSpdCharacter.CheckAbility1Possible(gs) || lowSpdCharacter.CheckAbility2Possible(gs) || lowSpdCharacter.CheckAbility3Possible(gs)) {
                                 if (lowSpdCharacter instanceof Barbarian) {
                                     rpg.promptBarbarian(lowSpdCharacter, Input, gs, ds);
@@ -510,17 +495,8 @@ private void promptGuardian ( Character character, Scanner Input, GameSystem gs,
                         maxSpdCharacter = gs.Player2.PlayerTeam[maxSpdIndexP2];
                         medSpdCharacter = gs.Player2.PlayerTeam[medSpdIndexP2];
                         lowSpdCharacter = gs.Player2.PlayerTeam[lowSpdIndexP2];
-                        x = 0;
-                        y = 0;
                         if (maxSpdCharacter.GetIsAlive() && !maxSpdCharacter.GetIsStunned()) {
-                            System.out.println(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + "'s turn.");
-                            System.out.println("Move " + maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + "!");
-                            System.out.print("Choose x-coordinate: ");
-                            x = Input.nextInt();
-                            System.out.print("Choose y-coordinate: ");
-                            y = Input.nextInt();
-                            gs.Move(maxSpdCharacter, x, y);
-                            ds.PrintGrid(gs.GameBoard);
+                                rpg.promptMove( maxSpdCharacter, Input, gs , ds);
                             if (maxSpdCharacter.CheckAbility1Possible(gs) || maxSpdCharacter.CheckAbility2Possible(gs) || maxSpdCharacter.CheckAbility3Possible(gs)) {
                                 if (maxSpdCharacter instanceof Barbarian) {
                                     rpg.promptBarbarian(maxSpdCharacter, Input, gs, ds);
@@ -542,14 +518,7 @@ private void promptGuardian ( Character character, Scanner Input, GameSystem gs,
                             }
                         }
                         if (medSpdCharacter.GetIsAlive() && !maxSpdCharacter.GetIsStunned()) {
-                            System.out.println(medSpdCharacter.GetFullName() + " the " + medSpdCharacter.GetName() + "'s turn.");
-                            System.out.println("Move " + medSpdCharacter.GetFullName() + " the " + medSpdCharacter.GetName() + "!");
-                            System.out.print("Choose x-coordinate: ");
-                            x = Input.nextInt();
-                            System.out.print("Choose y-coordinate: ");
-                            y = Input.nextInt();
-                            gs.Move(medSpdCharacter, x, y);
-                            ds.PrintGrid(gs.GameBoard);
+                            rpg.promptMove( medSpdCharacter, Input, gs , ds);
                             if (medSpdCharacter.CheckAbility1Possible(gs) || medSpdCharacter.CheckAbility2Possible(gs) || medSpdCharacter.CheckAbility3Possible(gs)) {
                                 if (medSpdCharacter instanceof Barbarian) {
                                     rpg.promptBarbarian(medSpdCharacter, Input, gs, ds);
@@ -571,14 +540,7 @@ private void promptGuardian ( Character character, Scanner Input, GameSystem gs,
                             }
                         }
                         if (lowSpdCharacter.GetIsAlive() && !maxSpdCharacter.GetIsStunned()) {
-                            System.out.println(lowSpdCharacter.GetFullName() + " the " + lowSpdCharacter.GetName() + "'s turn.");
-                            System.out.println("Move " + lowSpdCharacter.GetFullName() + " the " + lowSpdCharacter.GetName() + "!");
-                            System.out.print("Choose x-coordinate: ");
-                            x = Input.nextInt();
-                            System.out.print("Choose y-coordinate: ");
-                            y = Input.nextInt();
-                            gs.Move(lowSpdCharacter, x, y);
-                            ds.PrintGrid(gs.GameBoard);
+                            rpg.promptMove( lowSpdCharacter, Input, gs , ds);
                             if (lowSpdCharacter.CheckAbility1Possible(gs) || lowSpdCharacter.CheckAbility2Possible(gs) || lowSpdCharacter.CheckAbility3Possible(gs)) {
                                 if (lowSpdCharacter instanceof Barbarian) {
                                     rpg.promptBarbarian(lowSpdCharacter, Input, gs, ds);
@@ -620,17 +582,8 @@ private void promptGuardian ( Character character, Scanner Input, GameSystem gs,
                         Character lowSpdCharacter = gs.Player2.PlayerTeam[lowSpdIndexP2];
                         System.out.println("Player 2 starts! Press [ENTER] to continue.");
                         Input.nextLine();
-                        int x = 0;
-                        int y = 0;
                         if (maxSpdCharacter.GetIsAlive() && !maxSpdCharacter.GetIsStunned()) {
-                            System.out.println(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + "'s turn.");
-                            System.out.println("Move " + maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + "!");
-                            System.out.print("Choose x-coordinate: ");
-                            x = Input.nextInt();
-                            System.out.print("Choose y-coordinate: ");
-                            y = Input.nextInt();
-                            gs.Move(maxSpdCharacter, x, y);
-                            ds.PrintGrid(gs.GameBoard);
+                            rpg.promptMove( maxSpdCharacter, Input, gs , ds);
                             if (maxSpdCharacter.CheckAbility1Possible(gs) || maxSpdCharacter.CheckAbility2Possible(gs) || maxSpdCharacter.CheckAbility3Possible(gs)) {
                                 if (maxSpdCharacter instanceof Barbarian) {
                                     rpg.promptBarbarian(maxSpdCharacter, Input, gs, ds);
@@ -652,14 +605,7 @@ private void promptGuardian ( Character character, Scanner Input, GameSystem gs,
                             }
                         }
                         if (medSpdCharacter.GetIsAlive() && !medSpdCharacter.GetIsStunned()) {
-                            System.out.println(medSpdCharacter.GetFullName() + " the " + medSpdCharacter.GetName() + "'s turn.");
-                            System.out.println("Move " + medSpdCharacter.GetFullName() + " the " + medSpdCharacter.GetName() + "!");
-                            System.out.print("Choose x-coordinate: ");
-                            x = Input.nextInt();
-                            System.out.print("Choose y-coordinate: ");
-                            y = Input.nextInt();
-                            gs.Move(medSpdCharacter, x, y);
-                            ds.PrintGrid(gs.GameBoard);
+                            rpg.promptMove( medSpdCharacter, Input, gs , ds);
                             if (medSpdCharacter.CheckAbility1Possible(gs) || medSpdCharacter.CheckAbility2Possible(gs) || medSpdCharacter.CheckAbility3Possible(gs)) {
                                 if (medSpdCharacter instanceof Barbarian) {
                                     rpg.promptBarbarian(medSpdCharacter, Input, gs, ds);
@@ -681,14 +627,7 @@ private void promptGuardian ( Character character, Scanner Input, GameSystem gs,
                             }
                         }
                         if (lowSpdCharacter.GetIsAlive() && !lowSpdCharacter.GetIsStunned()) {
-                            System.out.println(lowSpdCharacter.GetFullName() + " the " + lowSpdCharacter.GetName() + "'s turn.");
-                            System.out.println("Move " + lowSpdCharacter.GetFullName() + " the " + lowSpdCharacter.GetName() + "!");
-                            System.out.print("Choose x-coordinate: ");
-                            x = Input.nextInt();
-                            System.out.print("Choose y-coordinate: ");
-                            y = Input.nextInt();
-                            gs.Move(lowSpdCharacter, x, y);
-                            ds.PrintGrid(gs.GameBoard);
+                            rpg.promptMove( lowSpdCharacter, Input, gs , ds);
                             if (lowSpdCharacter.CheckAbility1Possible(gs) || lowSpdCharacter.CheckAbility2Possible(gs) || lowSpdCharacter.CheckAbility3Possible(gs)) {
                                 if (lowSpdCharacter instanceof Barbarian) {
                                     rpg.promptBarbarian(lowSpdCharacter, Input, gs, ds);
@@ -723,17 +662,8 @@ private void promptGuardian ( Character character, Scanner Input, GameSystem gs,
                         maxSpdCharacter = gs.Player1.PlayerTeam[maxSpdIndexP1];
                         medSpdCharacter = gs.Player1.PlayerTeam[medSpdIndexP1];
                         lowSpdCharacter = gs.Player1.PlayerTeam[lowSpdIndexP1];
-                        x = 0;
-                        y = 0;
                         if (maxSpdCharacter.GetIsAlive() && !maxSpdCharacter.GetIsStunned()) {
-                            System.out.println(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + "'s turn.");
-                            System.out.println("Move " + maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName() + "!");
-                            System.out.print("Choose x-coordinate: ");
-                            x = Input.nextInt();
-                            System.out.print("Choose y-coordinate: ");
-                            y = Input.nextInt();
-                            gs.Move(maxSpdCharacter, x, y);
-                            ds.PrintGrid(gs.GameBoard);
+                            rpg.promptMove( maxSpdCharacter, Input, gs , ds);
                             if (maxSpdCharacter.CheckAbility1Possible(gs) || maxSpdCharacter.CheckAbility2Possible(gs) || maxSpdCharacter.CheckAbility3Possible(gs)) {
                                 if (maxSpdCharacter instanceof Barbarian) {
                                     rpg.promptBarbarian(maxSpdCharacter, Input, gs, ds);
@@ -755,14 +685,7 @@ private void promptGuardian ( Character character, Scanner Input, GameSystem gs,
                             }
                         }
                         if (medSpdCharacter.GetIsAlive() && !maxSpdCharacter.GetIsStunned()) {
-                            System.out.println(medSpdCharacter.GetFullName() + " the " + medSpdCharacter.GetName() + "'s turn.");
-                            System.out.println("Move " + medSpdCharacter.GetFullName() + " the " + medSpdCharacter.GetName() + "!");
-                            System.out.print("Choose x-coordinate: ");
-                            x = Input.nextInt();
-                            System.out.print("Choose y-coordinate: ");
-                            y = Input.nextInt();
-                            gs.Move(medSpdCharacter, x, y);
-                            ds.PrintGrid(gs.GameBoard);
+                            rpg.promptMove( medSpdCharacter, Input, gs , ds);
                             if (medSpdCharacter.CheckAbility1Possible(gs) || medSpdCharacter.CheckAbility2Possible(gs) || medSpdCharacter.CheckAbility3Possible(gs)) {
                                 if (medSpdCharacter instanceof Barbarian) {
                                     rpg.promptBarbarian(medSpdCharacter, Input, gs, ds);
@@ -784,14 +707,7 @@ private void promptGuardian ( Character character, Scanner Input, GameSystem gs,
                             }
                         }
                         if (lowSpdCharacter.GetIsAlive() && !maxSpdCharacter.GetIsStunned()) {
-                            System.out.println(lowSpdCharacter.GetFullName() + " the " + lowSpdCharacter.GetName() + "'s turn.");
-                            System.out.println("Move " + lowSpdCharacter.GetFullName() + " the " + lowSpdCharacter.GetName() + "!");
-                            System.out.print("Choose x-coordinate: ");
-                            x = Input.nextInt();
-                            System.out.print("Choose y-coordinate: ");
-                            y = Input.nextInt();
-                            gs.Move(lowSpdCharacter, x, y);
-                            ds.PrintGrid(gs.GameBoard);
+                            rpg.promptMove( lowSpdCharacter, Input, gs , ds);
                             if (lowSpdCharacter.CheckAbility1Possible(gs) || lowSpdCharacter.CheckAbility2Possible(gs) || lowSpdCharacter.CheckAbility3Possible(gs)) {
                                 if (lowSpdCharacter instanceof Barbarian) {
                                     rpg.promptBarbarian(lowSpdCharacter, Input, gs, ds);
