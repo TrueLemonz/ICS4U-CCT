@@ -26,7 +26,11 @@ public class GameSystem {
             character.getPosition()[0] = posY; // [0] = y
             character.getPosition()[1] = posX; // [1] = x
 
+<<<<<<< HEAD
             this.gameBoard[nullY][nullX] = new Block(new Entity("", false, false, false));
+=======
+            this.GameBoard[nullY][nullX] = new Block(new Entity("", false, false, false, false));
+>>>>>>> 29cc78584bb120f90bde73b1cc1f92c89d7a02d1
 
             return true;
         }
@@ -38,6 +42,7 @@ public class GameSystem {
             for (int j = 0; j < GAMEWIDTH; j++) {
                 this.gameBoard[i][j] = new Block(new Entity(
                         "",
+                        false,
                         false,
                         false,
                         false));
@@ -117,6 +122,7 @@ public class GameSystem {
         }
     }
 
+<<<<<<< HEAD
     public boolean CheckPlayer1Win() {
         boolean team2Lose = true;
         for (int i = 0; i < this.gameBoard.length; i++) {
@@ -125,10 +131,25 @@ public class GameSystem {
                     Character c = (Character) this.gameBoard[i][j].getEntity();
                     if ( c.getTeam() == 2 && c.getIsAlive() ) {
                         team2Lose = false;
+=======
+    public int GetWinningTeam() {
+        boolean team1Alive = false;
+        boolean team2Alive = false;
+        for (int i = 0; i < this.GameBoard.length; i++) {
+            for (int j = 0; j < this.GameBoard[i].length; j++) {
+                if (this.GameBoard[i][j] != null && this.GameBoard[i][j].GetEntity() != null
+                        && this.GameBoard[i][j].GetEntity().GetObject() == 1) {
+                    Character c = (Character) this.GameBoard[i][j].GetEntity();
+                    if (c.GetTeam() == 1 && c.GetCurrHealth() > 0) {
+                        team1Alive = true;
+                    } else if (c.GetTeam() == 2 && c.GetCurrHealth() > 0) {
+                        team2Alive = true;
+>>>>>>> 29cc78584bb120f90bde73b1cc1f92c89d7a02d1
                     }
                 }
             }
         }
+<<<<<<< HEAD
         return team2Lose;
     }
 
@@ -145,6 +166,18 @@ public class GameSystem {
             }
         }
         return team1Lose;
+=======
+        if (!team1Alive && team2Alive) {
+            return 2;
+        } else if (!team2Alive && team1Alive) {
+            return 1;
+        }
+        return 0;
+    }
+
+    public boolean CheckWin() {
+        return GetWinningTeam() != 0;
+>>>>>>> 29cc78584bb120f90bde73b1cc1f92c89d7a02d1
     }
 
     public void GenRandObstacles() {

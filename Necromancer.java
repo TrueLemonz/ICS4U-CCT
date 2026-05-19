@@ -41,8 +41,18 @@ public class Necromancer extends Character {
     public String getName() {
         return "Necromancer";
     }
-    public boolean CheckAbility1Possible(GameSystem gs) { return false; }
-    public boolean CheckAbility2Possible(GameSystem gs) { return false; }
+    public boolean CheckAbility1Possible(GameSystem gs) { 
+        if (CheckSurroundingsContain(gs, 0, 1) && GetCurrMagic() > 4) {
+            return true;
+        }
+        return false;
+    }
+    public boolean CheckAbility2Possible(GameSystem gs) { 
+        if (CheckSurroundingsContain(gs, 4, 1)) {
+            return true;
+        }
+        return false; 
+    }
     public boolean CheckAbility3Possible(GameSystem gs) { return false; } 
     public boolean Ability1(ActionContext context) {
         if (context.getGrid()[context.getPosX()][context.getPosY()].getEntity().getObject() == 0) {
@@ -54,12 +64,17 @@ public class Necromancer extends Character {
         }
     }
     public boolean Ability2(ActionContext context) {
+<<<<<<< HEAD
         if (context.getTarget().getObject() == Entity.CHARACTER) {
             if (!context.getTarget().IsMinion()) {
                 context.getTarget().AddTurn();
                 return true;
             }
             Minion target = (Minion) context.getTarget();
+=======
+        if (context.GetTarget().GetObject() == Entity.MINION) {
+            Minion target = (Minion) context.GetTargetEntity();
+>>>>>>> 29cc78584bb120f90bde73b1cc1f92c89d7a02d1
             target.Buff();
             return true;
         }
@@ -68,7 +83,11 @@ public class Necromancer extends Character {
         }
     }
     public boolean Ability3(ActionContext context) {
+<<<<<<< HEAD
         if (context.getGrid()[context.getPosX()][context.getPosY()].getEntity().getObject() == Entity.CHARACTER) {
+=======
+        if (context.GetGrid()[context.getPosX()][context.getPosY()].GetEntity().GetObject() == Entity.MINION) {
+>>>>>>> 29cc78584bb120f90bde73b1cc1f92c89d7a02d1
             return true;
         }
         else {
