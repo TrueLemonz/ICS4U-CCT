@@ -55,8 +55,8 @@ public class Necromancer extends Character {
     }
     public boolean CheckAbility3Possible(GameSystem gs) { return false; } 
     public boolean Ability1(ActionContext context) {
-        if (context.getGrid()[context.getPosX()][context.getPosY()].getEntity().getObject() == 0) {
-            context.getGrid()[context.getPosX()][context.getPosY()] = new Block(new Minion(this.team));
+        if (context.getGrid()[context.getPosY()][context.getPosX()].getEntity().getObject() == 0) {
+            context.getGrid()[context.getPosY()][context.getPosX()] = new Block(new Minion(this.team));
             return true;
         }
         else {
@@ -74,7 +74,7 @@ public class Necromancer extends Character {
         }
     }
     public boolean Ability3(ActionContext context) {
-        if (context.getGrid()[context.getPosX()][context.getPosY()].getEntity().getObject() == Entity.MINION) {
+        if (context.getGrid()[context.getPosY()][context.getPosX()].getEntity().getObject() == Entity.MINION) {
             return true;
         }
         else {
