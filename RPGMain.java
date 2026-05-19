@@ -699,8 +699,13 @@ public class RPGMain {
                     }
                 }
                 if (gs.CheckWin()) {
-                    int winner = gs.GetWinningTeam();
-                    System.out.println("Player " + winner + " wins!");
+                    boolean winnerPlayer1 = gs.CheckWin();
+                    if (winnerPlayer1) {
+                        System.out.println("Player 1 wins!");
+                    }
+                    if (!winnerPlayer1) {
+                        System.out.println("Player 2 wins!");
+                    }
                     GameRunning = false;
                 }
             } // TODO add the other two options
