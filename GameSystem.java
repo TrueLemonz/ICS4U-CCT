@@ -26,11 +26,7 @@ public class GameSystem {
             character.getPosition()[0] = posY; // [0] = y
             character.getPosition()[1] = posX; // [1] = x
 
-<<<<<<< HEAD
-            this.gameBoard[nullY][nullX] = new Block(new Entity("", false, false, false));
-=======
-            this.GameBoard[nullY][nullX] = new Block(new Entity("", false, false, false, false));
->>>>>>> 29cc78584bb120f90bde73b1cc1f92c89d7a02d1
+            this.gameBoard[nullY][nullX] = new Block(new Entity("", false, false, false, false));
 
             return true;
         }
@@ -122,51 +118,24 @@ public class GameSystem {
         }
     }
 
-<<<<<<< HEAD
-    public boolean CheckPlayer1Win() {
-        boolean team2Lose = true;
-        for (int i = 0; i < this.gameBoard.length; i++) {
-            for (int j = 0; j < this.gameBoard[i].length; j++) {
-                if (this.gameBoard[i][j].getEntity().getObject() == 1) {
-                    Character c = (Character) this.gameBoard[i][j].getEntity();
-                    if ( c.getTeam() == 2 && c.getIsAlive() ) {
-                        team2Lose = false;
-=======
-    public int GetWinningTeam() {
+   
+
+    public int getWinningTeam() {
         boolean team1Alive = false;
         boolean team2Alive = false;
-        for (int i = 0; i < this.GameBoard.length; i++) {
-            for (int j = 0; j < this.GameBoard[i].length; j++) {
-                if (this.GameBoard[i][j] != null && this.GameBoard[i][j].GetEntity() != null
-                        && this.GameBoard[i][j].GetEntity().GetObject() == 1) {
-                    Character c = (Character) this.GameBoard[i][j].GetEntity();
-                    if (c.GetTeam() == 1 && c.GetCurrHealth() > 0) {
-                        team1Alive = true;
-                    } else if (c.GetTeam() == 2 && c.GetCurrHealth() > 0) {
-                        team2Alive = true;
->>>>>>> 29cc78584bb120f90bde73b1cc1f92c89d7a02d1
-                    }
-                }
-            }
-        }
-<<<<<<< HEAD
-        return team2Lose;
-    }
-
-    public boolean CheckPlayer2Win() {
-        boolean team1Lose = true;
         for (int i = 0; i < this.gameBoard.length; i++) {
             for (int j = 0; j < this.gameBoard[i].length; j++) {
-                if (this.gameBoard[i][j].getEntity().getObject() == 1) {
+                if (this.gameBoard[i][j] != null && this.gameBoard[i][j].getEntity() != null
+                        && this.gameBoard[i][j].getEntity().getObject() == 1) {
                     Character c = (Character) this.gameBoard[i][j].getEntity();
-                    if ( c.getTeam() == 1 && c.getIsAlive() ) {
-                        team1Lose = false;
+                    if (c.getTeam() == 1 && c.getCurrHealth() > 0) {
+                        team1Alive = true;
+                    } else if (c.getTeam() == 2 && c.getCurrHealth() > 0) {
+                        team2Alive = true;
                     }
                 }
             }
         }
-        return team1Lose;
-=======
         if (!team1Alive && team2Alive) {
             return 2;
         } else if (!team2Alive && team1Alive) {
@@ -176,10 +145,10 @@ public class GameSystem {
     }
 
     public boolean CheckWin() {
-        return GetWinningTeam() != 0;
->>>>>>> 29cc78584bb120f90bde73b1cc1f92c89d7a02d1
+        return getWinningTeam() != 0;
     }
-
+    
+  
     public void GenRandObstacles() {
         int block = (int) (Math.random() * gameBoard.length * gameBoard[0].length);
         Block current = this.gameBoard[block / gameBoard[0].length][block % gameBoard[0].length];

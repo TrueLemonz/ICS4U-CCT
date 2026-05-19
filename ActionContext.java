@@ -35,9 +35,6 @@ public class ActionContext {
         this.posy = 0;
     }
 
-<<<<<<< HEAD
-    public Character getTarget() {
-=======
     public ActionContext(Entity entity) {
         this.targetEntity = target;
         this.target = null;
@@ -46,11 +43,10 @@ public class ActionContext {
         this.posy = 0;
     }
 
-    public Character GetTarget() {
->>>>>>> 29cc78584bb120f90bde73b1cc1f92c89d7a02d1
+    public Character getTarget() {
         return this.target;
     }
-    public Entity GetTargetEntity() {
+    public Entity getTargetEntity() {
         return this.targetEntity;
     }
 
