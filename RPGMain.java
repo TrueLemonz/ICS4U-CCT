@@ -700,8 +700,10 @@ public class RPGMain {
                 }
                 if ( gs.CheckPlayer1Win() ) {
                     System.out.println("Player 1 wins!");
+                    GameRunning = false;
                 } else if ( gs.CheckPlayer2Win() ) {
                     System.out.println("Player 2 wins!");
+                    GameRunning = false;
                 }
             } // TODO add the other two options
         } // STOP RUNNING
