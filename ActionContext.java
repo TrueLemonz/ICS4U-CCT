@@ -1,3 +1,5 @@
+/* A class that functions as a variable packet of information.
+ * Can pass anything we need it to between methods. */
 public class ActionContext {
     private Character target;
     private Entity targetEntity;
@@ -43,17 +45,22 @@ public class ActionContext {
         this.posy = 0;
     }
 
+    /* Returns the target (Character) stored in the Context */
     public Character GetTarget() {
         return this.target;
     }
+
+    /* Returns the target (Entity) stored in the Context */
     public Entity GetTargetEntity() {
         return this.targetEntity;
     }
 
+    /* Returns the game's grid stored in the Context */
     public Block[][] GetGrid() {
         return this.grid;
     }
 
+    /* Returns the target (Character) stored in the Context */
     public int GetPosX() {
         return posx;
     }
