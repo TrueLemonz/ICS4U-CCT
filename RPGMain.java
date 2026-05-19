@@ -14,7 +14,7 @@ public class RPGMain {
     }
 
     private void regenerateCharacters(Character[] team) {
-        for (int i = 0; i > team.length-1; i++) {
+        for (int i = 0; i < team.length-1; i++) {
             if(team[i].GetCurrMagic() < team[i].GetCalculatedStats()[Character.MAXMAGICPOS]) {
                 team[i].SetCurrMagic(team[i].GetCurrMagic()+1);
             }
@@ -758,7 +758,7 @@ public class RPGMain {
                                 } else if (lowSpdCharacter instanceof Guardian) {
                                     rpg.promptGuardian(lowSpdCharacter, input, gs, ds);
                                 } else if (lowSpdCharacter instanceof Healer) {
-                                    rpg.promptHealer(medSpdCharacter, input, gs, ds);
+                                    rpg.promptHealer(lowSpdCharacter, input, gs, ds);
                                 } else if (lowSpdCharacter instanceof Necromancer) {
                                     rpg.promptNecromancer(lowSpdCharacter, input, gs, ds);
                                 } else {
