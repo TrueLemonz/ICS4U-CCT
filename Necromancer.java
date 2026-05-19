@@ -4,7 +4,7 @@ public class Necromancer extends Character {
         ApplyStats();
         ScaleStats();
         this.SetName("Necromancer");
-        this.SetFullName(character.GetFullName());
+        this.SetFullName(character.getFullName());
         this.SetTeam(team);
         this.spdMod = -1;
         this.intlMod = 3;
@@ -45,8 +45,8 @@ public class Necromancer extends Character {
     public boolean CheckAbility2Possible(GameSystem gs) { return false; }
     public boolean CheckAbility3Possible(GameSystem gs) { return false; } 
     public boolean Ability1(ActionContext context) {
-        if (context.GetGrid()[context.getPosX()][context.getPosY()].GetEntity().GetObject() == 0) {
-            context.GetGrid()[context.getPosX()][context.getPosY()] = new Block(new Minion(this.team));
+        if (context.getGrid()[context.getPosX()][context.getPosY()].getEntity().getObject() == 0) {
+            context.getGrid()[context.getPosX()][context.getPosY()] = new Block(new Minion(this.team));
             return true;
         }
         else {
@@ -54,12 +54,12 @@ public class Necromancer extends Character {
         }
     }
     public boolean Ability2(ActionContext context) {
-        if (context.GetTarget().GetObject() == Entity.CHARACTER) {
-            if (!context.GetTarget().IsMinion()) {
-                context.GetTarget().AddTurn();
+        if (context.getTarget().getObject() == Entity.CHARACTER) {
+            if (!context.getTarget().IsMinion()) {
+                context.getTarget().AddTurn();
                 return true;
             }
-            Minion target = (Minion) context.GetTarget();
+            Minion target = (Minion) context.getTarget();
             target.Buff();
             return true;
         }
@@ -68,7 +68,7 @@ public class Necromancer extends Character {
         }
     }
     public boolean Ability3(ActionContext context) {
-        if (context.GetGrid()[context.getPosX()][context.getPosY()].GetEntity().GetObject() == Entity.CHARACTER) {
+        if (context.getGrid()[context.getPosX()][context.getPosY()].getEntity().getObject() == Entity.CHARACTER) {
             return true;
         }
         else {

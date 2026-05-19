@@ -9,7 +9,7 @@ public class Entity {
     public Character character;
     private int team = 0;
     int[] position = new int[2];
-    // Final variables for the GetObject() method
+    // Final variables for the getObject() method
     public final static int FOOD = 3;
     public final static int OBSTACLE = 2;
     public final static int CHARACTER = 1;
@@ -45,7 +45,7 @@ public class Entity {
      * 2 = obstacle
      * 3 = food
      */
-    public int GetObject() {
+    public int getObject() {
         if (isFood) {
             return FOOD;
         } 
@@ -59,7 +59,7 @@ public class Entity {
             return 0;
         }
     }
-    public Character GetCharacter() {
+    public Character getCharacter() {
         return this.character;
     }
 
@@ -86,18 +86,18 @@ public class Entity {
         }
     }
 
-    public int[] GetPosition() {
+    public int[] getPosition() {
         return this.position;
     }
 
     /* 
      * Returns the name of the entity.
      */
-    public String GetName() {
+    public String getName() {
         return name;
     }
 
-    public String GetFullName() {
+    public String getFullName() {
         return fullName;
     }
     public void SetFullName(String fullName) {
@@ -110,15 +110,15 @@ public class Entity {
     public void SetName(String name) {
         this.name = name;
     }
-    public int GetTeam() {
+    public int getTeam() {
         return this.team;
     }
     public void SetTeam(int team) {
         this.team = team;
     }
     public boolean CheckRange(int range, Character target) {
-        int[] targetPos = target.GetPosition();
-        int[] myPos = this.GetPosition();
+        int[] targetPos = target.getPosition();
+        int[] myPos = this.getPosition();
 
         int x = Math.abs(targetPos[0] - myPos[0]);
         int y = Math.abs(targetPos[1] - myPos[1]);

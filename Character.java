@@ -122,26 +122,26 @@ public class Character extends Entity {
     }
     return false;
 }
-    public double[] GetCalculatedStats() {
+    public double[] getCalculatedStats() {
         double[] stats = {this.speed, this.intelligence, this.attack, this.spirit, this.health, this.spellpower};
         return stats;
     }
     public void SetCalculatedStats( int pos, double amt ) {
-        this.GetCalculatedStats()[pos] = amt;
+        this.getCalculatedStats()[pos] = amt;
     }
-    public boolean GetIsDivineShielded() {
+    public boolean getIsDivineShielded() {
         return this.IsDivineSheielded;
     }
     public void SetIsDivineSheielded(boolean isDivineSheielded) {
         this.IsDivineSheielded = isDivineSheielded;
     }
-    public double GetCurrHealth() {
+    public double getCurrHealth() {
         return this.currHealth;
     }
-    public double GetCurrMagic() {
+    public double getCurrMagic() {
         return this.currMagic;
     }
-    public int[] GetRawStats() {
+    public int[] getRawStats() {
         int[] stats = {this.spd, this.intl, this.atk, this.spr, this.hlt, this.spp};
         return stats;
     }
@@ -174,19 +174,19 @@ public class Character extends Entity {
     public void SetIsStunned(boolean isStunned) {
         this.isStunned = isStunned;
     }
-    public boolean GetIsStunned() {
+    public boolean getIsStunned() {
         return this.isStunned;
     }
     public void AddTurn() { // Two ridiculous methods just for minions (could be used for stunning or buffs i don't know)
         this.turns++;
     }
-    public int GetTurns() {
+    public int getTurns() {
         return this.turns;
     }
-    public double GetMagic() {
+    public double getMagic() {
         return this.currMagic;
     }
-    public double GetMaxHealth() {
+    public double getMaxHealth() {
         return this.health;
     }
     public void SetMagic(double magic) {
@@ -198,21 +198,21 @@ public class Character extends Entity {
     public void SetMinion(boolean isMinion) { //RIDICULOUS function
         this.isMinion = isMinion;
     }
-    public boolean GetIsAlive() {
+    public boolean getIsAlive() {
         if ( this.currHealth > 0) {
             return true;
         }
         else return false;
     }
-    public int GetSpd() {
+    public int getSpd() {
         return this.spd;
     }
     public boolean CheckRange(int range, Entity target) {
         if (this.isStunned) {
             return false;
         }
-        int[] targetPos = target.GetPosition();
-        int[] myPos = this.GetPosition();
+        int[] targetPos = target.getPosition();
+        int[] myPos = this.getPosition();
 
         int x = Math.abs(targetPos[0] - myPos[0]);
         int y = Math.abs(targetPos[1] - myPos[1]);
@@ -223,7 +223,7 @@ public class Character extends Entity {
         return false;
     }
     private String Ability1Hint;
-    public String GetAbility1Hint() {
+    public String getAbility1Hint() {
         return this.Ability1Hint;
     }
     public void SetAbility1Hint(String hint) {
@@ -234,7 +234,7 @@ public class Character extends Entity {
         return false;
     }
     private String Ability2Hint;
-    public String GetAbility2Hint() {
+    public String getAbility2Hint() {
         return this.Ability2Hint;
     }
     public void SetAbility2Hint(String hint) {
@@ -256,21 +256,21 @@ public class Character extends Entity {
     /*Returns character with the most speed
     * Will put it to chance if speeds are equal
     * c1, c2 and c3 refer to character 1, etc. respectively */
-    public int GetMaxSpeedIndex(Character[] PlayerTeam) { 
+    public int getMaxSpeedIndex(Character[] PlayerTeam) { 
         //  c1 has highest speed
-        if ( PlayerTeam[0].GetSpd() > PlayerTeam[1].GetSpd() && PlayerTeam[0].GetSpd() > PlayerTeam[2].GetSpd()) {
+        if ( PlayerTeam[0].getSpd() > PlayerTeam[1].getSpd() && PlayerTeam[0].getSpd() > PlayerTeam[2].getSpd()) {
             return 0;
         }
         // c2 has highest speed
-        else if ( PlayerTeam[1].GetSpd() > PlayerTeam[0].GetSpd() && PlayerTeam[1].GetSpd() > PlayerTeam[2].GetSpd() ) {
+        else if ( PlayerTeam[1].getSpd() > PlayerTeam[0].getSpd() && PlayerTeam[1].getSpd() > PlayerTeam[2].getSpd() ) {
             return 1;
         } 
         // c3 has highest speed
-        else if ( PlayerTeam[2].GetSpd() > PlayerTeam[1].GetSpd() && PlayerTeam[2].GetSpd() > PlayerTeam[0].GetSpd() ) {
+        else if ( PlayerTeam[2].getSpd() > PlayerTeam[1].getSpd() && PlayerTeam[2].getSpd() > PlayerTeam[0].getSpd() ) {
             return 2;
         }
         // c1 has a higher speed than c2 but is equal to c3, 50% change to return either c1 or c3
-        else if ( PlayerTeam[0].GetSpd() > PlayerTeam[1].GetSpd() && PlayerTeam[0].GetSpd() == PlayerTeam[2].GetSpd() ) {
+        else if ( PlayerTeam[0].getSpd() > PlayerTeam[1].getSpd() && PlayerTeam[0].getSpd() == PlayerTeam[2].getSpd() ) {
             int randNum = (int) (Math.random() * 2);
             if ( randNum == 1) {
                 return 0;
@@ -280,7 +280,7 @@ public class Character extends Entity {
             }
         }
         // If c1 has a higher speed than c3 but is equal to c2, 50% change to return either c1 or c2
-        else if ( PlayerTeam[0].GetSpd() > PlayerTeam[2].GetSpd() && PlayerTeam[0].GetSpd() == PlayerTeam[1].GetSpd() ) {
+        else if ( PlayerTeam[0].getSpd() > PlayerTeam[2].getSpd() && PlayerTeam[0].getSpd() == PlayerTeam[1].getSpd() ) {
             int randNum = (int) (Math.random() * 2);
             if ( randNum == 1) {
                 return 0;
@@ -291,7 +291,7 @@ public class Character extends Entity {
 
         }
         // If c2 has a higher speed than c1 but is equal to c3, 50% change to return either c2 or c3
-        else if ( PlayerTeam[1].GetSpd() > PlayerTeam[0].GetSpd() && PlayerTeam[0].GetSpd() == PlayerTeam[2].GetSpd() ) {
+        else if ( PlayerTeam[1].getSpd() > PlayerTeam[0].getSpd() && PlayerTeam[0].getSpd() == PlayerTeam[2].getSpd() ) {
             int randNum = (int) (Math.random() * 2);
             if ( randNum == 1) {
                 return 1;
@@ -302,7 +302,7 @@ public class Character extends Entity {
 
         }
         // If c2 has a higher speed than c3 but is equal to c1, 50% change to return either c2 or c1 
-        else if ( PlayerTeam[1].GetSpd() > PlayerTeam[2].GetSpd() && PlayerTeam[1].GetSpd() == PlayerTeam[0].GetSpd() ) {
+        else if ( PlayerTeam[1].getSpd() > PlayerTeam[2].getSpd() && PlayerTeam[1].getSpd() == PlayerTeam[0].getSpd() ) {
             int randNum = (int) (Math.random() * 2);
             if ( randNum == 1) {
                 return 0;
@@ -312,7 +312,7 @@ public class Character extends Entity {
             }
         }
         // If c3 has a higher speed than c1 but is equal to c2, 50% change to return either c3 or c2
-        else if ( PlayerTeam[2].GetSpd() > PlayerTeam[0].GetSpd() && PlayerTeam[2].GetSpd() == PlayerTeam[1].GetSpd() ) {
+        else if ( PlayerTeam[2].getSpd() > PlayerTeam[0].getSpd() && PlayerTeam[2].getSpd() == PlayerTeam[1].getSpd() ) {
             int randNum = (int) (Math.random() * 2);
             if ( randNum == 1) {
                 return 1;
@@ -322,7 +322,7 @@ public class Character extends Entity {
             }
         }
         // If c3 has a higher speed than c2 but is equal to c1, 50% change to return either c3 or c1
-        else if ( PlayerTeam[2].GetSpd() > PlayerTeam[1].GetSpd() && PlayerTeam[2].GetSpd() == PlayerTeam[0].GetSpd() ) {
+        else if ( PlayerTeam[2].getSpd() > PlayerTeam[1].getSpd() && PlayerTeam[2].getSpd() == PlayerTeam[0].getSpd() ) {
             int randNum = (int) (Math.random() * 2);
             if ( randNum == 1) {
                 return 0;
@@ -345,10 +345,10 @@ public class Character extends Entity {
     }
     public int getMedianSpeedIndex ( int maxSpeedIndex, Character[] PlayerTeam ) {
         if ( maxSpeedIndex == 0 ) {
-            if ( PlayerTeam[1].GetSpd() > PlayerTeam[2].GetSpd() ) {
+            if ( PlayerTeam[1].getSpd() > PlayerTeam[2].getSpd() ) {
                 return 1;
             }
-            else if (PlayerTeam[2].GetSpd() > PlayerTeam[1].GetSpd() ) {
+            else if (PlayerTeam[2].getSpd() > PlayerTeam[1].getSpd() ) {
                 return 2;
             }
             else {
@@ -360,10 +360,10 @@ public class Character extends Entity {
             }
         }
         else if ( maxSpeedIndex == 1) {
-            if ( PlayerTeam[0].GetSpd() > PlayerTeam[2].GetSpd() ) {
+            if ( PlayerTeam[0].getSpd() > PlayerTeam[2].getSpd() ) {
                 return 0;
             }
-            else if ( PlayerTeam[2].GetSpd() > PlayerTeam[0].GetSpd() ) {
+            else if ( PlayerTeam[2].getSpd() > PlayerTeam[0].getSpd() ) {
                 return 2;
             }
             else {
@@ -375,10 +375,10 @@ public class Character extends Entity {
             }
         }
         else { // maxSpeedIndex = 2
-            if ( PlayerTeam[0].GetSpd() > PlayerTeam[1].GetSpd() ) {
+            if ( PlayerTeam[0].getSpd() > PlayerTeam[1].getSpd() ) {
                 return 0;
             }
-            else if (PlayerTeam[1].GetSpd() > PlayerTeam[0].GetSpd() ) {
+            else if (PlayerTeam[1].getSpd() > PlayerTeam[0].getSpd() ) {
                 return 1;
             }
             else {
@@ -397,7 +397,7 @@ public class Character extends Entity {
         return false;
     }
     private String Ability3Hint;
-    public String GetAbility3Hint() {
+    public String getAbility3Hint() {
         return this.Ability3Hint;
     }
     public void SetAbility3Hint(String hint) {

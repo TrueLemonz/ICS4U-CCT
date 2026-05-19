@@ -7,7 +7,7 @@ public class Block {
     public Block( Entity entity) {
         this.entity = entity;
     }
-    public Entity GetEntity() {
+    public Entity getEntity() {
         return this.entity;
     }
     public void SetEntity(Entity entity) {

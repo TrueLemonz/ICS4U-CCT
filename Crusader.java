@@ -5,7 +5,7 @@ public class Crusader extends Character {
         ApplyStats();
         ScaleStats();
         this.SetName("Crusader");
-        this.SetFullName(character.GetFullName());
+        this.SetFullName(character.getFullName());
         this.SetTeam(team);
         this.spdMod = 2;
         this.intlMod = -1;
@@ -40,10 +40,10 @@ public class Crusader extends Character {
         ScaleStats();
     }
     public boolean CheckAbility1Possible(GameSystem gs) { 
-        for ( int i = 0 ; i < gs.GameBoard.length; i++ ) {
-            for ( int j = 0; j < gs.GameBoard[i].length; j ++ ) {
-                Character target = gs.GameBoard[i][j].GetEntity().GetCharacter();
-                if ( target != null && target.GetObject() == Entity.CHARACTER && CheckConditions(2, GetAbility1Range(), target) && target.GetTeam() != this.team ) {
+        for ( int i = 0 ; i < gs.gameBoard.length; i++ ) {
+            for ( int j = 0; j < gs.gameBoard[i].length; j ++ ) {
+                Character target = gs.gameBoard[i][j].getEntity().getCharacter();
+                if ( target != null && target.getObject() == Entity.CHARACTER && CheckConditions(2, getAbility1Range(), target) && target.getTeam() != this.team ) {
                     return true;
                 }
             }
@@ -51,10 +51,10 @@ public class Crusader extends Character {
         return false;
     }
     public boolean CheckAbility2Possible(GameSystem gs) { 
-        for ( int i = 0 ; i < gs.GameBoard.length; i++ ) {
-            for ( int j = 0; j < gs.GameBoard[i].length; j ++ ) {
-                Character target = gs.GameBoard[i][j].GetEntity().GetCharacter();
-                if ( target != null &&  target.GetObject() == Entity.CHARACTER && CheckConditions(2, GetAbility2Range(), target) && target.GetTeam() == this.team ) {
+        for ( int i = 0 ; i < gs.gameBoard.length; i++ ) {
+            for ( int j = 0; j < gs.gameBoard[i].length; j ++ ) {
+                Character target = gs.gameBoard[i][j].getEntity().getCharacter();
+                if ( target != null &&  target.getObject() == Entity.CHARACTER && CheckConditions(2, getAbility2Range(), target) && target.getTeam() == this.team ) {
                     return true;
                 }
             }
@@ -62,61 +62,61 @@ public class Crusader extends Character {
         return false;
     }
     public boolean CheckAbility3Possible(GameSystem gs ) {
-        for ( int i = 0 ; i < gs.GameBoard.length; i++ ) {
-            for ( int j = 0; j < gs.GameBoard[i].length; j ++ ) {
-                Character target = gs.GameBoard[i][j].GetEntity().GetCharacter();
-                if ( target != null &&  target.GetObject() == Entity.CHARACTER &&  CheckConditions(2, GetAbility3Range(), target) && target.GetTeam() != this.team ) {
+        for ( int i = 0 ; i < gs.gameBoard.length; i++ ) {
+            for ( int j = 0; j < gs.gameBoard[i].length; j ++ ) {
+                Character target = gs.gameBoard[i][j].getEntity().getCharacter();
+                if ( target != null &&  target.getObject() == Entity.CHARACTER &&  CheckConditions(2, getAbility3Range(), target) && target.getTeam() != this.team ) {
                     return true;
                 }
             }
         }
         return false;
     }
-    public int GetAbility1Range() {
+    public int getAbility1Range() {
         return 1;
     }
-    public int GetAbility2Range() {
+    public int getAbility2Range() {
         return 2;
     }
-    public int GetAbility3Range() {
+    public int getAbility3Range() {
         return 2;
     }
     public String getName() {
         return "Crusader";
     }
     public boolean Ability1(ActionContext context) {
-        if ( !CheckConditions(2,1, context.GetTarget()) || context.GetTarget().GetTeam() == this.team ) {
+        if ( !CheckConditions(2,1, context.getTarget()) || context.getTarget().getTeam() == this.team ) {
             return false;
         }
-        Character target = context.GetTarget(); 
-        target.SetCurrHealth ( target.GetCalculatedStats()[Character.MAXHEALTHPOS] - 15);
-        SetIntl ( GetRawStats()[Character.INTLPOS] + 1);
-        SetAtk ( GetRawStats()[Character.ATKPOS] + 1);
+        Character target = context.getTarget(); 
+        target.SetCurrHealth ( target.getCalculatedStats()[Character.MAXHEALTHPOS] - 15);
+        SetIntl ( getRawStats()[Character.INTLPOS] + 1);
+        SetAtk ( getRawStats()[Character.ATKPOS] + 1);
         return true;
     }
     public boolean Ability2 ( ActionContext context ) {
-        Character ally = context.GetTarget();
-        if ( !CheckConditions(2, 2, ally ) || context.GetTarget().GetTeam() != this.team ) {
+        Character ally = context.getTarget();
+        if ( !CheckConditions(2, 2, ally ) || context.getTarget().getTeam() != this.team ) {
             return false;
         }   
-        if ( ally.GetCurrHealth() + 15 <= ally.GetCalculatedStats()[Character.MAXHEALTHPOS]) {
-            ally.SetCurrHealth(ally.GetCurrHealth() + 10);
-            ally.SetSPP ( ally.GetRawStats()[SPPPOS] + 1);
+        if ( ally.getCurrHealth() + 15 <= ally.getCalculatedStats()[Character.MAXHEALTHPOS]) {
+            ally.SetCurrHealth(ally.getCurrHealth() + 10);
+            ally.SetSPP ( ally.getRawStats()[SPPPOS] + 1);
             return true;
         }
         else {
-            double healCap = ally.GetCalculatedStats()[Character.MAXHEALTHPOS] - ally.GetCurrHealth();
-            ally.SetCurrHealth( ally.GetCurrHealth() + healCap );
+            double healCap = ally.getCalculatedStats()[Character.MAXHEALTHPOS] - ally.getCurrHealth();
+            ally.SetCurrHealth( ally.getCurrHealth() + healCap );
             return true;
         }
     }
 
     public boolean Ability3 ( ActionContext context ) {
-        if ( !CheckConditions(2, 1, context.GetTarget()) ) {
+        if ( !CheckConditions(2, 1, context.getTarget()) ) {
             return false;
         }
-        Character target = context.GetTarget();
-        target.SetCurrHealth(target.GetCurrHealth() - 5);
+        Character target = context.getTarget();
+        target.SetCurrHealth(target.getCurrHealth() - 5);
         return true;
     }
 }

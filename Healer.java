@@ -4,7 +4,7 @@ public class Healer extends Character {
         ApplyStats();
         ScaleStats();
         this.SetName("Healer");
-        this.SetFullName(character.GetFullName());
+        this.SetFullName(character.getFullName());
         this.SetTeam(team);
         this.spdMod = 0;
         this.intlMod = 3;
@@ -41,13 +41,13 @@ public class Healer extends Character {
     public boolean CheckAbility1Possible(GameSystem gs) { return false; }
     public boolean CheckAbility2Possible(GameSystem gs) { return false; }
     public boolean CheckAbility3Possible(GameSystem gs) { return false; }
-    public int GetAbility1Range() {
+    public int getAbility1Range() {
         return 1;
     }
-    public int GetAbility2Range() {
+    public int getAbility2Range() {
         return 3;
     }
-    public int GetAbility3Range() {
+    public int getAbility3Range() {
         return 2;
     }
 
@@ -63,21 +63,21 @@ public class Healer extends Character {
         if ( !CheckConditions(4)) {
             return false;
         }
-        Block[][] grid = context.GetGrid();
-        Character target = context.GetTarget();
+        Block[][] grid = context.getGrid();
+        Character target = context.getTarget();
         for ( int i = 0; i < 8; i++ ) {
             for (int j = 0; j < 8; j++ ) {
-                if ( grid[i][j].GetEntity() instanceof Character) {             
+                if ( grid[i][j].getEntity() instanceof Character) {             
                     if ( target != null && target instanceof Character ) {
                         if ( CheckRange(1, target) && target.team == this.team)  {
-                            if ( target.GetCurrHealth() + 5 < target.GetCalculatedStats()[Character.HLTPOS] )
-                                target.SetCurrHealth(target.GetCurrHealth() + 5);
-                                this.SetCurrMagic( this.GetCurrMagic() - 4);
+                            if ( target.getCurrHealth() + 5 < target.getCalculatedStats()[Character.HLTPOS] )
+                                target.SetCurrHealth(target.getCurrHealth() + 5);
+                                this.SetCurrMagic( this.getCurrMagic() - 4);
                                 return true;
                         }
                         else if ( CheckRange(1, target) && target.team != this.team) {
-                            target.SetCurrHealth(target.GetCurrHealth() - 5);
-                            this.SetCurrMagic( this.GetCurrMagic() - 4);
+                            target.SetCurrHealth(target.getCurrHealth() - 5);
+                            this.SetCurrMagic( this.getCurrMagic() - 4);
                             return true;
                         }
                         else {
@@ -91,35 +91,35 @@ public class Healer extends Character {
     }
     // Gives teammate +4 intl and +2 spr
     public boolean Ability2 (ActionContext context) {
-        if ( !CheckConditions ( 3, 3 ,context.GetTarget() ) ) {
+        if ( !CheckConditions ( 3, 3 ,context.getTarget() ) ) {
             return false;
         }
-        Character target = context.GetTarget(); 
+        Character target = context.getTarget(); 
         if ( target != null && target instanceof Character &&  CheckRange(4, target) &&target.team == this.team) {
-            target.SetIntl( target.GetRawStats()[Character.INTLPOS] + 4);
-            target.SetSpr( target.GetRawStats()[Character.SPRPOS] + 2);
+            target.SetIntl( target.getRawStats()[Character.INTLPOS] + 4);
+            target.SetSpr( target.getRawStats()[Character.SPRPOS] + 2);
             // target.CalculateStats();
-            this.SetCurrMagic( this.GetCurrMagic() - 3 );
+            this.SetCurrMagic( this.getCurrMagic() - 3 );
             return true;
         }
         return false;
     }
     // Basic attack, has a 50% chance to stun the target
     public boolean Ability3 (ActionContext context) {
-        if ( !CheckConditions ( 2, 2, context.GetTarget() ) ) {
+        if ( !CheckConditions ( 2, 2, context.getTarget() ) ) {
             return false;
         }
-        Character target = context.GetTarget();
+        Character target = context.getTarget();
         if ( target != null && target instanceof Character && CheckRange(2, target) && target.team != this.team) {
-            if ( target.GetIsDivineShielded()) {
-                target.SetCurrHealth(target.GetCurrHealth() - 1);
+            if ( target.getIsDivineShielded()) {
+                target.SetCurrHealth(target.getCurrHealth() - 1);
             }
-            else target.SetCurrHealth(target.GetCurrHealth() - 2);
+            else target.SetCurrHealth(target.getCurrHealth() - 2);
             double rand = Math.random();
             if ( rand < 0.5 ) {
                 target.SetIsStunned(true);
             }
-            this.SetCurrMagic( this.GetCurrMagic() - 2);
+            this.SetCurrMagic( this.getCurrMagic() - 2);
             return true;
         }
         return false;

@@ -5,7 +5,7 @@ public class Paladin extends Character {
         ApplyStats();
         ScaleStats();
         this.SetName("Paladin");
-        this.SetFullName(character.GetFullName());
+        this.SetFullName(character.getFullName());
         this.SetTeam(team);
         this.spdMod = 2;
         this.intlMod = -1;
@@ -42,36 +42,36 @@ public class Paladin extends Character {
     public boolean CheckAbility1Possible(GameSystem gs) { return false; }
     public boolean CheckAbility2Possible(GameSystem gs) { return false; }
     public boolean CheckAbility3Possible(GameSystem gs) { return false; }
-    public int GetAbility1Range() {
+    public int getAbility1Range() {
         return 1;
     }
-    public int GetAbility2Range() {
+    public int getAbility2Range() {
         return 2;
     }
-    public int GetAbility3Range() {
+    public int getAbility3Range() {
         return 2;
     }
     public String getName() {
         return "Paladin";
     }
     public boolean Ability1(ActionContext context) {
-        if ( !CheckConditions(2,1, context.GetTarget()) || context.GetTarget().GetTeam() != this.team ) {
+        if ( !CheckConditions(2,1, context.getTarget()) || context.getTarget().getTeam() != this.team ) {
             return false;
         }
-        Character ally = context.GetTarget(); 
+        Character ally = context.getTarget(); 
         ally.SetIsDivineSheielded(true);
         return true;
     }
 
     public boolean Ability2 ( ActionContext context ) {
-        Character ally = context.GetTarget();
-        if ( !CheckConditions(2, 2, ally ) || context.GetTarget().GetTeam() != this.team ) {
+        Character ally = context.getTarget();
+        if ( !CheckConditions(2, 2, ally ) || context.getTarget().getTeam() != this.team ) {
             return false;
         }   
-        if ( ally.GetCurrHealth() + 15 <= ally.GetMaxHealth() ) {
-            ally.SetCurrHealth(ally.GetCurrHealth() + 10);
-            if ( ally.GetIsDivineShielded() ) {
-                ally.SetCurrHealth(ally.GetCurrHealth() + 5);
+        if ( ally.getCurrHealth() + 15 <= ally.getMaxHealth() ) {
+            ally.SetCurrHealth(ally.getCurrHealth() + 10);
+            if ( ally.getIsDivineShielded() ) {
+                ally.SetCurrHealth(ally.getCurrHealth() + 5);
             }
             return true;
         }
@@ -79,16 +79,16 @@ public class Paladin extends Character {
     }
 
     public boolean Ability3 ( ActionContext context ) {
-        if ( !CheckConditions(2, 1, context.GetTarget()) ) {
+        if ( !CheckConditions(2, 1, context.getTarget()) ) {
             return false;
         }
-        Character target = context.GetTarget();
-        if ( target.GetCurrHealth() - 5 >= 0 ) {
-            if ( target.GetIsDivineShielded() ) {
-                target.SetCurrHealth(target.GetCurrHealth() - 2.5);
+        Character target = context.getTarget();
+        if ( target.getCurrHealth() - 5 >= 0 ) {
+            if ( target.getIsDivineShielded() ) {
+                target.SetCurrHealth(target.getCurrHealth() - 2.5);
             } 
             else {
-                target.SetCurrHealth(target.GetCurrHealth() - 5);
+                target.SetCurrHealth(target.getCurrHealth() - 5);
             }
             return true;
         }

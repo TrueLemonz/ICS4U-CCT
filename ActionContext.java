@@ -30,11 +30,11 @@ public class ActionContext {
         this.posy = 0;
     }
 
-    public Character GetTarget() {
+    public Character getTarget() {
         return this.target;
     }
 
-    public Block[][] GetGrid() {
+    public Block[][] getGrid() {
         return this.grid;
     }
 

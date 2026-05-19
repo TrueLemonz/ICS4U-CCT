@@ -1,19 +1,19 @@
 import java.util.Scanner;
 
 public class RPGMain {
-    private void promptMove(Character character, Scanner Input, GameSystem gs, Displayer ds) {
-        System.out.println(character.GetFullName() + " the " + character.GetName() + "'s turn.");
-        System.out.println("Move " + character.GetFullName() + " the " + character.GetName() + "!");
+    private void promptMove(Character character, Scanner input, GameSystem gs, Displayer ds) {
+        System.out.println(character.getFullName() + " the " + character.getName() + "'s turn.");
+        System.out.println("Move " + character.getFullName() + " the " + character.getName() + "!");
         System.out.print("Choose x-coordinate: ");
-        int x = Input.nextInt();
+        int x = input.nextInt();
         System.out.print("Choose y-coordinate: ");
-        int y = Input.nextInt();
+        int y = input.nextInt();
         gs.Move(character, x, y);
-        ds.PrintGrid(gs.GameBoard);
+        ds.PrintGrid(gs.gameBoard);
     }
 
-    private void promptBarbarian(Character character, Scanner Input, GameSystem gs, Displayer ds) {
-        System.out.print(character.GetFullName() + " the " + character.GetName() + "'s turn.");
+    private void promptBarbarian(Character character, Scanner input, GameSystem gs, Displayer ds) {
+        System.out.print(character.getFullName() + " the " + character.getName() + "'s turn.");
         if (character.CheckAbility1Possible(gs)) {
             System.out.println("Ability 1 - Flip");
         }
@@ -24,39 +24,39 @@ public class RPGMain {
             System.out.println("Ability 3 - Lupus");
         }
         System.out.print("Choose ability (0 if skipping turn): ");
-        int abilityChoice = Input.nextInt();
+        int abilityChoice = input.nextInt();
         if (abilityChoice == 1) {
             System.out.print("Choose x-coordinate of enemy you would like to flip: ");
-            int x = Input.nextInt();
+            int x = input.nextInt();
             // TODO check errors and requirements
             System.out.print("Choose y-coordinate of enemy you would like to flip: ");
-            int y = Input.nextInt();
+            int y = input.nextInt();
             // TODO check errors and requirements
-            Character target = gs.GameBoard[y][x].GetEntity().GetCharacter();
-            ActionContext barbAbility1 = new ActionContext(target, gs.GameBoard);
+            Character target = gs.gameBoard[y][x].getEntity().getCharacter();
+            ActionContext barbAbility1 = new ActionContext(target, gs.gameBoard);
             boolean success = character.Ability1(barbAbility1);
             if (success) {
-                System.out.println(character.GetFullName() + " the " + character.GetName() + " flips "
-                        + target.GetFullName() + " the " + target.GetName() + "!");
-                ds.PrintGrid(gs.GameBoard);
+                System.out.println(character.getFullName() + " the " + character.getName() + " flips "
+                        + target.getFullName() + " the " + target.getName() + "!");
+                ds.PrintGrid(gs.gameBoard);
             }
         } else if (abilityChoice == 2) {
             System.out.print("Choose x-coordinate of enemy you would like to strike: ");
-            int x = Input.nextInt();
+            int x = input.nextInt();
             // TODO check errors and requirements
             System.out.print("Choose y-coordinate of enemy you would like to strike: ");
-            int y = Input.nextInt();
+            int y = input.nextInt();
             // TODO check errors and requirements
-            Character target = gs.GameBoard[y][x].GetEntity().GetCharacter();
-            ActionContext barbAbility2 = new ActionContext(target, gs.GameBoard);
+            Character target = gs.gameBoard[y][x].getEntity().getCharacter();
+            ActionContext barbAbility2 = new ActionContext(target, gs.gameBoard);
             boolean success = character.Ability2(barbAbility2);
             if (success) {
-                System.out.println(character.GetFullName() + " the " + character.GetName() + " trikes "
-                        + target.GetFullName() + " the " + target.GetName() + "!");
+                System.out.println(character.getFullName() + " the " + character.getName() + " trikes "
+                        + target.getFullName() + " the " + target.getName() + "!");
             }
         } else if (abilityChoice == 3) {
             if (character.CheckAbility3Possible(gs)) {
-                System.out.println(character.GetFullName() + " the " + character.GetName() + " casts Lupus!!");
+                System.out.println(character.getFullName() + " the " + character.getName() + " casts Lupus!!");
             }
         } else if (abilityChoice == 0) {
             System.out.println("wow");
@@ -64,9 +64,9 @@ public class RPGMain {
 
     }
 
-    private void promptHealer(Character character, Scanner Input, GameSystem gs, Displayer ds) {
+    private void promptHealer(Character character, Scanner input, GameSystem gs, Displayer ds) {
         ActionContext ac = new ActionContext();
-        System.out.print(character.GetFullName() + " the " + character.GetName() + "'s turn.");
+        System.out.print(character.getFullName() + " the " + character.getName() + "'s turn.");
 
         if (character.CheckAbility1Possible(gs)) {
             System.out.println("Ability 1 - Prayer");
@@ -78,48 +78,48 @@ public class RPGMain {
             System.out.println("Ability 3 - Strike");
         }
         System.out.print("Choose ability: ");
-        int abilityChoice = Input.nextInt();
+        int abilityChoice = input.nextInt();
         if (abilityChoice == 1 && character.CheckAbility1Possible(gs)) {
             character.Ability1(ac);
-            System.out.println(character.GetFullName() + " the " + character.GetName() + " casts Prayer.");
+            System.out.println(character.getFullName() + " the " + character.getName() + " casts Prayer.");
         } else if (abilityChoice == 1 && !character.CheckAbility1Possible(gs)) {
-            System.out.println(character.GetFullName() + " the " + character.GetName() + " fails to cast Prayer.");
+            System.out.println(character.getFullName() + " the " + character.getName() + " fails to cast Prayer.");
         }
         if (abilityChoice == 2 && character.CheckAbility2Possible(gs)) {
             System.out.print("Enter the x-coordinate of the ally you would like to buff: ");
-            int x = Input.nextInt();
+            int x = input.nextInt();
             System.out.print("Enter the y-coordinate of the ally you would like to buff: ");
-            int y = Input.nextInt();
-            Character target = gs.GameBoard[y][x].GetEntity().GetCharacter();
-            ActionContext healerAbility2 = new ActionContext(target, gs.GameBoard);
+            int y = input.nextInt();
+            Character target = gs.gameBoard[y][x].getEntity().getCharacter();
+            ActionContext healerAbility2 = new ActionContext(target, gs.gameBoard);
             character.Ability2(healerAbility2);
-            System.out.println(character.GetFullName() + " the " + character.GetName() + " buffs "
-                    + target.GetFullName() + " the " + target.GetName());
+            System.out.println(character.getFullName() + " the " + character.getName() + " buffs "
+                    + target.getFullName() + " the " + target.getName());
         } else if (abilityChoice == 2 && !character.CheckAbility2Possible(gs)) {
-            System.out.print(character.GetFullName() + " the " + character.GetName() + " is unable to cast Praise ");
+            System.out.print(character.getFullName() + " the " + character.getName() + " is unable to cast Praise ");
         } else if (abilityChoice == 3 && character.CheckAbility3Possible(gs)) {
             System.out.print("Enter the x-coordinate of the enemy you would like to attack: ");
-            int x = Input.nextInt();
+            int x = input.nextInt();
             System.out.print("Enter the x-coordinate of the enemy you would like to attack: ");
-            int y = Input.nextInt();
-            Character target = gs.GameBoard[y][x].GetEntity().GetCharacter();
-            ActionContext healerAbility3 = new ActionContext(target, gs.GameBoard);
+            int y = input.nextInt();
+            Character target = gs.gameBoard[y][x].getEntity().getCharacter();
+            ActionContext healerAbility3 = new ActionContext(target, gs.gameBoard);
             boolean success = character.Ability3(healerAbility3);
             if (success) {
-                System.out.println(character.GetFullName() + " the " + character.GetName() + " casts energy bolt on "
-                        + target.GetFullName() + " the " + target.GetName());
+                System.out.println(character.getFullName() + " the " + character.getName() + " casts energy bolt on "
+                        + target.getFullName() + " the " + target.getName());
             } else {
                 System.out.println("noob");
             }
         } else if (abilityChoice == 3 && !character.CheckAbility3Possible(gs)) {
             System.out.print(
-                    character.GetFullName() + " the " + character.GetName() + " is unable to cast Energy Bolt. ");
+                    character.getFullName() + " the " + character.getName() + " is unable to cast Energy Bolt. ");
         } else {
             System.out.println("s");
         }
     }
 
-    private void promptCrusader(Character character, Scanner Input, GameSystem gs, Displayer ds) {
+    private void promptCrusader(Character character, Scanner input, GameSystem gs, Displayer ds) {
         if (character.CheckAbility1Possible(gs)) {
             System.out.println("Ability 1 - Divine Shield");
         }
@@ -130,18 +130,18 @@ public class RPGMain {
             System.out.println("Ability 3 - Shield Bash");
         }
         System.out.print("Choose ability: ");
-        int abilityChoice = Input.nextInt();
+        int abilityChoice = input.nextInt();
         if (abilityChoice == 1 && character.CheckAbility1Possible(gs)) {
             System.out.print("Chooose x-coordinate of the ally you would like to shield: ");
-            int x = Input.nextInt();
+            int x = input.nextInt();
             System.out.print("Chooose x-coordinate of the ally you would like to shield: ");
-            int y = Input.nextInt();
-            Character target = gs.GameBoard[y][x].GetEntity().GetCharacter();
-            ActionContext crusaderAbility1 = new ActionContext(target, gs.GameBoard);
+            int y = input.nextInt();
+            Character target = gs.gameBoard[y][x].getEntity().getCharacter();
+            ActionContext crusaderAbility1 = new ActionContext(target, gs.gameBoard);
             boolean success = character.Ability1(crusaderAbility1);
             if (success) {
-                System.out.println(character.GetFullName() + " the " + character.GetName() + " shields "
-                        + target.GetFullName() + " the " + target.GetName() + "!");
+                System.out.println(character.getFullName() + " the " + character.getName() + " shields "
+                        + target.getFullName() + " the " + target.getName() + "!");
             } else {
                 System.out.println("noob");
             }
@@ -150,7 +150,7 @@ public class RPGMain {
         }
     }
 
-    private void promptGuardian(Character character, Scanner Input, GameSystem gs, Displayer ds) {
+    private void promptGuardian(Character character, Scanner input, GameSystem gs, Displayer ds) {
 
         ActionContext ac = new ActionContext();
 
@@ -164,35 +164,35 @@ public class RPGMain {
             System.out.println("Ability 3 - Heal");
         }
         System.out.print("Choose ability: ");
-        int abilityChoice = Input.nextInt();
+        int abilityChoice = input.nextInt();
         if (abilityChoice == 1) {
             System.out.print("Choose x-coordinate of the obstacle you would like to create: ");
-            int x = Input.nextInt();
+            int x = input.nextInt();
             System.out.print("Choose y-coordinate of the obstacle you would like to create:");
-            int y = Input.nextInt();
-            ActionContext GuardAbility1 = new ActionContext(x, y, gs.GameBoard);
+            int y = input.nextInt();
+            ActionContext GuardAbility1 = new ActionContext(x, y, gs.gameBoard);
             boolean success = character.Ability1(GuardAbility1);
             if (success) {
-                System.out.println(character.GetFullName() + " the " + character.GetName() + " places an obstacle!");
-                ds.PrintGrid(gs.GameBoard);
+                System.out.println(character.getFullName() + " the " + character.getName() + " places an obstacle!");
+                ds.PrintGrid(gs.gameBoard);
             } else {
                 System.out
-                        .print(character.GetFullName() + " the " + character.GetName() + " fails to place an obstacle");
+                        .print(character.getFullName() + " the " + character.getName() + " fails to place an obstacle");
             }
         } else if (abilityChoice == 2) {
             if (character.CheckAbility2Possible(gs)) {
                 character.Ability2(ac);
-                System.out.println(character.GetFullName() + " the " + character.GetName() + " fortifies himself!");
+                System.out.println(character.getFullName() + " the " + character.getName() + " fortifies himself!");
             } else {
                 System.out
-                        .print(character.GetFullName() + " the " + character.GetName() + " fails to fortify himself!");
+                        .print(character.getFullName() + " the " + character.getName() + " fails to fortify himself!");
             }
         } else if (abilityChoice == 3) {
             if (character.CheckAbility3Possible(gs)) {
                 character.Ability3(ac);
-                System.out.print(character.GetFullName() + " the " + character.GetName() + " heals himself!");
+                System.out.print(character.getFullName() + " the " + character.getName() + " heals himself!");
             } else {
-                System.out.print(character.GetFullName() + " the " + character.GetName() + " fails to heal himself!");
+                System.out.print(character.getFullName() + " the " + character.getName() + " fails to heal himself!");
             }
         } else {
             System.out.println("s");
@@ -202,32 +202,32 @@ public class RPGMain {
     public static void main(String[] args) {
         GameSystem gs = new GameSystem();
         Displayer ds = new Displayer();
-        Scanner Input = new Scanner(System.in);
+        Scanner input = new Scanner(System.in);
         ActionContext ac = new ActionContext();
         Character c = new Character();
         RPGMain rpg = new RPGMain();
-        boolean GameRunning = true;
-        int PlayerChoice;
+        boolean gameRunning = true;
+        int playerChoice;
 
-        while (GameRunning) {
+        while (gameRunning) {
             System.out.println("Welcome to the RPG Game!");
             System.out.println("What would you like to do? \n1. Start Game \n2. Hall of fame\n3. Exit");
-            PlayerChoice = Input.nextInt();
-            if (PlayerChoice == 1) {
+            playerChoice = input.nextInt();
+            if (playerChoice == 1) {
                 for (int i = 1; i <= 2; i++) {
                     System.out.println("Initializing Player " + i + "'s team...");
                     for (int j = 0; j < 3; j++) {
-                        boolean HasSelected = false;
-                        int SelectedClass = -1;
-                        Character ClasslesCharacter = new Character().GenerateCharacter();
-                        ClasslesCharacter.SetTeam(i);
+                        boolean hasSelected = false;
+                        int selectedClass = -1;
+                        Character classlessCharacter = new Character().GenerateCharacter();
+                        classlessCharacter.SetTeam(i);
 
-                        while (!HasSelected) {
+                        while (!hasSelected) {
                             System.out.println("Character " + (j + 1) + ":");
-                            ds.PrintInitialStats(new Character[] { ClasslesCharacter });
+                            ds.PrintInitialStats(new Character[] { classlessCharacter });
                             System.out.println(
                                     "Which class would you like your character to be? (can back out) \n1. Necromancer \n2. Healer \n3. Crusader \n4. Barbarian \n5. Paladin \n6. Guardian");
-                            int Choice = Input.nextInt();
+                            int Choice = input.nextInt();
                             if (Choice == 1) {
                                 System.out.println(
                                         "Necromancer \nA disturbed warlock who conjures and manipulates the dead. \nAbilities: \nAbility 1: Summon Minion - Summons a weak minion to fight. ");
@@ -236,10 +236,10 @@ public class RPGMain {
                                 System.out.println(
                                         "Stat buffs: \n-1 speed\n+3 intelligence\n+1 attack\n+2 spirit\n+1 health\n+2 spellpower");
                                 System.out.println("Would you like to select this class? (y/N)");
-                                String confirm = Input.next();
+                                String confirm = input.next();
                                 if (confirm.equalsIgnoreCase("Y")) {
-                                    SelectedClass = 1;
-                                    HasSelected = true;
+                                    selectedClass = 1;
+                                    hasSelected = true;
                                 } else {
                                     System.out.println("Returning to selection.");
                                 }
@@ -251,10 +251,10 @@ public class RPGMain {
                                 System.out.println(
                                         "Stat buffs: \n+0 speed\n+3 intelligence\n-1 attack\n+3 spirit\n+2 health\n+1 spellpower");
                                 System.out.println("Would you like to select this class? (y/N)");
-                                String confirm = Input.next();
+                                String confirm = input.next();
                                 if (confirm.equalsIgnoreCase("Y")) {
-                                    SelectedClass = 2;
-                                    HasSelected = true;
+                                    selectedClass = 2;
+                                    hasSelected = true;
                                 } else {
                                     System.out.println("Returning to selection.");
                                 }
@@ -268,10 +268,10 @@ public class RPGMain {
                                 System.out.println(
                                         "Stat buffs: \n+0 speed\n+2 intelligence\n+1 attack\n+1 spirit\n+3 health\n+1 spellpower");
                                 System.out.println("Would you like to select this class? (y/N)");
-                                String confirm = Input.next();
+                                String confirm = input.next();
                                 if (confirm.equalsIgnoreCase("Y")) {
-                                    SelectedClass = 3;
-                                    HasSelected = true;
+                                    selectedClass = 3;
+                                    hasSelected = true;
                                 } else {
                                     System.out.println("Returning to selection.");
                                 }
@@ -283,10 +283,10 @@ public class RPGMain {
                                 System.out.println(
                                         "Stat buffs: \n+2 speed\n-1 intelligence\n+8 attack\n+1 spirit\n-2 health\n+0 spellpower");
                                 System.out.println("Would you like to select this class? (y/N)");
-                                String confirm = Input.next();
+                                String confirm = input.next();
                                 if (confirm.equalsIgnoreCase("Y")) {
-                                    SelectedClass = 4;
-                                    HasSelected = true;
+                                    selectedClass = 4;
+                                    hasSelected = true;
                                 } else {
                                     System.out.println("Returning to selection.");
                                 }
@@ -298,10 +298,10 @@ public class RPGMain {
                                 System.out.println(
                                         "Stat buffs: \n+0 speed\n+2 intelligence\n+0 attack\n+1 spirit\n+5 health\n+1 spellpower");
                                 System.out.println("Would you like to select this class? (y/N)");
-                                String confirm = Input.next();
+                                String confirm = input.next();
                                 if (confirm.equalsIgnoreCase("Y")) {
-                                    SelectedClass = 5;
-                                    HasSelected = true;
+                                    selectedClass = 5;
+                                    hasSelected = true;
                                 } else {
                                     System.out.println("Returning to selection.");
                                 }
@@ -313,10 +313,10 @@ public class RPGMain {
                                 System.out.println(
                                         "Stat buffs: \n+0 speed\n+3 intelligence\n-1 attack\n+3 spirit\n+2 health\n+1 spellpower");
                                 System.out.println("Would you like to select this class? (y/N)");
-                                String confirm = Input.next();
+                                String confirm = input.next();
                                 if (confirm.equalsIgnoreCase("Y")) {
-                                    SelectedClass = 6;
-                                    HasSelected = true;
+                                    selectedClass = 6;
+                                    hasSelected = true;
                                 } else {
                                     System.out.println("Returning to selection.");
                                 }
@@ -324,49 +324,49 @@ public class RPGMain {
                                 System.out.println("Invalid Choice, please try again.");
                             }
                         }
-                        if (SelectedClass == 1) {
+                        if (selectedClass == 1) {
                             if (i == 1) {
-                                gs.Player1.PlayerTeam[j] = new Necromancer(ClasslesCharacter, i);
+                                gs.player1.PlayerTeam[j] = new Necromancer(classlessCharacter, i);
                             } else {
-                                gs.Player2.PlayerTeam[j] = new Necromancer(ClasslesCharacter, i);
+                                gs.player2.PlayerTeam[j] = new Necromancer(classlessCharacter, i);
                             }
-                        } else if (SelectedClass == 2) {
+                        } else if (selectedClass == 2) {
                             if (i == 1) {
-                                gs.Player1.PlayerTeam[j] = new Healer(ClasslesCharacter, i);
+                                gs.player1.PlayerTeam[j] = new Healer(classlessCharacter, i);
                             } else {
-                                gs.Player2.PlayerTeam[j] = new Healer(ClasslesCharacter, i);
+                                gs.player2.PlayerTeam[j] = new Healer(classlessCharacter, i);
                             }
-                        } else if (SelectedClass == 3) {
+                        } else if (selectedClass == 3) {
                             if (i == 1) {
-                                gs.Player1.PlayerTeam[j] = new Crusader(ClasslesCharacter, i);
+                                gs.player1.PlayerTeam[j] = new Crusader(classlessCharacter, i);
                             } else {
-                                gs.Player2.PlayerTeam[j] = new Crusader(ClasslesCharacter, i);
+                                gs.player2.PlayerTeam[j] = new Crusader(classlessCharacter, i);
                             }
-                        } else if (SelectedClass == 4) {
+                        } else if (selectedClass == 4) {
                             if (i == 1) {
-                                gs.Player1.PlayerTeam[j] = new Barbarian(ClasslesCharacter, i);
+                                gs.player1.PlayerTeam[j] = new Barbarian(classlessCharacter, i);
                             } else {
-                                gs.Player2.PlayerTeam[j] = new Barbarian(ClasslesCharacter, i);
+                                gs.player2.PlayerTeam[j] = new Barbarian(classlessCharacter, i);
                             }
-                        } else if (SelectedClass == 5) {
+                        } else if (selectedClass == 5) {
                             if (i == 1) {
-                                gs.Player1.PlayerTeam[j] = new Paladin(ClasslesCharacter, i);
+                                gs.player1.PlayerTeam[j] = new Paladin(classlessCharacter, i);
                             } else {
-                                gs.Player2.PlayerTeam[j] = new Paladin(ClasslesCharacter, i);
+                                gs.player2.PlayerTeam[j] = new Paladin(classlessCharacter, i);
                             }
-                        } else if (SelectedClass == 6) {
+                        } else if (selectedClass == 6) {
                             if (i == 1) {
-                                gs.Player1.PlayerTeam[j] = new Guardian(ClasslesCharacter, i);
+                                gs.player1.PlayerTeam[j] = new Guardian(classlessCharacter, i);
                             } else {
-                                gs.Player2.PlayerTeam[j] = new Guardian(ClasslesCharacter, i);
+                                gs.player2.PlayerTeam[j] = new Guardian(classlessCharacter, i);
                             }
                         }
                     } // End of generating 3 characters
                     System.out.println("PLAYER " + i + " TEAM:");
                     if (i == 1) {
-                        ds.PrintInitialStats(gs.Player1.PlayerTeam);
+                        ds.PrintInitialStats(gs.player1.PlayerTeam);
                     } else {
-                        ds.PrintInitialStats(gs.Player2.PlayerTeam);
+                        ds.PrintInitialStats(gs.player2.PlayerTeam);
                     }
                     if (i == 1) {
                         System.out.println(
@@ -374,325 +374,325 @@ public class RPGMain {
                     } else {
                         System.out.println("Teams initialized. Press [ENTER] to continue.");
                     }
-                    Input.nextLine();
-                    Input.nextLine();
+                    input.nextLine();
+                    input.nextLine();
                 } // End of generating 2 teams
-                gs.Player1.PlayerTeam[0].SetPosition(new int[] { 0, 0 }, gs.GameBoard);
-                gs.Player1.PlayerTeam[1].SetPosition(new int[] { 1, 0 }, gs.GameBoard);
-                gs.Player1.PlayerTeam[2].SetPosition(new int[] { 0, 1 }, gs.GameBoard);
-                gs.Player2.PlayerTeam[0].SetPosition(new int[] { 7, 7 }, gs.GameBoard);
-                gs.Player2.PlayerTeam[1].SetPosition(new int[] { 6, 7 }, gs.GameBoard);
-                gs.Player2.PlayerTeam[2].SetPosition(new int[] { 7, 6 }, gs.GameBoard);
+                gs.player1.PlayerTeam[0].SetPosition(new int[] { 0, 0 }, gs.gameBoard);
+                gs.player1.PlayerTeam[1].SetPosition(new int[] { 1, 0 }, gs.gameBoard);
+                gs.player1.PlayerTeam[2].SetPosition(new int[] { 0, 1 }, gs.gameBoard);
+                gs.player2.PlayerTeam[0].SetPosition(new int[] { 7, 7 }, gs.gameBoard);
+                gs.player2.PlayerTeam[1].SetPosition(new int[] { 6, 7 }, gs.gameBoard);
+                gs.player2.PlayerTeam[2].SetPosition(new int[] { 7, 6 }, gs.gameBoard);
                 gs.PopulateGameBoard(7, 7);
-                ds.PrintGrid(gs.GameBoard);
+                ds.PrintGrid(gs.gameBoard);
                 while (!gs.CheckPlayer1Win() && !gs.CheckPlayer2Win() ) {
                     int p1TotalSpeed = 0;
                     int p2TotalSpeed = 0;
                     for (int i = 0; i < 3; i++) {
-                        p1TotalSpeed += gs.Player1.PlayerTeam[i].GetSpd();
-                        p2TotalSpeed += gs.Player2.PlayerTeam[i].GetSpd();
+                        p1TotalSpeed += gs.player1.PlayerTeam[i].getSpd();
+                        p2TotalSpeed += gs.player2.PlayerTeam[i].getSpd();
                     }
                     if (p1TotalSpeed >= p2TotalSpeed) {
                         // --- PLAYER 1 GOES FIRST ---
                         System.out.println("Player 1 speed: " + p1TotalSpeed + "\nPlayer 2 speed: " + p2TotalSpeed);
-                        int maxSpdIndexP1 = c.GetMaxSpeedIndex(gs.Player1.PlayerTeam);
-                        int medSpdIndexP1 = c.getMedianSpeedIndex(maxSpdIndexP1, gs.Player1.PlayerTeam);
+                        int maxSpdIndexP1 = c.getMaxSpeedIndex(gs.player1.PlayerTeam);
+                        int medSpdIndexP1 = c.getMedianSpeedIndex(maxSpdIndexP1, gs.player1.PlayerTeam);
                         int lowSpdIndexP1 = 0;
                         for (int i = 0; i < 3; i++) {
                             if (i != maxSpdIndexP1 && i != medSpdIndexP1) {
                                 lowSpdIndexP1 = i;
                             }
                         }
-                        Character maxSpdCharacter = gs.Player1.PlayerTeam[maxSpdIndexP1];
-                        Character medSpdCharacter = gs.Player1.PlayerTeam[medSpdIndexP1];
-                        Character lowSpdCharacter = gs.Player1.PlayerTeam[lowSpdIndexP1];
+                        Character maxSpdCharacter = gs.player1.PlayerTeam[maxSpdIndexP1];
+                        Character medSpdCharacter = gs.player1.PlayerTeam[medSpdIndexP1];
+                        Character lowSpdCharacter = gs.player1.PlayerTeam[lowSpdIndexP1];
                         System.out.println("Player 1 starts! Press [ENTER] to continue.");
-                        Input.nextLine();
-                        if (maxSpdCharacter.GetIsAlive() && !maxSpdCharacter.GetIsStunned()) {
-                            rpg.promptMove(maxSpdCharacter, Input, gs, ds);
+                        input.nextLine();
+                        if (maxSpdCharacter.getIsAlive() && !maxSpdCharacter.getIsStunned()) {
+                            rpg.promptMove(maxSpdCharacter, input, gs, ds);
                             if (maxSpdCharacter.CheckAbility1Possible(gs) || maxSpdCharacter.CheckAbility2Possible(gs)
                                     || maxSpdCharacter.CheckAbility3Possible(gs)) {
                                 if (maxSpdCharacter instanceof Barbarian) {
-                                    rpg.promptBarbarian(maxSpdCharacter, Input, gs, ds);
+                                    rpg.promptBarbarian(maxSpdCharacter, input, gs, ds);
                                 } else if (maxSpdCharacter instanceof Crusader) {
-                                    rpg.promptCrusader(maxSpdCharacter, Input, gs, ds);
+                                    rpg.promptCrusader(maxSpdCharacter, input, gs, ds);
                                 } else if (maxSpdCharacter instanceof Guardian) {
-                                    rpg.promptGuardian(maxSpdCharacter, Input, gs, ds);
+                                    rpg.promptGuardian(maxSpdCharacter, input, gs, ds);
                                 } else if (maxSpdCharacter instanceof Healer) {
-                                    rpg.promptHealer(maxSpdCharacter, Input, gs, ds);
+                                    rpg.promptHealer(maxSpdCharacter, input, gs, ds);
                                 } else if (maxSpdCharacter instanceof Necromancer) {
                                 } else {
                                 }
                             } else {
-                                System.out.println(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName()
+                                System.out.println(maxSpdCharacter.getFullName() + " the " + maxSpdCharacter.getName()
                                         + " cannot cast any abilities this round.");
                             }
                         }
-                        if (medSpdCharacter.GetIsAlive() && !medSpdCharacter.GetIsStunned()) {
-                            rpg.promptMove(medSpdCharacter, Input, gs, ds);
+                        if (medSpdCharacter.getIsAlive() && !medSpdCharacter.getIsStunned()) {
+                            rpg.promptMove(medSpdCharacter, input, gs, ds);
                             if (medSpdCharacter.CheckAbility1Possible(gs) || medSpdCharacter.CheckAbility2Possible(gs)
                                     || medSpdCharacter.CheckAbility3Possible(gs)) {
                                 if (medSpdCharacter instanceof Barbarian) {
-                                    rpg.promptBarbarian(medSpdCharacter, Input, gs, ds);
+                                    rpg.promptBarbarian(medSpdCharacter, input, gs, ds);
                                 } else if (medSpdCharacter instanceof Crusader) {
-                                    rpg.promptCrusader(medSpdCharacter, Input, gs, ds);
+                                    rpg.promptCrusader(medSpdCharacter, input, gs, ds);
                                 } else if (medSpdCharacter instanceof Guardian) {
-                                    rpg.promptGuardian(medSpdCharacter, Input, gs, ds);
+                                    rpg.promptGuardian(medSpdCharacter, input, gs, ds);
                                 } else if (medSpdCharacter instanceof Healer) {
-                                    rpg.promptHealer(medSpdCharacter, Input, gs, ds);
+                                    rpg.promptHealer(medSpdCharacter, input, gs, ds);
                                 } else if (medSpdCharacter instanceof Necromancer) {
                                 } else {
                                 }
                             } else {
-                                System.out.println(medSpdCharacter.GetFullName() + " the " + medSpdCharacter.GetName()
+                                System.out.println(medSpdCharacter.getFullName() + " the " + medSpdCharacter.getName()
                                         + " cannot cast any abilities this round.");
                             }
                         }
-                        if (lowSpdCharacter.GetIsAlive() && !lowSpdCharacter.GetIsStunned()) {
-                            rpg.promptMove(medSpdCharacter, Input, gs, ds);
+                        if (lowSpdCharacter.getIsAlive() && !lowSpdCharacter.getIsStunned()) {
+                            rpg.promptMove(lowSpdCharacter, input, gs, ds);
                             if (lowSpdCharacter.CheckAbility1Possible(gs) || lowSpdCharacter.CheckAbility2Possible(gs)
                                     || lowSpdCharacter.CheckAbility3Possible(gs)) {
                                 if (lowSpdCharacter instanceof Barbarian) {
-                                    rpg.promptBarbarian(lowSpdCharacter, Input, gs, ds);
+                                    rpg.promptBarbarian(lowSpdCharacter, input, gs, ds);
                                 } else if (lowSpdCharacter instanceof Crusader) {
-                                    rpg.promptCrusader(lowSpdCharacter, Input, gs, ds);
+                                    rpg.promptCrusader(lowSpdCharacter, input, gs, ds);
                                 } else if (lowSpdCharacter instanceof Guardian) {
-                                    rpg.promptGuardian(lowSpdCharacter, Input, gs, ds);
+                                    rpg.promptGuardian(lowSpdCharacter, input, gs, ds);
                                 } else if (lowSpdCharacter instanceof Healer) {
-                                    rpg.promptHealer(lowSpdCharacter, Input, gs, ds);
+                                    rpg.promptHealer(lowSpdCharacter, input, gs, ds);
                                 } else if (lowSpdCharacter instanceof Necromancer) {
                                 } else {
                                 }
                             } else {
-                                System.out.println(lowSpdCharacter.GetFullName() + " the " + lowSpdCharacter.GetName()
+                                System.out.println(lowSpdCharacter.getFullName() + " the " + lowSpdCharacter.getName()
                                         + " cannot cast any abilities this round.");
                             }
                         }
                         // --- PLAYER 2 GOES SECOND ---
                         System.out.println("Player 2's turn. Press [ENTER] to continue.");
-                        Input.nextLine();
-                        int maxSpdIndexP2 = c.GetMaxSpeedIndex(gs.Player2.PlayerTeam);
-                        int medSpdIndexP2 = c.getMedianSpeedIndex(maxSpdIndexP2, gs.Player2.PlayerTeam);
+                        input.nextLine();
+                        int maxSpdIndexP2 = c.getMaxSpeedIndex(gs.player2.PlayerTeam);
+                        int medSpdIndexP2 = c.getMedianSpeedIndex(maxSpdIndexP2, gs.player2.PlayerTeam);
                         int lowSpdIndexP2 = 0;
                         for (int i = 0; i < 3; i++) {
                             if (i != maxSpdIndexP2 && i != medSpdIndexP2) {
                                 lowSpdIndexP2 = i;
                             }
                         }
-                        maxSpdCharacter = gs.Player2.PlayerTeam[maxSpdIndexP2];
-                        medSpdCharacter = gs.Player2.PlayerTeam[medSpdIndexP2];
-                        lowSpdCharacter = gs.Player2.PlayerTeam[lowSpdIndexP2];
-                        if (maxSpdCharacter.GetIsAlive() && !maxSpdCharacter.GetIsStunned()) {
-                            rpg.promptMove(maxSpdCharacter, Input, gs, ds);
+                        maxSpdCharacter = gs.player2.PlayerTeam[maxSpdIndexP2];
+                        medSpdCharacter = gs.player2.PlayerTeam[medSpdIndexP2];
+                        lowSpdCharacter = gs.player2.PlayerTeam[lowSpdIndexP2];
+                        if (maxSpdCharacter.getIsAlive() && !maxSpdCharacter.getIsStunned()) {
+                            rpg.promptMove(maxSpdCharacter, input, gs, ds);
                             if (maxSpdCharacter.CheckAbility1Possible(gs) || maxSpdCharacter.CheckAbility2Possible(gs)
                                     || maxSpdCharacter.CheckAbility3Possible(gs)) {
                                 if (maxSpdCharacter instanceof Barbarian) {
-                                    rpg.promptBarbarian(maxSpdCharacter, Input, gs, ds);
+                                    rpg.promptBarbarian(maxSpdCharacter, input, gs, ds);
                                 } else if (maxSpdCharacter instanceof Crusader) {
-                                    rpg.promptCrusader(maxSpdCharacter, Input, gs, ds);
+                                    rpg.promptCrusader(maxSpdCharacter, input, gs, ds);
                                 } else if (maxSpdCharacter instanceof Guardian) {
-                                    rpg.promptGuardian(maxSpdCharacter, Input, gs, ds);
+                                    rpg.promptGuardian(maxSpdCharacter, input, gs, ds);
                                 } else if (maxSpdCharacter instanceof Healer) {
-                                    rpg.promptHealer(maxSpdCharacter, Input, gs, ds);
+                                    rpg.promptHealer(maxSpdCharacter, input, gs, ds);
                                 } else if (maxSpdCharacter instanceof Necromancer) {
                                 } else {
                                 }
                             } else {
-                                System.out.println(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName()
+                                System.out.println(maxSpdCharacter.getFullName() + " the " + maxSpdCharacter.getName()
                                         + " cannot cast any abilities this round.");
                             }
                         }
-                        if (medSpdCharacter.GetIsAlive() && !maxSpdCharacter.GetIsStunned()) {
-                            rpg.promptMove(medSpdCharacter, Input, gs, ds);
+                        if (medSpdCharacter.getIsAlive() && !maxSpdCharacter.getIsStunned()) {
+                            rpg.promptMove(medSpdCharacter, input, gs, ds);
                             if (medSpdCharacter.CheckAbility1Possible(gs) || medSpdCharacter.CheckAbility2Possible(gs)
                                     || medSpdCharacter.CheckAbility3Possible(gs)) {
                                 if (medSpdCharacter instanceof Barbarian) {
-                                    rpg.promptBarbarian(medSpdCharacter, Input, gs, ds);
+                                    rpg.promptBarbarian(medSpdCharacter, input, gs, ds);
                                 } else if (medSpdCharacter instanceof Crusader) {
-                                    rpg.promptCrusader(medSpdCharacter, Input, gs, ds);
+                                    rpg.promptCrusader(medSpdCharacter, input, gs, ds);
                                 } else if (medSpdCharacter instanceof Guardian) {
-                                    rpg.promptGuardian(medSpdCharacter, Input, gs, ds);
+                                    rpg.promptGuardian(medSpdCharacter, input, gs, ds);
                                 } else if (medSpdCharacter instanceof Healer) {
-                                    rpg.promptHealer(medSpdCharacter, Input, gs, ds);
+                                    rpg.promptHealer(medSpdCharacter, input, gs, ds);
                                 } else if (medSpdCharacter instanceof Necromancer) {
                                 } else {
                                 }
                             } else {
-                                System.out.println(medSpdCharacter.GetFullName() + " the " + medSpdCharacter.GetName()
+                                System.out.println(medSpdCharacter.getFullName() + " the " + medSpdCharacter.getName()
                                         + " cannot cast any abilities this round.");
                             }
                         }
-                        if (lowSpdCharacter.GetIsAlive() && !maxSpdCharacter.GetIsStunned()) {
-                            rpg.promptMove(lowSpdCharacter, Input, gs, ds);
+                        if (lowSpdCharacter.getIsAlive() && !maxSpdCharacter.getIsStunned()) {
+                            rpg.promptMove(lowSpdCharacter, input, gs, ds);
                             if (lowSpdCharacter.CheckAbility1Possible(gs) || lowSpdCharacter.CheckAbility2Possible(gs)
                                     || lowSpdCharacter.CheckAbility3Possible(gs)) {
                                 if (lowSpdCharacter instanceof Barbarian) {
-                                    rpg.promptBarbarian(lowSpdCharacter, Input, gs, ds);
+                                    rpg.promptBarbarian(lowSpdCharacter, input, gs, ds);
                                 } else if (lowSpdCharacter instanceof Crusader) {
-                                    rpg.promptCrusader(lowSpdCharacter, Input, gs, ds);
+                                    rpg.promptCrusader(lowSpdCharacter, input, gs, ds);
                                 } else if (lowSpdCharacter instanceof Guardian) {
-                                    rpg.promptGuardian(lowSpdCharacter, Input, gs, ds);
+                                    rpg.promptGuardian(lowSpdCharacter, input, gs, ds);
                                 } else if (lowSpdCharacter instanceof Healer) {
-                                    rpg.promptHealer(medSpdCharacter, Input, gs, ds);
+                                    rpg.promptHealer(medSpdCharacter, input, gs, ds);
                                 } else if (lowSpdCharacter instanceof Necromancer) {
                                     // promptNecromancer
                                 } else {
                                     // promptPaladin
                                 }
                             } else {
-                                System.out.println(lowSpdCharacter.GetFullName() + " the " + lowSpdCharacter.GetName()
+                                System.out.println(lowSpdCharacter.getFullName() + " the " + lowSpdCharacter.getName()
                                         + " cannot cast any abilities this round.");
                             }
                         }
                     } else {
                         // --- PLAYER 2 GOES FIRST ---
                         System.out.println("Player 2 speed: " + p2TotalSpeed + "\nPlayer 1 speed: " + p1TotalSpeed);
-                        int maxSpdIndexP2 = c.GetMaxSpeedIndex(gs.Player2.PlayerTeam);
-                        int medSpdIndexP2 = c.getMedianSpeedIndex(maxSpdIndexP2, gs.Player2.PlayerTeam);
+                        int maxSpdIndexP2 = c.getMaxSpeedIndex(gs.player2.PlayerTeam);
+                        int medSpdIndexP2 = c.getMedianSpeedIndex(maxSpdIndexP2, gs.player2.PlayerTeam);
                         int lowSpdIndexP2 = 0;
                         for (int i = 0; i < 3; i++) {
                             if (i != maxSpdIndexP2 && i != medSpdIndexP2) {
                                 lowSpdIndexP2 = i;
                             }
                         }
-                        Character maxSpdCharacter = gs.Player2.PlayerTeam[maxSpdIndexP2];
-                        Character medSpdCharacter = gs.Player2.PlayerTeam[medSpdIndexP2];
-                        Character lowSpdCharacter = gs.Player2.PlayerTeam[lowSpdIndexP2];
+                        Character maxSpdCharacter = gs.player2.PlayerTeam[maxSpdIndexP2];
+                        Character medSpdCharacter = gs.player2.PlayerTeam[medSpdIndexP2];
+                        Character lowSpdCharacter = gs.player2.PlayerTeam[lowSpdIndexP2];
                         System.out.println("Player 2 starts! Press [ENTER] to continue.");
-                        Input.nextLine();
-                        if (maxSpdCharacter.GetIsAlive() && !maxSpdCharacter.GetIsStunned()) {
-                            rpg.promptMove(maxSpdCharacter, Input, gs, ds);
+                        input.nextLine();
+                        if (maxSpdCharacter.getIsAlive() && !maxSpdCharacter.getIsStunned()) {
+                            rpg.promptMove(maxSpdCharacter, input, gs, ds);
                             if (maxSpdCharacter.CheckAbility1Possible(gs) || maxSpdCharacter.CheckAbility2Possible(gs)
                                     || maxSpdCharacter.CheckAbility3Possible(gs)) {
                                 if (maxSpdCharacter instanceof Barbarian) {
-                                    rpg.promptBarbarian(maxSpdCharacter, Input, gs, ds);
+                                    rpg.promptBarbarian(maxSpdCharacter, input, gs, ds);
                                 } else if (maxSpdCharacter instanceof Crusader) {
-                                    rpg.promptCrusader(maxSpdCharacter, Input, gs, ds);
+                                    rpg.promptCrusader(maxSpdCharacter, input, gs, ds);
                                 } else if (maxSpdCharacter instanceof Guardian) {
-                                    rpg.promptGuardian(maxSpdCharacter, Input, gs, ds);
+                                    rpg.promptGuardian(maxSpdCharacter, input, gs, ds);
                                 } else if (maxSpdCharacter instanceof Healer) {
-                                    rpg.promptHealer(maxSpdCharacter, Input, gs, ds);
+                                    rpg.promptHealer(maxSpdCharacter, input, gs, ds);
                                 } else if (maxSpdCharacter instanceof Necromancer) {
                                 } else {
                                 }
                             } else {
-                                System.out.println(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName()
+                                System.out.println(maxSpdCharacter.getFullName() + " the " + maxSpdCharacter.getName()
                                         + " cannot cast any abilities this round.");
                             }
                         }
-                        if (medSpdCharacter.GetIsAlive() && !medSpdCharacter.GetIsStunned()) {
-                            rpg.promptMove(medSpdCharacter, Input, gs, ds);
+                        if (medSpdCharacter.getIsAlive() && !medSpdCharacter.getIsStunned()) {
+                            rpg.promptMove(medSpdCharacter, input, gs, ds);
                             if (medSpdCharacter.CheckAbility1Possible(gs) || medSpdCharacter.CheckAbility2Possible(gs)
                                     || medSpdCharacter.CheckAbility3Possible(gs)) {
                                 if (medSpdCharacter instanceof Barbarian) {
-                                    rpg.promptBarbarian(medSpdCharacter, Input, gs, ds);
+                                    rpg.promptBarbarian(medSpdCharacter, input, gs, ds);
                                 } else if (medSpdCharacter instanceof Crusader) {
-                                    rpg.promptCrusader(medSpdCharacter, Input, gs, ds);
+                                    rpg.promptCrusader(medSpdCharacter, input, gs, ds);
                                 } else if (medSpdCharacter instanceof Guardian) {
-                                    rpg.promptGuardian(medSpdCharacter, Input, gs, ds);
+                                    rpg.promptGuardian(medSpdCharacter, input, gs, ds);
                                 } else if (medSpdCharacter instanceof Healer) {
-                                    rpg.promptHealer(medSpdCharacter, Input, gs, ds);
+                                    rpg.promptHealer(medSpdCharacter, input, gs, ds);
                                 } else if (medSpdCharacter instanceof Necromancer) {
                                 } else {
                                 }
                             } else {
-                                System.out.println(medSpdCharacter.GetFullName() + " the " + medSpdCharacter.GetName()
+                                System.out.println(medSpdCharacter.getFullName() + " the " + medSpdCharacter.getName()
                                         + " cannot cast any abilities this round.");
                             }
                         }
-                        if (lowSpdCharacter.GetIsAlive() && !lowSpdCharacter.GetIsStunned()) {
-                            rpg.promptMove(lowSpdCharacter, Input, gs, ds);
+                        if (lowSpdCharacter.getIsAlive() && !lowSpdCharacter.getIsStunned()) {
+                            rpg.promptMove(lowSpdCharacter, input, gs, ds);
                             if (lowSpdCharacter.CheckAbility1Possible(gs) || lowSpdCharacter.CheckAbility2Possible(gs)
                                     || lowSpdCharacter.CheckAbility3Possible(gs)) {
                                 if (lowSpdCharacter instanceof Barbarian) {
-                                    rpg.promptBarbarian(lowSpdCharacter, Input, gs, ds);
+                                    rpg.promptBarbarian(lowSpdCharacter, input, gs, ds);
                                 } else if (lowSpdCharacter instanceof Crusader) {
-                                    rpg.promptCrusader(lowSpdCharacter, Input, gs, ds);
+                                    rpg.promptCrusader(lowSpdCharacter, input, gs, ds);
                                 } else if (lowSpdCharacter instanceof Guardian) {
-                                    rpg.promptGuardian(lowSpdCharacter, Input, gs, ds);
+                                    rpg.promptGuardian(lowSpdCharacter, input, gs, ds);
                                 } else if (lowSpdCharacter instanceof Healer) {
-                                    rpg.promptHealer(lowSpdCharacter, Input, gs, ds);
+                                    rpg.promptHealer(lowSpdCharacter, input, gs, ds);
                                 } else if (lowSpdCharacter instanceof Necromancer) {
                                 } else {
                                 }
                             } else {
-                                System.out.println(lowSpdCharacter.GetFullName() + " the " + lowSpdCharacter.GetName()
+                                System.out.println(lowSpdCharacter.getFullName() + " the " + lowSpdCharacter.getName()
                                         + " cannot cast any abilities this round.");
                             }
                         }
                         // --- PLAYER 1 GOES SECOND ---
                         System.out.println("Player 1's turn. Press [ENTER] to continue.");
-                        Input.nextLine();
-                        int maxSpdIndexP1 = c.GetMaxSpeedIndex(gs.Player1.PlayerTeam);
-                        int medSpdIndexP1 = c.getMedianSpeedIndex(maxSpdIndexP1, gs.Player1.PlayerTeam);
+                        input.nextLine();
+                        int maxSpdIndexP1 = c.getMaxSpeedIndex(gs.player1.PlayerTeam);
+                        int medSpdIndexP1 = c.getMedianSpeedIndex(maxSpdIndexP1, gs.player1.PlayerTeam);
                         int lowSpdIndexP1 = 0;
                         for (int i = 0; i < 3; i++) {
                             if (i != maxSpdIndexP1 && i != medSpdIndexP1) {
                                 lowSpdIndexP1 = i;
                             }
                         }
-                        maxSpdCharacter = gs.Player1.PlayerTeam[maxSpdIndexP1];
-                        medSpdCharacter = gs.Player1.PlayerTeam[medSpdIndexP1];
-                        lowSpdCharacter = gs.Player1.PlayerTeam[lowSpdIndexP1];
-                        if (maxSpdCharacter.GetIsAlive() && !maxSpdCharacter.GetIsStunned()) {
-                            rpg.promptMove(maxSpdCharacter, Input, gs, ds);
+                        maxSpdCharacter = gs.player1.PlayerTeam[maxSpdIndexP1];
+                        medSpdCharacter = gs.player1.PlayerTeam[medSpdIndexP1];
+                        lowSpdCharacter = gs.player1.PlayerTeam[lowSpdIndexP1];
+                        if (maxSpdCharacter.getIsAlive() && !maxSpdCharacter.getIsStunned()) {
+                            rpg.promptMove(maxSpdCharacter, input, gs, ds);
                             if (maxSpdCharacter.CheckAbility1Possible(gs) || maxSpdCharacter.CheckAbility2Possible(gs)
                                     || maxSpdCharacter.CheckAbility3Possible(gs)) {
                                 if (maxSpdCharacter instanceof Barbarian) {
-                                    rpg.promptBarbarian(maxSpdCharacter, Input, gs, ds);
+                                    rpg.promptBarbarian(maxSpdCharacter, input, gs, ds);
                                 } else if (maxSpdCharacter instanceof Crusader) {
-                                    rpg.promptCrusader(maxSpdCharacter, Input, gs, ds);
+                                    rpg.promptCrusader(maxSpdCharacter, input, gs, ds);
                                 } else if (maxSpdCharacter instanceof Guardian) {
-                                    rpg.promptGuardian(maxSpdCharacter, Input, gs, ds);
+                                    rpg.promptGuardian(maxSpdCharacter, input, gs, ds);
                                 } else if (maxSpdCharacter instanceof Healer) {
-                                    rpg.promptHealer(maxSpdCharacter, Input, gs, ds);
+                                    rpg.promptHealer(maxSpdCharacter, input, gs, ds);
                                 } else if (maxSpdCharacter instanceof Necromancer) {
                                 } else {
                                 }
                             } else {
-                                System.out.println(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName()
+                                System.out.println(maxSpdCharacter.getFullName() + " the " + maxSpdCharacter.getName()
                                         + " cannot cast any abilities this round.");
                             }
                         }
-                        if (medSpdCharacter.GetIsAlive() && !maxSpdCharacter.GetIsStunned()) {
-                            rpg.promptMove(medSpdCharacter, Input, gs, ds);
+                        if (medSpdCharacter.getIsAlive() && !maxSpdCharacter.getIsStunned()) {
+                            rpg.promptMove(medSpdCharacter, input, gs, ds);
                             if (medSpdCharacter.CheckAbility1Possible(gs) || medSpdCharacter.CheckAbility2Possible(gs)
                                     || medSpdCharacter.CheckAbility3Possible(gs)) {
                                 if (medSpdCharacter instanceof Barbarian) {
-                                    rpg.promptBarbarian(medSpdCharacter, Input, gs, ds);
+                                    rpg.promptBarbarian(medSpdCharacter, input, gs, ds);
                                 } else if (medSpdCharacter instanceof Crusader) {
-                                    rpg.promptCrusader(medSpdCharacter, Input, gs, ds);
+                                    rpg.promptCrusader(medSpdCharacter, input, gs, ds);
                                 } else if (medSpdCharacter instanceof Guardian) {
-                                    rpg.promptGuardian(medSpdCharacter, Input, gs, ds);
+                                    rpg.promptGuardian(medSpdCharacter, input, gs, ds);
                                 } else if (medSpdCharacter instanceof Healer) {
-                                    rpg.promptHealer(medSpdCharacter, Input, gs, ds);
+                                    rpg.promptHealer(medSpdCharacter, input, gs, ds);
                                 } else if (medSpdCharacter instanceof Necromancer) {
                                 } else {
                                 }
                             } else {
-                                System.out.println(medSpdCharacter.GetFullName() + " the " + medSpdCharacter.GetName()
+                                System.out.println(medSpdCharacter.getFullName() + " the " + medSpdCharacter.getName()
                                         + " cannot cast any abilities this round.");
                             }
                         }
-                        if (lowSpdCharacter.GetIsAlive() && !maxSpdCharacter.GetIsStunned()) {
-                            rpg.promptMove(lowSpdCharacter, Input, gs, ds);
+                        if (lowSpdCharacter.getIsAlive() && !maxSpdCharacter.getIsStunned()) {
+                            rpg.promptMove(lowSpdCharacter, input, gs, ds);
                             if (lowSpdCharacter.CheckAbility1Possible(gs) || lowSpdCharacter.CheckAbility2Possible(gs)
                                     || lowSpdCharacter.CheckAbility3Possible(gs)) {
                                 if (lowSpdCharacter instanceof Barbarian) {
-                                    rpg.promptBarbarian(lowSpdCharacter, Input, gs, ds);
+                                    rpg.promptBarbarian(lowSpdCharacter, input, gs, ds);
                                 } else if (lowSpdCharacter instanceof Crusader) {
-                                    rpg.promptCrusader(lowSpdCharacter, Input, gs, ds);
+                                    rpg.promptCrusader(lowSpdCharacter, input, gs, ds);
                                 } else if (lowSpdCharacter instanceof Guardian) {
-                                    rpg.promptGuardian(lowSpdCharacter, Input, gs, ds);
+                                    rpg.promptGuardian(lowSpdCharacter, input, gs, ds);
                                 } else if (lowSpdCharacter instanceof Healer) {
-                                    rpg.promptHealer(medSpdCharacter, Input, gs, ds);
+                                    rpg.promptHealer(medSpdCharacter, input, gs, ds);
                                 } else if (lowSpdCharacter instanceof Necromancer) {
                                     // promptNecromancer
                                 } else {
                                     // promptPaladin
                                 }
                             } else {
-                                System.out.println(lowSpdCharacter.GetFullName() + " the " + lowSpdCharacter.GetName()
+                                System.out.println(lowSpdCharacter.getFullName() + " the " + lowSpdCharacter.getName()
                                         + " cannot cast any abilities this round.");
                             }
                         }
@@ -700,13 +700,13 @@ public class RPGMain {
                 }
                 if ( gs.CheckPlayer1Win() ) {
                     System.out.println("Player 1 wins!");
-                    GameRunning = false;
+                    gameRunning = false;
                 } else if ( gs.CheckPlayer2Win() ) {
                     System.out.println("Player 2 wins!");
-                    GameRunning = false;
+                    gameRunning = false;
                 }
             } // TODO add the other two options
         } // STOP RUNNING
-        Input.close();
+        input.close();
     }
 }
