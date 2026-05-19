@@ -11,11 +11,13 @@ public class Entity {
     public Character character;
     private int team = 0;
     int[] position = new int[2];
-    // Final variables for the getObject() method
+    // Final variables for the GetObject() method
+    public final static int MINION = 4;
     public final static int FOOD = 3;
     public final static int OBSTACLE = 2;
     public final static int CHARACTER = 1;
-    public final static int MINION = 1;
+    public final static int NONE = 0;
+    
     public Entity(String name, boolean isFood, boolean isObstacle, boolean isCharacter, boolean isMinion) {
         this.name = name;
         this.isFood = isFood;
@@ -51,7 +53,7 @@ public class Entity {
      * 2 = obstacle
      * 3 = food
      */
-    public int getObject() {
+    public int GetObject() {
         if (isFood) {
             return FOOD;
         } 
@@ -65,10 +67,10 @@ public class Entity {
             return MINION;
         } 
         else {
-            return 0;
+            return NONE;
         }
     }
-    public Character getCharacter() {
+    public Character GetCharacter() {
         return this.character;
     }
 
@@ -105,18 +107,18 @@ public class Entity {
         }
     }
 
-    public int[] getPosition() {
+    public int[] GetPosition() {
         return this.position;
     }
 
     /* 
      * Returns the name of the entity.
      */
-    public String getName() {
+    public String GetName() {
         return name;
     }
 
-    public String getFullName() {
+    public String GetFullName() {
         return fullName;
     }
     public void SetFullName(String fullName) {
@@ -129,15 +131,15 @@ public class Entity {
     public void SetName(String name) {
         this.name = name;
     }
-    public int getTeam() {
+    public int GetTeam() {
         return this.team;
     }
     public void SetTeam(int team) {
         this.team = team;
     }
     public boolean CheckRange(int range, Character target) {
-        int[] targetPos = target.getPosition();
-        int[] myPos = this.getPosition();
+        int[] targetPos = target.GetPosition();
+        int[] myPos = this.GetPosition();
 
         int x = Math.abs(targetPos[0] - myPos[0]);
         int y = Math.abs(targetPos[1] - myPos[1]);

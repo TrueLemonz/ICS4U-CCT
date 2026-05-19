@@ -65,9 +65,8 @@ public class Displayer {
                 String formattedName = "";
 
                 if (b != null && b.getEntity() != null) {
-                    int objectType = b.getEntity().getObject();
-                    if (objectType == 1) {
-                        formattedName = b.getEntity().getFullName();
+                    if (b.getEntity().GetObject() == Entity.CHARACTER) {
+                        formattedName = b.getEntity().GetFullName();
                     }
                 }
                 System.out.print("|" + centerString(formattedName, CELL_WIDTH));
@@ -80,7 +79,7 @@ public class Displayer {
                 String formattedClass = "";
 
                 if (b != null && b.getEntity() != null) {
-                    formattedClass = String.valueOf(b.getEntity().getName());
+                    formattedClass = String.valueOf(b.getEntity().GetName());
                 }
                 System.out.print("|" + centerString(formattedClass, CELL_WIDTH));
             }
@@ -91,8 +90,10 @@ public class Displayer {
                 Block b = row[j];
                 String formattedInfo = "";
 
-                if (b != null && b.getEntity().getObject() == 1) {
-                    formattedInfo = "Team: " + String.valueOf(b.getEntity().getTeam());
+                if (b != null && b.getEntity() != null) {
+                    if (b.getEntity().GetObject() == Entity.CHARACTER || b.getEntity().GetObject() == Entity.MINION) {
+                        formattedInfo = "Team: " + String.valueOf(b.getEntity().GetTeam());
+                    }
                 }
                 System.out.print("|" + centerString(formattedInfo, CELL_WIDTH));
             }
@@ -121,14 +122,14 @@ public class Displayer {
                 return false;
             }
             System.out.println("------------------------------------");
-            System.out.println("Name           : " + c.getFullName());
-            System.out.println("Team           : " + c.getTeam());
-            System.out.println("Speed          : " + c.getRawStats()[Character.SPDPOS]);
-            System.out.println("Intelligence   : " + c.getRawStats()[Character.INTLPOS]);
-            System.out.println("Attack         : " + c.getRawStats()[Character.ATKPOS]);
-            System.out.println("Spirit         : " + c.getRawStats()[Character.SPRPOS]);
-            System.out.println("Health         : " + c.getRawStats()[Character.HLTPOS]);
-            System.out.println("Spell Power    : " + c.getRawStats()[Character.SPPPOS]);
+            System.out.println("Name           : " + c.GetFullName());
+            System.out.println("Team           : " + c.GetTeam());
+            System.out.println("Speed          : " + c.GetRawStats()[Character.SPDPOS]);
+            System.out.println("Intelligence   : " + c.GetRawStats()[Character.INTLPOS]);
+            System.out.println("Attack         : " + c.GetRawStats()[Character.ATKPOS]);
+            System.out.println("Spirit         : " + c.GetRawStats()[Character.MGCPOS]);
+            System.out.println("Health         : " + c.GetRawStats()[Character.HLTPOS]);
+            System.out.println("Spell Power    : " + c.GetRawStats()[Character.SPPPOS]);
             System.out.println("------------------------------------");
         }
         return false;
@@ -138,13 +139,15 @@ public class Displayer {
         System.out.println("            CURRENT STATS            ");
         for (int i = 0; i < characters.length; i++) {
             Character c = characters[i];
-            if (c.getName() == null) {
+            if (c.GetName() == null) {
                 return false;
             }
             System.out.println("------------------------------------");
-            System.out.println("Character   : " + c.getName());
-            System.out.println("Team        : " + c.getTeam());
-            System.out.println("Health      : " + c.getCurrHealth() + " / " + c.getCalculatedStats()[Character.HLTPOS]);
+            System.out.println("Character   : " + c.GetName());
+            System.out.println("Team        : " + c.GetTeam());
+            System.out.println("Health      : " + c.GetCurrHealth() + " / " + c.GetCalculatedStats()[Character.MAXHEALTHPOS]);
+            System.out.println("Magic       : " + c.GetCurrMagic() + " / " + c.GetCalculatedStats()[Character.MAXMAGICPOS]);
+            System.out.println("Steps       : " + c.GetCalculatedStats()[Character.SPEEDPOS]);
             System.out.println("------------------------------------");
         }
         return false;

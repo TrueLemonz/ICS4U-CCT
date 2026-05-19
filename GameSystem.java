@@ -7,24 +7,24 @@ public class GameSystem {
     Player player2 = new Player();
 
     public GameSystem() {
-        refreshGameBoard();
+        RefreshGameBoard();
     }
 
     public boolean Move(Character character, int posX, int posY) {
-        int nullY = character.getPosition()[0]; // [0] = y
-        int nullX = character.getPosition()[1]; // [1] = x
+        int nullY = character.GetPosition()[0]; // [0] = y
+        int nullX = character.GetPosition()[1]; // [1] = x
 
-        if (posX < 0 || posY < 0 || posY >= GAMEHEIGHT || posX >= GAMEWIDTH || Math.abs(posX - nullX) > 1
-                || Math.abs(posY - nullY) > 1) {
+        if (posX < 0 || posY < 0 || posY >= GAMEHEIGHT || posX >= GAMEWIDTH || Math.abs(posX - nullX) > (character.GetCalculatedStats()[Character.SPEEDPOS])
+                || Math.abs(posY - nullY) > (character.GetCalculatedStats()[Character.SPEEDPOS])) {
             return false;
         }
 
         if (this.gameBoard[posY][posX] != null && character.CheckConditions(0)
-                && this.gameBoard[posY][posX].getEntity().getObject() == 0) {
+                && this.gameBoard[posY][posX].getEntity().GetObject() == Entity.NONE) {
             this.gameBoard[posY][posX].SetEntity(character);
 
-            character.getPosition()[0] = posY; // [0] = y
-            character.getPosition()[1] = posX; // [1] = x
+            character.GetPosition()[0] = posY; // [0] = y
+            character.GetPosition()[1] = posX; // [1] = x
 
             this.gameBoard[nullY][nullX] = new Block(new Entity("", false, false, false, false));
 
@@ -33,7 +33,7 @@ public class GameSystem {
         return false;
     }
 
-    public void refreshGameBoard() {
+    public void RefreshGameBoard() {
         for (int i = 0; i < GAMEHEIGHT; i++) {
             for (int j = 0; j < GAMEWIDTH; j++) {
                 this.gameBoard[i][j] = new Block(new Entity(
@@ -48,14 +48,14 @@ public class GameSystem {
 
     public void PopulateGameBoard(int obstacleCount, int foodCount) {
         for (int i = 0; i < obstacleCount; i++) {
-            randBlock(new Obstacle());
+            RandBlock(new Obstacle());
         }
         for (int i = 0; i < foodCount; i++) {
-            randBlock(new Food());
+            RandBlock(new Food());
         }
     }
 
-    public void randBlock(Entity entity) {
+    public void RandBlock(Entity entity) {
         int emptyCount = 0;
         for (int i = 0; i < this.gameBoard.length; i++) {
             for (int j = 0; j < this.gameBoard[i].length; j++) {
@@ -63,7 +63,7 @@ public class GameSystem {
                 if (block == null || block.getEntity() == null) {
                     continue;
                 }
-                if (block.getEntity().getObject() == 0) {
+                if (block.getEntity().GetObject() == Entity.NONE) {
                     emptyCount++; // count number of empty blocks in the grid
                 }
             }
@@ -80,7 +80,7 @@ public class GameSystem {
                 if (block == null || block.getEntity() == null) {
                     continue;
                 }
-                if (block.getEntity().getObject() == 0) {
+                if (block.getEntity().GetObject() == Entity.NONE) {
                     emptyPositions[index][0] = i; // stores empty row coordinate
                     emptyPositions[index][1] = j; // stores empty column coordinate
                     index++;
@@ -105,7 +105,7 @@ public class GameSystem {
     }
 
     // getter method, returns current team playing
-    public int getCurrTeam() {
+    public int GetCurrTeam() {
         return currTeam;
     }
 
@@ -120,17 +120,17 @@ public class GameSystem {
 
    
 
-    public int getWinningTeam() {
+    public int GetWinningTeam() {
         boolean team1Alive = false;
         boolean team2Alive = false;
         for (int i = 0; i < this.gameBoard.length; i++) {
             for (int j = 0; j < this.gameBoard[i].length; j++) {
                 if (this.gameBoard[i][j] != null && this.gameBoard[i][j].getEntity() != null
-                        && this.gameBoard[i][j].getEntity().getObject() == 1) {
+                        && this.gameBoard[i][j].getEntity().GetObject() == Entity.CHARACTER) {
                     Character c = (Character) this.gameBoard[i][j].getEntity();
-                    if (c.getTeam() == 1 && c.getCurrHealth() > 0) {
+                    if (c.GetTeam() == 1 && c.GetCurrHealth() > 0) {
                         team1Alive = true;
-                    } else if (c.getTeam() == 2 && c.getCurrHealth() > 0) {
+                    } else if (c.GetTeam() == 2 && c.GetCurrHealth() > 0) {
                         team2Alive = true;
                     }
                 }
@@ -145,14 +145,14 @@ public class GameSystem {
     }
 
     public boolean CheckWin() {
-        return getWinningTeam() != 0;
+        return GetWinningTeam() != 0;
     }
     
   
     public void GenRandObstacles() {
         int block = (int) (Math.random() * gameBoard.length * gameBoard[0].length);
         Block current = this.gameBoard[block / gameBoard[0].length][block % gameBoard[0].length];
-        if (current != null && current.getEntity() != null && current.getEntity().getObject() == 0) {
+        if (current != null && current.getEntity() != null && current.getEntity().GetObject() == Entity.NONE) {
             int rand = (int) (Math.random() * 10);
             if (rand < 2) {
                 this.gameBoard[block / gameBoard[0].length][block % gameBoard[0].length] = new Block(new Obstacle());

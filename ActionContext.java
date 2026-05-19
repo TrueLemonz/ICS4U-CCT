@@ -35,7 +35,7 @@ public class ActionContext {
         this.posy = 0;
     }
 
-    public ActionContext(Entity entity) {
+    public ActionContext(Entity target) {
         this.targetEntity = target;
         this.target = null;
         this.grid = null;
@@ -43,22 +43,22 @@ public class ActionContext {
         this.posy = 0;
     }
 
-    public Character getTarget() {
+    public Character GetTarget() {
         return this.target;
     }
-    public Entity getTargetEntity() {
+    public Entity GetTargetEntity() {
         return this.targetEntity;
     }
 
-    public Block[][] getGrid() {
+    public Block[][] GetGrid() {
         return this.grid;
     }
 
-    public int getPosX() {
+    public int GetPosX() {
         return posx;
     }
 
-    public int getPosY() {
+    public int GetPosY() {
         return posy;
     }
 }

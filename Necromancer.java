@@ -4,12 +4,12 @@ public class Necromancer extends Character {
         ApplyStats();
         ScaleStats();
         this.SetName("Necromancer");
-        this.SetFullName(character.getFullName());
+        this.SetFullName(character.GetFullName());
         this.SetTeam(team);
         this.spdMod = -1;
         this.intlMod = 3;
         this.atkMod = 1;
-        this.sprMod = 2;
+        this.mgcMod = 2;
         this.hltMod = 1;
         this.sppMod = 2;
         this.spd = character.spd + this.spdMod ;
@@ -24,9 +24,9 @@ public class Necromancer extends Character {
         if ( this.atk + this.atkMod < 0 ) {
             this.atk = 1;
         }
-        this.spr = character.spr + this.sprMod;
-        if ( this.spr + this.sprMod < 0 ) {
-            this.spr = 1;
+        this.mgc = character.mgc + this.mgcMod;
+        if ( this.mgc + this.mgcMod < 0 ) {
+            this.mgc = 1;
         }
         this.hlt = character.hlt + this.hltMod;
         if ( this.hlt + this.hltMod < 0 ) {
@@ -38,11 +38,11 @@ public class Necromancer extends Character {
         }
         ScaleStats();
     }
-    public String getName() {
+    public String GetName() {
         return "Necromancer";
     }
     public boolean CheckAbility1Possible(GameSystem gs) { 
-        if (CheckSurroundingsContain(gs, 0, 1) && getCurrMagic() > 4) {
+        if (CheckSurroundingsContain(gs, 0, 1) && GetCurrMagic() > 4) {
             return true;
         }
         return false;
@@ -55,8 +55,8 @@ public class Necromancer extends Character {
     }
     public boolean CheckAbility3Possible(GameSystem gs) { return false; } 
     public boolean Ability1(ActionContext context) {
-        if (context.getGrid()[context.getPosY()][context.getPosX()].getEntity().getObject() == 0) {
-            context.getGrid()[context.getPosY()][context.getPosX()] = new Block(new Minion(this.team));
+        if (context.GetGrid()[context.GetPosY()][context.GetPosX()].getEntity().GetObject() == Entity.NONE) {
+            context.GetGrid()[context.GetPosY()][context.GetPosX()] = new Block(new Minion(this.team));
             return true;
         }
         else {
@@ -64,8 +64,8 @@ public class Necromancer extends Character {
         }
     }
     public boolean Ability2(ActionContext context) {
-        if (context.getTarget().getObject() == Entity.MINION) {
-            Minion target = (Minion) context.getTargetEntity();
+        if (context.GetTarget().GetObject() == Entity.MINION) {
+            Minion target = (Minion) context.GetTargetEntity();
             target.Buff();
             return true;
         }
@@ -74,7 +74,7 @@ public class Necromancer extends Character {
         }
     }
     public boolean Ability3(ActionContext context) {
-        if (context.getGrid()[context.getPosY()][context.getPosX()].getEntity().getObject() == Entity.MINION) {
+        if (context.GetGrid()[context.GetPosY()][context.GetPosX()].getEntity().GetObject() == Entity.MINION) {
             return true;
         }
         else {
