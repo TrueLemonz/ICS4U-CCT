@@ -10,6 +10,17 @@ public class GameSystem {
         RefreshGameBoard();
     }
 
+    private void regenerateCharacters(Character[] team) {
+        for (int i = 0; i < team.length-1; i++) {
+            if(team[i].GetCurrMagic() < team[i].GetCalculatedStats()[Character.MAXMAGICPOS]) {
+                team[i].SetCurrMagic(team[i].GetCurrMagic()+1);
+            }
+            if(team[i].GetCurrHealth() < team[i].GetCalculatedStats()[Character.MAXHEALTHPOS]) {
+                team[i].SetCurrHealth(team[i].GetCurrHealth()+1);
+            }
+        }
+    }
+
     public boolean Move(Character character, int posX, int posY) {
         int nullY = character.GetPosition()[0]; // [0] = y
         int nullX = character.GetPosition()[1]; // [1] = x

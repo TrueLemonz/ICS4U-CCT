@@ -5,9 +5,9 @@ public class Crusader extends Character {
      * Initializes base stats and applies class-based modifications (___mod) for the
      * crusader class.
      *
-     * @param character The base Character object used to initialize the new
-     *                  crusader.
-     * @param team      The team ID assigned to this crusader.
+     * @param character     - The base Character object used to initialize the new
+     *                        crusader.
+     * @param team          - The team ID assigned to this crusader.
      */
     public Crusader(Character character, int team) {
         super();

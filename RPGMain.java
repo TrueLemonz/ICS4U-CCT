@@ -1,6 +1,18 @@
+/* Main frontend class, handles all Input and Output between the user and the backend.
+ * All of the printing (aside from Displayer.java) takes place here. 
+ * This is also the file that should be ran in order to properly play the game.*/
 import java.util.Scanner;
 
 public class RPGMain {
+
+    /* Helper method to reduce amount of code needed per loop.
+     * Handles several conveneint functions but mainly the movement of a selected character.
+     *
+     * @param character - The character selected to move
+     * @param input     - The scanner used to detect user input
+     * @param gs        - The game system responsible for tracking coordinates
+     * @param ds        - The displayer class containing a handful of vital methods.
+     */
     private void promptMove(Character character, Scanner input, GameSystem gs, Displayer ds) {
         System.out.println(character.GetFullName() + " the " + character.GetName() + "'s turn.");
         ds.PrintStats(new Character[]{character});
@@ -13,16 +25,7 @@ public class RPGMain {
         ds.PrintGrid(gs.gameBoard);
     }
 
-    private void regenerateCharacters(Character[] team) {
-        for (int i = 0; i < team.length-1; i++) {
-            if(team[i].GetCurrMagic() < team[i].GetCalculatedStats()[Character.MAXMAGICPOS]) {
-                team[i].SetCurrMagic(team[i].GetCurrMagic()+1);
-            }
-            if(team[i].GetCurrHealth() < team[i].GetCalculatedStats()[Character.MAXHEALTHPOS]) {
-                team[i].SetCurrHealth(team[i].GetCurrHealth()+1);
-            }
-        }
-    }
+
 
     private void promptBarbarian(Character character, Scanner input, GameSystem gs, Displayer ds) {
         System.out.println(character.GetFullName() + " the " + character.GetName() + "'s turn.");
