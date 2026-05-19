@@ -50,8 +50,8 @@ public class Character extends Entity {
     }
 
     public Character GenerateCharacter() {
-        int nameInt = (int) (Math.random() * 15);
-        String[] names = {"Alice", "Bob", "Charlie", "David", "Eve", "Frank", "Grace", "Henry", "Ivy", "Jack", "Kate", "Liam", "Mia", "Noah", "Olivia"};
+        String[] names = {"Alice", "Bob", "Charlie", "David", "Eve", "Frank", "Grace", "Henry", "Ivy", "Jack", "Kate", "Liam", "Mia", "Noah", "Olivia", "Leo", "Lucas", "Sophia", "William", "Amelia", "James", "Balthazar", "Cassandra", "Dorian", "Evangeline", "Felix", "Genevieve", "Hector", "Isabella", "Julian", "Katarina", "Lysander", "Mariana", "Nathaniel", "Ophelia", "Percival", "Quinn", "Raphael", "Seraphina", "Theodore", "Ulysses", "Valentina", "Xavier", "Yvonne", "Zachary", "Mikhail", "Azazel", "Bealzebub", "Lucifer", "Abaddon", "Leviathan", "Asmodeus", "Mammon", "Belphegor", "Samael", "Astaroth", "Baphomet", "Mephistopheles", "Lilith", "Nyx", "Erebus", "Thanatos", "Hypnos", "Jan", "Jonathan"};
+        int nameInt = (int) (Math.random() * names.length);
         this.SetFullName(names[nameInt]);
 
         int points = 20;
@@ -390,6 +390,30 @@ public class Character extends Entity {
             }
         }
     }
+
+    public boolean CheckSurroundingsContain(GameSystem gs, int type, int range) {  //ANOTHER FUNCTION this one just returns true if any specified entities are
+        int[] position = this.GetPosition();                                       //found adjacent to the character.
+        int x = position[0];
+        int y = position[1];
+
+        int boardWidth = gs.GameBoard.length;
+        int boardHeight = gs.GameBoard[0].length;
+
+        for (int i = x - range; i <= x + range; i++) {                             //Checks all slots to the left and right
+            for (int j = y - range; j <= y + range; j++) {                         //Checks all slots to the up and down
+                if (i != x || j != y) { 
+                    if (i >= 0 && i < boardWidth && j >= 0 && j < boardHeight) {
+                        if (gs.GameBoard[i][j].GetEntity().GetObject() == type) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        
+        return false;
+    }
+
     public boolean CheckAbility1Possible(GameSystem gs) { return false; }
     public boolean CheckAbility2Possible(GameSystem gs) { return false; }
     public boolean CheckAbility3Possible(GameSystem gs) { return false; }

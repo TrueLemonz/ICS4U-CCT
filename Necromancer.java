@@ -41,8 +41,18 @@ public class Necromancer extends Character {
     public String getName() {
         return "Necromancer";
     }
-    public boolean CheckAbility1Possible(GameSystem gs) { return false; }
-    public boolean CheckAbility2Possible(GameSystem gs) { return false; }
+    public boolean CheckAbility1Possible(GameSystem gs) { 
+        if (CheckSurroundingsContain(gs, 0, 1) && GetCurrMagic() > 4) {
+            return true;
+        }
+        return false;
+    }
+    public boolean CheckAbility2Possible(GameSystem gs) { 
+        if (CheckSurroundingsContain(gs, 4, 1)) {
+            return true;
+        }
+        return false; 
+    }
     public boolean CheckAbility3Possible(GameSystem gs) { return false; } 
     public boolean Ability1(ActionContext context) {
         if (context.GetGrid()[context.getPosX()][context.getPosY()].GetEntity().GetObject() == 0) {
@@ -54,12 +64,8 @@ public class Necromancer extends Character {
         }
     }
     public boolean Ability2(ActionContext context) {
-        if (context.GetTarget().GetObject() == Entity.CHARACTER) {
-            if (!context.GetTarget().IsMinion()) {
-                context.GetTarget().AddTurn();
-                return true;
-            }
-            Minion target = (Minion) context.GetTarget();
+        if (context.GetTarget().GetObject() == Entity.MINION) {
+            Minion target = (Minion) context.GetTargetEntity();
             target.Buff();
             return true;
         }
@@ -68,7 +74,7 @@ public class Necromancer extends Character {
         }
     }
     public boolean Ability3(ActionContext context) {
-        if (context.GetGrid()[context.getPosX()][context.getPosY()].GetEntity().GetObject() == Entity.CHARACTER) {
+        if (context.GetGrid()[context.getPosX()][context.getPosY()].GetEntity().GetObject() == Entity.MINION) {
             return true;
         }
         else {

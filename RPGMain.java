@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class RPGMain {
     private void promptMove(Character character, Scanner Input, GameSystem gs, Displayer ds) {
         System.out.println(character.GetFullName() + " the " + character.GetName() + "'s turn.");
+        ds.PrintStats(new Character[]{character});
         System.out.println("Move " + character.GetFullName() + " the " + character.GetName() + "!");
         System.out.print("Choose x-coordinate: ");
         int x = Input.nextInt();
@@ -176,16 +177,14 @@ public class RPGMain {
                 System.out.println(character.GetFullName() + " the " + character.GetName() + " places an obstacle!");
                 ds.PrintGrid(gs.GameBoard);
             } else {
-                System.out
-                        .print(character.GetFullName() + " the " + character.GetName() + " fails to place an obstacle");
+                System.out.print(character.GetFullName() + " the " + character.GetName() + " fails to place an obstacle");
             }
         } else if (abilityChoice == 2) {
             if (character.CheckAbility2Possible(gs)) {
                 character.Ability2(ac);
                 System.out.println(character.GetFullName() + " the " + character.GetName() + " fortifies himself!");
             } else {
-                System.out
-                        .print(character.GetFullName() + " the " + character.GetName() + " fails to fortify himself!");
+                System.out.print(character.GetFullName() + " the " + character.GetName() + " fails to fortify himself!");
             }
         } else if (abilityChoice == 3) {
             if (character.CheckAbility3Possible(gs)) {
@@ -199,11 +198,58 @@ public class RPGMain {
         }
     }
 
+    private void promptNecromancer(Character character, Scanner Input, GameSystem gs, Displayer ds) {
+
+        ActionContext ac = new ActionContext();
+
+        if (character.CheckAbility1Possible(gs)) {
+            System.out.println("Ability 1 - Ressurect");
+        }
+        if (character.CheckAbility2Possible(gs)) {
+            System.out.println("Ability 2 - Strengthen");
+        }
+        if (character.CheckAbility3Possible(gs)) {
+            System.out.println("Ability 3 - Meat sheild");
+        }
+        System.out.print("Choose ability: ");
+        int abilityChoice = Input.nextInt();
+        if (abilityChoice == 1) {
+            System.out.print("Choose x-coordinate of the minion you would like to create: ");
+            int x = Input.nextInt();
+            System.out.print("Choose y-coordinate of the minion you would like to create:");
+            int y = Input.nextInt();
+            ActionContext SummonMinionAbility1 = new ActionContext(x, y, gs.GameBoard);
+            boolean success = character.Ability1(SummonMinionAbility1);
+            if (success) {
+                System.out.println(character.GetFullName() + " the " + character.GetName() + " creates a minion!");
+                ds.PrintGrid(gs.GameBoard);
+            } else {
+                System.out.print(character.GetFullName() + " the " + character.GetName() + " fails to create a minion");
+            }
+        } else if (abilityChoice == 2) {
+            System.out.print("Choose x-coordinate of the minion you would like to buff: ");
+            int x = Input.nextInt();
+            System.out.print("Choose y-coordinate of the minion you would like to buff:");
+            int y = Input.nextInt();
+            Entity target = gs.GameBoard[y][x].GetEntity();
+            ActionContext BuffMinionAbility2 = new ActionContext(target);
+            boolean success = character.Ability2(BuffMinionAbility2);
+            if (success) {
+                System.out.println(character.GetFullName() + " the " + character.GetName() + " buffs a minion!");
+            } else {
+                System.out.print(character.GetFullName() + " the " + character.GetName() + " fails to buff a minion!");
+            }
+        } else if (abilityChoice == 3) {
+            //TODO uhhhhhhhh
+        } else {
+            System.out.println("s");
+        }
+    }
+
     public static void main(String[] args) {
         GameSystem gs = new GameSystem();
         Displayer ds = new Displayer();
         Scanner Input = new Scanner(System.in);
-        ActionContext ac = new ActionContext();
         Character c = new Character();
         RPGMain rpg = new RPGMain();
         boolean GameRunning = true;
@@ -421,6 +467,7 @@ public class RPGMain {
                                 } else if (maxSpdCharacter instanceof Healer) {
                                     rpg.promptHealer(maxSpdCharacter, Input, gs, ds);
                                 } else if (maxSpdCharacter instanceof Necromancer) {
+                                    rpg.promptNecromancer(lowSpdCharacter, Input, gs, ds);
                                 } else {
                                 }
                             } else {
@@ -441,6 +488,7 @@ public class RPGMain {
                                 } else if (medSpdCharacter instanceof Healer) {
                                     rpg.promptHealer(medSpdCharacter, Input, gs, ds);
                                 } else if (medSpdCharacter instanceof Necromancer) {
+                                    rpg.promptNecromancer(medSpdCharacter, Input, gs, ds);
                                 } else {
                                 }
                             } else {
@@ -461,6 +509,7 @@ public class RPGMain {
                                 } else if (lowSpdCharacter instanceof Healer) {
                                     rpg.promptHealer(lowSpdCharacter, Input, gs, ds);
                                 } else if (lowSpdCharacter instanceof Necromancer) {
+                                    rpg.promptNecromancer(lowSpdCharacter, Input, gs, ds);
                                 } else {
                                 }
                             } else {
@@ -495,6 +544,7 @@ public class RPGMain {
                                 } else if (maxSpdCharacter instanceof Healer) {
                                     rpg.promptHealer(maxSpdCharacter, Input, gs, ds);
                                 } else if (maxSpdCharacter instanceof Necromancer) {
+                                    rpg.promptNecromancer(maxSpdCharacter, Input, gs, ds);
                                 } else {
                                 }
                             } else {
@@ -515,6 +565,7 @@ public class RPGMain {
                                 } else if (medSpdCharacter instanceof Healer) {
                                     rpg.promptHealer(medSpdCharacter, Input, gs, ds);
                                 } else if (medSpdCharacter instanceof Necromancer) {
+                                    rpg.promptNecromancer(medSpdCharacter, Input, gs, ds);
                                 } else {
                                 }
                             } else {
@@ -533,9 +584,9 @@ public class RPGMain {
                                 } else if (lowSpdCharacter instanceof Guardian) {
                                     rpg.promptGuardian(lowSpdCharacter, Input, gs, ds);
                                 } else if (lowSpdCharacter instanceof Healer) {
-                                    rpg.promptHealer(medSpdCharacter, Input, gs, ds);
+                                    rpg.promptHealer(lowSpdCharacter, Input, gs, ds);
                                 } else if (lowSpdCharacter instanceof Necromancer) {
-                                    // promptNecromancer
+                                    rpg.promptNecromancer(lowSpdCharacter, Input, gs, ds);
                                 } else {
                                     // promptPaladin
                                 }
@@ -573,6 +624,7 @@ public class RPGMain {
                                 } else if (maxSpdCharacter instanceof Healer) {
                                     rpg.promptHealer(maxSpdCharacter, Input, gs, ds);
                                 } else if (maxSpdCharacter instanceof Necromancer) {
+                                    rpg.promptNecromancer(maxSpdCharacter, Input, gs, ds);
                                 } else {
                                 }
                             } else {
@@ -593,6 +645,7 @@ public class RPGMain {
                                 } else if (medSpdCharacter instanceof Healer) {
                                     rpg.promptHealer(medSpdCharacter, Input, gs, ds);
                                 } else if (medSpdCharacter instanceof Necromancer) {
+                                    rpg.promptNecromancer(medSpdCharacter, Input, gs, ds);
                                 } else {
                                 }
                             } else {
@@ -613,6 +666,7 @@ public class RPGMain {
                                 } else if (lowSpdCharacter instanceof Healer) {
                                     rpg.promptHealer(lowSpdCharacter, Input, gs, ds);
                                 } else if (lowSpdCharacter instanceof Necromancer) {
+                                    rpg.promptNecromancer(lowSpdCharacter, Input, gs, ds);
                                 } else {
                                 }
                             } else {
@@ -647,6 +701,7 @@ public class RPGMain {
                                 } else if (maxSpdCharacter instanceof Healer) {
                                     rpg.promptHealer(maxSpdCharacter, Input, gs, ds);
                                 } else if (maxSpdCharacter instanceof Necromancer) {
+                                    rpg.promptNecromancer(maxSpdCharacter, Input, gs, ds);
                                 } else {
                                 }
                             } else {
@@ -667,6 +722,7 @@ public class RPGMain {
                                 } else if (medSpdCharacter instanceof Healer) {
                                     rpg.promptHealer(medSpdCharacter, Input, gs, ds);
                                 } else if (medSpdCharacter instanceof Necromancer) {
+                                    rpg.promptNecromancer(medSpdCharacter, Input, gs, ds);
                                 } else {
                                 }
                             } else {
@@ -687,7 +743,7 @@ public class RPGMain {
                                 } else if (lowSpdCharacter instanceof Healer) {
                                     rpg.promptHealer(medSpdCharacter, Input, gs, ds);
                                 } else if (lowSpdCharacter instanceof Necromancer) {
-                                    // promptNecromancer
+                                    rpg.promptNecromancer(lowSpdCharacter, Input, gs, ds);
                                 } else {
                                     // promptPaladin
                                 }
@@ -699,13 +755,8 @@ public class RPGMain {
                     }
                 }
                 if (gs.CheckWin()) {
-                    boolean winnerPlayer1 = gs.CheckWin();
-                    if (winnerPlayer1) {
-                        System.out.println("Player 1 wins!");
-                    }
-                    if (!winnerPlayer1) {
-                        System.out.println("Player 2 wins!");
-                    }
+                    int winner = gs.GetWinningTeam();
+                    System.out.println("Player " + winner + " wins!");
                     GameRunning = false;
                 }
             } // TODO add the other two options

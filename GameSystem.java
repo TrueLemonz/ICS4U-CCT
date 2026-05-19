@@ -26,7 +26,7 @@ public class GameSystem {
             character.GetPosition()[0] = posY; // [0] = y
             character.GetPosition()[1] = posX; // [1] = x
 
-            this.GameBoard[nullY][nullX] = new Block(new Entity("", false, false, false));
+            this.GameBoard[nullY][nullX] = new Block(new Entity("", false, false, false, false));
 
             return true;
         }
@@ -38,6 +38,7 @@ public class GameSystem {
             for (int j = 0; j < GAMEWIDTH; j++) {
                 this.GameBoard[i][j] = new Block(new Entity(
                         "",
+                        false,
                         false,
                         false,
                         false));
@@ -117,27 +118,32 @@ public class GameSystem {
         }
     }
 
-    public boolean CheckWin() {
-        boolean Team1Lose = true;
-        boolean Team2Lose = true;
+    public int GetWinningTeam() {
+        boolean team1Alive = false;
+        boolean team2Alive = false;
         for (int i = 0; i < this.GameBoard.length; i++) {
             for (int j = 0; j < this.GameBoard[i].length; j++) {
-                if (this.GameBoard[i][j].GetEntity().GetObject() == 1) {
+                if (this.GameBoard[i][j] != null && this.GameBoard[i][j].GetEntity() != null
+                        && this.GameBoard[i][j].GetEntity().GetObject() == 1) {
                     Character c = (Character) this.GameBoard[i][j].GetEntity();
-                    if (c.GetTeam() == 1 && !c.GetIsAlive()) {
-                        Team1Lose = false;
-                    } else if (c.GetTeam() == 2 && !c.GetIsAlive()) {
-                        Team2Lose = false;
+                    if (c.GetTeam() == 1 && c.GetCurrHealth() > 0) {
+                        team1Alive = true;
+                    } else if (c.GetTeam() == 2 && c.GetCurrHealth() > 0) {
+                        team2Alive = true;
                     }
                 }
             }
         }
-        if (Team1Lose) {
-            return true;
-        } else if (Team2Lose) {
-            return true;
+        if (!team1Alive && team2Alive) {
+            return 2;
+        } else if (!team2Alive && team1Alive) {
+            return 1;
         }
-        return false;
+        return 0;
+    }
+
+    public boolean CheckWin() {
+        return GetWinningTeam() != 0;
     }
 
     public void GenRandObstacles() {
