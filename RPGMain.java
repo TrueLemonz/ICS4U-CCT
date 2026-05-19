@@ -385,7 +385,7 @@ public class RPGMain {
                 gs.Player2.PlayerTeam[2].SetPosition(new int[] { 7, 6 }, gs.GameBoard);
                 gs.PopulateGameBoard(7, 7);
                 ds.PrintGrid(gs.GameBoard);
-                while (!gs.CheckWin()) {
+                while (!gs.CheckPlayer1Win() && !gs.CheckPlayer2Win() ) {
                     int p1TotalSpeed = 0;
                     int p2TotalSpeed = 0;
                     for (int i = 0; i < 3; i++) {
@@ -698,15 +698,10 @@ public class RPGMain {
                         }
                     }
                 }
-                if (gs.CheckWin()) {
-                    boolean winnerPlayer1 = gs.CheckWin();
-                    if (winnerPlayer1) {
-                        System.out.println("Player 1 wins!");
-                    }
-                    if (!winnerPlayer1) {
-                        System.out.println("Player 2 wins!");
-                    }
-                    GameRunning = false;
+                if ( gs.CheckPlayer1Win() ) {
+                    System.out.println("Player 1 wins!");
+                } else if ( gs.CheckPlayer2Win() ) {
+                    System.out.println("Player 2 wins!");
                 }
             } // TODO add the other two options
         } // STOP RUNNING

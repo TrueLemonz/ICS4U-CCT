@@ -117,27 +117,34 @@ public class GameSystem {
         }
     }
 
-    public boolean CheckWin() {
-        boolean Team1Lose = true;
+    public boolean CheckPlayer1Win() {
         boolean Team2Lose = true;
         for (int i = 0; i < this.GameBoard.length; i++) {
             for (int j = 0; j < this.GameBoard[i].length; j++) {
                 if (this.GameBoard[i][j].GetEntity().GetObject() == 1) {
                     Character c = (Character) this.GameBoard[i][j].GetEntity();
-                    if (c.GetTeam() == 1 && !c.GetIsAlive()) {
-                        Team1Lose = false;
-                    } else if (c.GetTeam() == 2 && !c.GetIsAlive()) {
+                    if ( c.GetTeam() == 2 && c.GetIsAlive() ) {
                         Team2Lose = false;
                     }
                 }
             }
         }
-        if (Team1Lose) {
-            return true;
-        } else if (Team2Lose) {
-            return true;
+        return Team2Lose;
+    }
+
+    public boolean CheckPlayer2Win() {
+        boolean Team1Lose = true;
+        for (int i = 0; i < this.GameBoard.length; i++) {
+            for (int j = 0; j < this.GameBoard[i].length; j++) {
+                if (this.GameBoard[i][j].GetEntity().GetObject() == 1) {
+                    Character c = (Character) this.GameBoard[i][j].GetEntity();
+                    if ( c.GetTeam() == 1 && c.GetIsAlive() ) {
+                        Team1Lose = false;
+                    }
+                }
+            }
         }
-        return false;
+        return Team1Lose;
     }
 
     public void GenRandObstacles() {
