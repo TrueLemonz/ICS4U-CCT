@@ -915,14 +915,25 @@ public class RPGMain {
                 }
                 if (gs.CheckWin()) {
                     int winner = gs.GetWinningTeam();
+                    String saveCharacters = "";
                     System.out.println("Player " + winner + " wins!");
+                    System.out.println("Would you like to save your team in the hall of fame? (Y/n)");
+                    saveCharacters = input.nextLine();
+                    if (saveCharacters.equals("n")) {
+                        System.out.println("Exiting game...");
+                    }
+                    else {
+
+
+                    }
+
                     gameRunning = false;
                 }
                 gs.RegenerateCharacters(gs.player1.PlayerTeam);
                 gs.RegenerateCharacters(gs.player2.PlayerTeam);
             } // TODO add the other two options
             else if (playerChoice == 2) {
-                
+
             }
         } // STOP RUNNING
         input.close();
