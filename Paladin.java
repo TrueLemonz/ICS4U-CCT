@@ -73,7 +73,7 @@ public class Paladin extends Character {
             return false;
         }   
         Character ally = context.GetTarget();
-        if ( ally.GetCurrHealth() + 15 <= ally.GetMaxHealth() ) {
+        if ( ally.GetCurrHealth() + 10 <= ally.GetMaxHealth() ) {
             ally.SetCurrHealth(ally.GetCurrHealth() + 10);
             return true;
         }

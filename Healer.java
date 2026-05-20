@@ -38,9 +38,22 @@ public class Healer extends Character {
         }
         ScaleStats();
     }
-    public boolean CheckAbility1Possible(GameSystem gs) { return false; }
-    public boolean CheckAbility2Possible(GameSystem gs) { return false; }
-    public boolean CheckAbility3Possible(GameSystem gs) { return false; }
+    public boolean CheckAbility1Possible(GameSystem gs) {
+        if ( this.GetCurrMagic() >= 4 ) {return true;}
+        return false;
+    }
+    public boolean CheckAbility2Possible(GameSystem gs) { 
+        if ( this.GetCurrMagic() >= 3 && this.CheckSurroundingsContain (gs, Character.CHARACTER, 3) ) {
+            return true;
+            }
+            return false;
+        }
+    public boolean CheckAbility3Possible(GameSystem gs) {
+        if ( this.GetCurrMagic() >= 2 && this.CheckSurroundingsContain ( gs, Character.CHARACTER, 2 ) ) {
+            return true;
+        }
+        return false;
+     }
     public int GetAbility1Range() {
         return 1;
     }

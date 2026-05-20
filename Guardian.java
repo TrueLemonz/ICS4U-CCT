@@ -38,18 +38,20 @@ public class Guardian extends Character {
         }
         ScaleStats();
     }
-    public boolean CheckAbility1Possible(GameSystem gs) { return false; }
-    public boolean CheckAbility2Possible(GameSystem gs) { return false; }
-    public boolean CheckAbility3Possible(GameSystem gs) { return false; }
-    public int GetAbility1Range() {
-        return 9;
+    public boolean CheckAbility1Possible(GameSystem gs) {
+         if ( this.GetCurrMagic() - 2 >= 0  && this.CheckSurroundingsContain ( gs, Entity.OBSTACLE, 8) ) {
+            return true;
+         }
+         return false;
     }
-    public int GetAbility2Range() {
-        return 9;
-    }
-    public int GetAbility3Range() {
-        return 922;
-    }
+    public boolean CheckAbility2Possible(GameSystem gs) {
+        if ( this.GetCurrMagic() - 1 >= 0 ) { return true; }
+        return false;
+     }
+    public boolean CheckAbility3Possible(GameSystem gs) {
+        if ( this.CurrMagic() - 1 >= 0 )  { return true; }
+         return false; 
+         }
     public String GetName() {
         return "Guardian";
     }
