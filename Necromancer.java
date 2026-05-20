@@ -34,7 +34,16 @@ public class Necromancer extends Character {
     public String GetName() {
         return "Necromancer";
     }
-
+    
+    /* Checks if ability 1 should be displayed and/or possible to perform.
+     * Is calculated differently for each ability.
+     * This checks: if there is an empty space within range.
+     *              if the character has sufficient magic amount.
+     * 
+     * @param gs                - The Game System that contains the grid and all of the entities.
+     *
+     * @return                  - Returns true or false depending on whether or not the ability may or may not be performed.
+     */
     public boolean CheckAbility1Possible(GameSystem gs) {
         if (gs == null || gs.GameBoard == null) {
             return false;
@@ -173,3 +182,4 @@ public class Necromancer extends Character {
         return false;
     }
 }
+//Does this work

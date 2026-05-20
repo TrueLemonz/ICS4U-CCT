@@ -195,3 +195,4 @@ public class Barbarian extends Character {
         this.GetCalculatedStats()[ATTACKPOS] *= damageMultiplier;
     }
 }
+//Does this work

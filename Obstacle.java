@@ -14,3 +14,4 @@ public class Obstacle extends Entity {
         this.SetName("Obstacle");
     }
 }
+//Does this work
