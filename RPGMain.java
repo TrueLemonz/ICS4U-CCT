@@ -779,6 +779,7 @@ public class RPGMain {
                     System.out.println("Player " + winner + " wins!");
                     gameRunning = false;
                 }
+                gs.regenerateCharacter();
             } // TODO add the other two options
         } // STOP RUNNING
         input.close();
