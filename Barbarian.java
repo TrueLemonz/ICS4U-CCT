@@ -41,9 +41,9 @@ public class Barbarian extends Character {
     }
 
     public boolean CheckAbility1Possible(GameSystem gs) {
-        for (int i = 0; i < gs.gameBoard.length; i++) {
-            for (int j = 0; j < gs.gameBoard[i].length; j++) {
-                Character target = gs.gameBoard[i][j].GetEntity().GetCharacter();
+        for (int i = 0; i < gs.GameBoard.length; i++) {
+            for (int j = 0; j < gs.GameBoard[i].length; j++) {
+                Character target = gs.GameBoard[i][j].GetEntity().GetCharacter();
                 if (target != null && target.GetObject() == Entity.CHARACTER
                         && CheckConditions(2, GetAbility1Range(), target) && target.GetTeam() != this.team) {
                     return true;
@@ -54,9 +54,9 @@ public class Barbarian extends Character {
     }
 
     public boolean CheckAbility2Possible(GameSystem gs) {
-        for (int i = 0; i < gs.gameBoard.length; i++) {
-            for (int j = 0; j < gs.gameBoard[i].length; j++) {
-                Character target = gs.gameBoard[i][j].GetEntity().GetCharacter();
+        for (int i = 0; i < gs.GameBoard.length; i++) {
+            for (int j = 0; j < gs.GameBoard[i].length; j++) {
+                Character target = gs.GameBoard[i][j].GetEntity().GetCharacter();
                 if (target != null && target.GetObject() == Entity.CHARACTER
                         && CheckConditions(2, GetAbility2Range(), target) && target.GetTeam() != this.team) {
                     return true;
@@ -127,7 +127,6 @@ public class Barbarian extends Character {
         return true;
     }
 
-    // System.out.println( Ability1Hint());
     // Strong attack, meant to hit multiple times so that block/parry is calculated
     // for each hit
     // and its unlikely for the whole thing to be blocked

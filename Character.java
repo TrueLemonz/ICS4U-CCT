@@ -1,3 +1,12 @@
+/****************************************************
+ * Character
+ * 
+ * 
+ * 
+ * 
+ * Author: Leo & Lucas
+ * Date: 20/05/26
+ * **************************************************/
 public class Character extends Entity {
 
     // These stats will hold their respective calculated values
@@ -392,14 +401,14 @@ public class Character extends Entity {
         int x = position[0];
         int y = position[1];
 
-        int boardWidth = gs.gameBoard[0].length;
-        int boardHeight = gs.gameBoard.length;
+        int boardWidth = gs.GameBoard[0].length;
+        int boardHeight = gs.GameBoard.length;
 
         for (int i = x - range; i <= x + range; i++) { // Checks all slots to the left and right
             for (int j = y - range; j <= y + range; j++) { // Checks all slots to the up and down
                 if (i != x || j != y) {
                     if (i >= 0 && i < boardWidth && j >= 0 && j < boardHeight) {
-                        if (gs.gameBoard[i][j].GetEntity().GetObject() == type) {
+                        if (gs.GameBoard[i][j].GetEntity().GetObject() == type) {
                             return true;
                         }
                     }

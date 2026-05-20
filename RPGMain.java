@@ -29,7 +29,7 @@ public class RPGMain {
         System.out.print("Choose y-coordinate: ");
         int y = input.nextInt();
         gs.Move(character, x, y);
-        ds.PrintGrid(gs.gameBoard);
+        ds.PrintGrid(gs.GameBoard);
     }
 
     /*
@@ -72,21 +72,21 @@ public class RPGMain {
             int x = input.nextInt();
             System.out.print("Choose y-coordinate of enemy you would like to flip: ");
             int y = input.nextInt();
-            Character target = gs.gameBoard[y][x].GetEntity().GetCharacter();
-            ActionContext barbAbility1 = new ActionContext(target, gs.gameBoard);
+            Character target = gs.GameBoard[y][x].GetEntity().GetCharacter();
+            ActionContext barbAbility1 = new ActionContext(target, gs.GameBoard);
             boolean success = character.Ability1(barbAbility1);
             if (success) {
                 System.out.println(character.GetFullName() + " the " + character.GetName() + " flips "
                         + target.GetFullName() + " the " + target.GetName() + "!");
-                ds.PrintGrid(gs.gameBoard);
+                ds.PrintGrid(gs.GameBoard);
             }
         } else if (abilityChoice == 2) {
             System.out.print("Choose x-coordinate of enemy you would like to strike: ");
             int x = input.nextInt();
             System.out.print("Choose y-coordinate of enemy you would like to strike: ");
             int y = input.nextInt();
-            Character target = gs.gameBoard[y][x].GetEntity().GetCharacter();
-            ActionContext barbAbility2 = new ActionContext(target, gs.gameBoard);
+            Character target = gs.GameBoard[y][x].GetEntity().GetCharacter();
+            ActionContext barbAbility2 = new ActionContext(target, gs.GameBoard);
             boolean success = character.Ability2(barbAbility2);
             if (success) {
                 System.out.println(character.GetFullName() + " the " + character.GetName() + " strikes "
@@ -139,7 +139,7 @@ public class RPGMain {
         System.out.print("Choose ability: ");
         int abilityChoice = input.nextInt();
         if (abilityChoice == 1) {
-            ActionContext healerAbility1 = new ActionContext(0, 0, gs.gameBoard); // x and y are entirely unused.
+            ActionContext healerAbility1 = new ActionContext(0, 0, gs.GameBoard); // x and y are entirely unused.
             boolean success = character.Ability3(healerAbility1);
             if (success) {
                 System.out.println(character.GetFullName() + " the " + character.GetName() + " casts Prayer.");
@@ -152,8 +152,8 @@ public class RPGMain {
             int x = input.nextInt();
             System.out.print("Enter the y-coordinate of the ally you would like to buff: ");
             int y = input.nextInt();
-            Character target = gs.gameBoard[y][x].GetEntity().GetCharacter();
-            ActionContext healerAbility2 = new ActionContext(target, gs.gameBoard);
+            Character target = gs.GameBoard[y][x].GetEntity().GetCharacter();
+            ActionContext healerAbility2 = new ActionContext(target, gs.GameBoard);
             character.Ability2(healerAbility2);
             System.out.println(character.GetFullName() + " the " + character.GetName() + " buffs "
                     + target.GetFullName() + " the " + target.GetName());
@@ -162,8 +162,8 @@ public class RPGMain {
             int x = input.nextInt();
             System.out.print("Enter the y-coordinate of the enemy you would like to attack: ");
             int y = input.nextInt();
-            Character target = gs.gameBoard[y][x].GetEntity().GetCharacter();
-            ActionContext healerAbility3 = new ActionContext(target, gs.gameBoard);
+            Character target = gs.GameBoard[y][x].GetEntity().GetCharacter();
+            ActionContext healerAbility3 = new ActionContext(target, gs.GameBoard);
             boolean success = character.Ability3(healerAbility3);
             if (success) {
                 System.out.println(character.GetFullName() + " the " + character.GetName() + " casts energy bolt on "
@@ -223,8 +223,8 @@ public class RPGMain {
             int x = input.nextInt();
             System.out.print("Chooose y-coordinate of the ally you would like to shield: ");
             int y = input.nextInt();
-            Character target = gs.gameBoard[y][x].GetEntity().GetCharacter();
-            ActionContext crusaderAbility2 = new ActionContext(target, gs.gameBoard);
+            Character target = gs.GameBoard[y][x].GetEntity().GetCharacter();
+            ActionContext crusaderAbility2 = new ActionContext(target, gs.GameBoard);
             boolean success = character.Ability2(crusaderAbility2);
             if (success) {
                 System.out.println(character.GetFullName() + " the " + character.GetName() + " blesses "
@@ -237,8 +237,8 @@ public class RPGMain {
             int x = input.nextInt();
             System.out.print("Enter the y-coordinate of the enemy you would like to attack: ");
             int y = input.nextInt();
-            Character target = gs.gameBoard[y][x].GetEntity().GetCharacter();
-            ActionContext crusaderAbility3 = new ActionContext(target, gs.gameBoard);
+            Character target = gs.GameBoard[y][x].GetEntity().GetCharacter();
+            ActionContext crusaderAbility3 = new ActionContext(target, gs.GameBoard);
             boolean success = character.Ability3(crusaderAbility3);
             if (success) {
                 System.out.println(character.GetFullName() + " the " + character.GetName() + " bashes "
@@ -292,11 +292,11 @@ public class RPGMain {
             int x = input.nextInt();
             System.out.print("Choose y-coordinate of the obstacle you would like to create:");
             int y = input.nextInt();
-            ActionContext GuardAbility1 = new ActionContext(x, y, gs.gameBoard);
+            ActionContext GuardAbility1 = new ActionContext(x, y, gs.GameBoard);
             boolean success = character.Ability1(GuardAbility1);
             if (success) {
                 System.out.println(character.GetFullName() + " the " + character.GetName() + " places an obstacle!");
-                ds.PrintGrid(gs.gameBoard);
+                ds.PrintGrid(gs.GameBoard);
             } else {
 
                 System.out
@@ -370,11 +370,11 @@ public class RPGMain {
             int x = input.nextInt();
             System.out.print("Choose y-coordinate of the minion you would like to create:");
             int y = input.nextInt();
-            ActionContext SummonMinionAbility1 = new ActionContext(x, y, gs.gameBoard);
+            ActionContext SummonMinionAbility1 = new ActionContext(x, y, gs.GameBoard);
             boolean success = character.Ability1(SummonMinionAbility1);
             if (success) {
                 System.out.println(character.GetFullName() + " the " + character.GetName() + " creates a minion!");
-                ds.PrintGrid(gs.gameBoard);
+                ds.PrintGrid(gs.GameBoard);
             } else {
                 System.out
                         .println(character.GetFullName() + " the " + character.GetName() + " fails to create a minion");
@@ -384,7 +384,7 @@ public class RPGMain {
             int x = input.nextInt();
             System.out.print("Choose y-coordinate of the minion you would like to buff:");
             int y = input.nextInt();
-            Entity target = gs.gameBoard[y][x].GetEntity();
+            Entity target = gs.GameBoard[y][x].GetEntity();
             ActionContext BuffMinionAbility2 = new ActionContext(target);
             boolean success = character.Ability2(BuffMinionAbility2);
             if (success) {
@@ -398,12 +398,12 @@ public class RPGMain {
             int x = input.nextInt();
             System.out.print("Choose y-coordinate of the minion you would like to sacrafice:");
             int y = input.nextInt();
-            Entity target = gs.gameBoard[y][x].GetEntity();
+            Entity target = gs.GameBoard[y][x].GetEntity();
             System.out.print("Choose x-coordinate of the enemy you would like to attack: ");
             int enemyx = input.nextInt();
             System.out.print("Choose y-coordinate of the enemy you would like to attack:");
             int enemyy = input.nextInt();
-            Character enemy = gs.gameBoard[enemyy][enemyx].GetEntity().GetCharacter();
+            Character enemy = gs.GameBoard[enemyy][enemyx].GetEntity().GetCharacter();
             ActionContext NecromancerAbility3 = new ActionContext(enemy, target);
             boolean success = character.Ability3(NecromancerAbility3);
             if (success) {
@@ -456,11 +456,11 @@ public class RPGMain {
             int x = input.nextInt();
             System.out.print("Enter the y-coordinate of the enemy you would like to attack:");
             int y = input.nextInt();
-            ActionContext VerdictAbility1 = new ActionContext(x, y, gs.gameBoard);
+            ActionContext VerdictAbility1 = new ActionContext(x, y, gs.GameBoard);
             boolean success = character.Ability1(VerdictAbility1);
             if (success) {
                 System.out.println(character.GetFullName() + " the " + character.GetName() + " attacks!");
-                ds.PrintGrid(gs.gameBoard);
+                ds.PrintGrid(gs.GameBoard);
             } else {
                 System.out.println(character.GetFullName() + " the " + character.GetName() + " fails to attack");
             }
@@ -477,11 +477,11 @@ public class RPGMain {
             int x = input.nextInt();
             System.out.print("Enter the y-coordinate of the enemy you would like to attack:");
             int y = input.nextInt();
-            ActionContext StrikeAbility3 = new ActionContext(x, y, gs.gameBoard);
+            ActionContext StrikeAbility3 = new ActionContext(x, y, gs.GameBoard);
             boolean success = character.Ability3(StrikeAbility3);
             if (success) {
                 System.out.println(character.GetFullName() + " the " + character.GetName() + " attacks!");
-                ds.PrintGrid(gs.gameBoard);
+                ds.PrintGrid(gs.GameBoard);
             } else {
                 System.out.println(character.GetFullName() + " the " + character.GetName() + " fails to attack");
             }
@@ -667,14 +667,14 @@ public class RPGMain {
                     input.nextLine();
                     input.nextLine();
                 } // End of generating 2 teams
-                gs.player1.PlayerTeam[0].SetPosition(new int[] { 0, 0 }, gs.gameBoard);
-                gs.player1.PlayerTeam[1].SetPosition(new int[] { 1, 0 }, gs.gameBoard);
-                gs.player1.PlayerTeam[2].SetPosition(new int[] { 0, 1 }, gs.gameBoard);
-                gs.player2.PlayerTeam[0].SetPosition(new int[] { 7, 7 }, gs.gameBoard);
-                gs.player2.PlayerTeam[1].SetPosition(new int[] { 6, 7 }, gs.gameBoard);
-                gs.player2.PlayerTeam[2].SetPosition(new int[] { 7, 6 }, gs.gameBoard);
+                gs.player1.PlayerTeam[0].SetPosition(new int[] { 0, 0 }, gs.GameBoard);
+                gs.player1.PlayerTeam[1].SetPosition(new int[] { 1, 0 }, gs.GameBoard);
+                gs.player1.PlayerTeam[2].SetPosition(new int[] { 0, 1 }, gs.GameBoard);
+                gs.player2.PlayerTeam[0].SetPosition(new int[] { 7, 7 }, gs.GameBoard);
+                gs.player2.PlayerTeam[1].SetPosition(new int[] { 6, 7 }, gs.GameBoard);
+                gs.player2.PlayerTeam[2].SetPosition(new int[] { 7, 6 }, gs.GameBoard);
                 gs.PopulateGameBoard(7, 7);
-                ds.PrintGrid(gs.gameBoard);
+                ds.PrintGrid(gs.GameBoard);
                 while (!gs.CheckWin()) {
                     int p1TotalSpeed = 0;
                     int p2TotalSpeed = 0;

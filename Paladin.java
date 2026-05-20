@@ -1,5 +1,16 @@
+/* 
+ * The paladin class that stores the abilities and their configurations to be used in the game.
+ * First applies new modifiers to the base characters stats.
+ * Next runs ScaleStats(), running pre-made formulae to set the characters proper stats.
+ * Stats are converted from stat points to true stats.
+ * (E.G. 10 hlt points -> 90 health.)
+ */ 
 public class Paladin extends Character {
 
+    /* Initalizes a Paladin from a base character.
+     * @param character     - The character that contains the base stats to be modified.
+     * @param team          - The team to place the character in. Used to tell who takes damage.
+     */
     public Paladin(Character character, int team) {
         super();
         ApplyStats();

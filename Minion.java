@@ -1,3 +1,12 @@
+/****************************************************
+ * Minion
+ * 
+ * Minion summoned by the Necromancer.
+ * Not a character because it does not have abilities.
+ * 
+ * Author: Leo & Lucas
+ * Date: 20/05/26
+ * **************************************************/
 public class Minion extends Entity {
     private int team;
     private int damage;

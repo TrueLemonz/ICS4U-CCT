@@ -1,3 +1,12 @@
+/****************************************************
+ * Entity
+ * 
+ * The base level everything in-game extends from.
+ * Characters, food, and obstacles all are instances of entity.
+ * 
+ * Author: Leo & Lucas
+ * Date: 20/05/26
+ * **************************************************/
 public class Entity {
     private String name;
     private String fullName;

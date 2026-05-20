@@ -1,3 +1,14 @@
+/****************************************************
+ * Displayer
+ * 
+ * Holds a handful of helpful frontend functions that-
+ * help spread the code appropriately.
+ * Main function is to print the Game System's grid each turn.
+ * Also handles plenty of other functions for streamlining the ui.
+ * 
+ * Author: Leo & Lucas
+ * Date: 20/05/26
+ * **************************************************/
 public class Displayer {
     private static final int CELL_WIDTH = 15; // Maintains a narrow width to prevent wrapping
     private static final int CELL_PADDING_Y = 1; 
