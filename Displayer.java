@@ -33,7 +33,7 @@ public class Displayer {
     private static void centerPrint(String text, int width) {
         System.out.println(centerString(text, width));
     }
-    // TODO replace return with return false
+    
     public void PrintGrid(Block[][] grid) {
         if (grid == null || grid.length == 0) {
             return;

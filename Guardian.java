@@ -49,7 +49,7 @@ public class Guardian extends Character {
         return false;
      }
     public boolean CheckAbility3Possible(GameSystem gs) {
-        if ( this.CurrMagic() - 1 >= 0 )  { return true; }
+        if ( this.GetCurrMagic() - 1 >= 0 )  { return true; }
          return false; 
          }
     public String GetName() {

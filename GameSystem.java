@@ -89,7 +89,6 @@ public class GameSystem {
             for (int j = 0; j < this.gameBoard[i].length; j++) {
                 Block block = this.gameBoard[i][j];
                 if (block == null || block.getEntity() == null) {
-                    // TODO put the rest of the code in the if statement
                     continue;
                 }
                 if (block.getEntity().GetObject() == Entity.NONE) {

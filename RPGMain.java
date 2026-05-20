@@ -55,10 +55,8 @@ public class RPGMain {
         if (abilityChoice == 1) {
             System.out.print("Choose x-coordinate of enemy you would like to flip: ");
             int x = input.nextInt();
-            // TODO check errors and requirements
             System.out.print("Choose y-coordinate of enemy you would like to flip: ");
             int y = input.nextInt();
-            // TODO check errors and requirements
             Character target = gs.gameBoard[y][x].getEntity().GetCharacter();
             ActionContext barbAbility1 = new ActionContext(target, gs.gameBoard);
             boolean success = character.Ability1(barbAbility1);
@@ -70,10 +68,8 @@ public class RPGMain {
         } else if (abilityChoice == 2) {
             System.out.print("Choose x-coordinate of enemy you would like to strike: ");
             int x = input.nextInt();
-            // TODO check errors and requirements
             System.out.print("Choose y-coordinate of enemy you would like to strike: ");
             int y = input.nextInt();
-            // TODO check errors and requirements
             Character target = gs.gameBoard[y][x].getEntity().GetCharacter();
             ActionContext barbAbility2 = new ActionContext(target, gs.gameBoard);
             boolean success = character.Ability2(barbAbility2);
