@@ -60,15 +60,16 @@ public class Paladin extends Character {
         }
         Character enemy = context.GetTarget(); 
         if ( enemy != null )  {
-        enemy.SetCurrHealth() ( ally.GetCurrHealth() - 10 );
-        this.SetRawStats()[Character.INTLPOS] ( this.GetRawStats()[Character.INTLPOS] + 1);
+        enemy.SetCurrHealth( enemy.GetCurrHealth() - 10 );
+        this.SetIntl(this.GetRawStats()[Character.INTLPOS] + 1);
+        this.ScaleStats();
         return true;
         }
         return false;
     }
 
     public boolean Ability2 ( ActionContext context ) {
-        if ( context.GetTarget() != null &&  !CheckConditions(2, 2, ally ) || context.GetTarget().GetTeam() != this.team ) {
+        if ( context.GetTarget() != null &&  !CheckConditions(2, 2, context.GetTarget() ) || context.GetTarget().GetTeam() != this.team ) {
             return false;
         }   
         Character ally = context.GetTarget();

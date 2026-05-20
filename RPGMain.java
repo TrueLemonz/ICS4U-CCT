@@ -10,7 +10,7 @@ public class RPGMain {
      *
      * @param character - The character selected to move
      * @param input     - The scanner used to detect user input
-     * @param gs        - The game system responsible for tracking coordinates
+     * @param gs        - The game system that stores the coordinates and what inhabits them.
      * @param ds        - The displayer class containing a handful of vital methods.
      */
     private void promptMove(Character character, Scanner input, GameSystem gs, Displayer ds) {
@@ -26,7 +26,19 @@ public class RPGMain {
     }
 
 
-
+    /* Helper method to streamline prompting a barbarian character. 
+     * Ideally we would place this in each individual class, but that would very much break frontend backend. 
+     * The system prompts an integer between 0 and 3 and then selects an attack based off the user's input.
+     * 0    :Skip move, don't do anything.
+     * 1    :Flip a character to the opposite side, dealing damage.
+     * 2    :Kickpunch an enemy, doing massive amounts of damage.
+     * 3    :Infect yourself with lupus, dealing self-damage and increasing power output.
+     * 
+     * @param character     - The character being prompted, contains ability functions and it's own stats.
+     * @param input         - The scanner used to detect user input.
+     * @param gs            - The game system that stores the coordinates and what inhabits them.
+     * @param ds            - The displayer class containing a handful of vital methods. 
+     */
     private void promptBarbarian(Character character, Scanner input, GameSystem gs, Displayer ds) {
         System.out.println(character.GetFullName() + " the " + character.GetName() + "'s turn.");
         if (character.CheckAbility1Possible(gs)) {
@@ -79,6 +91,19 @@ public class RPGMain {
 
     }
 
+    /* Helper method to streamline prompting a barbarian character. 
+     * Ideally we would place this in each individual class, but that would very much break frontend backend. 
+     * The system prompts an integer between 0 and 3 and then selects an attack based off the user's input.
+     * 0    :Skip move, don't do anything.
+     * 1    :Pray for a character, dealing damage to enemies and healing allies.
+     * 2    :Praise an ally, granting stat buffs.
+     * 3    :Strike an enemy down with lightning, possibly stunning them and dealing small damage.
+     * 
+     * @param character     - The character being prompted, contains ability functions and it's own stats.
+     * @param input         - The scanner used to detect user input.
+     * @param gs            - The game system that stores the coordinates and what inhabits them.
+     * @param ds            - The displayer class containing a handful of vital methods. 
+     */
     private void promptHealer(Character character, Scanner input, GameSystem gs, Displayer ds) {
         ActionContext ac = new ActionContext();
         System.out.println(character.GetFullName() + " the " + character.GetName() + "'s turn.");
@@ -134,6 +159,19 @@ public class RPGMain {
         }
     }
 
+    /* Helper method to streamline prompting a barbarian character. 
+     * Ideally we would place this in each individual class, but that would very much break frontend backend. 
+     * The system prompts an integer between 0 and 3 and then selects an attack based off the user's input.
+     * 0    :Skip move, don't do anything.
+     * 1    : TODO ADD THIS
+     * 2    :Summon a ray of holy light on an ally, healing them and granting a speed buff.
+     * 3    :Bash an enemy with your sheild for medium damage.
+     * 
+     * @param character     - The character being prompted, contains ability functions and it's own stats.
+     * @param input         - The scanner used to detect user input.
+     * @param gs            - The game system that stores the coordinates and what inhabits them.
+     * @param ds            - The displayer class containing a handful of vital methods. 
+     */
     private void promptCrusader(Character character, Scanner input, GameSystem gs, Displayer ds) {
         if (character.CheckAbility1Possible(gs)) {
             System.out.println("Ability 1 - Divine Shield");
@@ -165,6 +203,19 @@ public class RPGMain {
         }
     }
 
+    /* Helper method to streamline prompting a barbarian character. 
+     * Ideally we would place this in each individual class, but that would very much break frontend backend. 
+     * The system prompts an integer between 0 and 3 and then selects an attack based off the user's input.
+     * 0    :Skip move, don't do anything.
+     * 1    :Create an obsticle at a specified coordinate.
+     * 2    :Grant yourself a massive health buff.
+     * 3    :Heal yourself.
+     * 
+     * @param character     - The character being prompted, contains ability functions and it's own stats.
+     * @param input         - The scanner used to detect user input.
+     * @param gs            - The game system that stores the coordinates and what inhabits them.
+     * @param ds            - The displayer class containing a handful of vital methods. 
+     */
     private void promptGuardian(Character character, Scanner input, GameSystem gs, Displayer ds) {
 
         ActionContext ac = new ActionContext();
@@ -221,6 +272,19 @@ public class RPGMain {
         }
     }
 
+    /* Helper method to streamline prompting a barbarian character. 
+     * Ideally we would place this in each individual class, but that would very much break frontend backend. 
+     * The system prompts an integer between 0 and 3 and then selects an attack based off the user's input.
+     * 0    :Skip move, don't do anything.
+     * 1    :Summon a minion anywhere on the board.
+     * 2    :Buff an adjacent minion, granting it more damage and health.
+     * 3    :Sacrafice a minion to damage an enemy.
+     * 
+     * @param character     - The character being prompted, contains ability functions and it's own stats.
+     * @param input         - The scanner used to detect user input.
+     * @param gs            - The game system that stores the coordinates and what inhabits them.
+     * @param ds            - The displayer class containing a handful of vital methods. 
+     */
     private void promptNecromancer(Character character, Scanner input, GameSystem gs, Displayer ds) {
         if (character.CheckAbility1Possible(gs)) {
             System.out.println("Ability 1 - Ressurect");
@@ -229,7 +293,7 @@ public class RPGMain {
             System.out.println("Ability 2 - Strengthen");
         }
         if (character.CheckAbility3Possible(gs)) {
-            System.out.println("Ability 3 - Meat sheild");
+            System.out.println("Ability 3 - Meat spike");
         }
         System.out.print("Choose ability: ");
         int abilityChoice = input.nextInt();
@@ -265,6 +329,52 @@ public class RPGMain {
             System.out.println("s");
         }
     }
+
+    private void promptPaladin(Character character, Scanner input, GameSystem gs, Displayer ds) {
+        if (character.CheckAbility1Possible(gs)) {
+            System.out.println("Ability 1 - Ressurect");
+        }
+        if (character.CheckAbility2Possible(gs)) {
+            System.out.println("Ability 2 - Strengthen");
+        }
+        if (character.CheckAbility3Possible(gs)) {
+            System.out.println("Ability 3 - Meat spike");
+        }
+        System.out.print("Choose ability: ");
+        int abilityChoice = input.nextInt();
+        if (abilityChoice == 1) {
+            System.out.print("Choose x-coordinate of the minion you would like to create: ");
+            int x = input.nextInt();
+            System.out.print("Choose y-coordinate of the minion you would like to create:");
+            int y = input.nextInt();
+            ActionContext SummonMinionAbility1 = new ActionContext(x, y, gs.gameBoard);
+            boolean success = character.Ability1(SummonMinionAbility1);
+            if (success) {
+                System.out.println(character.GetFullName() + " the " + character.GetName() + " creates a minion!");
+                ds.PrintGrid(gs.gameBoard);
+            } else {
+                System.out.println(character.GetFullName() + " the " + character.GetName() + " fails to create a minion");
+            }
+        } else if (abilityChoice == 2) {
+            System.out.print("Choose x-coordinate of the minion you would like to buff: ");
+            int x = input.nextInt();
+            System.out.print("Choose y-coordinate of the minion you would like to buff:");
+            int y = input.nextInt();
+            Entity target = gs.gameBoard[y][x].getEntity();
+            ActionContext BuffMinionAbility2 = new ActionContext(target);
+            boolean success = character.Ability2(BuffMinionAbility2);
+            if (success) {
+                System.out.println(character.GetFullName() + " the " + character.GetName() + " buffs a minion!");
+            } else {
+                System.out.println(character.GetFullName() + " the " + character.GetName() + " fails to buff a minion!");
+            }
+        } else if (abilityChoice == 3) {
+            //TODO uhhhhhhhh
+        } else {
+            System.out.println("s");
+        }
+    }
+
 
     public static void main(String[] args) {
         GameSystem gs = new GameSystem();
@@ -779,7 +889,6 @@ public class RPGMain {
                     System.out.println("Player " + winner + " wins!");
                     gameRunning = false;
                 }
-                gs.regenerateCharacter();
             } // TODO add the other two options
         } // STOP RUNNING
         input.close();

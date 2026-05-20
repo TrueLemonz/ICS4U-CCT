@@ -111,7 +111,7 @@ public class Barbarian extends Character {
         }
 
         // check if theres already an object there
-        if (grid[flipY][flipX].getEntity().GetObject() != null && grid[flipY][flipX].getEntity().GetObject() != Entity.NONE) {
+        if (grid[flipY][flipX].getEntity() != null && grid[flipY][flipX].getEntity().GetObject() != Entity.NONE) {
             return false;
         }
 

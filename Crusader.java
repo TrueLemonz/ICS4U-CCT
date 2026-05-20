@@ -105,6 +105,7 @@ public class Crusader extends Character {
             ScaleStats();
             return true;
         }
+        return false;
     }
     public boolean Ability2 ( ActionContext context ) {
         Character ally = context.GetTarget();
@@ -131,6 +132,7 @@ public class Crusader extends Character {
         if ( target != null ) {
             target.SetCurrHealth(target.GetCurrHealth() - 5);
             return true;
-            }
+        }
+        return false;
     }
 }
