@@ -1,16 +1,17 @@
-public class Guardian extends Character {
-    public Guardian(Character character, int team) {
+public class Paladin extends Character {
+
+    public Paladin(Character character, int team) {
         super();
         ApplyStats();
         ScaleStats();
-        this.SetName("Guardian");
+        this.SetName("Paladin");
         this.SetFullName(character.GetFullName());
         this.SetTeam(team);
-        this.spdMod -= 2;
-        this.intlMod = 4;
-        this.atkMod = 0;
+        this.spdMod = 2;
+        this.intlMod = -1;
+        this.atkMod = 8;
         this.mgcMod = 1;
-        this.hltMod = 5;
+        this.hltMod = -2;
         this.sppMod = 0;
         this.spd = character.spd + this.spdMod ;
         if ( this.spd + this.spdMod < 0 ) {
@@ -42,56 +43,58 @@ public class Guardian extends Character {
     public boolean CheckAbility2Possible(GameSystem gs) { return false; }
     public boolean CheckAbility3Possible(GameSystem gs) { return false; }
     public int GetAbility1Range() {
-        return 9;
+        return 1;
     }
     public int GetAbility2Range() {
-        return 9;
+        return 2;
     }
     public int GetAbility3Range() {
-        return 922;
+        return 2;
     }
     public String GetName() {
-        return "Guardian";
+        return "Paladin";
     }
-
-
     public boolean Ability1(ActionContext context) {
-        if ( !CheckConditions(2)) { 
+        if ( !CheckConditions(2,1, context.GetTarget()) || context.GetTarget().GetTeam() != this.team ) {
             return false;
         }
-        if ( context.GetGrid()[context.GetPosY()][context.GetPosX()].getEntity().GetObject() == Entity.NONE) {
-            context.GetGrid()[context.GetPosY()][context.GetPosX()] = new Block(new Obstacle());
-            this.SetCurrMagic( this.GetCurrMagic() - 2);
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-    // had to change from void to boolean because I simplified the methods earlier
-    public boolean Ability2() {
-        if ( !CheckConditions(1)) {
-            return false;
-        }
-        this.SetHlt ( this.GetRawStats()[HLTPOS] + 1);
-        this.SetIntl ( this.GetRawStats()[INTLPOS] + 1);
-        this.SetCurrMagic ( this.GetCurrMagic() - 1);
+        Character ally = context.GetTarget(); 
+        ally.SetIsDivineSheielded(true);
         return true;
     }
 
-    public boolean Ability3() {
-         if ( !CheckConditions(1)) {
+    public boolean Ability2 ( ActionContext context ) {
+        Character ally = context.GetTarget();
+        if ( !CheckConditions(2, 2, ally ) || context.GetTarget().GetTeam() != this.team ) {
             return false;
-        }
-        if (1.1 * this.GetCurrHealth() <= this.health ) {
-            this.SetCurrHealth(this.GetCurrHealth() * 1.1); // Sorry if this broke it, tried to make everything encapsulated
-            this.SetCurrMagic( this.GetCurrMagic() - 1);
+        }   
+        if ( ally.GetCurrHealth() + 15 <= ally.GetMaxHealth() ) {
+            ally.SetCurrHealth(ally.GetCurrHealth() + 10);
+            if ( ally.GetIsDivineShielded() ) {
+                ally.SetCurrHealth(ally.GetCurrHealth() + 5);
+            }
             return true;
         }
-        else {
+        return false;
+    }
+
+    public boolean Ability3 ( ActionContext context ) {
+        if ( !CheckConditions(2, 1, context.GetTarget()) ) {
             return false;
         }
+        Character target = context.GetTarget();
+        if ( target.GetCurrHealth() - 5 >= 0 ) {
+            if ( target.GetIsDivineShielded() ) {
+                target.SetCurrHealth(target.GetCurrHealth() - 2.5);
+            } 
+            else {
+                target.SetCurrHealth(target.GetCurrHealth() - 5);
+            }
+            return true;
+        }
+        return false;
     }
-    
+
+   
     
 }

@@ -4,17 +4,26 @@ public class Entity {
     private boolean isFood;
     private boolean isObstacle;
     private boolean isCharacter;
+    private boolean isMinion;
+    public Food food;
+    public Minion minion;
+    public Obstacle obstacle;
+    public Character character;
     private int team = 0;
     int[] position = new int[2];
     // Final variables for the GetObject() method
+    public final static int MINION = 4;
     public final static int FOOD = 3;
     public final static int OBSTACLE = 2;
     public final static int CHARACTER = 1;
-    public Entity(String name, boolean isFood, boolean isObstacle, boolean isCharacter) {
+    public final static int NONE = 0;
+    
+    public Entity(String name, boolean isFood, boolean isObstacle, boolean isCharacter, boolean isMinion) {
         this.name = name;
         this.isFood = isFood;
         this.isObstacle = isObstacle;
         this.isCharacter = isCharacter;
+        this.isMinion = isMinion;
     }
 
     public Entity() {
@@ -23,6 +32,7 @@ public class Entity {
         this.isFood = false;
         this.isObstacle = false;
         this.isCharacter = false;
+        this.isMinion = false;
     }
 
     /* 
@@ -33,6 +43,7 @@ public class Entity {
         this.isObstacle = false;
         this.isCharacter = false;
         this.name = null;
+        this.isMinion = false;
     }
 
     /*
@@ -52,9 +63,15 @@ public class Entity {
         else if (isCharacter) {
             return CHARACTER;
         } 
+        else if (isMinion) {
+            return MINION;
+        } 
         else {
-            return 0;
+            return NONE;
         }
+    }
+    public Character GetCharacter() {
+        return this.character;
     }
 
     public void SetObject(int objectType) {
@@ -62,21 +79,31 @@ public class Entity {
             this.isFood = true;
             this.isObstacle = false;
             this.isCharacter = false;
+            this.isMinion = false;
         } 
         else if (objectType == 2) {
             this.isFood = false;
             this.isObstacle = true;
             this.isCharacter = false;
+            this.isMinion = false;
         } 
         else if (objectType == 1) {
             this.isFood = false;
             this.isObstacle = false;
             this.isCharacter = true;
+            this.isMinion = false;
+        } 
+        else if (objectType == 4) {
+            this.isFood = false;
+            this.isObstacle = false;
+            this.isCharacter = false;
+            this.isMinion = true;
         } 
         else {
             this.isFood = false;
             this.isObstacle = false;
             this.isCharacter = false;
+            this.isMinion = false;
         }
     }
 

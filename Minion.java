@@ -1,33 +1,22 @@
-public class Minion extends Character {
-    private int turns = 1;
+public class Minion extends Entity {
+    private int team;
+    private int damage;
+    private int health;
     public Minion(int team) {
         super();
-        this.SetName("Minion");
-        this.SetFullName("Mini");
+        this.SetObject(4);
         this.team = team;
-        this.spdMod = 1;
-        this.intlMod = 1;
-        this.atkMod = 1;
-        this.sprMod = 1;
-        this.hltMod = 1;
-        this.sppMod = 1;
-        this.spd += this.spdMod ;
-        this.intl += this.intlMod;
-        this.atk += this.atkMod;
-        this.spr += this.sprMod;
-        this.hlt += this.hltMod;
-        this.spp += this.sppMod;
+        this.SetName("Team " + this.team + "'s minion" );
     }
-    public String getName() {
-        return "Minion";
+    public int getHealth(){
+        return this.health;
     }
-    public boolean Special(ActionContext context) {
-        return false;
+    public int getDamage(){
+        return this.damage;
     }
-    public boolean Ability1(ActionContext context) {
-        return false;
-    }
-    public boolean Ability2(ActionContext context) {
-        return false;
+    public void Buff() {
+        this.health += 1;
+        this.damage += 1;
     }
 }
+//tag (for github)

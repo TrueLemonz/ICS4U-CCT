@@ -1,11 +1,11 @@
 public class Displayer {
-    private static final int CELL_WIDTH = 15; // Define a constant for cell width
-    private static final int CELL_PADDING_Y = 1; // Adds a line that many times on both sides of the cell content
+    private static final int CELL_WIDTH = 15; // Maintains a narrow width to prevent wrapping
+    private static final int CELL_PADDING_Y = 1; 
 
     public Displayer() {}
 
-    private void printLine(int colsPerCell, int rowLength) {
-        int totalDashes = rowLength * (colsPerCell * (CELL_WIDTH + 1)) + 1;
+    private void printLine(int rowLength) {
+        int totalDashes = rowLength * (CELL_WIDTH + 1) + 1;
         for (int i = 0; i < totalDashes; i++) {
             System.out.print("-");
         }
@@ -17,15 +17,20 @@ public class Displayer {
             text = "";
         }
         if (text.length() >= width) {
-            return text;
+            return text.substring(0, width);
         }
+        
         int padding = width - text.length();
         int leftSpaces = padding / 2;
-        int rightSpaces = padding - leftSpaces;
-        return " ".repeat(leftSpaces) + text + " ".repeat(rightSpaces);
+        
+        // make the left padding part
+        String leftPadded = String.format("%" + (leftSpaces + text.length()) + "s", text);
+        
+        // add the right padding part so that its in the center altogether
+        return String.format("%-" + width + "s", leftPadded);
     }
 
-    public static void centerPrint(String text, int width) {
+    private static void centerPrint(String text, int width) {
         System.out.println(centerString(text, width));
     }
     // TODO replace return with return false
@@ -34,60 +39,79 @@ public class Displayer {
             return;
         }
 
-        int colsPerCell = 3;
         int rowLength = grid[0].length;
-        int totalWidth = rowLength * (colsPerCell * (CELL_WIDTH + 1)) + 1;
+        int totalWidth = rowLength * ((CELL_WIDTH + 1)) + 1;
 
         centerPrint("MAP:", totalWidth); 
         System.out.print("\n");
-        printLine(colsPerCell, rowLength);
+        System.out.printf("    %-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s", "CELL X = 0", "CELL X = 1", "CELL X = 2", "CELL X = 3", "CELL X = 4", "CELL X = 5", "CELL X = 6", "CELL X = 7");
+        System.out.print("\n");
+        printLine(rowLength);
         
         for (int i = 0; i < grid.length; i++) {
             Block[] row = grid[i];
 
-            // Top padding for the entire row
+            // Top padding 
             for (int k = 0; k < CELL_PADDING_Y; k++) {
                 for (int j = 0; j < row.length; j++) {
-                    for (int c = 0; c < colsPerCell; c++) {
-                        System.out.print("|" + centerString("", CELL_WIDTH));
-                    }
+                    System.out.print("|" + centerString("", CELL_WIDTH));
                 }
                 System.out.print("|\n");
             }
 
-            // Print row content
+            // Print Row Content: First vertical line (Names)
             for (int j = 0; j < row.length; j++) {
                 Block b = row[j];
-                String formattedClass = "";
-                String formattedInfo = "";
                 String formattedName = "";
 
                 if (b != null && b.getEntity() != null) {
-                    formattedClass = String.valueOf(b.getEntity().GetName()) + " Team: " + String.valueOf(b.getEntity().GetTeam());
-                    formattedInfo = "Team: " + String.valueOf(b.getEntity().GetTeam());
-                    int objectType = b.getEntity().GetObject();
-                    if (objectType == 1) {
+                    if (b.getEntity().GetObject() == Entity.CHARACTER) {
                         formattedName = b.getEntity().GetFullName();
                     }
                 }
                 System.out.print("|" + centerString(formattedName, CELL_WIDTH));
+            }
+            System.out.print("|\n");
+
+            // Print Row Content: Second vertical line (Classes)
+            for (int j = 0; j < row.length; j++) {
+                Block b = row[j];
+                String formattedClass = "";
+
+                if (b != null && b.getEntity() != null) {
+                    formattedClass = String.valueOf(b.getEntity().GetName());
+                }
                 System.out.print("|" + centerString(formattedClass, CELL_WIDTH));
+            }
+            System.out.print("| CELL Y = " + i + "\n"); 
+
+            // Print Row Content: Third vertical line (Teams)
+            for (int j = 0; j < row.length; j++) {
+                Block b = row[j];
+                String formattedInfo = "";
+
+                if (b != null && b.getEntity() != null) {
+                    if (b.getEntity().GetObject() == Entity.CHARACTER || b.getEntity().GetObject() == Entity.MINION) {
+                        formattedInfo = "Team: " + String.valueOf(b.getEntity().GetTeam());
+                    }
+                }
                 System.out.print("|" + centerString(formattedInfo, CELL_WIDTH));
             }
             System.out.print("|\n");
 
-            // Bottom padding for the entire row
+            // Bottom padding 
             for (int k = 0; k < CELL_PADDING_Y; k++) {
                 for (int j = 0; j < row.length; j++) {
-                    for (int c = 0; c < colsPerCell; c++) {
-                        System.out.print("|" + centerString("", CELL_WIDTH));
-                    }
+                    System.out.print("|" + centerString("", CELL_WIDTH));
                 }
                 System.out.print("|\n");
             }
 
-            printLine(colsPerCell, row.length);
+            printLine(row.length);
+            
         }
+        System.out.printf("    %-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s", "CELL X = 0", "CELL X = 1", "CELL X = 2", "CELL X = 3", "CELL X = 4", "CELL X = 5", "CELL X = 6", "CELL X = 7");
+        System.out.print("\n");
     }
 
     public boolean PrintInitialStats(Character[] characters) {
@@ -98,14 +122,14 @@ public class Displayer {
                 return false;
             }
             System.out.println("------------------------------------");
-            System.out.println("Character   : " + c.GetName());
-            System.out.println("Team        : " + c.GetTeam());
-            System.out.println("Speed       : " + c.GetRawStats()[c.SPDPOS]);
-            System.out.println("Intelligence: " + c.GetRawStats()[c.INTLPOS]);
-            System.out.println("Attack      : " + c.GetRawStats()[c.ATKPOS]);
-            System.out.println("Spirit      : " + c.GetRawStats()[c.SPRPOS]);
-            System.out.println("Health      : " + c.GetRawStats()[c.HLTPOS]);
-            System.out.println("Spell Power : " + c.GetRawStats()[c.SPPPOS]);
+            System.out.println("Name           : " + c.GetFullName());
+            System.out.println("Team           : " + c.GetTeam());
+            System.out.println("Speed          : " + c.GetRawStats()[Character.SPDPOS]);
+            System.out.println("Intelligence   : " + c.GetRawStats()[Character.INTLPOS]);
+            System.out.println("Attack         : " + c.GetRawStats()[Character.ATKPOS]);
+            System.out.println("Spirit         : " + c.GetRawStats()[Character.MGCPOS]);
+            System.out.println("Health         : " + c.GetRawStats()[Character.HLTPOS]);
+            System.out.println("Spell Power    : " + c.GetRawStats()[Character.SPPPOS]);
             System.out.println("------------------------------------");
         }
         return false;
@@ -121,9 +145,13 @@ public class Displayer {
             System.out.println("------------------------------------");
             System.out.println("Character   : " + c.GetName());
             System.out.println("Team        : " + c.GetTeam());
-            System.out.println("Health      : " + c.GetCurrHealth() + " / " + c.GetCalculatedStats()[c.HLTPOS]);
+            System.out.println("Health      : " + c.GetCurrHealth() + " / " + c.GetCalculatedStats()[Character.MAXHEALTHPOS]);
+            System.out.println("Magic       : " + c.GetCurrMagic() + " / " + c.GetCalculatedStats()[Character.MAXMAGICPOS]);
+            System.out.println("Steps       : " + c.GetCalculatedStats()[Character.SPEEDPOS]);
             System.out.println("------------------------------------");
         }
         return false;
     }
 }
+
+
