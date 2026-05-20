@@ -1,100 +1,130 @@
 public class Necromancer extends Character {
     public Necromancer(Character character, int team) {
         super();
-        ApplyStats();
-        ScaleStats();
         this.SetName("Necromancer");
         this.SetFullName(character.GetFullName());
         this.SetTeam(team);
-        this.spdMod = -1;
-        this.intlMod = 3;
-        this.atkMod = 1;
-        this.mgcMod = 2;
-        this.hltMod = 1;
-        this.sppMod = 2;
-        this.spd = character.spd + this.spdMod ;
-        if ( this.spd + this.spdMod < 0 ) {
-            this.spd = 1;
-        }
-        this.intl = character.intl + this.intlMod;
-        if ( this.intl + this.intlMod < 0 ) {
-            this.intl = 1;
-        }
-        this.atk = character.atk + this.atkMod;
-        if ( this.atk + this.atkMod < 0 ) {
-            this.atk = 1;
-        }
-        this.mgc = character.mgc + this.mgcMod;
-        if ( this.mgc + this.mgcMod < 0 ) {
-            this.mgc = 1;
-        }
-        this.hlt = character.hlt + this.hltMod;
-        if ( this.hlt + this.hltMod < 0 ) {
-            this.hlt = 1;
-        }
-        this.spp = character.spp + this.sppMod;
-        if ( this.spp + this.sppMod < 0 ) {
-            this.spp = 1;
-        }
-        ScaleStats();
+        this.SetStatMods(SPDPOS, -1);
+        ;
+        this.SetStatMods(INTLPOS, 3);
+        this.SetStatMods(ATKPOS, 1);
+        this.SetStatMods(MGCPOS, 2);
+        this.SetStatMods(HLTPOS, 1);
+        this.SetStatMods(SPPPOS, 2);
+        this.ApplyStats(character);
+        this.ScaleStats();
     }
+
     public String GetName() {
         return "Necromancer";
     }
-    public boolean CheckAbility1Possible(GameSystem gs) { 
+
+    public boolean CheckAbility1Possible(GameSystem gs) {
         if (CheckSurroundingsContain(gs, NONE, 1) && GetCurrMagic() > 4) {
             return true;
         }
         return false;
     }
-    public boolean CheckAbility2Possible(GameSystem gs) { 
+
+    public boolean CheckAbility2Possible(GameSystem gs) {
         if (CheckSurroundingsContain(gs, MINION, 1)) {
             return true;
         }
-        return false; 
+        return false;
     }
-    public boolean CheckAbility3Possible(GameSystem gs) { 
+
+    public boolean CheckAbility3Possible(GameSystem gs) {
         if (CheckSurroundingsContain(gs, MINION, 2) && CheckSurroundingsContain(gs, CHARACTER, 2)) {
             return true;
         }
-        return false; 
+        return false;
     }
+
     public boolean Ability1(ActionContext context) {
-        if ( context.GetTarget() != null && context.GetGrid()[context.GetPosY()][context.GetPosX()].GetEntity().GetObject() == Entity.NONE 
-            && CheckRange(1, this)) {
-            context.GetGrid()[context.GetPosY()][context.GetPosX()] = new Block(new Minion(this.team));
-            return true;
-        }
-        else {
+        if (!CheckConditions(5)) {
             return false;
         }
+
+        int targetX = context.GetPosX();
+        int targetY = context.GetPosY();
+        Block[][] grid = context.GetGrid();
+
+        // Safely make sure coordinates fall inside bounds and target is an empty tile space
+        if (grid == null || targetY < 0 || targetY >= grid.length || targetX < 0 || targetX >= grid[0].length) {
+            return false;
+        }
+
+        Block targetBlock = grid[targetY][targetX];
+        if (targetBlock == null || targetBlock.GetEntity() == null
+                || targetBlock.GetEntity().GetObject() != Entity.NONE) {
+            return false;
+        }
+
+        // Calculate manual spatial distance check since there is no target entity object to pass to CheckRange
+        int[] myPos = this.GetPosition();
+        int distX = Math.abs(myPos[0] - targetY); // array layout expects Y at position 0
+        int distY = Math.abs(myPos[1] - targetX); // array layout expects X at position 1
+
+        if (Math.max(distX, distY) <= 1) {
+            // Place minion entity inside the existing block structure instead of replacing the block instance
+            Minion newMinion = new Minion(this.GetTeam());
+            targetBlock.SetEntity(newMinion);
+
+            // Remove magic points
+            this.SetCurrMagic(this.GetCurrMagic() - 5);
+            return true;
+        }
+        return false;
     }
+
     public boolean Ability2(ActionContext context) {
-        if ( context != null && context.GetTargetEntity() != null && context.GetTargetEntity().GetObject() == Entity.MINION) {
+        if (context == null || context.GetTargetEntity() == null) {
+            return false;
+        }
+        if (!CheckConditions(2, 1, context.GetTargetEntity())) {
+            return false;
+        }
+
+        if (context.GetTargetEntity().GetObject() == Entity.MINION) {
             Minion target = context.GetTargetEntity().minion;
-            target.Buff();
+            if (target != null) {
+                target.Buff();
+                this.SetCurrMagic(this.GetCurrMagic() - 2);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean Ability3(ActionContext context) {
+        if (context == null || context.GetGrid() == null) {
+            return false;
+        }
+
+        int targetX = context.GetPosX();
+        int targetY = context.GetPosY();
+        Block[][] grid = context.GetGrid();
+
+        if (targetY < 0 || targetY >= grid.length || targetX < 0 || targetX >= grid[0].length) {
+            return false;
+        }
+
+        Block targetBlock = grid[targetY][targetX];
+        if (targetBlock == null || targetBlock.GetEntity() == null) {
+            return false;
+        }
+
+        if (!CheckConditions(4, 2, targetBlock.GetEntity())) {
+            return false;
+        }
+
+        Entity targetEntity = targetBlock.GetEntity();
+        if (targetEntity.GetObject() == Entity.CHARACTER && targetEntity.GetTeam() != this.GetTeam()) {
+            Character enemy = (Character) targetEntity;
+            enemy.SetCurrHealth(enemy.GetCurrHealth() - 20);
+            this.SetCurrMagic(this.GetCurrMagic() - 4);
             return true;
         }
-        else {
-            return false;
-        }
+        return false;
     }
-    public boolean Ability3(ActionContext context) {
-        if ( context != null && context.GetGrid()[context.GetPosY()][context.GetPosX()].GetEntity().GetObject() == Entity.CHARACTER) {
-            if (context.GetGrid()[context.GetPosY()][context.GetPosX()].GetEntity().GetTeam() != this.team) {
-                context.GetTargetEntity().Destroy();
-                Character enemy = context.GetTarget();
-                enemy.SetCurrHealth(enemy.GetCurrHealth() - 20);
-                return true;
-            } else {
-                return false;
-            }
-            
-        }
-        else {
-            return false;
-        }
-    }
-   
-    
 }

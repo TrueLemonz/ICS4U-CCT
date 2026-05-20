@@ -8,14 +8,13 @@
  * Date: 20/05/26
  * **************************************************/
 public class Minion extends Entity {
-    private int team;
     private int damage;
     private int health;
     public Minion(int team) {
         super();
         this.SetObject(4);
-        this.team = team;
-        this.SetName("Team " + this.team + "'s minion" );
+        this.SetTeam(team);
+        this.SetName("Team " + this.GetTeam() + "'s minion" );
     }
     public int getHealth(){
         return this.health;

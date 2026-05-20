@@ -36,7 +36,7 @@ public class Entity {
     }
 
     public Entity() {
-        this.team = 0;
+        this.SetTeam(0);
         this.name = null;
         this.isFood = false;
         this.isObstacle = false;

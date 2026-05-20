@@ -5,134 +5,150 @@ public class Crusader extends Character {
      * Initializes base stats and applies class-based modifications (___mod) for the
      * crusader class.
      *
-     * @param character     - The base Character object used to initialize the new
-     *                        crusader.
-     * @param team          - The team ID assigned to this crusader.
+     * @param character - The base Character object used to initialize the new
+     * crusader.
+     * 
+     * @param team - The team ID assigned to this crusader.
      */
     public Crusader(Character character, int team) {
         super();
-        ApplyStats();
-        ScaleStats();
         this.SetName("Crusader");
         this.SetFullName(character.GetFullName());
         this.SetTeam(team);
-        this.spdMod = 2;
-        this.intlMod = -1;
-        this.atkMod = 8;
-        this.mgcMod = 1;
-        this.hltMod = -2;
-        this.sppMod = 0;
-        this.spd = character.spd + this.spdMod ;
-        if ( this.spd + this.spdMod < 0 ) {
-            this.spd = 1;
-        }
-        this.intl = character.intl + this.intlMod;
-        if ( this.intl + this.intlMod < 0 ) {
-            this.intl = 1;
-        }
-        this.atk = character.atk + this.atkMod;
-        if ( this.atk + this.atkMod < 0 ) {
-            this.atk = 1;
-        }
-        this.mgc = character.mgc + this.mgcMod;
-        if ( this.mgc + this.mgcMod < 0 ) {
-            this.mgc = 1;
-        }
-        this.hlt = character.hlt + this.hltMod;
-        if ( this.hlt + this.hltMod < 0 ) {
-            this.hlt = 1;
-        }
-        this.spp = character.spp + this.sppMod;
-        if ( this.spp + this.sppMod < 0 ) {
-            this.spp = 1;
-        }
-        ScaleStats();
+        this.SetStatMods(SPDPOS, 2);
+        this.SetStatMods(INTLPOS, -1);
+        this.SetStatMods(ATKPOS, 8);
+        this.SetStatMods(MGCPOS, 1);
+        this.SetStatMods(HLTPOS, -2);
+        this.SetStatMods(SPPPOS, 0);
+        this.ApplyStats(character);
+        this.ScaleStats();
     }
-    public boolean CheckAbility1Possible(GameSystem gs) { 
-        for ( int i = 0 ; i < gs.GameBoard.length; i++ ) {
-            for ( int j = 0; j < gs.GameBoard[i].length; j ++ ) {
-                Character target = gs.GameBoard[i][j].GetEntity().GetCharacter();
-                if ( target != null && target.GetObject() == Entity.CHARACTER && CheckConditions(2, GetAbility1Range(), target) && target.GetTeam() != this.team ) {
-                    return true;
+
+    public boolean CheckAbility1Possible(GameSystem gs) {
+        if (gs == null || gs.GameBoard == null)
+            return false;
+
+        for (int i = 0; i < gs.GameBoard.length; i++) {
+            for (int j = 0; j < gs.GameBoard[i].length; j++) {
+                if (gs.GameBoard[i][j] != null && gs.GameBoard[i][j].GetEntity() != null) {
+                    Entity entity = gs.GameBoard[i][j].GetEntity();
+                    if (entity.GetObject() == Entity.CHARACTER) {
+                        Character target = (Character) entity;
+                        if (CheckConditions(2, GetAbility1Range(), target) && target.GetTeam() != this.GetTeam()) {
+                            return true;
+                        }
+                    }
                 }
             }
         }
         return false;
     }
-    public boolean CheckAbility2Possible(GameSystem gs) { 
-        for ( int i = 0 ; i < gs.GameBoard.length; i++ ) {
-            for ( int j = 0; j < gs.GameBoard[i].length; j ++ ) {
-                Character target = gs.GameBoard[i][j].GetEntity().GetCharacter();
-                if ( target != null &&  target.GetObject() == Entity.CHARACTER && CheckConditions(2, GetAbility2Range(), target) && target.GetTeam() == this.team ) {
-                    return true;
+
+    public boolean CheckAbility2Possible(GameSystem gs) {
+        if (gs == null || gs.GameBoard == null)
+            return false;
+
+        for (int i = 0; i < gs.GameBoard.length; i++) {
+            for (int j = 0; j < gs.GameBoard[i].length; j++) {
+                if (gs.GameBoard[i][j] != null && gs.GameBoard[i][j].GetEntity() != null) {
+                    Entity entity = gs.GameBoard[i][j].GetEntity();
+                    if (entity.GetObject() == Entity.CHARACTER) {
+                        Character target = (Character) entity;
+                        if (CheckConditions(2, GetAbility2Range(), target) && target.GetTeam() == this.GetTeam()) {
+                            return true;
+                        }
+                    }
                 }
             }
         }
         return false;
     }
-    public boolean CheckAbility3Possible(GameSystem gs ) {
-        for ( int i = 0 ; i < gs.GameBoard.length; i++ ) {
-            for ( int j = 0; j < gs.GameBoard[i].length; j ++ ) {
-                Character target = gs.GameBoard[i][j].GetEntity().GetCharacter();
-                if ( target != null &&  target.GetObject() == Entity.CHARACTER &&  CheckConditions(2, GetAbility3Range(), target) && target.GetTeam() != this.team ) {
-                    return true;
+
+    public boolean CheckAbility3Possible(GameSystem gs) {
+        if (gs == null || gs.GameBoard == null)
+            return false;
+
+        for (int i = 0; i < gs.GameBoard.length; i++) {
+            for (int j = 0; j < gs.GameBoard[i].length; j++) {
+                if (gs.GameBoard[i][j] != null && gs.GameBoard[i][j].GetEntity() != null) {
+                    Entity entity = gs.GameBoard[i][j].GetEntity();
+                    if (entity.GetObject() == Entity.CHARACTER) {
+                        Character target = (Character) entity;
+                        if (CheckConditions(2, GetAbility3Range(), target) && target.GetTeam() != this.GetTeam()) {
+                            return true;
+                        }
+                    }
                 }
             }
         }
         return false;
     }
+
     public int GetAbility1Range() {
         return 1;
     }
+
     public int GetAbility2Range() {
         return 2;
     }
+
     public int GetAbility3Range() {
         return 2;
     }
+
     public String GetName() {
         return "Crusader";
     }
+
     public boolean Ability1(ActionContext context) {
-        if ( !CheckConditions(2,1, context.GetTarget()) || context.GetTarget().GetTeam() == this.team ) {
+        if (context.GetTarget() == null || !CheckConditions(2, 1, context.GetTarget())
+                || context.GetTarget().GetTeam() == this.GetTeam()) {
             return false;
         }
-        Character target = context.GetTarget(); 
-        if ( target != null ) {
-            target.SetCurrHealth ( target.GetCurrHealth() - 15);
-            SetIntl ( GetRawStats()[Character.INTLPOS] + 1);
-            SetAtk ( GetRawStats()[Character.ATKPOS] + 1);
-            ScaleStats();
-            return true;
-        }
-        return false;
-    }
-    public boolean Ability2 ( ActionContext context ) {
-        Character ally = context.GetTarget();
-        if ( ally != null && !CheckConditions(2, 2, ally ) || context.GetTarget().GetTeam() != this.team ) {
-            return false;
-        }   
-        if ( ally != null && ally.GetCurrHealth() + 15 <= ally.GetCalculatedStats()[Character.MAXHEALTHPOS]) {
-            ally.SetCurrHealth(ally.GetCurrHealth() + 10);
-            ally.SetSPP ( ally.GetRawStats()[SPPPOS] + 1);
-            return true;
-        }
-        else {
-            double healCap = ally.GetCalculatedStats()[Character.MAXHEALTHPOS] - ally.GetCurrHealth();
-            ally.SetCurrHealth( ally.GetCurrHealth() + healCap );
-            return true;
-        }
+
+        Character target = context.GetTarget();
+        target.SetCurrHealth(target.GetCurrHealth() - 15);
+
+        // update stats safely using class references
+        this.SetRawStats(Character.INTLPOS, (this.GetRawStats()[Character.INTLPOS] + 1));
+        this.SetRawStats(Character.ATKPOS, (this.GetRawStats()[Character.ATKPOS] + 1));
+        this.ScaleStats();
+
+        this.SetCurrMagic(this.GetCurrMagic() - 2);
+        return true;
     }
 
-    public boolean Ability3 ( ActionContext context ) {
-        if ( !CheckConditions(2, 1, context.GetTarget()) ) {
+    public boolean Ability2(ActionContext context) {
+        if (context.GetTarget() == null || !CheckConditions(2, 2, context.GetTarget())
+                || context.GetTarget().GetTeam() != this.GetTeam()) {
             return false;
         }
-        Character target = context.GetTarget();
-        if ( target != null ) {
-            target.SetCurrHealth(target.GetCurrHealth() - 5);
-            return true;
+
+        Character ally = context.GetTarget();
+        double maxHealth = ally.GetMaxHealth();
+
+        if (ally.GetCurrHealth() + 15 <= maxHealth) {
+            ally.SetCurrHealth(ally.GetCurrHealth() + 15);
+        } else {
+            ally.SetCurrHealth(maxHealth);
         }
-        return false;
+
+        ally.SetRawStats(Character.SPPPOS, (ally.GetRawStats()[Character.SPPPOS] + 1));
+        this.SetCurrMagic(this.GetCurrMagic() - 2);
+        return true;
+    }
+
+    public boolean Ability3(ActionContext context) {
+        // updated range parameter to use GetAbility3Range() instead of hardcoded 1
+        if (context.GetTarget() == null || !CheckConditions(2, GetAbility3Range(), context.GetTarget())
+                || context.GetTarget().GetTeam() == this.GetTeam()) {
+            return false;
+        }
+
+        Character target = context.GetTarget();
+        target.SetCurrHealth(target.GetCurrHealth() - 5);
+        this.SetCurrMagic(this.GetCurrMagic() - 2);
+        return true;
     }
 }

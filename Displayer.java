@@ -163,6 +163,25 @@ public class Displayer {
         }
         return false;
     }
+
+    public void PrintRules() {
+        System.out.println("\n=================== GAMEPLAY RULES ===================");
+        System.out.println("1. MOVEMENT & GRID RULES:");
+        System.out.println("   - The board is an 8x8 grid of blocks.");
+        System.out.println("   - You can only land on tiles with no object types.");
+        System.out.println("   - Eating food restores 15 HP up to your Max Health.");
+        System.out.println("\n2. STAT SCALING MATHEMATICS:");
+        System.out.println("   - Intelligence -> scaled by 2.5x to calculate true spell power metrics.");
+        System.out.println("   - Attack       -> scaled by 9.5x to determine total melee strike damage.");
+        System.out.println("   - Spirit/Magic -> multiplied by 2x to establish your maximum mana pool.");
+        System.out.println("   - Health       -> scaled by 9.0x to calculate maximum total life pool.");
+        System.out.println("\n3. COMBAT TURNS & ACTION ROUNDS:");
+        System.out.println("   - Team priority goes to whichever group has the highest total Speed stat.");
+        System.out.println("   - Characters execute actions in sequence matching internal speed indexes.");
+        System.out.println("   - Stunned characters are completely blocked from movement or casting skill paths.");
+        System.out.println("   - All alive units regenerate 1 Mana and 1 Health at the end of every round cycle.");
+        System.out.println("======================================================\n");
+    }
 }
 
 

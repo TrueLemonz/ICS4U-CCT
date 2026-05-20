@@ -140,7 +140,7 @@ public class RPGMain {
         int abilityChoice = input.nextInt();
         if (abilityChoice == 1) {
             ActionContext healerAbility1 = new ActionContext(0, 0, gs.GameBoard); // x and y are entirely unused.
-            boolean success = character.Ability3(healerAbility1);
+            boolean success = character.Ability1(healerAbility1);
             if (success) {
                 System.out.println(character.GetFullName() + " the " + character.GetName() + " casts Prayer.");
             } else {
@@ -396,22 +396,27 @@ public class RPGMain {
         } else if (abilityChoice == 3) {
             System.out.print("Choose x-coordinate of the minion you would like to sacrafice: ");
             int x = input.nextInt();
-            System.out.print("Choose y-coordinate of the minion you would like to sacrafice:");
+            System.out.print("Choose y-coordinate of the minion you would like to sacrafice: ");
             int y = input.nextInt();
             Entity target = gs.GameBoard[y][x].GetEntity();
+            
             System.out.print("Choose x-coordinate of the enemy you would like to attack: ");
             int enemyx = input.nextInt();
-            System.out.print("Choose y-coordinate of the enemy you would like to attack:");
+            System.out.print("Choose y-coordinate of the enemy you would like to attack: ");
             int enemyy = input.nextInt();
             Character enemy = gs.GameBoard[enemyy][enemyx].GetEntity().GetCharacter();
-            ActionContext NecromancerAbility3 = new ActionContext(enemy, target);
+            
+            // fixed the coordinates
+            ActionContext NecromancerAbility3 = new ActionContext(enemyx, enemyy, enemy, gs.GameBoard);
+            NecromancerAbility3 = new ActionContext(target, gs.GameBoard);
+            
             boolean success = character.Ability3(NecromancerAbility3);
             if (success) {
                 System.out.println(character.GetFullName() + " the " + character.GetName()
-                        + " sacrafices a minion to attack " + enemy.GetFullName() + " the " + enemy.GetName());
+                        + " sacrafices a minion to attack " + enemy.GetFullName() + " the " + enemy.GetName() + "!");
             } else {
-                System.out
-                        .println(character.GetFullName() + " the " + character.GetName() + " fails to buff a minion!");
+                // it shows the right feedback now
+                System.out.println(character.GetFullName() + " the " + character.GetName() + " fails to detonate a meat spike!");
             }
         } else {
             System.out.println("Invalid input.");
@@ -501,7 +506,7 @@ public class RPGMain {
 
         while (gameRunning) {
             System.out.println("Welcome to the RPG Game!");
-            System.out.println("What would you like to do? \n1. Start Game \n2. Hall of fame\n3. Exit");
+            System.out.println("What would you like to do? \n1. Start Game \n2. Rules\n3. Exit");
             playerChoice = input.nextInt();
             if (playerChoice == 1) {
                 for (int i = 1; i <= 2; i++) {
@@ -679,8 +684,8 @@ public class RPGMain {
                     int p1TotalSpeed = 0;
                     int p2TotalSpeed = 0;
                     for (int i = 0; i < 3; i++) {
-                        p1TotalSpeed += gs.player1.PlayerTeam[i].GetSpd();
-                        p2TotalSpeed += gs.player2.PlayerTeam[i].GetSpd();
+                        p1TotalSpeed += gs.player1.PlayerTeam[i].GetRawStats()[Character.SPDPOS];
+                        p2TotalSpeed += gs.player2.PlayerTeam[i].GetRawStats()[Character.SPDPOS];
                     }
                     if (p1TotalSpeed >= p2TotalSpeed) {
                         // --- PLAYER 1 GOES FIRST ---
@@ -1010,22 +1015,13 @@ public class RPGMain {
                 }
                 if (gs.CheckWin()) {
                     int winner = gs.GetWinningTeam();
-                    String saveCharacters = "";
                     System.out.println("Player " + winner + " wins!");
-                    System.out.println("Would you like to save your team in the hall of fame? (Y/n)");
-                    saveCharacters = input.nextLine();
-                    if (saveCharacters.equals("n")) {
-                        System.out.println("Exiting game...");
-                    } else {
-
-                    }
-
                     gameRunning = false;
                 }
                 gs.RegenerateCharacters(gs.player1.PlayerTeam);
                 gs.RegenerateCharacters(gs.player2.PlayerTeam);
             } else if (playerChoice == 2) {
-
+                ds.PrintRules();
             } else if (playerChoice == 3) {
                 gameRunning = false;
             }
