@@ -98,18 +98,20 @@ public class Crusader extends Character {
             return false;
         }
         Character target = context.GetTarget(); 
-        target.SetCurrHealth ( target.GetCurrHealth() - 15);
-        SetIntl ( GetRawStats()[Character.INTLPOS] + 1);
-        SetAtk ( GetRawStats()[Character.ATKPOS] + 1);
-        ScaleStats();
-        return true;
+        if ( target != null ) {
+            target.SetCurrHealth ( target.GetCurrHealth() - 15);
+            SetIntl ( GetRawStats()[Character.INTLPOS] + 1);
+            SetAtk ( GetRawStats()[Character.ATKPOS] + 1);
+            ScaleStats();
+            return true;
+        }
     }
     public boolean Ability2 ( ActionContext context ) {
         Character ally = context.GetTarget();
-        if ( !CheckConditions(2, 2, ally ) || context.GetTarget().GetTeam() != this.team ) {
+        if ( ally != null && !CheckConditions(2, 2, ally ) || context.GetTarget().GetTeam() != this.team ) {
             return false;
         }   
-        if ( ally.GetCurrHealth() + 15 <= ally.GetCalculatedStats()[Character.MAXHEALTHPOS]) {
+        if ( ally != null && ally.GetCurrHealth() + 15 <= ally.GetCalculatedStats()[Character.MAXHEALTHPOS]) {
             ally.SetCurrHealth(ally.GetCurrHealth() + 10);
             ally.SetSPP ( ally.GetRawStats()[SPPPOS] + 1);
             return true;
@@ -126,7 +128,9 @@ public class Crusader extends Character {
             return false;
         }
         Character target = context.GetTarget();
-        target.SetCurrHealth(target.GetCurrHealth() - 5);
-        return true;
+        if ( target != null ) {
+            target.SetCurrHealth(target.GetCurrHealth() - 5);
+            return true;
+            }
     }
 }

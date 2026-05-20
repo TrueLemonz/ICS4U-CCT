@@ -55,7 +55,7 @@ public class Necromancer extends Character {
     }
     public boolean CheckAbility3Possible(GameSystem gs) { return false; } 
     public boolean Ability1(ActionContext context) {
-        if (context.GetGrid()[context.GetPosY()][context.GetPosX()].getEntity().GetObject() == Entity.NONE 
+        if ( context.GetTarget() != null && context.GetGrid()[context.GetPosY()][context.GetPosX()].getEntity().GetObject() == Entity.NONE 
             && CheckRange(1, this)) {
             context.GetGrid()[context.GetPosY()][context.GetPosX()] = new Block(new Minion(this.team));
             return true;
@@ -65,7 +65,7 @@ public class Necromancer extends Character {
         }
     }
     public boolean Ability2(ActionContext context) {
-        if (context.GetTargetEntity() != null && context.GetTargetEntity().GetObject() == Entity.MINION) {
+        if ( context != null && context.GetTargetEntity() != null && context.GetTargetEntity().GetObject() == Entity.MINION) {
             Minion target = context.GetTargetEntity().minion;
             target.Buff();
             return true;
@@ -75,7 +75,7 @@ public class Necromancer extends Character {
         }
     }
     public boolean Ability3(ActionContext context) {
-        if (context.GetGrid()[context.GetPosY()][context.GetPosX()].getEntity().GetObject() == Entity.MINION) {
+        if ( context != null && context.GetGrid()[context.GetPosY()][context.GetPosX()].getEntity().GetObject() == Entity.MINION) {
             return true;
         }
         else {

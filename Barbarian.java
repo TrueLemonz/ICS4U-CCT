@@ -111,7 +111,7 @@ public class Barbarian extends Character {
         }
 
         // check if theres already an object there
-        if (grid[flipY][flipX].getEntity().GetObject() != Entity.NONE) {
+        if (grid[flipY][flipX].getEntity().GetObject() != null && grid[flipY][flipX].getEntity().GetObject() != Entity.NONE) {
             return false;
         }
 
@@ -137,7 +137,7 @@ public class Barbarian extends Character {
         }
         applyPassive();
         ScaleStats();
-        if (context.GetTarget().GetIsDivineShielded()) {
+        if (context.GetTarget() != null && context.GetTarget().GetIsDivineShielded()) {
             context.GetTarget()
                     .SetCurrHealth(context.GetTarget().GetCalculatedStats()[Character.MAXHEALTHPOS] - this.attack * 2);
         } else

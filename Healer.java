@@ -80,7 +80,7 @@ public class Healer extends Character {
                     Entity currentEntity = grid[i][j].getEntity();
 
                     // check if the entity is a character before we check if it is an ally or an enemy
-                    if (currentEntity.GetObject() == Entity.CHARACTER) {
+                    if (currentEntity != null && currentEntity.GetObject() == Entity.CHARACTER) {
                         Character target = (Character) currentEntity;
 
                         // check if the character is within an adjacent range of 1 from the caster

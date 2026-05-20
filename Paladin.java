@@ -55,24 +55,25 @@ public class Paladin extends Character {
         return "Paladin";
     }
     public boolean Ability1(ActionContext context) {
-        if ( !CheckConditions(2,1, context.GetTarget()) || context.GetTarget().GetTeam() != this.team ) {
+        if ( context.GetTarget() != null && !CheckConditions(2,1, context.GetTarget()) || context.GetTarget().GetTeam() != this.team ) {
             return false;
         }
-        Character ally = context.GetTarget(); 
-        ally.SetIsDivineSheielded(true);
+        Character enemy = context.GetTarget(); 
+        if ( enemy != null )  {
+        enemy.SetCurrHealth() ( ally.GetCurrHealth() - 10 );
+        this.SetRawStats()[Character.INTLPOS] ( this.GetRawStats()[Character.INTLPOS] + 1);
         return true;
+        }
+        return false;
     }
 
     public boolean Ability2 ( ActionContext context ) {
-        Character ally = context.GetTarget();
-        if ( !CheckConditions(2, 2, ally ) || context.GetTarget().GetTeam() != this.team ) {
+        if ( context.GetTarget() != null &&  !CheckConditions(2, 2, ally ) || context.GetTarget().GetTeam() != this.team ) {
             return false;
         }   
+        Character ally = context.GetTarget();
         if ( ally.GetCurrHealth() + 15 <= ally.GetMaxHealth() ) {
             ally.SetCurrHealth(ally.GetCurrHealth() + 10);
-            if ( ally.GetIsDivineShielded() ) {
-                ally.SetCurrHealth(ally.GetCurrHealth() + 5);
-            }
             return true;
         }
         return false;
@@ -83,18 +84,13 @@ public class Paladin extends Character {
             return false;
         }
         Character target = context.GetTarget();
-        if ( target.GetCurrHealth() - 5 >= 0 ) {
-            if ( target.GetIsDivineShielded() ) {
-                target.SetCurrHealth(target.GetCurrHealth() - 2.5);
-            } 
-            else {
+        if ( target != null ) {
                 target.SetCurrHealth(target.GetCurrHealth() - 5);
+                return true;
             }
-            return true;
-        }
-        return false;
+            return false;
     }
+}
 
    
     
-}
