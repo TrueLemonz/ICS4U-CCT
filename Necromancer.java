@@ -36,20 +36,49 @@ public class Necromancer extends Character {
     }
 
     public boolean CheckAbility1Possible(GameSystem gs) {
+        if (gs == null || gs.GameBoard == null) {
+            return false;
+        }
         if (CheckSurroundingsContain(gs, NONE, 1) && GetCurrMagic() > 4) {
             return true;
         }
         return false;
     }
 
+    /* Checks if ability 2 should be displayed and/or possible to perform.
+     * Is calculated differently for each ability.
+     * This checks: if there is a minion within range.
+     *              if the character has sufficient magic amount.
+     * 
+     * @param gs                - The Game System that contains the grid and all of the entities.
+     *
+     * @return                  - Returns true or false depending on whether or not the ability may or may not be performed.
+     */
     public boolean CheckAbility2Possible(GameSystem gs) {
+        if (gs == null || gs.GameBoard == null) {
+            return false;
+        }
         if (CheckSurroundingsContain(gs, MINION, 1)) {
             return true;
         }
         return false;
     }
 
+    /* Checks if ability 3 should be displayed and/or possible to perform.
+     * Is calculated differently for each ability.
+     * This checks: if there is a minion within range.
+     *              if there is a character within range.
+     *              if the character has sufficient magic amount.
+     *              if the character found within range is not in the same team.
+     * 
+     * @param gs                - The Game System that contains the grid and all of the entities.
+     *
+     * @return                  - Returns true or false depending on whether or not the ability may or may not be performed.
+     */
     public boolean CheckAbility3Possible(GameSystem gs) {
+        if (gs == null || gs.GameBoard == null) {
+            return false;
+        }
         if (CheckSurroundingsContain(gs, MINION, 2) && CheckSurroundingsContain(gs, CHARACTER, 2)) {
             return true;
         }

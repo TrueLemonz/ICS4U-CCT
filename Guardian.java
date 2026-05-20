@@ -8,8 +8,8 @@
  * (E.G. 10 hlt points -> 90 health.)
  * 
  * Ability 1        :Create an obstacle in an adjacent slot.
- * Ability 2        :Give yourself a massive amount of maximum hp.
- * Ability 3        :Heal yourself.
+ * Ability 2        :Give yourself a massive amount of maximum hp + small heal.
+ * Ability 3        :Slam adjacent enemy, 50% stun chance.
  * 
  * Author: Leo & Lucas
  * Date: 20/05/26
@@ -31,23 +31,73 @@ public class Guardian extends Character {
         this.ScaleStats();
     }
 
+    /* Checks if ability 1 should be displayed and/or possible to perform.
+     * Is calculated differently for each ability.
+     * This checks: if the character has sufficient magic amount.
+     *              
+     * @param gs                - The Game System that contains the grid and all of the entities.
+     *
+     * @return                  - Returns true or false depending on whether or not the ability may or may not be performed.
+     */
     public boolean CheckAbility1Possible(GameSystem gs) {
-        if (this.GetCurrMagic() - 2 >= 0 && this.CheckSurroundingsContain(gs, Entity.OBSTACLE, 8)) {
+        if (gs == null || gs.GameBoard == null) {
+            return false;
+        }
+        if (CheckConditions(4)) {
             return true;
         }
-        return false;
+        else {
+            return false;
+        }
     }
 
+    /* Checks if ability 2 should be displayed and/or possible to perform.
+     * Is calculated differently for each ability.
+     * This checks: if there is a character within range.
+     *              if the character has sufficient magic amount.
+     *              if the character found within range is not in the same team.
+     * 
+     * @param gs                - The Game System that contains the grid and all of the entities.
+     *
+     * @return                  - Returns true or false depending on whether or not the ability may or may not be performed.
+     */
     public boolean CheckAbility2Possible(GameSystem gs) {
-        if (this.GetCurrMagic() - 1 >= 0) {
+        if (gs == null || gs.GameBoard == null) {
+            return false;
+        }
+        if (CheckConditions(3)) {
             return true;
         }
         return false;
     }
 
+    /* Checks if ability 3 should be displayed and/or possible to perform.
+     * Is calculated differently for each ability.
+     * This checks: if there is a character within range.
+     *              if the character has sufficient magic amount.
+     *              if the character found within range is not in the same team.
+     * 
+     * @param gs                - The Game System that contains the grid and all of the entities.
+     *
+     * @return                  - Returns true or false depending on whether or not the ability may or may not be performed.
+     */
     public boolean CheckAbility3Possible(GameSystem gs) {
-        if (this.GetCurrMagic() - 1 >= 0) {
-            return true;
+        if (gs == null || gs.GameBoard == null) {
+            return false;
+        }
+
+        for (int i = 0; i < gs.GameBoard.length; i++) {
+            for (int j = 0; j < gs.GameBoard[i].length; j++) {
+                if (gs.GameBoard[i][j] != null && gs.GameBoard[i][j].GetEntity() != null) {
+                    Entity entity = gs.GameBoard[i][j].GetEntity();
+                    if (entity.GetObject() == Entity.CHARACTER) {
+                        Character target = (Character) entity;
+                        if (CheckConditions(2, 2, target) && target.GetTeam() != this.GetTeam()) {
+                            return true;
+                        }
+                    }
+                }
+            }
         }
         return false;
     }
@@ -100,16 +150,21 @@ public class Guardian extends Character {
     }
 
     public boolean Ability3(ActionContext context) {
-        if (!CheckConditions(1)) {
+        if (!CheckConditions(2, 2, context.GetTarget())) {
             return false;
         }
-        if (1.1 * this.GetCurrHealth() <= this.GetMaxHealth()) {
-            this.SetCurrHealth(this.GetCurrHealth() * 1.1);
-            this.SetCurrMagic(this.GetCurrMagic() - 1);
+
+        Character target = context.GetTarget();
+        if (target.GetTeam() != this.GetTeam()) {
+            target.SetCurrHealth(Math.max(0, target.GetCurrHealth() - 2));
+            double rand = Math.random();
+            if (rand < 0.5) {
+                target.SetIsStunned(true);
+            }
+            this.SetCurrMagic(this.GetCurrMagic() - 2);
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
 }

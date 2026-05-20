@@ -9,9 +9,9 @@
  * Stats are converted from stat points to true stats.
  * (E.G. 10 hlt points -> 90 health.)
  * 
- * Ability 1 :Buff your own .
- * Ability 2 :Give yourself a massive amount of maximum hp.
- * Ability 3 :Heal yourself.
+ * Ability 1 :Buff yourself.
+ * Ability 2 :Buff an ally.
+ * Ability 3 :Bash an enemy for high damage.
  * 
  * Author: Leo & Lucas
  * Date: 20/05/26
@@ -20,7 +20,7 @@ public class Crusader extends Character {
 
     /*
      * Constructs a crusader character instance.
-     * Initializes base stats and applies class-based modifications (___mod) for the
+     * Initializes base stats and applies class-based modifications (SetStatMods) for the
      * crusader class.
      *
      * @param character - The base Character object used to initialize the new
@@ -43,29 +43,39 @@ public class Crusader extends Character {
         this.ScaleStats();
     }
 
+    /* Checks if ability 1 should be displayed and/or possible to perform.
+     * Is calculated differently for each ability.
+     * This checks: if the character has sufficient magic amount.
+     * 
+     * @param gs                - The Game System that contains the grid and all of the entities.
+     *
+     * @return                  - Returns true or false depending on whether or not the ability may or may not be performed.
+     */
     public boolean CheckAbility1Possible(GameSystem gs) {
-        if (gs == null || gs.GameBoard == null)
+        if (gs == null || gs.GameBoard == null) {
             return false;
+        }
 
-        for (int i = 0; i < gs.GameBoard.length; i++) {
-            for (int j = 0; j < gs.GameBoard[i].length; j++) {
-                if (gs.GameBoard[i][j] != null && gs.GameBoard[i][j].GetEntity() != null) {
-                    Entity entity = gs.GameBoard[i][j].GetEntity();
-                    if (entity.GetObject() == Entity.CHARACTER) {
-                        Character target = (Character) entity;
-                        if (CheckConditions(2, GetAbility1Range(), target) && target.GetTeam() != this.GetTeam()) {
-                            return true;
-                        }
-                    }
-                }
-            }
+        if (CheckConditions(3)) {
+            return true;
         }
         return false;
     }
 
+    /* Checks if ability 2 should be displayed and/or possible to perform.
+     * Is calculated differently for each ability.
+     * This checks: if there is a character within range.
+     *              if the character has sufficient magic amount.
+     *              if the character found within range is in the same team.
+     * 
+     * @param gs                - The Game System that contains the grid and all of the entities.
+     *
+     * @return                  - Returns true or false depending on whether or not the ability may or may not be performed.
+     */
     public boolean CheckAbility2Possible(GameSystem gs) {
-        if (gs == null || gs.GameBoard == null)
+        if (gs == null || gs.GameBoard == null) {
             return false;
+        }
 
         for (int i = 0; i < gs.GameBoard.length; i++) {
             for (int j = 0; j < gs.GameBoard[i].length; j++) {
@@ -83,9 +93,20 @@ public class Crusader extends Character {
         return false;
     }
 
+    /* Checks if ability 3 should be displayed and/or possible to perform.
+     * Is calculated differently for each ability.
+     * This checks: if there is a character within range.
+     *              if the character has sufficient magic amount.
+     *              if the character found within range is not in the same team.
+     * 
+     * @param gs                - The Game System that contains the grid and all of the entities.
+     *
+     * @return                  - Returns true or false depending on whether or not the ability may or may not be performed.
+     */
     public boolean CheckAbility3Possible(GameSystem gs) {
-        if (gs == null || gs.GameBoard == null)
+        if (gs == null || gs.GameBoard == null) {
             return false;
+        }
 
         for (int i = 0; i < gs.GameBoard.length; i++) {
             for (int j = 0; j < gs.GameBoard[i].length; j++) {

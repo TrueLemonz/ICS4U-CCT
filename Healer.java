@@ -8,7 +8,7 @@
  * (E.G. 10 hlt points -> 90 health.)
  * 
  * Ability 1        :Buff nearby allies, and damage nearby enemies.
- * Ability 2        :Heal self.
+ * Ability 2        :Heal and buff an ally and heal yourself.
  * Ability 3        :Smite a character, with a 50% chance to paralyze.
  * 
  * Author: Leo & Lucas
@@ -30,21 +30,57 @@ public class Healer extends Character {
         this.ScaleStats();
     }
 
+    /* Checks if ability 1 should be displayed and/or possible to perform.
+     * Is calculated differently for each ability.
+     * This checks: if the character has sufficient magic.
+     * 
+     * @param gs                - The Game System that contains the grid and all of the entities.
+     *
+     * @return                  - Returns true or false depending on whether or not the ability may or may not be performed.
+     */
     public boolean CheckAbility1Possible(GameSystem gs) {
+        if (gs == null || gs.GameBoard == null) {
+            return false;
+        }
         if (this.GetCurrMagic() >= 4) {
             return true;
         }
         return false;
     }
 
+    /* Checks if ability 2 should be displayed and/or possible to perform.
+     * Is calculated differently for each ability.
+     * This checks: if there is a character within range.
+     *              if the character has sufficient magic amount.
+     * 
+     * @param gs                - The Game System that contains the grid and all of the entities.
+     *
+     * @return                  - Returns true or false depending on whether or not the ability may or may not be performed.
+     */
     public boolean CheckAbility2Possible(GameSystem gs) {
-        if (this.GetCurrMagic() >= 3 && this.CheckSurroundingsContain(gs, Character.CHARACTER, 3)) {
+        if (gs == null || gs.GameBoard == null) {
+            return false;
+        }
+        if (this.GetCurrMagic() >= 4 && this.CheckSurroundingsContain(gs, Character.CHARACTER, 3)) {
             return true;
         }
         return false;
     }
 
+    /* Checks if ability 3 should be displayed and/or possible to perform.
+     * Is calculated differently for each ability.
+     * This checks: if there is a character within range.
+     *              if the character has sufficient magic amount.
+     *              if the character found within range is not in the same team.
+     * 
+     * @param gs                - The Game System that contains the grid and all of the entities.
+     *
+     * @return                  - Returns true or false depending on whether or not the ability may or may not be performed.
+     */
     public boolean CheckAbility3Possible(GameSystem gs) {
+        if (gs == null || gs.GameBoard == null) {
+            return false;
+        }
         if (this.GetCurrMagic() >= 2 && this.CheckSurroundingsContain(gs, Character.CHARACTER, 2)) {
             return true;
         }
@@ -123,7 +159,7 @@ public class Healer extends Character {
 
     // Gives teammate +4 intl and +2 mgc
     public boolean Ability2(ActionContext context) {
-        if (!CheckConditions(3, 3, context.GetTarget())) {
+        if (!CheckConditions(4, 3, context.GetTarget())) {
             return false;
         }
 
@@ -132,7 +168,7 @@ public class Healer extends Character {
             target.SetRawStats(Character.INTLPOS, (target.GetRawStats()[Character.INTLPOS] + 4));
             target.SetRawStats(Character.MGCPOS, (target.GetRawStats()[Character.MGCPOS] + 2));
             target.ScaleStats();
-            this.SetCurrMagic(this.GetCurrMagic() - 3);
+            this.SetCurrMagic(this.GetCurrMagic() - 4);
             return true;
         }
         return false;

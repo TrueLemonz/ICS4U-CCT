@@ -16,6 +16,15 @@
  * **************************************************/
 public class Barbarian extends Character {
 
+    /* Constructs a barbarian character instance.
+     * Initializes base stats and applies class-based modifications (SetStatMods) for the
+     * barbarian class.
+     *
+     * @param character         - The base Character object used to initialize the new
+     * barbarian.
+     * 
+     * @param team              - The team ID assigned to this barbarian.
+     */
     public Barbarian(Character character, int team) {
         super();
         this.SetName("Barbarian");
@@ -31,7 +40,20 @@ public class Barbarian extends Character {
         this.ScaleStats();
     }
 
+    /* Checks if ability 1 should be displayed and/or possible to perform.
+     * Is calculated differently for each ability.
+     * This checks: if there is a character within range.
+     *              if the character has sufficient magic amount.
+     *              if the character found within range is not in the same team.
+     * 
+     * @param gs                - The Game System that contains the grid and all of the entities.
+     *
+     * @return                  - Returns true or false depending on whether or not the ability may or may not be performed.
+     */
     public boolean CheckAbility1Possible(GameSystem gs) {
+        if (gs == null || gs.GameBoard == null) {
+            return false;
+        }
         for (int i = 0; i < gs.GameBoard.length; i++) {
             for (int j = 0; j < gs.GameBoard[i].length; j++) {
                 Character target = gs.GameBoard[i][j].GetEntity().GetCharacter();
@@ -43,7 +65,20 @@ public class Barbarian extends Character {
         return false;
     }
 
+    /* Checks if ability 2 should be displayed and/or possible to perform.
+     * Is calculated differently for each ability.
+     * This checks: if there is a character within range.
+     *              if the character has sufficient magic amount.
+     *              if the character found within range is not in the same team.
+     * 
+     * @param gs                - The Game System that contains the grid and all of the entities.
+     *
+     * @return                  - Returns true or false depending on whether or not the ability may or may not be performed.
+     */
     public boolean CheckAbility2Possible(GameSystem gs) {
+        if (gs == null || gs.GameBoard == null) {
+            return false;
+        }
         for (int i = 0; i < gs.GameBoard.length; i++) {
             for (int j = 0; j < gs.GameBoard[i].length; j++) {
                 Character target = gs.GameBoard[i][j].GetEntity().GetCharacter();
@@ -55,7 +90,18 @@ public class Barbarian extends Character {
         return false;
     }
 
+    /* Checks if ability 3 should be displayed and/or possible to perform.
+     * Is calculated differently for each ability.
+     * This checks: if the if the character has sufficient magic amount.
+     * 
+     * @param gs                - The Game System that contains the grid and all of the entities.
+     *
+     * @return                  - Returns true or false depending on whether or not the ability may or may not be performed.
+     */
     public boolean CheckAbility3Possible(GameSystem gs) {
+        if (gs == null || gs.GameBoard == null) {
+            return false;
+        }
         if (CheckConditions(2)) {
             return true;
         }else {

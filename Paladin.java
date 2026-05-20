@@ -38,8 +38,20 @@ public class Paladin extends Character {
         this.ScaleStats();
     }
 
+    /* Checks if ability 1 should be displayed and/or possible to perform.
+     * Is calculated differently for each ability.
+     * This checks: if there is a character within range.
+     *              if the character has sufficient magic amount.
+     *              if the character found within range is not in the same team.
+     * 
+     * @param gs                - The Game System that contains the grid and all of the entities.
+     *
+     * @return                  - Returns true or false depending on whether or not the ability may or may not be performed.
+     */
     public boolean CheckAbility1Possible(GameSystem gs) {
-        if (gs == null || gs.GameBoard == null) return false;
+        if (gs == null || gs.GameBoard == null) {
+            return false;
+        }
 
         // Loop through the map to see if an enemy is in range for the attack
         for (int i = 0; i < gs.GameBoard.length; i++) {
@@ -59,8 +71,20 @@ public class Paladin extends Character {
         return false;
     }
 
+    /* Checks if ability 2 should be displayed and/or possible to perform.
+     * Is calculated differently for each ability.
+     * This checks: if there is a character within range.
+     *              if the character has sufficient magic amount.
+     *              if the character found within range is in the same team.
+     * 
+     * @param gs                - The Game System that contains the grid and all of the entities.
+     *
+     * @return                  - Returns true or false depending on whether or not the ability may or may not be performed.
+     */
     public boolean CheckAbility2Possible(GameSystem gs) {
-        if (gs == null || gs.GameBoard == null) return false;
+        if (gs == null || gs.GameBoard == null) {
+            return false;
+        }
 
         // Loop through map to locate a friendly teammate to heal
         for (int i = 0; i < gs.GameBoard.length; i++) {
@@ -69,7 +93,7 @@ public class Paladin extends Character {
                     Entity entity = gs.GameBoard[i][j].GetEntity();
                     if (entity.GetObject() == Entity.CHARACTER) {
                         Character target = (Character) entity;
-                        // requires cost 2, range 2, and must be on your team type shi
+                        // requires cost 2, range 2, and must be on your team
                         if (CheckConditions(2, GetAbility2Range(), target) && target.GetTeam() == this.GetTeam()) {
                             return true;
                         }
@@ -80,8 +104,20 @@ public class Paladin extends Character {
         return false;
     }
 
+    /* Checks if ability 3 should be displayed and/or possible to perform.
+     * Is calculated differently for each ability.
+     * This checks: if there is a character within range.
+     *              if the character has sufficient magic amount.
+     *              if the character found within range is not in the same team.
+     * 
+     * @param gs                - The Game System that contains the grid and all of the entities.
+     *
+     * @return                  - Returns true or false depending on whether or not the ability may or may not be performed.
+     */
     public boolean CheckAbility3Possible(GameSystem gs) {
-        if (gs == null || gs.GameBoard == null) return false;
+        if (gs == null || gs.GameBoard == null) {
+            return false;
+        }
 
         // Loop through map to see if an enemy is close enough for a strike
         for (int i = 0; i < gs.GameBoard.length; i++) {
@@ -115,6 +151,7 @@ public class Paladin extends Character {
     public String GetName() {
         return "Paladin";
     }
+    
 
     public boolean Ability1(ActionContext context) {
         // if target is null, or conditions fail, or target is an ally (same team), fail the attack

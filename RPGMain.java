@@ -103,7 +103,7 @@ public class RPGMain {
     }
 
     /*
-     * Helper method to streamline prompting a barbarian character.
+     * Helper method to streamline prompting a healer character.
      * Ideally we would place this in each individual class, but that would very
      * much break frontend backend.
      * The system prompts an integer between 0 and 3 and then selects an attack
@@ -147,7 +147,7 @@ public class RPGMain {
                 System.out.println("Spell failed...");
             }
         }
-        if (abilityChoice == 2) {
+        else if (abilityChoice == 2) {
             System.out.print("Enter the x-coordinate of the ally you would like to buff: ");
             int x = input.nextInt();
             System.out.print("Enter the y-coordinate of the ally you would like to buff: ");
@@ -177,7 +177,7 @@ public class RPGMain {
     }
 
     /*
-     * Helper method to streamline prompting a barbarian character.
+     * Helper method to streamline prompting a crusader character.
      * Ideally we would place this in each individual class, but that would very
      * much break frontend backend.
      * The system prompts an integer between 0 and 3 and then selects an attack
@@ -260,7 +260,7 @@ public class RPGMain {
      * 0 :Skip move, don't do anything.
      * 1 :Create an obsticle at a specified coordinate.
      * 2 :Grant yourself a massive health buff.
-     * 3 :Heal yourself.
+     * 3 :Slam an enemy, massive damage 50% stun chance.
      * 
      * @param character - The character being prompted, contains ability functions
      * and it's own stats.
@@ -283,7 +283,7 @@ public class RPGMain {
             System.out.println("Ability 2 - Fortify");
         }
         if (character.CheckAbility3Possible(gs)) {
-            System.out.println("Ability 3 - Heal");
+            System.out.println("Ability 3 - Slam");
         }
         System.out.print("Choose ability: ");
         int abilityChoice = input.nextInt();
@@ -321,11 +321,18 @@ public class RPGMain {
 
             }
         } else if (abilityChoice == 3) {
-            if (character.CheckAbility3Possible(gs)) {
-                character.Ability3(ac);
-                System.out.println(character.GetFullName() + " the " + character.GetName() + " heals himself!");
+            System.out.print("Enter the x-coordinate of the enemy you would like to attack: ");
+            int x = input.nextInt();
+            System.out.print("Enter the y-coordinate of the enemy you would like to attack: ");
+            int y = input.nextInt();
+            Character target = gs.GameBoard[y][x].GetEntity().GetCharacter();
+            ActionContext healerAbility3 = new ActionContext(target, gs.GameBoard);
+            boolean success = character.Ability3(healerAbility3);
+            if (success) {
+                System.out.println(character.GetFullName() + " the " + character.GetName() + " SLAMS "
+                        + target.GetFullName() + " the " + target.GetName());
             } else {
-                System.out.println(character.GetFullName() + " the " + character.GetName() + " fails to heal himself!");
+                System.out.println("Attack failed...");
             }
         } else {
             System.out.println("Invalid input.");
