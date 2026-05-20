@@ -1,3 +1,19 @@
+/****************************************************
+ * Necromancer
+ *
+ * The necromancer class that stores the abilities and their configurations to be used in the game.
+ * First applies new modifiers to the base characters stats.
+ * Next runs this.ScaleStats(), running pre-made formulae to set the characters proper stats.
+ * Stats are converted from stat points to true stats.
+ * (E.G. 10 hlt points -> 90 health.)
+ * 
+ * Ability 1        :Summons a mindless minion
+ * Ability 2        :Buff the minion, make them do more damage.
+ * Ability 3        :Sacrafice a minion for a powerful melee attack.
+ * 
+ * Author: Leo & Lucas
+ * Date: 20/05/26
+ * **************************************************/
 public class Necromancer extends Character {
     public Necromancer(Character character, int team) {
         super();

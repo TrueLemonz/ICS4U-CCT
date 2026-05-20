@@ -1,3 +1,19 @@
+/****************************************************
+ * Healer
+ *
+ * The healer class that stores the abilities and their configurations to be used in the game.
+ * First applies new modifiers to the base characters stats.
+ * Next runs this.ScaleStats(), running pre-made formulae to set the characters proper stats.
+ * Stats are converted from stat points to true stats.
+ * (E.G. 10 hlt points -> 90 health.)
+ * 
+ * Ability 1        :Buff nearby allies, and damage nearby enemies.
+ * Ability 2        :Heal self.
+ * Ability 3        :Smite a character, with a 50% chance to paralyze.
+ * 
+ * Author: Leo & Lucas
+ * Date: 20/05/26
+ * **************************************************/
 public class Healer extends Character {
     public Healer(Character character, int team) {
         super();

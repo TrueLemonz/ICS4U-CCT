@@ -1,3 +1,19 @@
+/****************************************************
+ * Guardian
+ *
+ * The guardian class that stores the abilities and their configurations to be used in the game.
+ * First applies new modifiers to the base characters stats.
+ * Next runs this.ScaleStats(), running pre-made formulae to set the characters proper stats.
+ * Stats are converted from stat points to true stats.
+ * (E.G. 10 hlt points -> 90 health.)
+ * 
+ * Ability 1        :Create an obstacle in an adjacent slot.
+ * Ability 2        :Give yourself a massive amount of maximum hp.
+ * Ability 3        :Heal yourself.
+ * 
+ * Author: Leo & Lucas
+ * Date: 20/05/26
+ * **************************************************/
 public class Guardian extends Character {
     public Guardian(Character character, int team) {
         super();
@@ -54,8 +70,7 @@ public class Guardian extends Character {
         }
 
         Block targetBlock = grid[targetY][targetX];
-        if (targetBlock == null || targetBlock.GetEntity() == null
-                || targetBlock.GetEntity().GetObject() != Entity.NONE) {
+        if (targetBlock == null || targetBlock.GetEntity() == null || targetBlock.GetEntity().GetObject() != Entity.NONE) {
             return false;
         }
 

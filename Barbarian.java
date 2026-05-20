@@ -1,3 +1,19 @@
+/****************************************************
+ * Barbarian
+ *
+ * The barbarian class that stores the abilities and their configurations to be used in the game.
+ * First applies new modifiers to the base characters stats.
+ * Next runs this.ScaleStats(), running pre-made formulae to set the characters proper stats.
+ * Stats are converted from stat points to true stats.
+ * (E.G. 10 hlt points -> 90 health.)
+ * 
+ * Ability 1        :Flip an enemy onto the opposite side of yourself.
+ * Ability 2        :Kickpunch an enemy for massive damage.
+ * Ability 3        :Infect yourself with lupus and deal extra damage.
+ * 
+ * Author: Leo & Lucas
+ * Date: 20/05/26
+ * **************************************************/
 public class Barbarian extends Character {
 
     public Barbarian(Character character, int team) {
@@ -19,8 +35,7 @@ public class Barbarian extends Character {
         for (int i = 0; i < gs.GameBoard.length; i++) {
             for (int j = 0; j < gs.GameBoard[i].length; j++) {
                 Character target = gs.GameBoard[i][j].GetEntity().GetCharacter();
-                if (target != null && target.GetObject() == Entity.CHARACTER
-                        && CheckConditions(2, GetAbility1Range(), target) && target.GetTeam() != this.GetTeam()) {
+                if (target != null && target.GetObject() == Entity.CHARACTER && CheckConditions(2, GetAbility1Range(), target) && target.GetTeam() != this.GetTeam()) {
                     return true;
                 }
             }
@@ -32,8 +47,7 @@ public class Barbarian extends Character {
         for (int i = 0; i < gs.GameBoard.length; i++) {
             for (int j = 0; j < gs.GameBoard[i].length; j++) {
                 Character target = gs.GameBoard[i][j].GetEntity().GetCharacter();
-                if (target != null && target.GetObject() == Entity.CHARACTER
-                        && CheckConditions(2, GetAbility2Range(), target) && target.GetTeam() != this.GetTeam()) {
+                if (target != null && target.GetObject() == Entity.CHARACTER && CheckConditions(2, GetAbility2Range(), target) && target.GetTeam() != this.GetTeam()) {
                     return true;
                 }
             }
@@ -42,7 +56,11 @@ public class Barbarian extends Character {
     }
 
     public boolean CheckAbility3Possible(GameSystem gs) {
-        return Ability3();
+        if (CheckConditions(2)) {
+            return true;
+        }else {
+            return false;
+        }
     }
 
     public int GetAbility1Range() {

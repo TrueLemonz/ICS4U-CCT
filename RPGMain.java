@@ -390,8 +390,7 @@ public class RPGMain {
             if (success) {
                 System.out.println(character.GetFullName() + " the " + character.GetName() + " buffs a minion!");
             } else {
-                System.out
-                        .println(character.GetFullName() + " the " + character.GetName() + " fails to buff a minion!");
+                System.out.println(character.GetFullName() + " the " + character.GetName() + " fails to buff a minion!");
             }
         } else if (abilityChoice == 3) {
             System.out.print("Choose x-coordinate of the minion you would like to sacrafice: ");
@@ -434,13 +433,11 @@ public class RPGMain {
      * 2 :Heal self.
      * 3 :Close range strong melee attack.
      * 
-     * @param character - The character being prompted, contains ability functions
-     * and it's own stats.
+     * @param character - The character being prompted, contains ability functions and it's own stats.
      * 
      * @param input - The scanner used to detect user input.
      * 
-     * @param gs - The game system that stores the coordinates and what inhabits
-     * them.
+     * @param gs - The game system that stores the coordinates and what inhabits them.
      * 
      * @param ds - The displayer class containing a handful of vital methods.
      */

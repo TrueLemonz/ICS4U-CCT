@@ -1,3 +1,21 @@
+/****************************************************
+ * Crusader
+ *
+ * The crusader class that stores the abilities and their configurations to be
+ * used in the game.
+ * First applies new modifiers to the base characters stats.
+ * Next runs this.ScaleStats(), running pre-made formulae to set the characters
+ * proper stats.
+ * Stats are converted from stat points to true stats.
+ * (E.G. 10 hlt points -> 90 health.)
+ * 
+ * Ability 1 :Buff your own .
+ * Ability 2 :Give yourself a massive amount of maximum hp.
+ * Ability 3 :Heal yourself.
+ * 
+ * Author: Leo & Lucas
+ * Date: 20/05/26
+ **************************************************/
 public class Crusader extends Character {
 
     /*
@@ -102,8 +120,7 @@ public class Crusader extends Character {
     }
 
     public boolean Ability1(ActionContext context) {
-        if (context.GetTarget() == null || !CheckConditions(2, 1, context.GetTarget())
-                || context.GetTarget().GetTeam() == this.GetTeam()) {
+        if (context.GetTarget() == null || !CheckConditions(2, 1, context.GetTarget()) || context.GetTarget().GetTeam() == this.GetTeam()) {
             return false;
         }
 
@@ -120,8 +137,7 @@ public class Crusader extends Character {
     }
 
     public boolean Ability2(ActionContext context) {
-        if (context.GetTarget() == null || !CheckConditions(2, 2, context.GetTarget())
-                || context.GetTarget().GetTeam() != this.GetTeam()) {
+        if (context.GetTarget() == null || !CheckConditions(2, 2, context.GetTarget()) || context.GetTarget().GetTeam() != this.GetTeam()) {
             return false;
         }
 
@@ -141,8 +157,7 @@ public class Crusader extends Character {
 
     public boolean Ability3(ActionContext context) {
         // updated range parameter to use GetAbility3Range() instead of hardcoded 1
-        if (context.GetTarget() == null || !CheckConditions(2, GetAbility3Range(), context.GetTarget())
-                || context.GetTarget().GetTeam() == this.GetTeam()) {
+        if (context.GetTarget() == null || !CheckConditions(2, GetAbility3Range(), context.GetTarget()) || context.GetTarget().GetTeam() == this.GetTeam()) {
             return false;
         }
 

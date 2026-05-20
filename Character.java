@@ -171,18 +171,24 @@ public class Character extends Entity {
      * @param amt - What to change the selected stat to.
      */
     public void SetCalculatedStats(int pos, double amt) {
-        if (pos == SPEEDPOS)
+        if (pos == SPEEDPOS) {
             this.speed = amt;
-        else if (pos == INTELLIGENCEPOS)
+        }
+        else if (pos == INTELLIGENCEPOS) {
             this.intelligence = amt;
-        else if (pos == ATTACKPOS)
+        }
+        else if (pos == ATTACKPOS) {
             this.attack = amt;
-        else if (pos == MAXMAGICPOS)
+        }
+        else if (pos == MAXMAGICPOS) {
             this.magic = amt;
-        else if (pos == MAXHEALTHPOS)
+        }
+        else if (pos == MAXHEALTHPOS) {
             this.health = amt;
-        else if (pos == SPELLPOWERPOS)
-            this.spellpower = amt;
+        }
+        else if (pos == SPELLPOWERPOS) {
+            this.spellpower = amt; 
+        }
     }
 
     /*
@@ -204,18 +210,24 @@ public class Character extends Entity {
      */
     public void SetRawStats(int pos, double amt) {
         int val = (int) amt;
-        if (pos == SPDPOS)
+        if (pos == SPDPOS) {
             this.spd = val;
-        else if (pos == INTLPOS)
+        }
+        else if (pos == INTLPOS) {
             this.intl = val;
-        else if (pos == ATKPOS)
+        }
+        else if (pos == ATKPOS) {
             this.atk = val;
-        else if (pos == MGCPOS)
+        }
+        else if (pos == MGCPOS) {
             this.mgc = val;
-        else if (pos == HLTPOS)
+        }
+        else if (pos == HLTPOS) {
             this.hlt = val;
-        else if (pos == SPPPOS)
+        }
+        else if (pos == SPPPOS) {
             this.spp = val;
+        }
     }
 
     /*
@@ -238,18 +250,24 @@ public class Character extends Entity {
      */
     public void SetStatMods(int pos, double amt) {
         int val = (int) amt;
-        if (pos == SPDPOS)
+        if (pos == SPDPOS) {
             this.spdMod = val;
-        else if (pos == INTLPOS)
+        }
+        else if (pos == INTLPOS) {
             this.intlMod = val;
-        else if (pos == ATKPOS)
+        }
+        else if (pos == ATKPOS) {
             this.atkMod = val;
-        else if (pos == MGCPOS)
+        }
+        else if (pos == MGCPOS) {
             this.mgcMod = val;
-        else if (pos == HLTPOS)
+        }
+        else if (pos == HLTPOS) {
             this.hltMod = val;
-        else if (pos == SPPPOS)
+        }
+        else if (pos == SPPPOS) {
             this.sppMod = val;
+        }
     }
 
     /* Simple setter to simultaneously integrate all stat modifiers provided by a class base. 
@@ -382,8 +400,9 @@ public class Character extends Entity {
     public boolean GetIsAlive() {
         if (this.currHealth > 0) {
             return true;
-        } else
+        } else {
             return false;
+        }
     }
 
     /*
@@ -451,8 +470,9 @@ public class Character extends Entity {
     public boolean CheckConditions(int magic, int range, Entity target) {
         if (!this.isAlive || this.isStunned || this.currMagic - magic < 0 || !CheckRange(range, target)) {
             return false;
-        } else
+        } else {
             return true;
+        }
     }
 
     /*
@@ -467,8 +487,9 @@ public class Character extends Entity {
     public boolean CheckConditions(int magic) {
         if (!this.isAlive || this.isStunned || this.currMagic - magic < 0) {
             return false;
-        } else
+        } else {
             return true;
+        }
     }
 
     /*
