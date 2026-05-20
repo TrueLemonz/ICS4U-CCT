@@ -10,7 +10,7 @@ public class GameSystem {
         RefreshGameBoard();
     }
 
-    private void regenerateCharacters(Character[] team) {
+    public void RegenerateCharacters(Character[] team) {
         for (int i = 0; i < team.length-1; i++) {
             if(team[i].GetCurrMagic() < team[i].GetCalculatedStats()[Character.MAXMAGICPOS]) {
                 team[i].SetCurrMagic(team[i].GetCurrMagic()+1);

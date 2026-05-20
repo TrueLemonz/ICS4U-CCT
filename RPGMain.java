@@ -330,46 +330,65 @@ public class RPGMain {
         }
     }
 
+    /* Helper method to streamline prompting a barbarian character. 
+     * Ideally we would place this in each individual class, but that would very much break frontend backend. 
+     * The system prompts an integer between 0 and 3 and then selects an attack based off the user's input.
+     * 0    :Skip move, don't do anything.
+     * 1    :Attack that buffs your intelligence.
+     * 2    :Heal self.
+     * 3    :Close range strong melee attack.
+     * 
+     * @param character     - The character being prompted, contains ability functions and it's own stats.
+     * @param input         - The scanner used to detect user input.
+     * @param gs            - The game system that stores the coordinates and what inhabits them.
+     * @param ds            - The displayer class containing a handful of vital methods. 
+     */
     private void promptPaladin(Character character, Scanner input, GameSystem gs, Displayer ds) {
         if (character.CheckAbility1Possible(gs)) {
-            System.out.println("Ability 1 - Ressurect");
+            System.out.println("Ability 1 - Verdict");
         }
         if (character.CheckAbility2Possible(gs)) {
-            System.out.println("Ability 2 - Strengthen");
+            System.out.println("Ability 2 - Heal");
         }
         if (character.CheckAbility3Possible(gs)) {
-            System.out.println("Ability 3 - Meat spike");
+            System.out.println("Ability 3 - Strike");
         }
         System.out.print("Choose ability: ");
         int abilityChoice = input.nextInt();
         if (abilityChoice == 1) {
-            System.out.print("Choose x-coordinate of the minion you would like to create: ");
+            System.out.print("Enter the x-coordinate of the enemy you would like to attack: ");
             int x = input.nextInt();
-            System.out.print("Choose y-coordinate of the minion you would like to create:");
+            System.out.print("Enter the y-coordinate of the enemy you would like to attack:");
             int y = input.nextInt();
-            ActionContext SummonMinionAbility1 = new ActionContext(x, y, gs.gameBoard);
-            boolean success = character.Ability1(SummonMinionAbility1);
+            ActionContext VerdictAbility1 = new ActionContext(x, y, gs.gameBoard);
+            boolean success = character.Ability1(VerdictAbility1);
             if (success) {
-                System.out.println(character.GetFullName() + " the " + character.GetName() + " creates a minion!");
+                System.out.println(character.GetFullName() + " the " + character.GetName() + " attacks!");
                 ds.PrintGrid(gs.gameBoard);
             } else {
-                System.out.println(character.GetFullName() + " the " + character.GetName() + " fails to create a minion");
+                System.out.println(character.GetFullName() + " the " + character.GetName() + " fails to attack");
             }
         } else if (abilityChoice == 2) {
-            System.out.print("Choose x-coordinate of the minion you would like to buff: ");
-            int x = input.nextInt();
-            System.out.print("Choose y-coordinate of the minion you would like to buff:");
-            int y = input.nextInt();
-            Entity target = gs.gameBoard[y][x].getEntity();
-            ActionContext BuffMinionAbility2 = new ActionContext(target);
-            boolean success = character.Ability2(BuffMinionAbility2);
+            ActionContext HealAbility2 = new ActionContext(character);
+            boolean success = character.Ability2(HealAbility2);
             if (success) {
-                System.out.println(character.GetFullName() + " the " + character.GetName() + " buffs a minion!");
+                System.out.println(character.GetFullName() + " the " + character.GetName() + " heals!");
             } else {
-                System.out.println(character.GetFullName() + " the " + character.GetName() + " fails to buff a minion!");
+                System.out.println(character.GetFullName() + " the " + character.GetName() + " fails to heal!");
             }
         } else if (abilityChoice == 3) {
-            //TODO uhhhhhhhh
+            System.out.print("Enter the x-coordinate of the enemy you would like to attack: ");
+            int x = input.nextInt();
+            System.out.print("Enter the y-coordinate of the enemy you would like to attack:");
+            int y = input.nextInt();
+            ActionContext StrikeAbility3 = new ActionContext(x, y, gs.gameBoard);
+            boolean success = character.Ability3(StrikeAbility3);
+            if (success) {
+                System.out.println(character.GetFullName() + " the " + character.GetName() + " attacks!");
+                ds.PrintGrid(gs.gameBoard);
+            } else {
+                System.out.println(character.GetFullName() + " the " + character.GetName() + " fails to attack");
+            }
         } else {
             System.out.println("s");
         }
@@ -599,6 +618,7 @@ public class RPGMain {
                                 } else if (maxSpdCharacter instanceof Necromancer) {
                                     rpg.promptNecromancer(maxSpdCharacter, input, gs, ds);
                                 } else {
+                                    rpg.promptPaladin(maxSpdCharacter, input, gs, ds);
                                 }
                             } else {
                                 System.out.println(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName()
@@ -620,6 +640,7 @@ public class RPGMain {
                                 } else if (medSpdCharacter instanceof Necromancer) {
                                     rpg.promptNecromancer(medSpdCharacter, input, gs, ds);
                                 } else {
+                                    rpg.promptPaladin(medSpdCharacter, input, gs, ds);
                                 }
                             } else {
                                 System.out.println(medSpdCharacter.GetFullName() + " the " + medSpdCharacter.GetName()
@@ -641,6 +662,7 @@ public class RPGMain {
                                 } else if (lowSpdCharacter instanceof Necromancer) {
                                     rpg.promptNecromancer(lowSpdCharacter, input, gs, ds);
                                 } else {
+                                    rpg.promptPaladin(lowSpdCharacter, input, gs, ds);
                                 }
                             } else {
                                 System.out.println(lowSpdCharacter.GetFullName() + " the " + lowSpdCharacter.GetName()
@@ -676,6 +698,7 @@ public class RPGMain {
                                 } else if (maxSpdCharacter instanceof Necromancer) {
                                     rpg.promptNecromancer(maxSpdCharacter, input, gs, ds);
                                 } else {
+                                    rpg.promptPaladin(maxSpdCharacter, input, gs, ds);
                                 }
                             } else {
                                 System.out.println(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName()
@@ -697,6 +720,7 @@ public class RPGMain {
                                 } else if (medSpdCharacter instanceof Necromancer) {
                                     rpg.promptNecromancer(medSpdCharacter, input, gs, ds);
                                 } else {
+                                    rpg.promptPaladin(medSpdCharacter, input, gs, ds);
                                 }
                             } else {
                                 System.out.println(medSpdCharacter.GetFullName() + " the " + medSpdCharacter.GetName()
@@ -718,7 +742,7 @@ public class RPGMain {
                                 } else if (lowSpdCharacter instanceof Necromancer) {
                                     rpg.promptNecromancer(lowSpdCharacter, input, gs, ds);
                                 } else {
-                                    // promptPaladin
+                                    rpg.promptPaladin(lowSpdCharacter, input, gs, ds);
                                 }
                             } else {
                                 System.out.println(lowSpdCharacter.GetFullName() + " the " + lowSpdCharacter.GetName()
@@ -756,6 +780,7 @@ public class RPGMain {
                                 } else if (maxSpdCharacter instanceof Necromancer) {
                                     rpg.promptNecromancer(maxSpdCharacter, input, gs, ds);
                                 } else {
+                                    rpg.promptPaladin(maxSpdCharacter, input, gs, ds);
                                 }
                             } else {
                                 System.out.println(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName()
@@ -777,6 +802,7 @@ public class RPGMain {
                                 } else if (medSpdCharacter instanceof Necromancer) {
                                     rpg.promptNecromancer(medSpdCharacter, input, gs, ds);
                                 } else {
+                                    rpg.promptPaladin(medSpdCharacter, input, gs, ds);
                                 }
                             } else {
                                 System.out.println(medSpdCharacter.GetFullName() + " the " + medSpdCharacter.GetName()
@@ -798,6 +824,7 @@ public class RPGMain {
                                 } else if (lowSpdCharacter instanceof Necromancer) {
                                     rpg.promptNecromancer(lowSpdCharacter, input, gs, ds);
                                 } else {
+                                    rpg.promptPaladin(lowSpdCharacter, input, gs, ds);
                                 }
                             } else {
                                 System.out.println(lowSpdCharacter.GetFullName() + " the " + lowSpdCharacter.GetName()
@@ -833,6 +860,7 @@ public class RPGMain {
                                 } else if (maxSpdCharacter instanceof Necromancer) {
                                     rpg.promptNecromancer(maxSpdCharacter, input, gs, ds);
                                 } else {
+                                    rpg.promptPaladin(maxSpdCharacter, input, gs, ds);
                                 }
                             } else {
                                 System.out.println(maxSpdCharacter.GetFullName() + " the " + maxSpdCharacter.GetName()
@@ -854,6 +882,7 @@ public class RPGMain {
                                 } else if (medSpdCharacter instanceof Necromancer) {
                                     rpg.promptNecromancer(medSpdCharacter, input, gs, ds);
                                 } else {
+                                    rpg.promptPaladin(medSpdCharacter, input, gs, ds);
                                 }
                             } else {
                                 System.out.println(medSpdCharacter.GetFullName() + " the " + medSpdCharacter.GetName()
@@ -875,7 +904,7 @@ public class RPGMain {
                                 } else if (lowSpdCharacter instanceof Necromancer) {
                                     rpg.promptNecromancer(lowSpdCharacter, input, gs, ds);
                                 } else {
-                                    // promptPaladin
+                                    rpg.promptPaladin(lowSpdCharacter, input, gs, ds);
                                 }
                             } else {
                                 System.out.println(lowSpdCharacter.GetFullName() + " the " + lowSpdCharacter.GetName()
@@ -889,7 +918,12 @@ public class RPGMain {
                     System.out.println("Player " + winner + " wins!");
                     gameRunning = false;
                 }
+                gs.RegenerateCharacters(gs.player1.PlayerTeam);
+                gs.RegenerateCharacters(gs.player2.PlayerTeam);
             } // TODO add the other two options
+            else if (playerChoice == 2) {
+                
+            }
         } // STOP RUNNING
         input.close();
     }
