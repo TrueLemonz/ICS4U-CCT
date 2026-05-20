@@ -399,7 +399,7 @@ public class Character extends Entity {
             for (int j = y - range; j <= y + range; j++) { // Checks all slots to the up and down
                 if (i != x || j != y) {
                     if (i >= 0 && i < boardWidth && j >= 0 && j < boardHeight) {
-                        if (gs.gameBoard[i][j].getEntity().GetObject() == type) {
+                        if (gs.gameBoard[i][j].GetEntity().GetObject() == type) {
                             return true;
                         }
                     }

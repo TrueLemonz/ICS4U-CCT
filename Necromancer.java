@@ -42,20 +42,25 @@ public class Necromancer extends Character {
         return "Necromancer";
     }
     public boolean CheckAbility1Possible(GameSystem gs) { 
-        if (CheckSurroundingsContain(gs, 0, 1) && GetCurrMagic() > 4) {
+        if (CheckSurroundingsContain(gs, NONE, 1) && GetCurrMagic() > 4) {
             return true;
         }
         return false;
     }
     public boolean CheckAbility2Possible(GameSystem gs) { 
-        if (CheckSurroundingsContain(gs, 4, 1)) {
+        if (CheckSurroundingsContain(gs, MINION, 1)) {
             return true;
         }
         return false; 
     }
-    public boolean CheckAbility3Possible(GameSystem gs) { return false; } 
+    public boolean CheckAbility3Possible(GameSystem gs) { 
+        if (CheckSurroundingsContain(gs, MINION, 2) && CheckSurroundingsContain(gs, CHARACTER, 2)) {
+            return true;
+        }
+        return false; 
+    }
     public boolean Ability1(ActionContext context) {
-        if ( context.GetTarget() != null && context.GetGrid()[context.GetPosY()][context.GetPosX()].getEntity().GetObject() == Entity.NONE 
+        if ( context.GetTarget() != null && context.GetGrid()[context.GetPosY()][context.GetPosX()].GetEntity().GetObject() == Entity.NONE 
             && CheckRange(1, this)) {
             context.GetGrid()[context.GetPosY()][context.GetPosX()] = new Block(new Minion(this.team));
             return true;
@@ -75,8 +80,16 @@ public class Necromancer extends Character {
         }
     }
     public boolean Ability3(ActionContext context) {
-        if ( context != null && context.GetGrid()[context.GetPosY()][context.GetPosX()].getEntity().GetObject() == Entity.MINION) {
-            return true;
+        if ( context != null && context.GetGrid()[context.GetPosY()][context.GetPosX()].GetEntity().GetObject() == Entity.CHARACTER) {
+            if (context.GetGrid()[context.GetPosY()][context.GetPosX()].GetEntity().GetTeam() != this.team) {
+                context.GetTargetEntity().Destroy();
+                Character enemy = context.GetTarget();
+                enemy.SetCurrHealth(enemy.GetCurrHealth() - 20);
+                return true;
+            } else {
+                return false;
+            }
+            
         }
         else {
             return false;

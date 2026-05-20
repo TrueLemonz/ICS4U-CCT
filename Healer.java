@@ -89,8 +89,8 @@ public class Healer extends Character {
         // Iterate across the entire 8x8 game board grid
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[i].length; j++) {
-                if (grid[i][j] != null && grid[i][j].getEntity() != null) {
-                    Entity currentEntity = grid[i][j].getEntity();
+                if (grid[i][j] != null && grid[i][j].GetEntity() != null) {
+                    Entity currentEntity = grid[i][j].GetEntity();
 
                     // check if the entity is a character before we check if it is an ally or an enemy
                     if (currentEntity != null && currentEntity.GetObject() == Entity.CHARACTER) {

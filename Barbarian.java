@@ -43,7 +43,7 @@ public class Barbarian extends Character {
     public boolean CheckAbility1Possible(GameSystem gs) {
         for (int i = 0; i < gs.gameBoard.length; i++) {
             for (int j = 0; j < gs.gameBoard[i].length; j++) {
-                Character target = gs.gameBoard[i][j].getEntity().GetCharacter();
+                Character target = gs.gameBoard[i][j].GetEntity().GetCharacter();
                 if (target != null && target.GetObject() == Entity.CHARACTER
                         && CheckConditions(2, GetAbility1Range(), target) && target.GetTeam() != this.team) {
                     return true;
@@ -56,7 +56,7 @@ public class Barbarian extends Character {
     public boolean CheckAbility2Possible(GameSystem gs) {
         for (int i = 0; i < gs.gameBoard.length; i++) {
             for (int j = 0; j < gs.gameBoard[i].length; j++) {
-                Character target = gs.gameBoard[i][j].getEntity().GetCharacter();
+                Character target = gs.gameBoard[i][j].GetEntity().GetCharacter();
                 if (target != null && target.GetObject() == Entity.CHARACTER
                         && CheckConditions(2, GetAbility2Range(), target) && target.GetTeam() != this.team) {
                     return true;
@@ -111,7 +111,7 @@ public class Barbarian extends Character {
         }
 
         // check if theres already an object there
-        if (grid[flipY][flipX].getEntity() != null && grid[flipY][flipX].getEntity().GetObject() != Entity.NONE) {
+        if (grid[flipY][flipX].GetEntity() != null && grid[flipY][flipX].GetEntity().GetObject() != Entity.NONE) {
             return false;
         }
 

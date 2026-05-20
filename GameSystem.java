@@ -31,7 +31,7 @@ public class GameSystem {
         }
 
         if (this.gameBoard[posY][posX] != null && character.CheckConditions(0)
-                && this.gameBoard[posY][posX].getEntity().GetObject() == Entity.NONE) {
+                && this.gameBoard[posY][posX].GetEntity().GetObject() == Entity.NONE) {
             this.gameBoard[posY][posX].SetEntity(character);
 
             character.GetPosition()[0] = posY; // [0] = y
@@ -71,10 +71,10 @@ public class GameSystem {
         for (int i = 0; i < this.gameBoard.length; i++) {
             for (int j = 0; j < this.gameBoard[i].length; j++) {
                 Block block = this.gameBoard[i][j];
-                if (block == null || block.getEntity() == null) {
+                if (block == null || block.GetEntity() == null) {
                     continue;
                 }
-                if (block.getEntity().GetObject() == Entity.NONE) {
+                if (block.GetEntity().GetObject() == Entity.NONE) {
                     emptyCount++; // count number of empty blocks in the grid
                 }
             }
@@ -88,10 +88,10 @@ public class GameSystem {
         for (int i = 0; i < this.gameBoard.length; i++) {
             for (int j = 0; j < this.gameBoard[i].length; j++) {
                 Block block = this.gameBoard[i][j];
-                if (block == null || block.getEntity() == null) {
+                if (block == null || block.GetEntity() == null) {
                     continue;
                 }
-                if (block.getEntity().GetObject() == Entity.NONE) {
+                if (block.GetEntity().GetObject() == Entity.NONE) {
                     emptyPositions[index][0] = i; // stores empty row coordinate
                     emptyPositions[index][1] = j; // stores empty column coordinate
                     index++;
@@ -136,9 +136,9 @@ public class GameSystem {
         boolean team2Alive = false;
         for (int i = 0; i < this.gameBoard.length; i++) {
             for (int j = 0; j < this.gameBoard[i].length; j++) {
-                if (this.gameBoard[i][j] != null && this.gameBoard[i][j].getEntity() != null
-                        && this.gameBoard[i][j].getEntity().GetObject() == Entity.CHARACTER) {
-                    Character c = (Character) this.gameBoard[i][j].getEntity();
+                if (this.gameBoard[i][j] != null && this.gameBoard[i][j].GetEntity() != null
+                        && this.gameBoard[i][j].GetEntity().GetObject() == Entity.CHARACTER) {
+                    Character c = (Character) this.gameBoard[i][j].GetEntity();
                     if (c.GetTeam() == 1 && c.GetCurrHealth() > 0) {
                         team1Alive = true;
                     } else if (c.GetTeam() == 2 && c.GetCurrHealth() > 0) {
@@ -163,7 +163,7 @@ public class GameSystem {
     public void GenRandObstacles() {
         int block = (int) (Math.random() * gameBoard.length * gameBoard[0].length);
         Block current = this.gameBoard[block / gameBoard[0].length][block % gameBoard[0].length];
-        if (current != null && current.getEntity() != null && current.getEntity().GetObject() == Entity.NONE) {
+        if (current != null && current.GetEntity() != null && current.GetEntity().GetObject() == Entity.NONE) {
             int rand = (int) (Math.random() * 10);
             if (rand < 2) {
                 this.gameBoard[block / gameBoard[0].length][block % gameBoard[0].length] = new Block(new Obstacle());

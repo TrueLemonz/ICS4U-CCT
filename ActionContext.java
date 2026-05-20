@@ -7,9 +7,24 @@ public class ActionContext {
     private int posx, posy;
 
     public ActionContext() {}
+
     public ActionContext(Character target, Block[][] grid) {
         this.targetEntity = null;
         this.target = target;
+        this.grid = grid;
+        this.posx = 0;
+        this.posy = 0;
+    }
+    public ActionContext(Character target, Entity targetEntity) {
+        this.targetEntity = targetEntity;
+        this.target = target;
+        this.grid = null;
+        this.posx = 0;
+        this.posy = 0;
+    }
+    public ActionContext(Entity targetEntity, Block[][] grid) {
+        this.targetEntity = targetEntity;
+        this.target = null;
         this.grid = grid;
         this.posx = 0;
         this.posy = 0;
