@@ -68,9 +68,8 @@ public class Displayer {
      *
      * @param grid              - The 2D array of blocks representing the game board.
      */
-    public void PrintGrid(Block[][] grid) {
-        GameSystem gs = new GameSystem();
-        gs.RemoveDeadCharacters();
+    public void PrintGrid(Block[][] grid, GameSystem gs) {
+    gs.RemoveDeadCharacters();
         if (grid == null || grid.length == 0) {
             return;
         }
@@ -80,7 +79,7 @@ public class Displayer {
 
         centerPrint("MAP:", totalWidth); 
         System.out.print("\n");
-        System.out.printf("    %-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s", "CELL X = 0", "CELL X = 1", "CELL X = 2", "CELL X = 3", "CELL X = 4", "CELL X = 5", "CELL X = 6", "CELL X = 7");
+        System.out.printf("    %-16s%-16s%-16s%-16s%-16s", "CELL X = 0", "CELL X = 1", "CELL X = 2", "CELL X = 3", "CELL X = 4");
         System.out.print("\n");
         printLine(rowLength);
         
@@ -149,7 +148,7 @@ public class Displayer {
             printLine(row.length);
             
         }
-        System.out.printf("    %-16s%-16s%-16s%-16s%-16s%-16s%-16s%-16s", "CELL X = 0", "CELL X = 1", "CELL X = 2", "CELL X = 3", "CELL X = 4", "CELL X = 5", "CELL X = 6", "CELL X = 7");
+        System.out.printf("    %-16s%-16s%-16s%-16s%-16s", "CELL X = 0", "CELL X = 1", "CELL X = 2", "CELL X = 3", "CELL X = 4");
         System.out.print("\n");
     }
 

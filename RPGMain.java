@@ -31,7 +31,7 @@ public class RPGMain {
         if (!moved) {
             System.out.println("Move failed — tile is out of range or occupied.");
         }
-        ds.PrintGrid(gs.GameBoard);
+        ds.PrintGrid(gs.GameBoard, gs);
     }
 
     /*
@@ -89,7 +89,7 @@ public class RPGMain {
             if (success) {
                 System.out.println(character.GetFullName() + " the " + character.GetName()
                         + " flips " + target.GetFullName() + " the " + target.GetName() + "!");
-                ds.PrintGrid(gs.GameBoard);
+                ds.PrintGrid(gs.GameBoard, gs);
             } else {
                 System.out.println("Flip failed.");
             }
@@ -376,7 +376,7 @@ public class RPGMain {
             boolean success = character.Ability1(guardAbility1);
             if (success) {
                 System.out.println(character.GetFullName() + " the " + character.GetName()+ " places an obstacle!");
-                ds.PrintGrid(gs.GameBoard);
+                ds.PrintGrid(gs.GameBoard, gs);
             } else {
                 System.out.println("Obstruct failed — tile is out of range, occupied, or out of bounds.");
             }
@@ -465,7 +465,7 @@ public class RPGMain {
             if (success) {
                 System.out.println(character.GetFullName() + " the " + character.GetName()
                         + " raises a minion!");
-                ds.PrintGrid(gs.GameBoard);
+                ds.PrintGrid(gs.GameBoard, gs);
             } else {
                 System.out.println("Resurrect failed.");
             }
@@ -571,7 +571,7 @@ public class RPGMain {
             boolean success = character.Ability1(paladinAbility1);
             if (success) {
                 System.out.println(character.GetFullName() + " the " + character.GetName() + " delivers Verdict on " + target.GetFullName() + "!");
-                ds.PrintGrid(gs.GameBoard);
+                ds.PrintGrid(gs.GameBoard, gs);
             } else {
                 System.out.println("Verdict failed.");
             }
@@ -605,7 +605,7 @@ public class RPGMain {
             if (success) {
                 System.out.println(character.GetFullName() + " the " + character.GetName()
                         + " strikes " + target.GetFullName() + " the " + target.GetName() + "!");
-                ds.PrintGrid(gs.GameBoard);
+                ds.PrintGrid(gs.GameBoard, gs);
             } else {
                 System.out.println("Strike failed.");
             }
@@ -870,8 +870,8 @@ public class RPGMain {
                 gs.player2.PlayerTeam[1].SetPosition(new int[] { 4, 4 }, gs.GameBoard);
                 gs.player2.PlayerTeam[2].SetPosition(new int[] { 3, 4 }, gs.GameBoard);
 
-                gs.PopulateGameBoard(7, 7);
-                ds.PrintGrid(gs.GameBoard);
+                gs.PopulateGameBoard(4, 3);
+                ds.PrintGrid(gs.GameBoard, gs);
 
                 // ---- GAME LOOP ----
                 while (!gs.CheckWin()) {
