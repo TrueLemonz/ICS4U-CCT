@@ -10,8 +10,8 @@
  * **************************************************/
 public class GameSystem {
     public Block[][] GameBoard = new Block[GAMEHEIGHT][GAMEWIDTH];
-    public static int GAMEHEIGHT = 8;
-    public static int GAMEWIDTH  = 8;
+    public static int GAMEHEIGHT = 5;
+    public static int GAMEWIDTH  = 5;
     private int currTeam;
     public Player player1 = new Player();
     public Player player2 = new Player();
@@ -254,5 +254,16 @@ public class GameSystem {
      */
     public boolean CheckWin() {
         return GetWinningTeam() != 0;
+    }
+
+
+    public void RemoveDeadCharacters() {
+        for ( int i = 0; i < GAMEHEIGHT; i++ ) {
+            for ( int j = 0; j < GAMEWIDTH; j++ ) {
+                if ( GameBoard[i][j].GetEntity().GetObject() == Entity.CHARACTER && !GameBoard[i][j].GetEntity().GetCharacter().GetIsAlive() ) {
+                    GameBoard[i][j].GetEntity().Destroy();
+                }
+            }
+        }
     }
 }

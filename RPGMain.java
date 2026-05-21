@@ -1,13 +1,6 @@
-/****************************************************
- * RPGMain
- * 
- * Main frontend class, handles all Input and Output between the user and the backend.
+/* Main frontend class, handles all Input and Output between the user and the backend.
  * All of the printing (aside from Displayer.java) takes place here.
- * This is also the file that should be run in order to properly play the game. 
- * 
- * Author: Leo & Lucas
- * Date: 20/05/26
- * **************************************************/
+ * This is also the file that should be run in order to properly play the game. */
 import java.util.Scanner;
 
 public class RPGMain {
@@ -379,7 +372,7 @@ public class RPGMain {
             int x = input.nextInt();
             System.out.print("Choose y-coordinate for the obstacle: ");
             int y = input.nextInt();
-            ActionContext guardAbility1 = new ActionContext(y, x, gs.GameBoard);
+            ActionContext guardAbility1 = new ActionContext(x, y, gs.GameBoard);
             boolean success = character.Ability1(guardAbility1);
             if (success) {
                 System.out.println(character.GetFullName() + " the " + character.GetName()+ " places an obstacle!");
@@ -467,7 +460,7 @@ public class RPGMain {
             int x = input.nextInt();
             System.out.print("Choose y-coordinate for the new minion: ");
             int y = input.nextInt();
-            ActionContext necroAbility1 = new ActionContext(y, x, gs.GameBoard);
+            ActionContext necroAbility1 = new ActionContext(x, y, gs.GameBoard);
             boolean success = character.Ability1(necroAbility1);
             if (success) {
                 System.out.println(character.GetFullName() + " the " + character.GetName()
@@ -658,14 +651,15 @@ public class RPGMain {
      * @param gs        - The game system.
      * @param ds        - The displayer.
      */
-    private void commenceTurn(Character character, Scanner input, GameSystem gs, Displayer ds) {
+    private boolean commenceTurn(Character character, Scanner input, GameSystem gs, Displayer ds) {
         if (!character.GetIsAlive() || character.GetIsStunned()) {
             if (character.GetIsStunned()) {
                 System.out.println(character.GetFullName() + " the " + character.GetName()
                         + " is stunned and cannot act!");
                 character.SetIsStunned(false); // stun lasts one turn
             }
-            return;
+            gs.RemoveDeadCharacters();
+            return true;
         }
 
         promptMove(character, input, gs, ds);
@@ -680,6 +674,7 @@ public class RPGMain {
             System.out.println(character.GetFullName() + " the " + character.GetName()
                     + " cannot cast any abilities this round.");
         }
+        return true;
     }
 
     /*
@@ -742,39 +737,89 @@ public class RPGMain {
                             int choice = input.nextInt();
 
                             if (choice == 1) {
-                                System.out.println("Necromancer: summons and commands the undead.\nStat buffs: -1 spd, +3 intl, +1 atk, +2 mgc, +1 hlt, +2 spp");
-                                System.out.println("Confirm? (y/N)");
-                                if (input.next().equalsIgnoreCase("y")) { selectedClass = 1; hasSelected = true; }
+                                System.out.println(
+                                        "Necromancer \nA disturbed warlock who conjures and manipulates the dead. \nAbilities: \nAbility 1: Resurrect - Summons a weak minion to fight. ");
+                                System.out.println(
+                                        "Ability 2: Strengthen - Buffs an adjacent minion \nAbility 3: Meat Shield - Sacrafice an adjacent minion to tank a hit.");
+                                System.out.println(
+                                        "Stat buffs: \n-1 speed\n+3 intelligence\n+1 attack\n+2 spirit\n+1 health\n+2 spellpower");
+                                System.out.println("Confirm? (y/N)");          
+                                if (input.next().equalsIgnoreCase("y")) { 
+                                    selectedClass = 1; 
+                                    hasSelected = true;
+                                 }
                                 else { System.out.println("Returning to selection."); }
 
                             } else if (choice == 2) {
-                                System.out.println("Healer: mends allies and weakens enemies.\nStat buffs: +0 spd, +3 intl, -1 atk, +3 mgc, +2 hlt, +1 spp");
-                                System.out.println("Confirm? (y/N)");
-                                if (input.next().equalsIgnoreCase("y")) { selectedClass = 2; hasSelected = true; }
+                                System.out.println(
+                                        "Healer \n A benevolent soul who specialises in the mending of allies. \nAbilities: \nAbility 1: Prayer - Heals allies, and damages enemies. ");
+                                System.out.println(
+                                        "Ability 2: Praise - Grants an ally +4 intl and +2 spirit. \nAbility 3: Strike - Weak attack that may stun.");
+                                System.out.println(
+                                        "Stat buffs: \n+0 speed\n+3 intelligence\n-1 attack\n+3 spirit\n+2 health\n+1 spellpower");
+                                System.out.println("Confirm? (y/N)");         
+                                if (input.next().equalsIgnoreCase("y")) { 
+                                    selectedClass = 2; 
+                                    hasSelected = true; 
+                                }
                                 else { System.out.println("Returning to selection."); }
 
                             } else if (choice == 3) {
-                                System.out.println("Crusader: buffing warrior who also deals moderate damage.\nStat buffs: +2 spd, -1 intl, +8 atk, +1 mgc, -2 hlt, +0 spp");
-                                System.out.println("Confirm? (y/N)");
-                                if (input.next().equalsIgnoreCase("y")) { selectedClass = 3; hasSelected = true; }
+                                System.out.println(
+                                        "Crusader \nA highly poised warrior who both safeguards allies and threatens moderate damage.\nAbilities: \nAbility 1: Divine Shield - Creates a protective barrier around an adjacent ally. ");
+                                System.out.println(
+                                        "Ability 1: Holy Light - Heals an adjacent ally. \nAbility 2: Condemn - Deals damage to an enemy.");
+                                System.out.println(
+                                        "\nAbility 3: Condemn - Deals damage to an enemy.");
+                                System.out.println(
+                                        "Stat buffs: \n+0 speed\n+2 intelligence\n+1 attack\n+1 spirit\n+3 health\n+1 spellpower");
+                                System.out.println("Confirm? (y/N)");         
+                                if (input.next().equalsIgnoreCase("y")) { 
+                                    selectedClass = 3; 
+                                    hasSelected = true;
+                                }
                                 else { System.out.println("Returning to selection."); }
 
                             } else if (choice == 4) {
-                                System.out.println("Barbarian: glass cannon who grows stronger as they take damage.\nStat buffs: +2 spd, -1 intl, +8 atk, +1 mgc, -2 hlt, +0 spp");
-                                System.out.println("Confirm? (y/N)");
-                                if (input.next().equalsIgnoreCase("y")) { selectedClass = 4; hasSelected = true; }
+                                System.out.println(
+                                        "Barbarian \nA glass cannon who outputs heavy damage. What doesn't kill him makes him stronger.\nAbilities: \nAbility 1: Flip - Throws an enemy target opposite to the barbarian. ");
+                                System.out.println(
+                                        "Ability 2: Rage Strike - Melee attack dealing massive damage. \nAbility 3: Lupus - The barbarian damages himself and gains a permanent damage increase.");
+                                System.out.println(
+                                        "Stat buffs: \n+2 speed\n-1 intelligence\n+8 attack\n+1 spirit\n-2 health\n+0 spellpower");
+                                System.out.println("Confirm? (y/N)");         
+                                if (input.next().equalsIgnoreCase("y")) { 
+                                    selectedClass = 4;
+                                    hasSelected = true;
+                                 }
                                 else { System.out.println("Returning to selection."); }
 
                             } else if (choice == 5) {
-                                System.out.println("Paladin: holy warrior who attacks, heals self, and buffs intelligence.\nStat buffs: +2 spd, -1 intl, +8 atk, +1 mgc, -2 hlt, +0 spp");
-                                System.out.println("Confirm? (y/N)");
-                                if (input.next().equalsIgnoreCase("y")) { selectedClass = 5; hasSelected = true; }
+                                System.out.println(
+                                        "Paladin \nA bastion of light who defends and heals allies.\nAbilities: \nAbility 1: Aura - Adjacent allies take half damage for 1 turn. ");
+                                System.out.println(
+                                        "Ability 2: Heal - Heals self for 20 health points. \nAbility 3: Divine Strike - Weak attack that restores magic.");
+                                System.out.println(
+                                        "Stat buffs: \n+0 speed\n+2 intelligence\n+0 attack\n+1 spirit\n+5 health\n+1 spellpower");
+                                System.out.println("Confirm? (y/N)");         
+                                if (input.next().equalsIgnoreCase("y")) { 
+                                    selectedClass = 5;
+                                     hasSelected = true;
+                                    }
                                 else { System.out.println("Returning to selection."); }
 
                             } else if (choice == 6) {
-                                System.out.println("Guardian: creates obstacles and has huge health reserves.\nStat buffs: +2 spd, +4 intl, +0 atk, +1 mgc, +5 hlt, +0 spp");
+                                System.out.println(
+                                        "Guardian \nProtector of lands who creates blockades. \nAbilities: \nAbility 1: Obstruct - Creates an obstacle");
+                                System.out.println(
+                                        "Ability 2: Fortify - Grants +1 hlt and +1 intl to the guardian. \nAbility 3: Slam - Weak attack with a chance to stun.");
+                                System.out.println(
+                                        "Stat buffs: \n+0 speed\n+3 intelligence\n-1 attack\n+3 spirit\n+2 health\n+1 spellpower");
                                 System.out.println("Confirm? (y/N)");
-                                if (input.next().equalsIgnoreCase("y")) { selectedClass = 6; hasSelected = true; }
+                                if (input.next().equalsIgnoreCase("y")) { 
+                                     selectedClass = 6;
+                                     hasSelected = true; 
+                                    }
                                 else { System.out.println("Returning to selection."); }
 
                             } else {
@@ -821,9 +866,9 @@ public class RPGMain {
                 gs.player1.PlayerTeam[0].SetPosition(new int[] { 0, 0 }, gs.GameBoard);
                 gs.player1.PlayerTeam[1].SetPosition(new int[] { 1, 0 }, gs.GameBoard);
                 gs.player1.PlayerTeam[2].SetPosition(new int[] { 0, 1 }, gs.GameBoard);
-                gs.player2.PlayerTeam[0].SetPosition(new int[] { 7, 7 }, gs.GameBoard);
-                gs.player2.PlayerTeam[1].SetPosition(new int[] { 6, 7 }, gs.GameBoard);
-                gs.player2.PlayerTeam[2].SetPosition(new int[] { 7, 6 }, gs.GameBoard);
+                gs.player2.PlayerTeam[0].SetPosition(new int[] { 4, 3 }, gs.GameBoard);
+                gs.player2.PlayerTeam[1].SetPosition(new int[] { 4, 4 }, gs.GameBoard);
+                gs.player2.PlayerTeam[2].SetPosition(new int[] { 3, 4 }, gs.GameBoard);
 
                 gs.PopulateGameBoard(7, 7);
                 ds.PrintGrid(gs.GameBoard);
@@ -859,8 +904,8 @@ public class RPGMain {
                             input.nextLine();
                             rpg.doTeamTurn(gs.player1.PlayerTeam, input, gs, ds, c);
                         }
+                          gs.RemoveDeadCharacters();
                     }
-
                     // Regenerate at the end of each full round (only if game is still running, or else redundant)
                     if (!gs.CheckWin()) {
                         gs.RegenerateCharacters(gs.player1.PlayerTeam);

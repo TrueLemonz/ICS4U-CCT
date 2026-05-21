@@ -69,6 +69,8 @@ public class Displayer {
      * @param grid              - The 2D array of blocks representing the game board.
      */
     public void PrintGrid(Block[][] grid) {
+        GameSystem gs = new GameSystem();
+        gs.RemoveDeadCharacters();
         if (grid == null || grid.length == 0) {
             return;
         }
@@ -99,7 +101,7 @@ public class Displayer {
                 String formattedName = "";
 
                 if (b != null && b.GetEntity() != null) {
-                    if (b.GetEntity().GetObject() == Entity.CHARACTER) {
+                    if (b.GetEntity().GetObject() == Entity.CHARACTER && b.GetEntity().GetCharacter().GetIsAlive() ) {
                         formattedName = b.GetEntity().GetFullName();
                     }
                 }
@@ -109,36 +111,39 @@ public class Displayer {
 
             // Print Row Content: Second vertical line (Classes)
             for (int j = 0; j < row.length; j++) {
-                Block b = row[j];
-                String formattedClass = "";
+        Block b = row[j];
+        String formattedClass = "";
 
-                if (b != null && b.GetEntity() != null) {
-                    formattedClass = String.valueOf(b.GetEntity().GetName());
-                }
-                System.out.print("|" + centerString(formattedClass, CELLWIDTH));
+        if (b != null && b.GetEntity() != null) {
+            if (b.GetEntity().GetObject() != Entity.NONE) {
+                formattedClass = String.valueOf(b.GetEntity().GetName());
             }
-            System.out.print("| CELL Y = " + i + "\n"); 
+        }
 
-            // Print Row Content: Third vertical line (Teams)
-            for (int j = 0; j < row.length; j++) {
-                Block b = row[j];
-                String formattedInfo = "";
+        System.out.print("|" + centerString(formattedClass, CELLWIDTH));
+        }
+        System.out.print("| CELL Y = " + i + "\n"); 
 
-                if (b != null && b.GetEntity() != null) {
-                    if (b.GetEntity().GetObject() == Entity.CHARACTER || b.GetEntity().GetObject() == Entity.MINION) {
-                        formattedInfo = "Team: " + String.valueOf(b.GetEntity().GetTeam());
-                    }
+        // Print Row Content: Third vertical line (Teams)
+        for (int j = 0; j < row.length; j++) {
+            Block b = row[j];
+            String formattedInfo = "";
+
+            if (b != null && b.GetEntity() != null) {
+                if (b.GetEntity().GetObject() == Entity.CHARACTER || b.GetEntity().GetObject() == Entity.MINION) {
+                    formattedInfo = "Team: " + String.valueOf(b.GetEntity().GetTeam());
                 }
-                System.out.print("|" + centerString(formattedInfo, CELLWIDTH));
             }
+            System.out.print("|" + centerString(formattedInfo, CELLWIDTH));
+        }
             System.out.print("|\n");
 
             // Bottom padding 
-            for (int k = 0; k < CELLPADDINGY; k++) {
-                for (int j = 0; j < row.length; j++) {
-                    System.out.print("|" + centerString("", CELLWIDTH));
-                }
-                System.out.print("|\n");
+        for (int k = 0; k < CELLPADDINGY; k++) {
+            for (int j = 0; j < row.length; j++) {
+                System.out.print("|" + centerString("", CELLWIDTH));
+            }
+            System.out.print("|\n");
             }
 
             printLine(row.length);
@@ -155,6 +160,8 @@ public class Displayer {
      * @return                  - True if successful, False otherwise.
      */
     public boolean PrintInitialStats(Character[] characters) {
+        GameSystem gs = new GameSystem();
+        gs.RemoveDeadCharacters();
         System.out.println("            INITIAL STATS            ");
         for (int i = 0; i < characters.length; i++) {
             Character c = characters[i];
@@ -182,6 +189,8 @@ public class Displayer {
      * @return                  - True if successful, False otherwise.
      */
     public boolean PrintStats(Character[] characters) {
+        GameSystem gs = new GameSystem();
+        gs.RemoveDeadCharacters();
         System.out.println("            CURRENT STATS            ");
         for (int i = 0; i < characters.length; i++) {
             Character c = characters[i];
