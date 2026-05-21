@@ -7,48 +7,42 @@
  * Stats are converted from stat points to true stats.
  * (E.G. 10 hlt points -> 90 health.)
  * 
- * Ability 1        :Flip an enemy onto the opposite side of yourself.
- * Ability 2        :Kickpunch an enemy for massive damage.
- * Ability 3        :Infect yourself with lupus and deal extra damage.
+ * Ability 1 : Flip an enemy onto the opposite side of yourself.
+ * Ability 2 : Kickpunch an enemy for massive damage.
+ * Ability 3 : Infect yourself with lupus and deal extra damage.
  * 
  * Author: Leo & Lucas
  * Date: 20/05/26
  * **************************************************/
 public class Barbarian extends Character {
 
-    /* Constructs a barbarian character instance.
-     * Initializes base stats and applies class-based modifications (SetStatMods) for the
-     * barbarian class.
+    /*
+     * Constructs a Barbarian from a base Character.
      *
-     * @param character         - The base Character object used to initialize the new
-     * barbarian.
-     * 
-     * @param team              - The team ID assigned to this barbarian.
+     * @param character - The base Character object used to initialise the Barbarian.
+     * @param team      - The team ID assigned to this Barbarian.
      */
     public Barbarian(Character character, int team) {
         super();
         this.SetName("Barbarian");
         this.SetFullName(character.GetFullName());
         this.SetTeam(team);
-        this.SetStatMods(SPDPOS, 2);
-        this.SetStatMods(INTLPOS,  -1);
-        this.SetStatMods(ATKPOS, 8);
-        this.SetStatMods(MGCPOS, 1);
+        this.SetStatMods(SPDPOS,  2);
+        this.SetStatMods(INTLPOS, -1);
+        this.SetStatMods(ATKPOS,  8);
+        this.SetStatMods(MGCPOS,  1);
         this.SetStatMods(HLTPOS, -2);
-        this.SetStatMods(SPPPOS, 0);
+        this.SetStatMods(SPPPOS,  0);
         this.ApplyStats(character);
         this.ScaleStats();
     }
 
-    /* Checks if ability 1 should be displayed and/or possible to perform.
-     * Is calculated differently for each ability.
-     * This checks: if there is a character within range.
-     *              if the character has sufficient magic amount.
-     *              if the character found within range is not in the same team.
-     * 
-     * @param gs                - The Game System that contains the grid and all of the entities.
+    /*
+     * Checks if Ability 1 (Flip) is possible.
+     * Requires: enemy character within range 1 and sufficient magic.
      *
-     * @return                  - Returns true or false depending on whether or not the ability may or may not be performed.
+     * @param gs - The Game System.
+     * @return   - True if the ability can be performed.
      */
     public boolean CheckAbility1Possible(GameSystem gs) {
         if (gs == null || gs.GameBoard == null) {
@@ -56,24 +50,27 @@ public class Barbarian extends Character {
         }
         for (int i = 0; i < gs.GameBoard.length; i++) {
             for (int j = 0; j < gs.GameBoard[i].length; j++) {
-                Character target = gs.GameBoard[i][j].GetEntity().GetCharacter();
-                if (target != null && target.GetObject() == Entity.CHARACTER && CheckConditions(2, GetAbility1Range(), target) && target.GetTeam() != this.GetTeam()) {
-                    return true;
+                if (gs.GameBoard[i][j] != null && gs.GameBoard[i][j].GetEntity() != null) {
+                    Entity entity = gs.GameBoard[i][j].GetEntity();
+                    if (entity.GetObject() == Entity.CHARACTER) {
+                        Character target = entity.GetCharacter();
+                        if (target != null && CheckConditions(2, GetAbility1Range(), target)
+                                && target.GetTeam() != this.GetTeam()) {
+                            return true;
+                        }
+                    }
                 }
             }
         }
         return false;
     }
 
-    /* Checks if ability 2 should be displayed and/or possible to perform.
-     * Is calculated differently for each ability.
-     * This checks: if there is a character within range.
-     *              if the character has sufficient magic amount.
-     *              if the character found within range is not in the same team.
-     * 
-     * @param gs                - The Game System that contains the grid and all of the entities.
+    /*
+     * Checks if Ability 2 (Kickpunch) is possible.
+     * Requires: enemy character within range 1 and sufficient magic.
      *
-     * @return                  - Returns true or false depending on whether or not the ability may or may not be performed.
+     * @param gs - The Game System.
+     * @return   - True if the ability can be performed.
      */
     public boolean CheckAbility2Possible(GameSystem gs) {
         if (gs == null || gs.GameBoard == null) {
@@ -81,32 +78,33 @@ public class Barbarian extends Character {
         }
         for (int i = 0; i < gs.GameBoard.length; i++) {
             for (int j = 0; j < gs.GameBoard[i].length; j++) {
-                Character target = gs.GameBoard[i][j].GetEntity().GetCharacter();
-                if (target != null && target.GetObject() == Entity.CHARACTER && CheckConditions(2, GetAbility2Range(), target) && target.GetTeam() != this.GetTeam()) {
-                    return true;
+                if (gs.GameBoard[i][j] != null && gs.GameBoard[i][j].GetEntity() != null) {
+                    Entity entity = gs.GameBoard[i][j].GetEntity();
+                    if (entity.GetObject() == Entity.CHARACTER) {
+                        Character target = entity.GetCharacter();
+                        if (target != null && CheckConditions(1, GetAbility2Range(), target)
+                                && target.GetTeam() != this.GetTeam()) {
+                            return true;
+                        }
+                    }
                 }
             }
         }
         return false;
     }
 
-    /* Checks if ability 3 should be displayed and/or possible to perform.
-     * Is calculated differently for each ability.
-     * This checks: if the if the character has sufficient magic amount.
-     * 
-     * @param gs                - The Game System that contains the grid and all of the entities.
+    /*
+     * Checks if Ability 3 (Lupus) is possible.
+     * Requires: sufficient magic and enough health to survive the self-damage.
      *
-     * @return                  - Returns true or false depending on whether or not the ability may or may not be performed.
+     * @param gs - The Game System.
+     * @return   - True if the ability can be performed.
      */
     public boolean CheckAbility3Possible(GameSystem gs) {
         if (gs == null || gs.GameBoard == null) {
             return false;
         }
-        if (CheckConditions(2)) {
-            return true;
-        }else {
-            return false;
-        }
+        return CheckConditions(2);
     }
 
     public int GetAbility1Range() {
@@ -121,78 +119,130 @@ public class Barbarian extends Character {
         return "Barbarian";
     }
 
-    // Picks up character, throws them behind
+    /*
+     * Ability 1 - Flip: picks up an enemy and throws them to the tile directly
+     * opposite the Barbarian's position. Fails if the landing tile is occupied
+     * or out of bounds.
+     *
+     * @param context - ActionContext containing the target Character and the grid.
+     * @return        - True if the flip succeeded.
+     */
     public boolean Ability1(ActionContext context) {
+        if (context == null) {
+            return false;
+        }
         Character target = context.GetTarget();
-        Block[][] grid = context.GetGrid();
+        Block[][] grid   = context.GetGrid();
 
-        if (target == null || grid == null || !CheckConditions(2, 1, target)) {
+        if (target == null || grid == null) {
+            return false;
+        }
+        if (!CheckConditions(2, GetAbility1Range(), target)) {
+            return false;
+        }
+        if (target.GetTeam() == this.GetTeam()) {
             return false;
         }
 
         applyPassive();
 
-        int[] myPos = this.GetPosition();
-        int[] tarPos = target.GetPosition();
+        int myY  = this.GetPosition()[0];
+        int myX  = this.GetPosition()[1];
+        int tarY = target.GetPosition()[0];
+        int tarX = target.GetPosition()[1];
 
-        int myY = myPos[0];
-        int myX = myPos[1];
-        int tarY = tarPos[0];
-        int tarX = tarPos[1];
-
-        // find where the enemy will land and make sure its not occupied/off the map
+        // Land position is the mirror of the target through the Barbarian
         int flipY = myY + (myY - tarY);
         int flipX = myX + (myX - tarX);
+
         if (flipY < 0 || flipY >= grid.length || flipX < 0 || flipX >= grid[0].length) {
             return false;
         }
-        if (grid[flipY][flipX].GetEntity() != null && grid[flipY][flipX].GetEntity().GetObject() != Entity.NONE) {
+        if (grid[flipY][flipX].GetEntity() != null
+                && grid[flipY][flipX].GetEntity().GetObject() != Entity.NONE) {
             return false;
         }
+
+        // Move target to the flip position
         grid[flipY][flipX].SetEntity(target);
         target.GetPosition()[0] = flipY;
         target.GetPosition()[1] = flipX;
-        // Place new empty entity where it was
+
+        // Clear the tile the target was on
         grid[tarY][tarX].SetEntity(new Entity("", false, false, false, false));
+
         this.SetCurrMagic(this.GetCurrMagic() - 2);
         return true;
     }
 
-    // Strong attack, meant to hit multiple times so that block/parry is calculated
-    // for each hit
-    // and its unlikely for the whole thing to be blocked
+    /*
+     * Ability 2 - Kickpunch: a ferocious multi-hit attack. Each hit is independent
+     * so blocks and parries can be considered per hit, making a full block unlikely.
+     *
+     * @param context - ActionContext containing the target Character and the grid.
+     * @return        - True if the attack landed.
+     */
     public boolean Ability2(ActionContext context) {
-        if (!CheckConditions(1, 1, context.GetTarget())) {
+        if (context == null) {
             return false;
         }
+        Character target = context.GetTarget();
+        if (target == null) {
+            return false;
+        }
+        if (!CheckConditions(1, GetAbility2Range(), target)) {
+            return false;
+        }
+        if (target.GetTeam() == this.GetTeam()) {
+            return false;
+        }
+
         applyPassive();
-        this.ScaleStats();
-        context.GetTarget().SetCurrHealth(context.GetTarget().GetCurrHealth() - this.GetCalculatedStats()[ATTACKPOS] * 4);
+
+        // Damage is applied using the current (passive-boosted) attack stat
+        double damage = this.GetCalculatedStats()[ATTACKPOS] * 4;
+        target.SetCurrHealth(target.GetCurrHealth() - damage);
+
         this.SetCurrMagic(this.GetCurrMagic() - 1);
-        this.ScaleStats();
         return true;
     }
 
-    public boolean Ability3() {
-        applyPassive();
-        if (this.GetCurrHealth() > 0.2 * this.GetCalculatedStats()[HLTPOS]) {
-            this.SetCurrHealth(this.GetCurrHealth() - 0.2 * this.GetCalculatedStats()[HLTPOS]);
-            this.SetCalculatedStats(ATTACKPOS, this.GetCalculatedStats()[ATTACKPOS] * 1.15);
-            this.SetCurrMagic(this.GetCurrMagic() - 2);
-            this.ScaleStats();
-            return true;
+    /*
+     * Ability 3 - Lupus: the Barbarian infects himself, sacrificing 20% of his max
+     * health in exchange for a permanent 15% attack increase. Fails if the
+     * self-damage would kill him.
+     *
+     * @param context - ActionContext (unused but required for consistent interface).
+     * @return        - True if Lupus was successfully cast.
+     */
+    public boolean Ability3(ActionContext context) {
+        if (!CheckConditions(2)) {
+            return false;
         }
-        return false;
+
+        applyPassive();
+
+        double sacrifice = 0.2 * this.GetMaxHealth();
+        if (this.GetCurrHealth() <= sacrifice) {
+            // Not enough health — would kill the Barbarian
+            return false;
+        }
+
+        this.SetCurrHealth(this.GetCurrHealth() - sacrifice);
+        this.SetCalculatedStats(ATTACKPOS, this.GetCalculatedStats()[ATTACKPOS] * 1.15);
+        this.SetCurrMagic(this.GetCurrMagic() - 2);
+        return true;
     }
 
+    /*
+     * Passive - Rage: the Barbarian deals more damage the lower his health is.
+     * At full health the multiplier is 1.0×; at 0% health it peaks near 1.5×.
+     * Applied once at the start of each ability so the bonus is consistent.
+     */
     private void applyPassive() {
-        // had to scrap the log stuff, it was always 0 for some reason
-        double maxHP = this.GetCalculatedStats()[Character.HLTPOS];
-        double missingHPRatio = (maxHP - this.GetCurrHealth()) / maxHP;
-        
-        // At 100% health, multiplier is 1.0. At 20% health, multiplier increases is roughly 1.4x
-        double damageMultiplier = 1.0 + (0.5 * missingHPRatio);
-        this.GetCalculatedStats()[ATTACKPOS] *= damageMultiplier;
+        double maxHP         = this.GetMaxHealth();
+        double missingRatio  = (maxHP - this.GetCurrHealth()) / maxHP;
+        double multiplier    = 1.0 + (0.5 * missingRatio);
+        this.SetCalculatedStats(ATTACKPOS, this.GetCalculatedStats()[ATTACKPOS] * multiplier);
     }
 }
-//Does this work

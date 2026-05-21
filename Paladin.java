@@ -7,9 +7,9 @@
  * Stats are converted from stat points to true stats.
  * (E.G. 10 hlt points -> 90 health.)
  * 
- * Ability 1        :Attack that buffs your intelligence.
- * Ability 2        :Heal self.
- * Ability 3        :Close range strong melee attack.
+ * Ability 1 : Verdict  — melee attack that permanently boosts the Paladin's intelligence.
+ * Ability 2 : Heal Self — restores a portion of the Paladin's own health.
+ * Ability 3 : Strike   — strong close-range melee attack.
  * 
  * Author: Leo & Lucas
  * Date: 20/05/26
@@ -17,28 +17,27 @@
 public class Paladin extends Character {
 
     /*
-     * Initalizes a Paladin from a base character.
-     * 
-     * @param character - The character that contains the base stats to be modified.
-     * 
-     * @param team - The team to place the character in. Used to tell who takes damage from who.
+     * Constructs a Paladin from a base Character.
+     *
+     * @param character - The base Character object used to initialise the Paladin.
+     * @param team      - The team ID assigned to this Paladin.
      */
     public Paladin(Character character, int team) {
         super();
         this.SetName("Paladin");
         this.SetFullName(character.GetFullName());
         this.SetTeam(team);
-        this.SetStatMods(SPDPOS, 2);
+        this.SetStatMods(SPDPOS,  2);
         this.SetStatMods(INTLPOS, -1);
-        this.SetStatMods(ATKPOS, 8);
-        this.SetStatMods(MGCPOS, 1);
+        this.SetStatMods(ATKPOS,  8);
+        this.SetStatMods(MGCPOS,  1);
         this.SetStatMods(HLTPOS, -2);
-        this.SetStatMods(SPPPOS, 0);
+        this.SetStatMods(SPPPOS,  0);
         this.ApplyStats(character);
         this.ScaleStats();
     }
 
-    /* Checks if ability 1 should be displayed and/or possible to perform.
+     /* Checks if ability 1 should be displayed and/or possible to perform.
      * Is calculated differently for each ability.
      * This checks: if there is a character within range.
      *              if the character has sufficient magic amount.
@@ -47,21 +46,20 @@ public class Paladin extends Character {
      * @param gs                - The Game System that contains the grid and all of the entities.
      *
      * @return                  - Returns true or false depending on whether or not the ability may or may not be performed.
+     *                - Returns true or false depending on whether or not the ability may or may not be performed.
      */
     public boolean CheckAbility1Possible(GameSystem gs) {
         if (gs == null || gs.GameBoard == null) {
             return false;
         }
-
-        // Loop through the map to see if an enemy is in range for the attack
         for (int i = 0; i < gs.GameBoard.length; i++) {
             for (int j = 0; j < gs.GameBoard[i].length; j++) {
                 if (gs.GameBoard[i][j] != null && gs.GameBoard[i][j].GetEntity() != null) {
                     Entity entity = gs.GameBoard[i][j].GetEntity();
                     if (entity.GetObject() == Entity.CHARACTER) {
-                        Character target = (Character) entity;
-                        // requires cost 2, range 1, and must be an enemy unit
-                        if (CheckConditions(2, GetAbility1Range(), target) && target.GetTeam() != this.GetTeam()) {
+                        Character target = entity.GetCharacter();
+                        if (target != null && CheckConditions(2, GetAbility1Range(), target)
+                                && target.GetTeam() != this.GetTeam()) {
                             return true;
                         }
                     }
@@ -81,27 +79,13 @@ public class Paladin extends Character {
      *
      * @return                  - Returns true or false depending on whether or not the ability may or may not be performed.
      */
+ 
+
     public boolean CheckAbility2Possible(GameSystem gs) {
         if (gs == null || gs.GameBoard == null) {
             return false;
         }
-
-        // Loop through map to locate a friendly teammate to heal
-        for (int i = 0; i < gs.GameBoard.length; i++) {
-            for (int j = 0; j < gs.GameBoard[i].length; j++) {
-                if (gs.GameBoard[i][j] != null && gs.GameBoard[i][j].GetEntity() != null) {
-                    Entity entity = gs.GameBoard[i][j].GetEntity();
-                    if (entity.GetObject() == Entity.CHARACTER) {
-                        Character target = (Character) entity;
-                        // requires cost 2, range 2, and must be on your team
-                        if (CheckConditions(2, GetAbility2Range(), target) && target.GetTeam() == this.GetTeam()) {
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
-        return false;
+        return CheckConditions(4) && this.GetCurrHealth() < this.GetMaxHealth();
     }
 
     /* Checks if ability 3 should be displayed and/or possible to perform.
@@ -118,16 +102,14 @@ public class Paladin extends Character {
         if (gs == null || gs.GameBoard == null) {
             return false;
         }
-
-        // Loop through map to see if an enemy is close enough for a strike
         for (int i = 0; i < gs.GameBoard.length; i++) {
             for (int j = 0; j < gs.GameBoard[i].length; j++) {
                 if (gs.GameBoard[i][j] != null && gs.GameBoard[i][j].GetEntity() != null) {
                     Entity entity = gs.GameBoard[i][j].GetEntity();
                     if (entity.GetObject() == Entity.CHARACTER) {
-                        Character target = (Character) entity;
-                        // matching the hardcoded range 1 parameter from your Ability3 code block
-                        if (CheckConditions(2, 1, target) && target.GetTeam() != this.GetTeam()) {
+                        Character target = entity.GetCharacter();
+                        if (target != null && CheckConditions(2, GetAbility3Range(), target)
+                                && target.GetTeam() != this.GetTeam()) {
                             return true;
                         }
                     }
@@ -136,6 +118,7 @@ public class Paladin extends Character {
         }
         return false;
     }
+
     public int GetAbility1Range() {
         return 1;
     }
@@ -145,47 +128,70 @@ public class Paladin extends Character {
     }
 
     public int GetAbility3Range() {
-        return 2;
+        return 1;
     }
 
     public String GetName() {
         return "Paladin";
     }
-    
 
+    
     public boolean Ability1(ActionContext context) {
-        // if target is null, or conditions fail, or target is an ally (same team), fail the attack
-        if (context.GetTarget() == null || !CheckConditions(2, 1, context.GetTarget()) || context.GetTarget().GetTeam() == this.GetTeam()) {
+        if (context == null) {
             return false;
         }
         Character enemy = context.GetTarget();
-        if (enemy != null) {
-            enemy.SetCurrHealth(enemy.GetCurrHealth() - 10);
-            this.SetRawStats(INTLPOS, (this.GetRawStats()[Character.INTLPOS] + 1));
-            this.ScaleStats();
-            return true;
-        }
-        return false;
-    }
-
-    public boolean Ability2(ActionContext context) {
-        if (CheckConditions(4)) {
-            return true;
-        }else {
+        if (enemy == null) {
             return false;
         }
+        if (!CheckConditions(2, GetAbility1Range(), enemy)) {
+            return false;
+        }
+        if (enemy.GetTeam() == this.GetTeam()) {
+            return false;
+        }
+
+        enemy.SetCurrHealth(enemy.GetCurrHealth() - 10);
+
+        this.SetRawStats(INTLPOS, this.GetRawStats()[INTLPOS] + 1);
+        this.ScaleStats();
+
+        this.SetCurrMagic(this.GetCurrMagic() - 2);
+        return true;
     }
 
+    
+    public boolean Ability2(ActionContext context) {
+        if (!CheckConditions(4)) {
+            return false;
+        }
+        if (this.GetCurrHealth() >= this.GetMaxHealth()) {
+            return false;
+        }
+
+        this.SetCurrHealth(Math.min(this.GetMaxHealth(), this.GetCurrHealth() + 20));
+        this.SetCurrMagic(this.GetCurrMagic() - 4);
+        return true;
+    }
+
+    
     public boolean Ability3(ActionContext context) {
-        if (context.GetTarget() == null || !CheckConditions(2, 1, context.GetTarget())) {
+        if (context == null) {
             return false;
         }
         Character target = context.GetTarget();
-        if (target != null) {
-            target.SetCurrHealth(target.GetCurrHealth() - 5);
-            return true;
+        if (target == null) {
+            return false;
         }
-        return false;
+        if (!CheckConditions(2, GetAbility3Range(), target)) {
+            return false;
+        }
+        if (target.GetTeam() == this.GetTeam()) {
+            return false;
+        }
+
+        target.SetCurrHealth(target.GetCurrHealth() - 15);
+        this.SetCurrMagic(this.GetCurrMagic() - 2);
+        return true;
     }
 }
-//Does this work

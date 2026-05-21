@@ -7,25 +7,32 @@
  * Stats are converted from stat points to true stats.
  * (E.G. 10 hlt points -> 90 health.)
  * 
- * Ability 1        :Buff nearby allies, and damage nearby enemies.
- * Ability 2        :Heal and buff an ally and heal yourself.
- * Ability 3        :Smite a character, with a 50% chance to paralyze.
+ * Ability 1 : Prayer — buff nearby allies and damage nearby enemies.
+ * Ability 2 : Praise — permanently buff an ally's intelligence and spirit.
+ * Ability 3 : Strike — weak attack with a 50% chance to paralyse.
  * 
  * Author: Leo & Lucas
  * Date: 20/05/26
  * **************************************************/
 public class Healer extends Character {
+
+    /*
+     * Constructs a Healer from a base Character.
+     *
+     * @param character - The base Character object used to initialise the Healer.
+     * @param team      - The team ID assigned to this Healer.
+     */
     public Healer(Character character, int team) {
         super();
         this.SetName("Healer");
         this.SetFullName(character.GetFullName());
         this.SetTeam(team);
-        this.SetStatMods(SPDPOS, 0);
+        this.SetStatMods(SPDPOS,  0);
         this.SetStatMods(INTLPOS, 3);
         this.SetStatMods(ATKPOS, -1);
-        this.SetStatMods(MGCPOS, 3);
-        this.SetStatMods(HLTPOS, 2);
-        this.SetStatMods(SPPPOS, 1);
+        this.SetStatMods(MGCPOS,  3);
+        this.SetStatMods(HLTPOS,  2);
+        this.SetStatMods(SPPPOS,  1);
         this.ApplyStats(character);
         this.ScaleStats();
     }
@@ -42,10 +49,7 @@ public class Healer extends Character {
         if (gs == null || gs.GameBoard == null) {
             return false;
         }
-        if (this.GetCurrMagic() >= 4) {
-            return true;
-        }
-        return false;
+        return CheckConditions(4);
     }
 
     /* Checks if ability 2 should be displayed and/or possible to perform.
@@ -61,8 +65,22 @@ public class Healer extends Character {
         if (gs == null || gs.GameBoard == null) {
             return false;
         }
-        if (this.GetCurrMagic() >= 4 && this.CheckSurroundingsContain(gs, Character.CHARACTER, 3)) {
-            return true;
+        if (!CheckConditions(4)) {
+            return false;
+        }
+        for (int i = 0; i < gs.GameBoard.length; i++) {
+            for (int j = 0; j < gs.GameBoard[i].length; j++) {
+                if (gs.GameBoard[i][j] != null && gs.GameBoard[i][j].GetEntity() != null) {
+                    Entity entity = gs.GameBoard[i][j].GetEntity();
+                    if (entity.GetObject() == Entity.CHARACTER) {
+                        Character target = entity.GetCharacter();
+                        if (target != null && CheckRange(GetAbility2Range(), target)
+                                && target.GetTeam() == this.GetTeam()) {
+                            return true;
+                        }
+                    }
+                }
+            }
         }
         return false;
     }
@@ -81,8 +99,22 @@ public class Healer extends Character {
         if (gs == null || gs.GameBoard == null) {
             return false;
         }
-        if (this.GetCurrMagic() >= 2 && this.CheckSurroundingsContain(gs, Character.CHARACTER, 2)) {
-            return true;
+        if (!CheckConditions(2)) {
+            return false;
+        }
+        for (int i = 0; i < gs.GameBoard.length; i++) {
+            for (int j = 0; j < gs.GameBoard[i].length; j++) {
+                if (gs.GameBoard[i][j] != null && gs.GameBoard[i][j].GetEntity() != null) {
+                    Entity entity = gs.GameBoard[i][j].GetEntity();
+                    if (entity.GetObject() == Entity.CHARACTER) {
+                        Character target = entity.GetCharacter();
+                        if (target != null && CheckRange(GetAbility3Range(), target)
+                                && target.GetTeam() != this.GetTeam()) {
+                            return true;
+                        }
+                    }
+                }
+            }
         }
         return false;
     }
@@ -104,12 +136,17 @@ public class Healer extends Character {
     }
 
     /*
-     * Reads every entity on the grid and checks the range (1)
-     * If entity is a character, it checks their team
-     * If belonging to the same team as the healer, heals them for 5
-     * If opposite team, damages them by 5
+     * Ability 1 - Prayer: radiates holy energy across all tiles within range 1.
+     * Heals allied characters by 5 (up to their maximum) and damages enemies by 5.
+     * Costs 4 magic.
+     *
+     * @param context - ActionContext containing the grid.
+     * @return        - True if at least one character was affected.
      */
     public boolean Ability1(ActionContext context) {
+        if (context == null) {
+            return false;
+        }
         if (!CheckConditions(4)) {
             return false;
         }
@@ -120,28 +157,24 @@ public class Healer extends Character {
         }
 
         boolean targetsAffected = false;
-        double currentMagicPool = this.GetCurrMagic();
 
-        // Iterate across the entire board grid layout
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[i].length; j++) {
                 if (grid[i][j] != null && grid[i][j].GetEntity() != null) {
                     Entity currentEntity = grid[i][j].GetEntity();
-
                     if (currentEntity.GetObject() == Entity.CHARACTER) {
-                        Character target = (Character) currentEntity;
-
-                        if (CheckRange(1, target)) {
+                        Character target = currentEntity.GetCharacter();
+                        if (target != null && CheckRange(GetAbility1Range(), target)) {
                             if (target.GetTeam() == this.GetTeam()) {
-                                // Heal Allies
-                                double maxHealth = target.GetMaxHealth();
-                                if (target.GetCurrHealth() < maxHealth) {
-                                    target.SetCurrHealth(Math.min(maxHealth, target.GetCurrHealth() + 5));
+                                // Heal ally up to their maximum
+                                if (target.GetCurrHealth() < target.GetMaxHealth()) {
+                                    target.SetCurrHealth(
+                                            Math.min(target.GetMaxHealth(), target.GetCurrHealth() + 5));
                                     targetsAffected = true;
                                 }
                             } else {
-                                // Damage Enemies
-                                target.SetCurrHealth(Math.max(0, target.GetCurrHealth() - 5));
+                                // Damage enemy
+                                target.SetCurrHealth(target.GetCurrHealth() - 5);
                                 targetsAffected = true;
                             }
                         }
@@ -151,46 +184,71 @@ public class Healer extends Character {
         }
 
         if (targetsAffected) {
-            this.SetCurrMagic(currentMagicPool - 4);
-            return true;
-        }
-        return false;
-    }
-
-    // Gives teammate +4 intl and +2 mgc
-    public boolean Ability2(ActionContext context) {
-        if (!CheckConditions(4, 3, context.GetTarget())) {
-            return false;
-        }
-
-        Character target = context.GetTarget();
-        if (target.GetTeam() == this.GetTeam()) {
-            target.SetRawStats(Character.INTLPOS, (target.GetRawStats()[Character.INTLPOS] + 4));
-            target.SetRawStats(Character.MGCPOS, (target.GetRawStats()[Character.MGCPOS] + 2));
-            target.ScaleStats();
             this.SetCurrMagic(this.GetCurrMagic() - 4);
             return true;
         }
         return false;
     }
 
-    // Basic attack, has a 50% chance to stun the target
-    public boolean Ability3(ActionContext context) {
-        if (!CheckConditions(2, 2, context.GetTarget())) {
+    /*
+     * Ability 2 - Praise: grants an ally a permanent boost to intelligence and
+     * spirit, then re-scales their stats. Costs 4 magic.
+     *
+     * @param context - ActionContext containing the ally target.
+     * @return        - True if the praise was applied.
+     */
+    public boolean Ability2(ActionContext context) {
+        if (context == null) {
+            return false;
+        }
+        Character target = context.GetTarget();
+        if (target == null) {
+            return false;
+        }
+        if (!CheckConditions(4, GetAbility2Range(), target)) {
+            return false;
+        }
+        if (target.GetTeam() != this.GetTeam()) {
             return false;
         }
 
-        Character target = context.GetTarget();
-        if (target.GetTeam() != this.GetTeam()) {
-            target.SetCurrHealth(Math.max(0, target.GetCurrHealth() - 2));
-            double rand = Math.random();
-            if (rand < 0.5) {
-                target.SetIsStunned(true);
-            }
-            this.SetCurrMagic(this.GetCurrMagic() - 2);
-            return true;
+        target.SetRawStats(INTLPOS, target.GetRawStats()[INTLPOS] + 4);
+        target.SetRawStats(MGCPOS,  target.GetRawStats()[MGCPOS]  + 2);
+        target.ScaleStats();
+
+        this.SetCurrMagic(this.GetCurrMagic() - 4);
+        return true;
+    }
+
+    /*
+     * Ability 3 - Strike: smites an enemy with a bolt of energy, dealing 2 damage
+     * and having a 50% chance to stun the target. Costs 2 magic.
+     *
+     * @param context - ActionContext containing the enemy target.
+     * @return        - True if the strike landed.
+     */
+    public boolean Ability3(ActionContext context) {
+        if (context == null) {
+            return false;
         }
-        return false;
+        Character target = context.GetTarget();
+        if (target == null) {
+            return false;
+        }
+        if (!CheckConditions(2, GetAbility3Range(), target)) {
+            return false;
+        }
+        if (target.GetTeam() == this.GetTeam()) {
+            return false;
+        }
+
+        target.SetCurrHealth(target.GetCurrHealth() - 2);
+
+        if (Math.random() < 0.5) {
+            target.SetIsStunned(true);
+        }
+
+        this.SetCurrMagic(this.GetCurrMagic() - 2);
+        return true;
     }
 }
-//Does this work

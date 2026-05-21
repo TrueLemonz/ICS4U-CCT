@@ -9,9 +9,9 @@
  * Stats are converted from stat points to true stats.
  * (E.G. 10 hlt points -> 90 health.)
  * 
- * Ability 1 :Buff yourself.
- * Ability 2 :Buff an ally.
- * Ability 3 :Bash an enemy for high damage.
+ * Ability 1 : Buff yourself — raise intelligence and attack.
+ * Ability 2 : Bless an ally — restore health and boost spell power.
+ * Ability 3 : Shield Bash an enemy for moderate damage.
  * 
  * Author: Leo & Lucas
  * Date: 20/05/26
@@ -33,12 +33,12 @@ public class Crusader extends Character {
         this.SetName("Crusader");
         this.SetFullName(character.GetFullName());
         this.SetTeam(team);
-        this.SetStatMods(SPDPOS, 2);
+        this.SetStatMods(SPDPOS,  2);
         this.SetStatMods(INTLPOS, -1);
-        this.SetStatMods(ATKPOS, 8);
-        this.SetStatMods(MGCPOS, 1);
+        this.SetStatMods(ATKPOS,  8);
+        this.SetStatMods(MGCPOS,  1);
         this.SetStatMods(HLTPOS, -2);
-        this.SetStatMods(SPPPOS, 0);
+        this.SetStatMods(SPPPOS,  0);
         this.ApplyStats(character);
         this.ScaleStats();
     }
@@ -55,18 +55,12 @@ public class Crusader extends Character {
         if (gs == null || gs.GameBoard == null) {
             return false;
         }
-
-        if (CheckConditions(3)) {
-            return true;
-        }
-        return false;
+        return CheckConditions(3);
     }
 
-    /* Checks if ability 2 should be displayed and/or possible to perform.
+    /* Checks if ability 1 should be displayed and/or possible to perform.
      * Is calculated differently for each ability.
-     * This checks: if there is a character within range.
-     *              if the character has sufficient magic amount.
-     *              if the character found within range is in the same team.
+     * This checks: if the character has sufficient magic amount.
      * 
      * @param gs                - The Game System that contains the grid and all of the entities.
      *
@@ -76,14 +70,14 @@ public class Crusader extends Character {
         if (gs == null || gs.GameBoard == null) {
             return false;
         }
-
         for (int i = 0; i < gs.GameBoard.length; i++) {
             for (int j = 0; j < gs.GameBoard[i].length; j++) {
                 if (gs.GameBoard[i][j] != null && gs.GameBoard[i][j].GetEntity() != null) {
                     Entity entity = gs.GameBoard[i][j].GetEntity();
                     if (entity.GetObject() == Entity.CHARACTER) {
-                        Character target = (Character) entity;
-                        if (CheckConditions(2, GetAbility2Range(), target) && target.GetTeam() == this.GetTeam()) {
+                        Character target = entity.GetCharacter();
+                        if (target != null && CheckConditions(2, GetAbility2Range(), target)
+                                && target.GetTeam() == this.GetTeam()) {
                             return true;
                         }
                     }
@@ -107,14 +101,14 @@ public class Crusader extends Character {
         if (gs == null || gs.GameBoard == null) {
             return false;
         }
-
         for (int i = 0; i < gs.GameBoard.length; i++) {
             for (int j = 0; j < gs.GameBoard[i].length; j++) {
                 if (gs.GameBoard[i][j] != null && gs.GameBoard[i][j].GetEntity() != null) {
                     Entity entity = gs.GameBoard[i][j].GetEntity();
                     if (entity.GetObject() == Entity.CHARACTER) {
-                        Character target = (Character) entity;
-                        if (CheckConditions(2, GetAbility3Range(), target) && target.GetTeam() != this.GetTeam()) {
+                        Character target = entity.GetCharacter();
+                        if (target != null && CheckConditions(2, GetAbility3Range(), target)
+                                && target.GetTeam() != this.GetTeam()) {
                             return true;
                         }
                     }
@@ -140,52 +134,82 @@ public class Crusader extends Character {
         return "Crusader";
     }
 
+    /*
+     * Ability 1 - Holy Divinity: the Crusader permanently buffs his intl and atk
+     *
+     * @param context - ActionContext for overloading 
+     * @return        - True if the buff was applied successfully, else false
+     * 
+     */
     public boolean Ability1(ActionContext context) {
-        if (context.GetTarget() == null || !CheckConditions(2, 1, context.GetTarget()) || context.GetTarget().GetTeam() == this.GetTeam()) {
+        if (!CheckConditions(3)) {
             return false;
         }
 
-        Character target = context.GetTarget();
-        target.SetCurrHealth(target.GetCurrHealth() - 15);
-
-        // update stats safely using class references
-        this.SetRawStats(Character.INTLPOS, (this.GetRawStats()[Character.INTLPOS] + 1));
-        this.SetRawStats(Character.ATKPOS, (this.GetRawStats()[Character.ATKPOS] + 1));
+        this.SetRawStats(INTLPOS, this.GetRawStats()[INTLPOS] + 1);
+        this.SetRawStats(ATKPOS,  this.GetRawStats()[ATKPOS]  + 1);
         this.ScaleStats();
 
-        this.SetCurrMagic(this.GetCurrMagic() - 2);
+        this.SetCurrMagic(this.GetCurrMagic() - 3);
         return true;
     }
 
+    /*
+     * Ability 2 - Holy Light: blesses an allied character, restoring up to 15
+     * health and permanently increasing their spell power.
+     *
+     * @param context - ActionContext containing the ally target and the grid.
+     * @return        - True if the blessing was applied successfully.
+     */
     public boolean Ability2(ActionContext context) {
-        if (context.GetTarget() == null || !CheckConditions(2, 2, context.GetTarget()) || context.GetTarget().GetTeam() != this.GetTeam()) {
+        if (context == null) {
+            return false;
+        }
+        Character ally = context.GetTarget();
+        if (ally == null) {
+            return false;
+        }
+        if (!CheckConditions(2, GetAbility2Range(), ally)) {
+            return false;
+        }
+        if (ally.GetTeam() != this.GetTeam()) {
             return false;
         }
 
-        Character ally = context.GetTarget();
-        double maxHealth = ally.GetMaxHealth();
+        double healed = Math.min(ally.GetMaxHealth(), ally.GetCurrHealth() + 15);
+        ally.SetCurrHealth(healed);
 
-        if (ally.GetCurrHealth() + 15 <= maxHealth) {
-            ally.SetCurrHealth(ally.GetCurrHealth() + 15);
-        } else {
-            ally.SetCurrHealth(maxHealth);
-        }
+        ally.SetRawStats(SPPPOS, ally.GetRawStats()[SPPPOS] + 1);
+        ally.ScaleStats();
 
-        ally.SetRawStats(Character.SPPPOS, (ally.GetRawStats()[Character.SPPPOS] + 1));
         this.SetCurrMagic(this.GetCurrMagic() - 2);
         return true;
     }
 
+    /*
+     * Ability 3 - Shield Bash: slams an enemy with the Crusader's shield for
+     * moderate damage.
+     *
+     * @param context - ActionContext containing the enemy target and the grid.
+     * @return        - True if the bash landed.
+     */
     public boolean Ability3(ActionContext context) {
-        // updated range parameter to use GetAbility3Range() instead of hardcoded 1
-        if (context.GetTarget() == null || !CheckConditions(2, GetAbility3Range(), context.GetTarget()) || context.GetTarget().GetTeam() == this.GetTeam()) {
+        if (context == null) {
+            return false;
+        }
+        Character target = context.GetTarget();
+        if (target == null) {
+            return false;
+        }
+        if (!CheckConditions(2, GetAbility3Range(), target)) {
+            return false;
+        }
+        if (target.GetTeam() == this.GetTeam()) {
             return false;
         }
 
-        Character target = context.GetTarget();
-        target.SetCurrHealth(target.GetCurrHealth() - 5);
+        target.SetCurrHealth(target.GetCurrHealth() - 15);
         this.SetCurrMagic(this.GetCurrMagic() - 2);
         return true;
     }
 }
-//Does this work

@@ -2,7 +2,7 @@
  * Character
  * 
  * The character class directly branches off the entity class.
- * The connections to entity allow it to be seamlessly-
+ * The connections to entity allow it to be seamlessly
  * displayed and stored on the game system's grid.
  * Stores a characters stats, raw and calculated.
  * 
@@ -11,7 +11,7 @@
  **************************************************/
 public class Character extends Entity {
 
-    // These stats will hold their respective calculated values
+    // These stats hold their respective calculated values
     private double speed, intelligence, attack, magic, health, spellpower;
     // These stats are simple integers which will later be scaled to actual values
     private int spd, intl, atk, mgc, hlt, spp;
@@ -21,6 +21,11 @@ public class Character extends Entity {
     private double currMagic;
     private boolean isAlive = true;
     private boolean isStunned;
+
+    // Flag so ScaleStats only initialises currHealth/currMagic once.
+    // After that it preserves the in-fight values.
+    private boolean statsInitialised = false;
+
     public final static int SPDPOS = 0;
     public final static int INTLPOS = 1;
     public final static int ATKPOS = 2;
@@ -51,9 +56,7 @@ public class Character extends Entity {
         this.hlt = hlt;
         this.spp = spp;
         this.isStunned = isStunned;
-        this.currHealth = health;
-        this.currMagic = spellpower;
-
+        // currHealth and currMagic are set properly by ScaleStats(); do not set them here.
     }
 
     /*
@@ -79,7 +82,7 @@ public class Character extends Entity {
         int points = 20;
         for (int i = 0; i < points; i++) {
             int stat = (int) (Math.random() * 6);
-            if (stat == 0) {
+            if (stat == 0 && this.spd < 8) {
                 this.spd++;
             } else if (stat == 1 && this.intl < 8) {
                 this.intl++;
@@ -98,37 +101,47 @@ public class Character extends Entity {
         return this;
     }
 
-
     /*
      * Scales the integer values (spd, intl, etc) to actual values (speed,
      * intelligence, etc.)
      */
     public void ScaleStats() {
-        this.speed = this.spd;
+        this.speed      = this.spd;
         this.intelligence = this.intl * 2.5;
-        this.attack = this.atk * 9.5; // Attack is atk(attack) * 9.5
-        this.magic = this.mgc * 2; // magic is mgc(magic) * 2
-        this.health = this.hlt * 9;
-        this.spellpower = this.spp; // calculated per attack
-        this.currHealth = this.health;
-        this.currMagic = this.magic;
+        this.attack     = this.atk * 9.5;
+        this.magic      = this.mgc * 2;
+        this.health     = this.hlt * 9;
+        this.spellpower = this.spp;
+
+        if (!statsInitialised) {
+            this.currHealth = this.health;
+            this.currMagic  = this.magic;
+            this.statsInitialised = true;
+        }
     }
 
-    /*
+     /*
      * To be called when a character lands on a food entity.
      * Grants the character + 15 hp (if possible) and then kills the food.
      * 
      * @param food - the food entity to be destroyed.
      */
     public boolean EatFood(Food food) {
+        if (food == null) {
+            return false;
+        }
         if (this.currHealth + 15 <= this.health) {
             food.Destroy();
             this.currHealth += 15;
             return true;
         }
-        return false;
+        // Still eat the food but cap at max health
+        food.Destroy();
+        this.currHealth = this.health;
+        return true;
     }
 
+    
     /*
      * Used ONLY for initializing a character's position. Will not work in any other
      * circumstance.
@@ -146,8 +159,8 @@ public class Character extends Entity {
         int y = coordinates[1];
         if (y >= 0 && y < grid.length && x >= 0 && x < grid[0].length && grid[y][x] != null) {
             grid[y][x].SetEntity(this);
-            this.position[0] = y; // Move expects [0] = y
-            this.position[1] = x; // Move expects [1] = x
+            this.position[0] = y;
+            this.position[1] = x;
             return true;
         }
         return false;
@@ -159,6 +172,7 @@ public class Character extends Entity {
      * @return - A uniformly organized array of pre-calculated stats.
      */
     public double[] GetCalculatedStats() {
+        // Returned as a fresh snapshot; callers must use SetCalculatedStats to mutate.
         double[] stats = { this.speed, this.intelligence, this.attack, this.magic, this.health, this.spellpower };
         return stats;
     }
@@ -173,21 +187,16 @@ public class Character extends Entity {
     public void SetCalculatedStats(int pos, double amt) {
         if (pos == SPEEDPOS) {
             this.speed = amt;
-        }
-        else if (pos == INTELLIGENCEPOS) {
+        } else if (pos == INTELLIGENCEPOS) {
             this.intelligence = amt;
-        }
-        else if (pos == ATTACKPOS) {
+        } else if (pos == ATTACKPOS) {
             this.attack = amt;
-        }
-        else if (pos == MAXMAGICPOS) {
+        } else if (pos == MAXMAGICPOS) {
             this.magic = amt;
-        }
-        else if (pos == MAXHEALTHPOS) {
+        } else if (pos == MAXHEALTHPOS) {
             this.health = amt;
-        }
-        else if (pos == SPELLPOWERPOS) {
-            this.spellpower = amt; 
+        } else if (pos == SPELLPOWERPOS) {
+            this.spellpower = amt;
         }
     }
 
@@ -201,7 +210,7 @@ public class Character extends Entity {
         return stats;
     }
 
-    /*
+     /*
      * Setter function to manually override the raw stats of a character.
      * 
      * @param pos - The position (positions are hard-coded) of the selected stat.
@@ -212,25 +221,20 @@ public class Character extends Entity {
         int val = (int) amt;
         if (pos == SPDPOS) {
             this.spd = val;
-        }
-        else if (pos == INTLPOS) {
+        } else if (pos == INTLPOS) {
             this.intl = val;
-        }
-        else if (pos == ATKPOS) {
+        } else if (pos == ATKPOS) {
             this.atk = val;
-        }
-        else if (pos == MGCPOS) {
+        } else if (pos == MGCPOS) {
             this.mgc = val;
-        }
-        else if (pos == HLTPOS) {
+        } else if (pos == HLTPOS) {
             this.hlt = val;
-        }
-        else if (pos == SPPPOS) {
+        } else if (pos == SPPPOS) {
             this.spp = val;
         }
     }
 
-    /*
+     /*
      * Getter function for the stat mods of a character. (to make sure everything is
      * perfectly encapsulated)
      * 
@@ -241,7 +245,7 @@ public class Character extends Entity {
         return stats;
     }
 
-    /*
+     /*
      * Setter function to manually override the raw stats of a character.
      * 
      * @param pos - The position (positions are hard-coded) of the selected stat.
@@ -252,20 +256,15 @@ public class Character extends Entity {
         int val = (int) amt;
         if (pos == SPDPOS) {
             this.spdMod = val;
-        }
-        else if (pos == INTLPOS) {
+        } else if (pos == INTLPOS) {
             this.intlMod = val;
-        }
-        else if (pos == ATKPOS) {
+        } else if (pos == ATKPOS) {
             this.atkMod = val;
-        }
-        else if (pos == MGCPOS) {
+        } else if (pos == MGCPOS) {
             this.mgcMod = val;
-        }
-        else if (pos == HLTPOS) {
+        } else if (pos == HLTPOS) {
             this.hltMod = val;
-        }
-        else if (pos == SPPPOS) {
+        } else if (pos == SPPPOS) {
             this.sppMod = val;
         }
     }
@@ -276,51 +275,32 @@ public class Character extends Entity {
      * @param character          - The base character providing raw template stats.
      */
     public void ApplyStats(Character character) {
-        // pull base stats from the template character array
-        int[] baseStats = character.GetRawStats();
-        int[] currentMods = this.GetStatMods();
+        int[] baseStats    = character.GetRawStats();
+        int[] currentMods  = this.GetStatMods();
 
-        // calculate speed
-        int newSpd = baseStats[Character.SPDPOS] + currentMods[Character.SPDPOS];
-        if (newSpd < 1) {
-            newSpd = 1;
-        }
-        this.SetRawStats(Character.SPDPOS, newSpd);
+        int newSpd = baseStats[SPDPOS] + currentMods[SPDPOS];
+        if (newSpd < 1) { newSpd = 1; }
+        this.SetRawStats(SPDPOS, newSpd);
 
-        // calculate intelligence
-        int newIntl = baseStats[Character.INTLPOS] + currentMods[Character.INTLPOS];
-        if (newIntl < 1) {
-            newIntl = 1;
-        }
-        this.SetRawStats(Character.INTLPOS, newIntl);
+        int newIntl = baseStats[INTLPOS] + currentMods[INTLPOS];
+        if (newIntl < 1) { newIntl = 1; }
+        this.SetRawStats(INTLPOS, newIntl);
 
-        // calculate attack
-        int newAtk = baseStats[Character.ATKPOS] + currentMods[Character.ATKPOS];
-        if (newAtk < 1) {
-            newAtk = 1;
-        }
-        this.SetRawStats(Character.ATKPOS, newAtk);
+        int newAtk = baseStats[ATKPOS] + currentMods[ATKPOS];
+        if (newAtk < 1) { newAtk = 1; }
+        this.SetRawStats(ATKPOS, newAtk);
 
-        // calculate magic
-        int newMgc = baseStats[Character.MGCPOS] + currentMods[Character.MGCPOS];
-        if (newMgc < 1) {
-            newMgc = 1;
-        }
-        this.SetRawStats(Character.MGCPOS, newMgc);
+        int newMgc = baseStats[MGCPOS] + currentMods[MGCPOS];
+        if (newMgc < 1) { newMgc = 1; }
+        this.SetRawStats(MGCPOS, newMgc);
 
-        // calculate health
-        int newHlt = baseStats[Character.HLTPOS] + currentMods[Character.HLTPOS];
-        if (newHlt < 1) {
-            newHlt = 1;
-        }
-        this.SetRawStats(Character.HLTPOS, newHlt);
+        int newHlt = baseStats[HLTPOS] + currentMods[HLTPOS];
+        if (newHlt < 1) { newHlt = 1; }
+        this.SetRawStats(HLTPOS, newHlt);
 
-        // calculate spellpower
-        int newSpp = baseStats[Character.SPPPOS] + currentMods[Character.SPPPOS];
-        if (newSpp < 1) {
-            newSpp = 1;
-        }
-        this.SetRawStats(Character.SPPPOS, newSpp);
+        int newSpp = baseStats[SPPPOS] + currentMods[SPPPOS];
+        if (newSpp < 1) { newSpp = 1; }
+        this.SetRawStats(SPPPOS, newSpp);
     }
 
     /*
@@ -336,12 +316,19 @@ public class Character extends Entity {
     }
 
     /*
-     * Sets current in-agame health stat.
+     * Sets current in-game health stat.
      *
      * @param currHealth - The new health amount
      */
     public void SetCurrHealth(double currHealth) {
-        this.currHealth = currHealth;
+        if (currHealth < 0) {
+            this.currHealth = 0;
+        } else if (currHealth > this.health) {
+            this.currHealth = this.health;
+        } else {
+            this.currHealth = currHealth;
+        }
+        this.isAlive = this.currHealth > 0;
     }
 
     /*
@@ -362,7 +349,13 @@ public class Character extends Entity {
      * @param currMagic - The new magic amount
      */
     public void SetCurrMagic(double currMagic) {
-        this.currMagic = currMagic;
+        if (currMagic < 0) {
+            this.currMagic = 0;
+        } else if (currMagic > this.magic) {
+            this.currMagic = this.magic;
+        } else {
+            this.currMagic = currMagic;
+        }
     }
 
     /*
@@ -373,7 +366,6 @@ public class Character extends Entity {
     public void SetIsStunned(boolean isStunned) {
         this.isStunned = isStunned;
     }
-
     /*
      * Gets the characters stun state.
      *
@@ -393,16 +385,21 @@ public class Character extends Entity {
     }
 
     /*
-     * Evaluates if the character is alive based on their current health status.
+     * Gets the maximum total magic pool of the character.
+     *
+     * @return - The calculated maximum magic value.
+     */
+    public double GetMaxMagic() {
+        return this.magic;
+    }
+
+    /*
+     * Evaluates if the character is alive based on their current health.
      *
      * @return - True if current health is greater than 0, False otherwise.
      */
     public boolean GetIsAlive() {
-        if (this.currHealth > 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return this.currHealth > 0;
     }
 
     /*
@@ -422,12 +419,12 @@ public class Character extends Entity {
             return false;
         }
         int[] targetPos = target.GetPosition();
-        int[] myPos = this.GetPosition();
+        int[] myPos     = this.GetPosition();
 
-        int x = Math.abs(targetPos[0] - myPos[0]);
-        int y = Math.abs(targetPos[1] - myPos[1]);
+        int dy = Math.abs(targetPos[0] - myPos[0]);
+        int dx = Math.abs(targetPos[1] - myPos[1]);
 
-        return Math.max(x, y) <= range;
+        return Math.max(dy, dx) <= range;
     }
 
     /*
@@ -455,6 +452,25 @@ public class Character extends Entity {
     }
 
     /*
+     * Checks if casting a self-targeted or non-targeted action is viable by
+     * evaluating life state, stuns, and resource costs.
+     *
+     * @param magic - The absolute resource amount required to deploy the action.
+     * 
+     * @return - True if all target-free action parameters are fully satisfied,
+     * False otherwise.
+     */
+    public boolean CheckConditions(int magic, int range, Entity target) {
+        if (target == null) {
+            return false;
+        }
+        if (!this.isAlive || this.isStunned || this.currMagic - magic < 0 || !CheckRange(range, target)) {
+            return false;
+        }
+        return true;
+    }
+
+    /*
      * Checks if casting a ranged ability on a target is viable by evaluating life
      * state, stuns, cost requirements, and positioning.
      *
@@ -467,29 +483,11 @@ public class Character extends Entity {
      * @return - True if all action deployment requirements are fully satisfied,
      * False otherwise.
      */
-    public boolean CheckConditions(int magic, int range, Entity target) {
-        if (!this.isAlive || this.isStunned || this.currMagic - magic < 0 || !CheckRange(range, target)) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    /*
-     * Checks if casting a self-targeted or non-targeted action is viable by
-     * evaluating life state, stuns, and resource costs.
-     *
-     * @param magic - The absolute resource amount required to deploy the action.
-     * 
-     * @return - True if all target-free action parameters are fully satisfied,
-     * False otherwise.
-     */
     public boolean CheckConditions(int magic) {
         if (!this.isAlive || this.isStunned || this.currMagic - magic < 0) {
             return false;
-        } else {
-            return true;
         }
+        return true;
     }
 
     /*
@@ -502,100 +500,38 @@ public class Character extends Entity {
      * @return - The index of the character with the maximum speed.
      */
     public int GetMaxSpeedIndex(Character[] PlayerTeam) {
-        // c1 has highest speed
-        if (PlayerTeam[0].GetRawStats()[SPDPOS] > PlayerTeam[1].GetRawStats()[SPDPOS]
-                && PlayerTeam[0].GetRawStats()[SPDPOS] > PlayerTeam[2].GetRawStats()[SPDPOS]) {
+        int s0 = PlayerTeam[0].GetRawStats()[SPDPOS];
+        int s1 = PlayerTeam[1].GetRawStats()[SPDPOS];
+        int s2 = PlayerTeam[2].GetRawStats()[SPDPOS];
+
+        // All three equal
+        if (s0 == s1 && s1 == s2) {
+            return (int) (Math.random() * 3);
+        }
+        // c0 strictly fastest
+        if (s0 > s1 && s0 > s2) {
             return 0;
         }
-        // c2 has highest speed
-        else if (PlayerTeam[1].GetRawStats()[SPDPOS] > PlayerTeam[0].GetRawStats()[SPDPOS]
-                && PlayerTeam[1].GetRawStats()[SPDPOS] > PlayerTeam[2].GetRawStats()[SPDPOS]) {
+        // c1 strictly fastest
+        if (s1 > s0 && s1 > s2) {
             return 1;
         }
-        // c3 has highest speed
-        else if (PlayerTeam[2].GetRawStats()[SPDPOS] > PlayerTeam[1].GetRawStats()[SPDPOS]
-                && PlayerTeam[2].GetRawStats()[SPDPOS] > PlayerTeam[0].GetRawStats()[SPDPOS]) {
+        // c2 strictly fastest
+        if (s2 > s0 && s2 > s1) {
             return 2;
         }
-        // c1 has a higher speed than c2 but is equal to c3, 50% change to return either
-        // c1 or c3
-        else if (PlayerTeam[0].GetRawStats()[SPDPOS] > PlayerTeam[1].GetRawStats()[SPDPOS]
-                && PlayerTeam[0].GetRawStats()[SPDPOS] == PlayerTeam[2].GetRawStats()[SPDPOS]) {
-            int randNum = (int) (Math.random() * 2);
-            if (randNum == 1) {
-                return 0;
-            } else {
-                return 2;
-            }
+        // c0 == c1 > c2
+        if (s0 == s1 && s0 > s2) {
+            return (int) (Math.random() * 2);  // 0 or 1
         }
-        // If c1 has a higher speed than c3 but is equal to c2, 50% change to return
-        // either c1 or c2
-        else if (PlayerTeam[0].GetRawStats()[SPDPOS] > PlayerTeam[2].GetRawStats()[SPDPOS]
-                && PlayerTeam[0].GetRawStats()[SPDPOS] == PlayerTeam[1].GetRawStats()[SPDPOS]) {
-            int randNum = (int) (Math.random() * 2);
-            if (randNum == 1) {
-                return 0;
-            } else {
-                return 1;
-            }
-
+        // c0 == c2 > c1
+        if (s0 == s2 && s0 > s1) {
+            int r = (int) (Math.random() * 2);
+            return (r == 0) ? 0 : 2;
         }
-        // If c2 has a higher speed than c1 but is equal to c3, 50% change to return
-        // either c2 or c3
-        else if (PlayerTeam[1].GetRawStats()[SPDPOS] > PlayerTeam[0].GetRawStats()[SPDPOS]
-                && PlayerTeam[0].GetRawStats()[SPDPOS] == PlayerTeam[2].GetRawStats()[SPDPOS]) {
-            int randNum = (int) (Math.random() * 2);
-            if (randNum == 1) {
-                return 1;
-            } else {
-                return 2;
-            }
-
-        }
-        // If c2 has a higher speed than c3 but is equal to c1, 50% change to return
-        // either c2 or c1
-        else if (PlayerTeam[1].GetRawStats()[SPDPOS] > PlayerTeam[2].GetRawStats()[SPDPOS]
-                && PlayerTeam[1].GetRawStats()[SPDPOS] == PlayerTeam[0].GetRawStats()[SPDPOS]) {
-            int randNum = (int) (Math.random() * 2);
-            if (randNum == 1) {
-                return 0;
-            } else {
-                return 1;
-            }
-        }
-        // If c3 has a higher speed than c1 but is equal to c2, 50% change to return
-        // either c3 or c2
-        else if (PlayerTeam[2].GetRawStats()[SPDPOS] > PlayerTeam[0].GetRawStats()[SPDPOS]
-                && PlayerTeam[2].GetRawStats()[SPDPOS] == PlayerTeam[1].GetRawStats()[SPDPOS]) {
-            int randNum = (int) (Math.random() * 2);
-            if (randNum == 1) {
-                return 1;
-            } else {
-                return 2;
-            }
-        }
-        // If c3 has a higher speed than c2 but is equal to c1, 50% change to return
-        // either c3 or c1
-        else if (PlayerTeam[2].GetRawStats()[SPDPOS] > PlayerTeam[1].GetRawStats()[SPDPOS]
-                && PlayerTeam[2].GetRawStats()[SPDPOS] == PlayerTeam[0].GetRawStats()[SPDPOS]) {
-            int randNum = (int) (Math.random() * 2);
-            if (randNum == 1) {
-                return 0;
-            } else {
-                return 2;
-            }
-        }
-        // they all have the same speed
-        else {
-            int randNum = (int) (Math.random() * 3);
-            for (int i = 1; i <= 3; i++) {
-                if (randNum == i) {
-                    return i - 1;
-                }
-            }
-        }
-        // Dummy - code won't reach here
-        return 0;
+        // c1 == c2 > c0
+        int r = (int) (Math.random() * 2);
+        return (r == 0) ? 1 : 2;
     }
 
     /*
@@ -611,66 +547,51 @@ public class Character extends Entity {
      */
     public int GetMedianSpeedIndex(int maxSpeedIndex, Character[] PlayerTeam) {
         if (maxSpeedIndex == 0) {
-            if (PlayerTeam[1].GetRawStats()[SPDPOS] > PlayerTeam[2].GetRawStats()[SPDPOS]) {
-                return 1;
-            } else if (PlayerTeam[2].GetRawStats()[SPDPOS] > PlayerTeam[1].GetRawStats()[SPDPOS]) {
-                return 2;
-            } else {
-                int randNum = (int) (Math.random() * 2);
-                if (randNum == 1) {
-                    return 1;
-                } else
-                    return 2;
+            if (PlayerTeam[1].GetRawStats()[SPDPOS] >= PlayerTeam[2].GetRawStats()[SPDPOS]) {
+                return (PlayerTeam[1].GetRawStats()[SPDPOS] > PlayerTeam[2].GetRawStats()[SPDPOS])
+                        ? 1
+                        : ((int) (Math.random() * 2) == 0 ? 1 : 2);
             }
+            return 2;
         } else if (maxSpeedIndex == 1) {
-            if (PlayerTeam[0].GetRawStats()[SPDPOS] > PlayerTeam[2].GetRawStats()[SPDPOS]) {
-                return 0;
-            } else if (PlayerTeam[2].GetRawStats()[SPDPOS] > PlayerTeam[0].GetRawStats()[SPDPOS]) {
-                return 2;
-            } else {
-                int randNum = (int) (Math.random() * 2);
-                if (randNum == 1) {
-                    return 0;
-                } else
-                    return 2;
+            if (PlayerTeam[0].GetRawStats()[SPDPOS] >= PlayerTeam[2].GetRawStats()[SPDPOS]) {
+                return (PlayerTeam[0].GetRawStats()[SPDPOS] > PlayerTeam[2].GetRawStats()[SPDPOS])
+                        ? 0
+                        : ((int) (Math.random() * 2) == 0 ? 0 : 2);
             }
-        } else { // maxSpeedIndex = 2
-            if (PlayerTeam[0].GetRawStats()[SPDPOS] > PlayerTeam[1].GetRawStats()[SPDPOS]) {
-                return 0;
-            } else if (PlayerTeam[1].GetRawStats()[SPDPOS] > PlayerTeam[0].GetRawStats()[SPDPOS]) {
-                return 1;
-            } else {
-                int randNum = (int) (Math.random() * 2);
-                if (randNum == 1) {
-                    return 0;
-                } // randNum = 2
-                else
-                    return 1;
+            return 2;
+        } else {
+            if (PlayerTeam[0].GetRawStats()[SPDPOS] >= PlayerTeam[1].GetRawStats()[SPDPOS]) {
+                return (PlayerTeam[0].GetRawStats()[SPDPOS] > PlayerTeam[1].GetRawStats()[SPDPOS])
+                        ? 0
+                        : ((int) (Math.random() * 2) == 0 ? 0 : 1);
             }
+            return 1;
         }
     }
 
-    /* Returns true TODO */
+    
     public boolean CheckSurroundingsContain(GameSystem gs, int type, int range) {
-        int[] position = this.GetPosition();
-        int x = position[0];
-        int y = position[1];
+        int[] pos    = this.GetPosition();
+        int myRow    = pos[0];  // Y / row
+        int myCol    = pos[1];  // X / col
 
-        int boardWidth = gs.GameBoard[0].length;
-        int boardHeight = gs.GameBoard.length;
+        int boardRows = gs.GameBoard.length;
+        int boardCols = gs.GameBoard[0].length;
 
-        for (int i = x - range; i <= x + range; i++) { // Checks all slots to the left and right
-            for (int j = y - range; j <= y + range; j++) { // Checks all slots to the up and down
-                if (i != x || j != y) {
-                    if (i >= 0 && i < boardWidth && j >= 0 && j < boardHeight) {
-                        if (gs.GameBoard[i][j].GetEntity().GetObject() == type) {
-                            return true;
-                        }
+        for (int row = myRow - range; row <= myRow + range; row++) {
+            for (int col = myCol - range; col <= myCol + range; col++) {
+                if (row == myRow && col == myCol) {
+                    // skip own cell
+                } else if (row >= 0 && row < boardRows && col >= 0 && col < boardCols) {
+                    if (gs.GameBoard[row][col] != null
+                            && gs.GameBoard[row][col].GetEntity() != null
+                            && gs.GameBoard[row][col].GetEntity().GetObject() == type) {
+                        return true;
                     }
                 }
             }
         }
-
         return false;
     }
 
@@ -686,11 +607,10 @@ public class Character extends Entity {
     }
 
     /*
-     * Check if ability two is valid inside the current global game system context.
+     * Check if ability two is valid inside the current game context.
      *
      * @param gs - The primary game engine status tracker.
-     * 
-     * @return - True if action conditions pass validation tests, False otherwise.
+     * @return   - True if action conditions pass validation, False otherwise.
      */
     public boolean CheckAbility2Possible(GameSystem gs) {
         return false;
@@ -720,4 +640,3 @@ public class Character extends Entity {
         return false;
     }
 }
-//Does this work
