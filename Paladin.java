@@ -7,9 +7,9 @@
  * Stats are converted from stat points to true stats.
  * (E.G. 10 hlt points -> 90 health.)
  * 
- * Ability 1 : Verdict  — melee attack that permanently boosts the Paladin's intelligence.
- * Ability 2 : Heal Self — restores a portion of the Paladin's own health.
- * Ability 3 : Strike   — strong close-range melee attack.
+ * Ability 1 : Verdict          - melee attack that permanently boosts the Paladin's intelligence.
+ * Ability 2 : Heal Self        - restores a portion of the Paladin's own health.
+ * Ability 3 : Strike           - strong close-range melee attack.
  * 
  * Author: Leo & Lucas
  * Date: 20/05/26
@@ -19,8 +19,8 @@ public class Paladin extends Character {
     /*
      * Constructs a Paladin from a base Character.
      *
-     * @param character - The base Character object used to initialise the Paladin.
-     * @param team      - The team ID assigned to this Paladin.
+     * @param character         - The base Character object used to initialise the Paladin.
+     * @param team              - The team ID assigned to this Paladin.
      */
     public Paladin(Character character, int team) {
         super();
@@ -46,7 +46,6 @@ public class Paladin extends Character {
      * @param gs                - The Game System that contains the grid and all of the entities.
      *
      * @return                  - Returns true or false depending on whether or not the ability may or may not be performed.
-     *                - Returns true or false depending on whether or not the ability may or may not be performed.
      */
     public boolean CheckAbility1Possible(GameSystem gs) {
         if (gs == null || gs.GameBoard == null) {
@@ -119,23 +118,42 @@ public class Paladin extends Character {
         return false;
     }
 
+    /* Returns the range of Ability 1. 
+     * @return                  - The range of Ability 1.
+     */
     public int GetAbility1Range() {
         return 1;
     }
 
+    /* Returns the range of Ability 2. 
+     * @return                  - The range of Ability 2.
+     */
     public int GetAbility2Range() {
         return 2;
     }
-
+    /* Returns the range of Ability 3. 
+     * @return                  - The range of Ability 3.
+     */
     public int GetAbility3Range() {
         return 1;
     }
 
+    /*
+     * Returns the name of the Paladin.
+     *
+     * @return                  - The name of the Paladin.
+     */
     public String GetName() {
         return "Paladin";
     }
 
-    
+    /* 
+     * Ability 1 - Holy Strike: deals damage to an enemy within range.
+     * Costs 2 magic.
+     *
+     * @param context           - ActionContext containing the target enemy and the grid.
+     * @return                  - True if damage succeeded.
+     */
     public boolean Ability1(ActionContext context) {
         if (context == null) {
             return false;
@@ -160,7 +178,13 @@ public class Paladin extends Character {
         return true;
     }
 
-    
+    /* 
+     * Ability 2 - Heal: restores health to the Paladin.
+     * Costs 4 magic.
+     *
+     * @param context           - ActionContext (unused; self-targeted ability).
+     * @return                  - True if healing succeeded.
+     */
     public boolean Ability2(ActionContext context) {
         if (!CheckConditions(4)) {
             return false;
@@ -174,7 +198,13 @@ public class Paladin extends Character {
         return true;
     }
 
-    
+    /* 
+     * Ability 3 - Divine Strike: deals damage to an enemy within range.
+     * Costs 2 magic.
+     *
+     * @param context           - ActionContext containing the target enemy and the grid.
+     * @return                  - True if damage succeeded.
+     */
     public boolean Ability3(ActionContext context) {
         if (context == null) {
             return false;

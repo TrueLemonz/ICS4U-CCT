@@ -37,6 +37,11 @@ public class Necromancer extends Character {
         this.ScaleStats();
     }
 
+    /*
+     * Returns the name of the Necromancer.
+     *
+     * @return - The name of the Necromancer.
+     */
     public String GetName() {
         return "Necromancer";
     }
@@ -134,7 +139,14 @@ public class Necromancer extends Character {
         return true;
     }
 
-        
+    /*
+     * Ability 2 - Buff Minion: permanently buffs an adjacent allied minion, increasing its 
+     * damage and health by 10 each. This is done by calling the Minion's Buff() method
+     * Costs 2 magic.
+     *
+     * @param context - ActionContext.
+     * @return        - True if buff succeeded.
+     */
     public boolean Ability2(ActionContext context) {
         if (context == null || context.GetTargetEntity() == null) {
             return false;
@@ -157,7 +169,13 @@ public class Necromancer extends Character {
         return true;
     }
 
-    
+    /* 
+     * Ability 3 - Sacrifice: sacrifices an adjacent allied minion to deal damage to an enemy.
+     * Costs 4 magic.
+     *
+     * @param context - ActionContext containing the target enemy and the grid.
+     * @return        - True if sacrifice and damage succeeded.
+     */
     public boolean Ability3(ActionContext context) {
         if (context == null || context.GetGrid() == null) {
             return false;
@@ -182,7 +200,6 @@ public class Necromancer extends Character {
         int myCol      = myPos[1];
         Block minionBlock = null;
 
-        outer:
         for (int row = myRow - 2; row <= myRow + 2; row++) {
             for (int col = myCol - 2; col <= myCol + 2; col++) {
                 if (row == myRow && col == myCol) {
@@ -193,7 +210,6 @@ public class Necromancer extends Character {
                             && b.GetEntity().GetObject() == Entity.MINION
                             && b.GetEntity().GetTeam() == this.GetTeam()) {
                         minionBlock = b;
-                        break outer;
                     }
                 }
             }

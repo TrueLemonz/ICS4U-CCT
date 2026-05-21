@@ -64,7 +64,7 @@ public class GameSystem {
         }
 
         
-        if (Math.abs(posX - nullX) > 1 || Math.abs(posY - nullY) > 1) {
+        if (Math.abs(posX - nullX) > 2 || Math.abs(posY - nullY) > 2) { // 2 is how many steps any character can take. Not 1 because the game would play too slow.
             return false;
         }
 

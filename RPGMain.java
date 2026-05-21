@@ -1,6 +1,13 @@
-/* Main frontend class, handles all Input and Output between the user and the backend.
+/****************************************************
+ * RPGMain
+ * 
+ * Main frontend class, handles all Input and Output between the user and the backend.
  * All of the printing (aside from Displayer.java) takes place here.
- * This is also the file that should be run in order to properly play the game. */
+ * This is also the file that should be run in order to properly play the game. 
+ * 
+ * Author: Leo & Lucas
+ * Date: 20/05/26
+ * **************************************************/
 import java.util.Scanner;
 
 public class RPGMain {

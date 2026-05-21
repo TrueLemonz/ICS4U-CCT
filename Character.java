@@ -563,7 +563,17 @@ public class Character extends Entity {
         }
     }
 
-    
+    /*
+     * Checks if there is a valid target for an ability within the specified range.
+     *
+     * @param gs - The current game system context containing the grid and entities.
+     * 
+     * @param type - The type of entity to look for (character, minion, etc.)
+     * 
+     * @param range - The maximum distance the target can be from the character.
+     * 
+     * @return - True if at least one valid target is found, False otherwise.
+     */
     public boolean CheckSurroundingsContain(GameSystem gs, int type, int range) {
         int[] pos    = this.GetPosition();
         int myRow    = pos[0];  // Y / row

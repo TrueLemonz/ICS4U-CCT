@@ -20,11 +20,21 @@ public class Minion extends Entity {
         this.minion = this;
     }
 
-    public int getHealth() {
+    /* 
+     * Initializes the minion's damage and health based on the Necromancer's stats.
+     *
+     * @param necromancer - The Necromancer whose stats are used to determine the minion's strength.
+     */
+    public int GetHealth() {
         return this.health;
     }
 
-    public int getDamage() {
+    /* 
+     * Returns the damage of the minion.
+     *
+     * @return                  - The damage of the minion.
+     */
+    public int GetDamage() {
         return this.damage;
     }
 

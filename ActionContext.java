@@ -75,11 +75,12 @@ public class ActionContext {
         return this.grid;
     }
 
-    /* Returns the target (Character) stored in the Context */
+    /* Returns the x-coordinate of the position stored in the Context */
     public int GetPosX() {
         return posx;
     }
-
+    
+    /* Returns the x-coordinate of the position stored in the Context */
     public int GetPosY() {
         return posy;
     }

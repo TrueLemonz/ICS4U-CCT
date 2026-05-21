@@ -93,6 +93,11 @@ public class Guardian extends Character {
         return false;
     }
 
+    /*
+     * Returns the name of the Guardian.
+     *
+     * @return - The name of the Guardian.
+     */
     public String GetName() {
         return "Guardian";
     }

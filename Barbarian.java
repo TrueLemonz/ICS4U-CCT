@@ -107,14 +107,32 @@ public class Barbarian extends Character {
         return CheckConditions(2);
     }
 
+    /* Returns the range of Ability 1. 
+     * @return - The range of Ability 1.
+     */
     public int GetAbility1Range() {
         return 1;
     }
 
+    /* Returns the range of Ability 2. 
+     * @return - The range of Ability 2.
+     */
     public int GetAbility2Range() {
         return 1;
     }
 
+    /* Returns the range of Ability 3. 
+     * @return - The range of Ability 3.
+     */
+    public int GetAbility3Range() {
+        return 1;
+    }
+
+    /*
+     * Returns the name of the Barbarian.
+     *
+     * @return - The name of the Barbarian.
+     */
     public String GetName() {
         return "Barbarian";
     }

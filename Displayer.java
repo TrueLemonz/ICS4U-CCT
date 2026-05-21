@@ -15,6 +15,11 @@ public class Displayer {
 
     public Displayer() {}
 
+    /*
+    * Prints a horizontal line of dashes to separate rows in the grid.
+    *
+    * @param rowLength          - The number of cells in the row to determine how long the line should be.
+     */
     private void printLine(int rowLength) {
         int totalDashes = rowLength * (CELLWIDTH + 1) + 1;
         for (int i = 0; i < totalDashes; i++) {
@@ -23,7 +28,14 @@ public class Displayer {
         System.out.print("\n");
     }
 
-    private static String centerString(String text, int width) {
+    /*
+     * Centers a string within a given width.
+     *
+     * @param text              - The string to center.
+     * @param widt              - The width to center it within.
+     * @return - The centered string.
+     */
+    private String centerString(String text, int width) {
         if (text == null) {
             text = "";
         }
@@ -41,10 +53,21 @@ public class Displayer {
         return String.format("%-" + width + "s", leftPadded);
     }
 
-    private static void centerPrint(String text, int width) {
+    /*
+     * Prints a string centered within a given width.
+     *
+     * @param text              - The string to print.
+     * @param width             - The width to center it within.
+     */
+    private void centerPrint(String text, int width) {
         System.out.println(centerString(text, width));
     }
     
+    /*
+     * Prints the game grid.
+     *
+     * @param grid              - The 2D array of blocks representing the game board.
+     */
     public void PrintGrid(Block[][] grid) {
         if (grid == null || grid.length == 0) {
             return;
@@ -125,6 +148,12 @@ public class Displayer {
         System.out.print("\n");
     }
 
+    /*
+     * Prints the initial statistics for a list of characters.
+     *
+     * @param characters        - The array of characters to display stats for.
+     * @return                  - True if successful, False otherwise.
+     */
     public boolean PrintInitialStats(Character[] characters) {
         System.out.println("            INITIAL STATS            ");
         for (int i = 0; i < characters.length; i++) {
@@ -146,6 +175,12 @@ public class Displayer {
         return false;
     }
 
+    /*
+     * Prints the current statistics for a list of characters.
+     *
+     * @param characters        - The array of characters to display stats for.
+     * @return                  - True if successful, False otherwise.
+     */
     public boolean PrintStats(Character[] characters) {
         System.out.println("            CURRENT STATS            ");
         for (int i = 0; i < characters.length; i++) {
@@ -158,12 +193,15 @@ public class Displayer {
             System.out.println("Team        : " + c.GetTeam());
             System.out.println("Health      : " + c.GetCurrHealth() + " / " + c.GetCalculatedStats()[Character.HLTPOS]);
             System.out.println("Magic       : " + c.GetCurrMagic() + " / " + c.GetCalculatedStats()[Character.MGCPOS]);
-            System.out.println("Steps       : " + c.GetCalculatedStats()[Character.SPDPOS]);
+            System.out.println("Steps       : 2 places");
             System.out.println("------------------------------------");
         }
         return false;
     }
 
+    /*
+     * Prints the game rules.
+     */
     public void PrintRules() {
         System.out.println("\n=================== GAMEPLAY RULES ===================");
         System.out.println("1. MOVEMENT & GRID RULES:");

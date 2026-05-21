@@ -119,18 +119,32 @@ public class Healer extends Character {
         return false;
     }
 
+    /* Returns the range of Ability 1. 
+     * @return - The range of Ability 1.
+     */
     public int GetAbility1Range() {
         return 1;
     }
 
+    /* Returns the range of Ability 2. 
+     * @return - The range of Ability 2.
+     */
     public int GetAbility2Range() {
         return 3;
     }
 
+    /* Returns the range of Ability 3. 
+     * @return - The range of Ability 3.
+     */
     public int GetAbility3Range() {
         return 2;
     }
 
+    /*
+     * Returns the name of the Healer.
+     *
+     * @return - The name of the Healer.
+     */
     public String GetName() {
         return "Healer";
     }
