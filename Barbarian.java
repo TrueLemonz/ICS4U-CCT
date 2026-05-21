@@ -169,7 +169,7 @@ public class Barbarian extends Character {
         target.GetPosition()[1] = flipX;
 
         // Clear the tile the target was on
-        grid[tarY][tarX].SetEntity(new Entity("", false, false, false, false));
+        grid[tarY][tarX].SetEntity(new Entity("", 0));
 
         this.SetCurrMagic(this.GetCurrMagic() - 2);
         return true;

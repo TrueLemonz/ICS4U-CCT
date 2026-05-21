@@ -89,7 +89,7 @@ public class GameSystem {
             destination.SetEntity(character);
             character.GetPosition()[0] = posY;
             character.GetPosition()[1] = posX;
-            this.GameBoard[nullY][nullX] = new Block(new Entity("", false, false, false, false));
+            this.GameBoard[nullY][nullX] = new Block(new Entity("", 0));
             return true;
         }
 
@@ -100,7 +100,7 @@ public class GameSystem {
             destination.SetEntity(character);
             character.GetPosition()[0] = posY;
             character.GetPosition()[1] = posX;
-            this.GameBoard[nullY][nullX] = new Block(new Entity("", false, false, false, false));
+            this.GameBoard[nullY][nullX] = new Block(new Entity("", 0));
             return true;
         }
 
@@ -114,7 +114,7 @@ public class GameSystem {
     public void RefreshGameBoard() {
         for (int i = 0; i < GAMEHEIGHT; i++) {
             for (int j = 0; j < GAMEWIDTH; j++) {
-                this.GameBoard[i][j] = new Block(new Entity("", false, false, false, false));
+                this.GameBoard[i][j] = new Block(new Entity("", 0));
             }
         }
     }

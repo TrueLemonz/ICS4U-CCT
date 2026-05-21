@@ -204,7 +204,7 @@ public class Necromancer extends Character {
         }
 
         // Sacrifice the minion — clear its tile
-        minionBlock.SetEntity(new Entity("", false, false, false, false));
+        minionBlock.SetEntity(new Entity("", 0));
 
         // Deal the damage
         enemy.SetCurrHealth(enemy.GetCurrHealth() - 20);
