@@ -379,7 +379,7 @@ public class RPGMain {
             int x = input.nextInt();
             System.out.print("Choose y-coordinate for the obstacle: ");
             int y = input.nextInt();
-            ActionContext guardAbility1 = new ActionContext(x, y, gs.GameBoard);
+            ActionContext guardAbility1 = new ActionContext(y, x, gs.GameBoard);
             boolean success = character.Ability1(guardAbility1);
             if (success) {
                 System.out.println(character.GetFullName() + " the " + character.GetName()+ " places an obstacle!");
@@ -467,7 +467,7 @@ public class RPGMain {
             int x = input.nextInt();
             System.out.print("Choose y-coordinate for the new minion: ");
             int y = input.nextInt();
-            ActionContext necroAbility1 = new ActionContext(x, y, gs.GameBoard);
+            ActionContext necroAbility1 = new ActionContext(y, x, gs.GameBoard);
             boolean success = character.Ability1(necroAbility1);
             if (success) {
                 System.out.println(character.GetFullName() + " the " + character.GetName()

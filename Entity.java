@@ -61,6 +61,14 @@ public class Entity {
         return this.minion;
     }
 
+    /*Returns the Food reference if this entity is food, null otherwise.
+     *
+     * @return - The Food stored in this entity, or null.
+     */
+    public Food GetFood() {
+        return this.food;
+    }
+
     /*
      * Sets the type of the entity (used solely for initialization):
      * 0 = empty (destroyed or no object)

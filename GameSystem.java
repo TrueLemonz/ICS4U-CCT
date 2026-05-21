@@ -95,8 +95,7 @@ public class GameSystem {
 
         if (destType == Entity.FOOD) {
             // Eat the food and move onto the tile
-            Food food = (Food) destEntity;
-            character.EatFood(food);
+            character.EatFood(destEntity.GetFood());
             destination.SetEntity(character);
             character.GetPosition()[0] = posY;
             character.GetPosition()[1] = posX;
