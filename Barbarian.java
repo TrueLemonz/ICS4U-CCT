@@ -200,7 +200,7 @@ public class Barbarian extends Character {
         applyPassive();
 
         // Damage is applied using the current (passive-boosted) attack stat
-        double damage = this.GetCalculatedStats()[ATTACKPOS] * 4;
+        double damage = this.GetCalculatedStats()[ATKPOS] * 4;
         target.SetCurrHealth(target.GetCurrHealth() - damage);
 
         this.SetCurrMagic(this.GetCurrMagic() - 1);
@@ -229,7 +229,7 @@ public class Barbarian extends Character {
         }
 
         this.SetCurrHealth(this.GetCurrHealth() - sacrifice);
-        this.SetCalculatedStats(ATTACKPOS, this.GetCalculatedStats()[ATTACKPOS] * 1.15);
+        this.SetCalculatedStats(ATKPOS, this.GetCalculatedStats()[ATKPOS] * 1.15);
         this.SetCurrMagic(this.GetCurrMagic() - 2);
         return true;
     }
@@ -243,6 +243,6 @@ public class Barbarian extends Character {
         double maxHP         = this.GetMaxHealth();
         double missingRatio  = (maxHP - this.GetCurrHealth()) / maxHP;
         double multiplier    = 1.0 + (0.5 * missingRatio);
-        this.SetCalculatedStats(ATTACKPOS, this.GetCalculatedStats()[ATTACKPOS] * multiplier);
+        this.SetCalculatedStats(ATKPOS, this.GetCalculatedStats()[ATKPOS] * multiplier);
     }
 }

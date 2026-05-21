@@ -32,12 +32,6 @@ public class Character extends Entity {
     public final static int MGCPOS = 3;
     public final static int HLTPOS = 4;
     public final static int SPPPOS = 5;
-    public final static int SPEEDPOS = 0;
-    public final static int INTELLIGENCEPOS = 1;
-    public final static int ATTACKPOS = 2;
-    public final static int MAXMAGICPOS = 3;
-    public final static int MAXHEALTHPOS = 4;
-    public final static int SPELLPOWERPOS = 5;
 
     public Character() {
         super();
@@ -172,7 +166,7 @@ public class Character extends Entity {
      * @return - A uniformly organized array of pre-calculated stats.
      */
     public double[] GetCalculatedStats() {
-        // Returned as a fresh snapshot; callers must use SetCalculatedStats to mutate.
+        // Returns as a copy
         double[] stats = { this.speed, this.intelligence, this.attack, this.magic, this.health, this.spellpower };
         return stats;
     }
@@ -185,17 +179,17 @@ public class Character extends Entity {
      * @param amt - What to change the selected stat to.
      */
     public void SetCalculatedStats(int pos, double amt) {
-        if (pos == SPEEDPOS) {
+        if (pos == SPDPOS) {
             this.speed = amt;
-        } else if (pos == INTELLIGENCEPOS) {
+        } else if (pos == INTLPOS) {
             this.intelligence = amt;
-        } else if (pos == ATTACKPOS) {
+        } else if (pos == ATKPOS) {
             this.attack = amt;
-        } else if (pos == MAXMAGICPOS) {
+        } else if (pos == MGCPOS) {
             this.magic = amt;
-        } else if (pos == MAXHEALTHPOS) {
+        } else if (pos == HLTPOS) {
             this.health = amt;
-        } else if (pos == SPELLPOWERPOS) {
+        } else if (pos == SPPPOS) {
             this.spellpower = amt;
         }
     }
@@ -252,20 +246,19 @@ public class Character extends Entity {
      * 
      * @param amt - What to change the selected stat to.
      */
-    public void SetStatMods(int pos, double amt) {
-        int val = (int) amt;
+    public void SetStatMods(int pos, int amt) {
         if (pos == SPDPOS) {
-            this.spdMod = val;
+            this.spdMod = amt;
         } else if (pos == INTLPOS) {
-            this.intlMod = val;
+            this.intlMod = amt;
         } else if (pos == ATKPOS) {
-            this.atkMod = val;
+            this.atkMod = amt;
         } else if (pos == MGCPOS) {
-            this.mgcMod = val;
+            this.mgcMod = amt;
         } else if (pos == HLTPOS) {
-            this.hltMod = val;
+            this.hltMod = amt;
         } else if (pos == SPPPOS) {
-            this.sppMod = val;
+            this.sppMod = amt;
         }
     }
 

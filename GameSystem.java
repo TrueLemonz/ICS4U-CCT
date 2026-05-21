@@ -13,8 +13,8 @@ public class GameSystem {
     public static int GAMEHEIGHT = 8;
     public static int GAMEWIDTH  = 8;
     private int currTeam;
-    Player player1 = new Player();
-    Player player2 = new Player();
+    public Player player1 = new Player();
+    public Player player2 = new Player();
 
     public GameSystem() {
         RefreshGameBoard();

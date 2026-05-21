@@ -10,13 +10,13 @@
  * Date: 20/05/26
  * **************************************************/
 public class Displayer {
-    private static final int CELL_WIDTH = 15; // Maintains a narrow width to prevent wrapping
-    private static final int CELL_PADDING_Y = 1; 
+    private static final int CELLWIDTH = 15; // Maintains a narrow width to prevent wrapping
+    private static final int CELLPADDINGY = 1; 
 
     public Displayer() {}
 
     private void printLine(int rowLength) {
-        int totalDashes = rowLength * (CELL_WIDTH + 1) + 1;
+        int totalDashes = rowLength * (CELLWIDTH + 1) + 1;
         for (int i = 0; i < totalDashes; i++) {
             System.out.print("-");
         }
@@ -51,7 +51,7 @@ public class Displayer {
         }
 
         int rowLength = grid[0].length;
-        int totalWidth = rowLength * ((CELL_WIDTH + 1)) + 1;
+        int totalWidth = rowLength * ((CELLWIDTH + 1)) + 1;
 
         centerPrint("MAP:", totalWidth); 
         System.out.print("\n");
@@ -63,9 +63,9 @@ public class Displayer {
             Block[] row = grid[i];
 
             // Top padding 
-            for (int k = 0; k < CELL_PADDING_Y; k++) {
+            for (int k = 0; k < CELLPADDINGY; k++) {
                 for (int j = 0; j < row.length; j++) {
-                    System.out.print("|" + centerString("", CELL_WIDTH));
+                    System.out.print("|" + centerString("", CELLWIDTH));
                 }
                 System.out.print("|\n");
             }
@@ -80,7 +80,7 @@ public class Displayer {
                         formattedName = b.GetEntity().GetFullName();
                     }
                 }
-                System.out.print("|" + centerString(formattedName, CELL_WIDTH));
+                System.out.print("|" + centerString(formattedName, CELLWIDTH));
             }
             System.out.print("|\n");
 
@@ -92,7 +92,7 @@ public class Displayer {
                 if (b != null && b.GetEntity() != null) {
                     formattedClass = String.valueOf(b.GetEntity().GetName());
                 }
-                System.out.print("|" + centerString(formattedClass, CELL_WIDTH));
+                System.out.print("|" + centerString(formattedClass, CELLWIDTH));
             }
             System.out.print("| CELL Y = " + i + "\n"); 
 
@@ -106,14 +106,14 @@ public class Displayer {
                         formattedInfo = "Team: " + String.valueOf(b.GetEntity().GetTeam());
                     }
                 }
-                System.out.print("|" + centerString(formattedInfo, CELL_WIDTH));
+                System.out.print("|" + centerString(formattedInfo, CELLWIDTH));
             }
             System.out.print("|\n");
 
             // Bottom padding 
-            for (int k = 0; k < CELL_PADDING_Y; k++) {
+            for (int k = 0; k < CELLPADDINGY; k++) {
                 for (int j = 0; j < row.length; j++) {
-                    System.out.print("|" + centerString("", CELL_WIDTH));
+                    System.out.print("|" + centerString("", CELLWIDTH));
                 }
                 System.out.print("|\n");
             }
@@ -156,9 +156,9 @@ public class Displayer {
             System.out.println("------------------------------------");
             System.out.println("Character   : " + c.GetName());
             System.out.println("Team        : " + c.GetTeam());
-            System.out.println("Health      : " + c.GetCurrHealth() + " / " + c.GetCalculatedStats()[Character.MAXHEALTHPOS]);
-            System.out.println("Magic       : " + c.GetCurrMagic() + " / " + c.GetCalculatedStats()[Character.MAXMAGICPOS]);
-            System.out.println("Steps       : " + c.GetCalculatedStats()[Character.SPEEDPOS]);
+            System.out.println("Health      : " + c.GetCurrHealth() + " / " + c.GetCalculatedStats()[Character.HLTPOS]);
+            System.out.println("Magic       : " + c.GetCurrMagic() + " / " + c.GetCalculatedStats()[Character.MGCPOS]);
+            System.out.println("Steps       : " + c.GetCalculatedStats()[Character.SPDPOS]);
             System.out.println("------------------------------------");
         }
         return false;
